@@ -6,7 +6,7 @@ import java_cup.runtime.Symbol;
    
 public class Main
 {
-	static public void main(String argv[])
+	public static void main(String[] argv)
 	{
 		Lexer l;
 		Symbol s;
