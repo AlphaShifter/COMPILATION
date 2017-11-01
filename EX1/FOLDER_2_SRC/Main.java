@@ -12,9 +12,11 @@ public class Main
 		Symbol s;
 		FileReader file_reader;
 		PrintWriter file_writer;
-		String inputFilename = argv[0];
-		String outputFilename = argv[1];
-		
+		//String inputFilename = argv[0];
+		//String outputFilename = argv[1];
+		String inputFilename = "C:\\Users\\Ilsar\\Documents\\COMPILATION_TAU\\EX1\\FOLDER_4_INPUT\\TEST_01_Print_Primes.txt";
+		String outputFilename = "C:\\Users\\Ilsar\\Documents\\COMPILATION_TAU\\EX1\\FOLDER_5_OUTPUT\\output.txt";
+
 		try
 		{
 			/********************************/
@@ -45,21 +47,24 @@ public class Main
 				/************************/
 				/* [6] Print to console */
 				/************************/
+				System.out.print(TokenNames.numToName(s.sym));
+				if(s.value != null){
+					System.out.print("(" + s.value + ")");
+				}
 				System.out.print("[");
 				System.out.print(l.getLine());
 				System.out.print(",");
 				System.out.print(l.getTokenStartPosition());
 				System.out.print("]:");
-				System.out.print(s.value);
 				System.out.print("\n");
 				
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
-				file_writer.print(l.getLine());
-				file_writer.print(": ");
-				file_writer.print(s.value);
-				file_writer.print("\n");
+//				file_writer.print(l.getLine());
+//				file_writer.print(": ");
+//				file_writer.print(s.value);
+//				file_writer.print("\n");
 				
 				/***********************/
 				/* [8] Read next token */

@@ -53,8 +53,8 @@ import java_cup.runtime.*;
 	/*********************************************************************************/
 	/* Create a new java_cup.runtime.Symbol with information about the current token */
 	/*********************************************************************************/
-	private Symbol symbol(TokenNames type)               {return new Symbol(type, yyline, yycolumn);}
-	private Symbol symbol(TokenNames type, Object value) {return new Symbol(type, yyline, yycolumn, value);}
+	private Symbol symbol(int type)               {return new Symbol(type, yyline, yycolumn);}
+	private Symbol symbol(int type, Object value) {return new Symbol(type, yyline, yycolumn, value);}
 
 	/*******************************************/
 	/* Enable line number extraction from main */
@@ -64,7 +64,9 @@ import java_cup.runtime.*;
 	/**********************************************/
 	/* Enable token position extraction from main */
 	/**********************************************/
-	public int getTokenStartPosition() { return yycolumn + 1; } 
+	public int getTokenStartPosition() { return yycolumn + 1; }
+
+	public boolean isSizeGood(int num){ return (num > -32768 && num < 32767); }
 %}
 
 /***********************/
@@ -111,6 +113,8 @@ STRING          = [\"]{ALPHANUM}*[\"]
 "," 					{ return symbol(TokenNames.COMMA);}
 "."  					{ return symbol(TokenNames.DOT);}
 ";" 					{ return symbol(TokenNames.SEMICOLON);}
+"("                     { return symbol(TokenNames.LPAREN);}
+")"                     { return symbol(TokenNames.RPAREN);}
 "array"					{ return symbol(TokenNames.ARRAY);}
 "class"					{ return symbol(TokenNames.CLASS);}
 "extends"				{ return symbol(TokenNames.EXTENDS);}
@@ -120,7 +124,16 @@ STRING          = [\"]{ALPHANUM}*[\"]
 "if"					{ return symbol(TokenNames.IF);}
 "new"					{ return symbol(TokenNames.NEW);}
 
-{INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
+
+
+{INTEGER}			{
+         int num = new Integer(yytext());
+         if(isSizeGood(num)){
+            return symbol(TokenNames.NUMBER, num);
+         } else {
+            return symbol(TokenNames.error);
+         }
+}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {STRING}            { return symbol(TokenNames.STRING,     new String( yytext()));}
