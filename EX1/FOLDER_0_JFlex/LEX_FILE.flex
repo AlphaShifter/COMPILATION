@@ -79,6 +79,11 @@ LETTER          = [a-z] | [A-Z]
 ALPHANUM        = {LETTER} | [0-9]
 ID				= {LETTER}+{ALPHANUM}*
 STRING          = [\"]{ALPHANUM}*[\"]
+InputCar        = [^\r\n]
+EndofLineComment = "//" {InputCar}* {LineTerminator}?
+OldSchoolComment = "/*"( [^"*"] | "*"[^"/"])*"*/"
+
+
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -108,7 +113,7 @@ STRING          = [\"]{ALPHANUM}*[\"]
 "}" 					{ return symbol(TokenNames.RBRACE);}
 "+"  					{ return symbol(TokenNames.PLUS);}
 "-"  					{ return symbol(TokenNames.MINUS);}
-"∗"  					{ return symbol(TokenNames.TIMES);}
+"*"  					{ return symbol(TokenNames.TIMES);}
 "/" 					{ return symbol(TokenNames.DIVIDE);}
 "," 					{ return symbol(TokenNames.COMMA);}
 "."  					{ return symbol(TokenNames.DOT);}
@@ -123,7 +128,8 @@ STRING          = [\"]{ALPHANUM}*[\"]
 "return"				{ return symbol(TokenNames.RETURN);}
 "if"					{ return symbol(TokenNames.IF);}
 "new"					{ return symbol(TokenNames.NEW);}
-
+{EndofLineComment}        {  return symbol(TokenNames.COMMENT);}
+{OldSchoolComment}        {  return symbol(TokenNames.COMMENT);}
 
 
 {INTEGER}			{
@@ -139,5 +145,6 @@ STRING          = [\"]{ALPHANUM}*[\"]
 {STRING}            { return symbol(TokenNames.STRING,     new String( yytext()));}
 
 <<EOF>>				{ return symbol(TokenNames.EOF);}
+"/*"                { return symbol(TokenNames.error);}
 .                   { return symbol(TokenNames.error);}
 }

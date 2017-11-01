@@ -1,6 +1,11 @@
    
 import java.io.*;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import java_cup.runtime.Symbol;
    
@@ -27,8 +32,11 @@ public class Main
 			/********************************/
 			/* [2] Initialize a file writer */
 			/********************************/
-			file_writer = new PrintWriter(outputFilename);
-			
+			Path path = Paths.get(outputFilename);
+			File f = new File(outputFilename);
+			if(!f.exists())
+				f.createNewFile();
+			List<String>lines = new ArrayList<>();
 			/******************************/
 			/* [3] Initialize a new lexer */
 			/******************************/
@@ -44,43 +52,45 @@ public class Main
 			/********************************/
 			while (s.sym != TokenNames.EOF)
 			{
-				/************************/
-				/* [6] Print to console */
-				/************************/
-				System.out.print(TokenNames.numToName(s.sym));
-				if(s.value != null){
-					System.out.print("(" + s.value + ")");
+				if(s.sym == TokenNames.error) {
+					lines.clear();
+					lines.add("ERROR");
+					break;
 				}
-				System.out.print("[");
-				System.out.print(l.getLine());
-				System.out.print(",");
-				System.out.print(l.getTokenStartPosition());
-				System.out.print("]:");
-				System.out.print("\n");
-				
-				/*********************/
+				if(s.sym != TokenNames.COMMENT) {
+
+					/************************/
+				/* [6] Print to console */
+					/************************/
+					String out = "";
+					out += TokenNames.numToName(s.sym);
+					if (s.value != null) {
+						out += ("(" + s.value + ")");
+					}
+					out += "[";
+					out += l.getLine();
+					out += ",";
+					out += l.getTokenStartPosition();
+					out += "]";
+
+					/*********************/
 				/* [7] Print to file */
-				/*********************/
-//				file_writer.print(l.getLine());
-//				file_writer.print(": ");
-//				file_writer.print(s.value);
-//				file_writer.print("\n");
-				
-				/***********************/
+					/*********************/
+					System.out.println(out);
+					lines.add(out);
+
+					/***********************/
 				/* [8] Read next token */
-				/***********************/
+					/***********************/
+				}
 				s = l.next_token();
 			}
-			
+			Files.write(path, lines);
 			/******************************/
 			/* [9] Close lexer input file */
 			/******************************/
 			l.yyclose();
 
-			/**************************/
-			/* [10] Close output file */
-			/**************************/
-			file_writer.close();
     	}
 			     
 		catch (Exception e)

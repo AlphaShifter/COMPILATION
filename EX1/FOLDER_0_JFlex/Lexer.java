@@ -14,7 +14,7 @@ import java_cup.runtime.*;
 /******************************/
 
 
-class Lexer implements Scanner {
+class Lexer implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -536,7 +536,7 @@ class Lexer implements Scanner {
    * @return      the next token
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public Symbol next_token() throws java.io.IOException {
+  public java_cup.runtime.Symbol next_token() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -679,7 +679,7 @@ class Lexer implements Scanner {
             }
             case 70: break;
             default:
-          { return new Symbol(TokenNames.EOF); }
+          { return new java_cup.runtime.Symbol(TokenNames.EOF); }
         }
       }
       else {

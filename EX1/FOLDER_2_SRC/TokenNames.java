@@ -8,7 +8,7 @@ public interface TokenNames {
   public static final int EOF = 0;
   public static final int PLUS = 2;
   public static final int ID = 10;
-  public static final int error = 1;
+  public static final int error = -1;
   public static final int SEMICOLON = 8;
   public static final int RPAREN = 7;
   public static final int TIMES = 4;
@@ -32,6 +32,7 @@ public interface TokenNames {
   public static final int IF = 27;
   public static final int NEW = 28;
   public static final int STRING = 30;
+  public static final int COMMENT = 31;
 
   public static String numToName(int num){
     switch (num){
@@ -65,6 +66,7 @@ public interface TokenNames {
       case IF: return "IF";
       case NEW: return "NEW";
       case STRING: return "STRING";
+      case COMMENT: return "COMMENT";
       default: return null;
 
     }
