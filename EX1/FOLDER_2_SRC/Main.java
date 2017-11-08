@@ -17,10 +17,8 @@ public class Main
 		Symbol s;
 		FileReader file_reader;
 		PrintWriter file_writer;
-		//String inputFilename = argv[0];
-		//String outputFilename = argv[1];
-		String inputFilename = "C:\\Users\\Ilsar\\Documents\\COMPILATION_TAU\\EX1\\FOLDER_4_INPUT\\TEST_01_Print_Primes.txt";
-		String outputFilename = "C:\\Users\\Ilsar\\Documents\\COMPILATION_TAU\\EX1\\FOLDER_5_OUTPUT\\output.txt";
+		String inputFilename = argv[0];
+		String outputFilename = argv[1];
 
 		try
 		{
