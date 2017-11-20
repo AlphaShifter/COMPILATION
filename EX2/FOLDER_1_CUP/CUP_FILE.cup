@@ -71,6 +71,10 @@ terminal RBRACE;
 terminal SEMICOLON;
 terminal ASSIGN;
 terminal RETURN;
+terminal ARRAY;
+terminal CLASS;
+terminal EXTENDS;
+terminal NIL;
 
 /*************/
 /* TERMINALS */
@@ -87,6 +91,14 @@ non terminal AST_VAR var;
 non terminal AST_STMT stmt;
 non terminal AST_STMT_LIST stmtList;
 non terminal AST_EXP_LIST expList;
+non terminal AST_DEC_VAR varDec;
+non terminal AST_DEC_FUNC funcDec;
+non terminal AST_DEC_CLASS classDec;
+non terminal AST_DEC_ARRAY arrayDec;
+non terminal AST_DEC dec;
+non terminal AST_ID_LIST IDList;
+non terminal AST_CFIELD_LIST cFieldList;
+non terminal AST_CFIELD cField;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -106,9 +118,21 @@ start with stmtList;
 /********************/
 
 
-varDec 	::= 	ID:name1 ID:name2 ASSIGN exp:e SEMICOLON			{: RESULT = new AST_VARDEC(name1,name2,e);:}
-			|	ID:name1 ID:name2  SEMICOLON					{: RESULT = new AST_VARDEC(name1,name2,null);:};
-arrayDec 	::= 	ARRAY ID:name1 EQ ID:name2 LBRACK RBRACK 	{: RESULT = new AST_ARRAYDEC(name1,name2);:};
+varDec 	::= 	ID:name1 ID:name2 ASSIGN exp:e SEMICOLON			{: RESULT = new AST_DEC_VAR(name1,name2,e);:}
+			|	ID:name1 ID:name2  SEMICOLON					{: RESULT = new AST_DEC_VAR(name1,name2,null);:}
+			;
+funcDec ::=     ID:name1 ID:name2 LPAREN RPAREN LBRACE stmtList:l RBRACE {: RESULT = new AST_DEC_FUNC(name1,name2,null,l); :}
+            |   ID:name1 ID:name2 LPAREN IDList:idl RPAREN LBRACE stmtList:l RBRACE {: RESULT = new AST_DEC_FUNC(name1,name2,idl,l); :}
+            ;
+classDec ::=     CLASS ID:name1 LBRACE cFieldList:l RBRACE      {:RESULT = new AST_DEC_CLASS(name1,null,l);:}
+            |   CLASS ID:name1 EXTENDS ID:name2 LBRACE cFieldList:l RBRACE      {:RESULT = new AST_DEC_CLASS(name1,name2,l);:}
+            ;
+
+arrayDec 	::= 	ARRAY ID:name1 EQ ID:name2 LBRACK RBRACK 	{: RESULT = new AST_DEC_ARRAY(name1,name2);:}
+            ;
+
+
+
 
 
 stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
@@ -118,6 +142,13 @@ stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
 expList     ::=     exp: e                  {: RESULT = new AST_EXP_LIST(e, null); :}
                     | exp: e COMMA expList:l  {: RESULT = new AST_EXP_LIST(e, l); :}
                     ;
+IDList      ::=     ID: name1  ID: name2                {: RESULT = new AST_ID_LIST(name1,name2, null); :}
+                    | ID: name1 ID: name2 COMMA IDList:l  {: RESULT = new AST_ID_LIST(name1,name2, l); :}
+                     ;
+cFieldList ::= 		cField:s	cFieldList:l		{: RESULT = new AST_CFIELD_LIST(s,l);    :}
+               					| cField:s				{: RESULT = new AST_CFIELD_LIST(s,null); :}
+               					;
+
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
@@ -151,3 +182,6 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
                     | ID:name LPAREN expList:args RPAREN				{: RESULT = new AST_EXP_METHOD(null, name, args);:}
                     | var: v DOT ID:name LPAREN expList:args RPAREN				{: RESULT = new AST_EXP_METHOD(v, name, args);:}
 					;
+
+cField ::= varDec:v {:RESULT= new AST_CFIELD(v);:}
+        | funcDec:v {:RESULT= new AST_CFIELD(v);:};
