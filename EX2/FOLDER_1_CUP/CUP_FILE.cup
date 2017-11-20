@@ -70,6 +70,7 @@ terminal LBRACE;
 terminal RBRACE;
 terminal SEMICOLON;
 terminal ASSIGN;
+terminal RETURN;
 
 /*************/
 /* TERMINALS */
@@ -85,7 +86,7 @@ non terminal AST_EXP exp;
 non terminal AST_VAR var;
 non terminal AST_STMT stmt;
 non terminal AST_STMT_LIST stmtList;
-non terminal AST_EXP_LIST expList
+non terminal AST_EXP_LIST expList;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -109,7 +110,8 @@ stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
 					;
 
 expList     ::=     exp: e                  {: RESULT = new AST_EXP_LIST(e, null); :}
-                    | exp: e COMMA expList:l  {: RESULT = new AST_EXP_LIST(e, l); :
+                    | exp: e COMMA expList:l  {: RESULT = new AST_EXP_LIST(e, l); :}
+                    ;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
@@ -117,6 +119,8 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					;
 					
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
+                    | RETURN SEMICOLON                                          {:RESULT = new AST_STMT_RETURN(null); :}
+                    | RETURN exp:l SEMICOLON                                    {:RESULT = new AST_STMT_RETURN(l); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
 					;
