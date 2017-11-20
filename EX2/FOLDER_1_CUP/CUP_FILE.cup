@@ -105,6 +105,12 @@ start with stmtList;
 /* DERIVATION RULES */
 /********************/
 
+
+varDec 	::= 	ID:name1 ID:name2 ASSIGN exp:e SEMICOLON			{: RESULT = new AST_VARDEC(name1,name2,e);:}
+			|	ID:name1 ID:name2  SEMICOLON					{: RESULT = new AST_VARDEC(name1,name2,null);:};
+arrayDec 	::= 	ARRAY ID:name1 EQ ID:name2 LBRACK RBRACK 	{: RESULT = new AST_ARRAYDEC(name1,name2);:};
+
+
 stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
 					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
 					;
@@ -115,7 +121,7 @@ expList     ::=     exp: e                  {: RESULT = new AST_EXP_LIST(e, null
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
-					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 
+					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :}
 					;
 					
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
