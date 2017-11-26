@@ -75,11 +75,15 @@ terminal ARRAY;
 terminal CLASS;
 terminal EXTENDS;
 terminal NIL;
+terminal COMMA;
+terminal NEW;
+terminal COMMENT;
 
 /*************/
 /* TERMINALS */
 /*************/
 terminal Integer INT;
+terminal Integer NUMBER;
 terminal String ID;
 terminal String STRING;
 
@@ -103,10 +107,14 @@ non terminal AST_CFIELD cField;
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
+
+precedence left GT;
+precedence left LT;
+precedence left DIVIDE;
+precedence left TIMES;
 precedence left PLUS;
 precedence left MINUS;
-precedence left TIMES;
-precedence left DIVIDE;
+precedence nonassoc EQ;
 
 /************************/
 /* START WITH: stmtList */
@@ -160,10 +168,10 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
                     | RETURN exp:l SEMICOLON                                    {:RESULT = new AST_STMT_RETURN(l); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
-                    | ID:name LPAREN RPAREN SEMICOLON				            {: RESULT = new AST_EXP_METHOD(null, name, null);:}
-                    | var: v DOT ID:name LPAREN RPAREN SEMICOLON	            {: RESULT = new AST_EXP_METHOD(var, name, null);:}
-                    | ID:name LPAREN expList:args RPAREN SEMICOLON		        {: RESULT = new AST_EXP_METHOD(null, name, args);:}
-                    | var: v DOT ID:name LPAREN expList:args RPAREN	SEMICOLON	{: RESULT = new AST_EXP_METHOD(v, name, args);:}
+                    | ID:name LPAREN RPAREN SEMICOLON				            {: RESULT = new AST_STMT_METHOD(null, name, null);:}
+                    | var: v DOT ID:name LPAREN RPAREN SEMICOLON	            {: RESULT = new AST_STMT_METHOD(v, name, null);:}
+                    | ID:name LPAREN expList:args RPAREN SEMICOLON		        {: RESULT = new AST_STMT_METHOD(null, name, args);:}
+                    | var: v DOT ID:name LPAREN expList:args RPAREN	SEMICOLON	{: RESULT = new AST_STMT_METHOD(v, name, args);:}
 					;
 
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
@@ -171,7 +179,7 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
                     | NIL                               {: RESULT = new AST_EXP_NIL();           :}
                     | STRING:str                        {: RESULT = new AST_EXP_STRING(str);     :}
                     | NEW ID:id                         {: RESULT = new AST_EXP_ID(id, null);    :}
-                    | NEW ID LBRACK exp:e RBRACK        {: RESULT = new AST_EXP_ID(id, e);       :}
+                    | NEW ID:id LBRACK exp:e RBRACK        {: RESULT = new AST_EXP_ID(id, e);       :}
 					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
 					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
 					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
@@ -182,7 +190,7 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| exp:e1 EQ exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 6);:}
                     | LPAREN exp:e1 RPAREN				{: RESULT = new AST_EXP_SINGLE(e1);:}
                     | ID:name LPAREN RPAREN				{: RESULT = new AST_EXP_METHOD(null, name, null);:}
-                    | var: v DOT ID:name LPAREN RPAREN				{: RESULT = new AST_EXP_METHOD(var, name, null);:}
+                    | var: v DOT ID:name LPAREN RPAREN				{: RESULT = new AST_EXP_METHOD(v, name, null);:}
                     | ID:name LPAREN expList:args RPAREN				{: RESULT = new AST_EXP_METHOD(null, name, args);:}
                     | var: v DOT ID:name LPAREN expList:args RPAREN				{: RESULT = new AST_EXP_METHOD(v, name, args);:}
 					;
