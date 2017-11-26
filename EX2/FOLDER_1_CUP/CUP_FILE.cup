@@ -183,6 +183,7 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
                     | ID:name LPAREN expList:args RPAREN SEMICOLON		        {: RESULT = new AST_STMT_METHOD(null, name, args);:}
                     | var: v DOT ID:name LPAREN expList:args RPAREN	SEMICOLON	{: RESULT = new AST_STMT_METHOD(v, name, args);:}
                     | varDec: dec                                               {: RESULT = new AST_DEC_SINGLE(dec);:}
+                    | COMMENT
 					;
 
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}

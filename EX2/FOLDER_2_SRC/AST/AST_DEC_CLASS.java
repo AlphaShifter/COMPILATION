@@ -41,7 +41,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/*******************************/
 		/* AST NODE TYPE = AST ID EXP */
 		/*******************************/
-		System.out.format("AST NODE decClass ( %s ) (%s)\n",name);
+		System.out.format("AST NODE decClass ( %s )\n",name);
 		if(ext != null) System.out.format("extends %s",ext);
 		if (cfieldList != null) cfieldList.PrintMe();
 
