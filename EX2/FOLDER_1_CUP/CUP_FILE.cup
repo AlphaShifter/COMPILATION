@@ -103,6 +103,7 @@ non terminal AST_DEC dec;
 non terminal AST_ID_LIST IDList;
 non terminal AST_CFIELD_LIST cFieldList;
 non terminal AST_CFIELD cField;
+non terminal AST_DEC_LIST decList;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -119,7 +120,7 @@ precedence nonassoc EQ;
 /************************/
 /* START WITH: stmtList */
 /************************/
-start with dec;
+start with decList;
 
 /********************/
 /* DERIVATION RULES */
@@ -145,6 +146,10 @@ dec ::=       varDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
                |classDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
                |arrayDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
                 ;
+
+decList     ::=     dec:d decList:l {:RESULT = new AST_DEC_LIST(d,l); :}
+                    | dec:d         {:RESULT = new AST_DEC_LIST(d,null); :}
+                    ;
 
 
 

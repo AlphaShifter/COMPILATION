@@ -11,12 +11,14 @@ public class Main
 		Lexer l;
 		Parser p;
 		Symbol s;
-		AST_STMT_LIST AST;
+		AST_DEC_LIST AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
-		String inputFilename = argv[0];
-		String outputFilename = argv[1];
-		
+		//String inputFilename = argv[0];
+		//String outputFilename = argv[1];
+		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_01_Print_Primes.txt";
+		String outputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_5_OUTPUT/out.txt";
+
 		try
 		{
 			/********************************/
@@ -42,7 +44,7 @@ public class Main
 			/***********************************/
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
 			/***********************************/
-			AST = (AST_STMT_LIST) p.parse().value;
+			AST = (AST_DEC_LIST) p.parse().value;
 			
 			/*************************/
 			/* [6] Print the AST ... */
