@@ -293,6 +293,8 @@ class Lexer implements java_cup.runtime.Scanner {
 
 	public boolean isSizeGood(int num){ return (num > -32768 && num < 32767); }
 
+	public int getCharPos(){return yychar + 1;}
+
 
   /**
    * Creates a new scanner
