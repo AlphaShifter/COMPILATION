@@ -18,7 +18,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("====================== var -> var [ exp ]\n");
+		System.out.print("var -> var [ exp ]\n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */

@@ -16,9 +16,15 @@ public class AST_STMT_METHOD extends AST_STMT {
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
         if ((var != null) && (args != null))
-            System.out.printf("====================== stmt -> var. %s (exps)\n", id);
+            System.out.printf("stmt -> var. %s (exps)\n", id);
         else if ((var != null) && (args == null))
-            System.out.printf("====================== stmt -> var. %s (exps)\n", id);
+            System.out.printf("stmt -> var. %s (exps)\n", id);
+        else if((var == null) && (args != null))
+            System.out.printf("stmt -> %s (exps)\n", id);
+        else
+            System.out.printf("stmt -> %s ()\n", id);
+
+
 
         //TODO: finish the current implementation - also, implement AST_EXP_METHOD
         this.var = var;
@@ -39,7 +45,7 @@ public class AST_STMT_METHOD extends AST_STMT {
         /*********************************/
 		/* Print to AST GRAPHIZ DOT file */
         /*********************************/
-        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NAME(%s)",id));
+        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("call for Method: NAME(%s)",id));
         if(var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
         if(args != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, args.SerialNumber);
     }

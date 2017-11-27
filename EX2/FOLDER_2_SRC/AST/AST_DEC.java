@@ -7,6 +7,6 @@ public abstract class AST_DEC extends AST_STMT
 	/*********************************************************/
 	public void PrintMe()
 	{
-		System.out.print("UNKNOWN AST DECLERATION NODE");
+		System.out.print("UNKNOWN AST DECELERATION NODE");
 	}
 }
