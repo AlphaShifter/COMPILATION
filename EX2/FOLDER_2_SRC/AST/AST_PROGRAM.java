@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_PROGRAM extends AST_VAR
+public class AST_PROGRAM extends AST_Node
 {
 	/************************/
 	/* simple variable name */
