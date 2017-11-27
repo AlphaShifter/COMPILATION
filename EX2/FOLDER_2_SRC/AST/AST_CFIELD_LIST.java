@@ -21,8 +21,8 @@ public class AST_CFIELD_LIST extends AST_Node
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if (tail != null) System.out.print("====================== cfields -> cfield cfields\n");
-        if (tail == null) System.out.print("====================== cfields -> cfield      \n");
+        if (tail != null) System.out.print("cfields -> cfield cfields\n");
+        if (tail == null) System.out.print("cfields -> cfield\n");
 
         /*******************************/
 		/* COPY INPUT DATA NENBERS ... */
