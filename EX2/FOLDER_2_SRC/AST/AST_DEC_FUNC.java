@@ -51,7 +51,7 @@ public class AST_DEC_FUNC extends AST_DEC
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("TYPE(%s) NAME(%s)", type, name));
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Func Declaration TYPE(%s) NAME(%s)", type, name));
 		if (idList != null)
 			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, idList.SerialNumber);
 		if (stmtList != null)

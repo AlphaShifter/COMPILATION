@@ -50,9 +50,9 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
 		if (ext != null)
-			AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NAME(%s) EXTENDS", name,ext));
+			AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Class Declaration NAME(%s) EXTENDS", name,ext));
 		else
-			AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NAME(%s)", name));
+			AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Class Declaration NAME(%s)", name));
 		if (cfieldList != null)
 			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cfieldList.SerialNumber);
 

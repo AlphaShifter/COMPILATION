@@ -44,7 +44,7 @@ public class AST_DEC_ARRAY extends AST_DEC
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NAME1(%s) NAME2(%s)", name1, name2));
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Array Declaration NAME1(%s) NAME2(%s)", name1, name2));
 
 
 	}}
