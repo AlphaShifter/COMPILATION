@@ -22,8 +22,8 @@ public class AST_ID_LIST extends AST_Node
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		if (tail != null) System.out.print("====================== ID -> ID ID ids\n");
-		if (tail == null) System.out.print("====================== ID -> ID      \n");
+		if (tail != null) System.out.print("ids -> ID ID ids\n");
+		if (tail == null) System.out.print("ids -> ID ID     \n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */

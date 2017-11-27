@@ -21,7 +21,8 @@ public class AST_DEC_LIST extends AST_Node
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if (tail != null) System.out.print("====================== declaration\n");
+        if (tail != null) System.out.print("decs -> dec decs\n");
+        else System.out.print("decs -> dec\n");
 
         /*******************************/
 		/* COPY INPUT DATA NENBERS ... */

@@ -19,9 +19,9 @@ public class AST_EXP_ID extends AST_EXP
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 		if(exp != null)
-			System.out.format("====================== exp -> NEW ID( %s ) [exp}\n", id);
+			System.out.format("exp -> NEW ID( %s ) [exp}\n", id);
 		else
-			System.out.format("====================== exp -> NEW ID( %s )\n", id);
+			System.out.format("exp -> NEW ID( %s )\n", id);
 
 
 		/*******************************/
@@ -47,7 +47,7 @@ public class AST_EXP_ID extends AST_EXP
 		/*********************************/
 
 
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("ID(%s)", value));
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NEW ID(%s)", value));
 		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
 	}
 }

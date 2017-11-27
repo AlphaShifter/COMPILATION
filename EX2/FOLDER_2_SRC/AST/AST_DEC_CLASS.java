@@ -21,7 +21,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 
-		System.out.format("====================== decClass -> name( %s )\n", name);
+		System.out.format("decClass -> name( %s )\n", name);
 
 
 

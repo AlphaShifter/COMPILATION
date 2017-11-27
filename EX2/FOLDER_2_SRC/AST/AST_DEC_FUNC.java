@@ -22,7 +22,7 @@ public class AST_DEC_FUNC extends AST_DEC
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 
-		System.out.format("====================== funcDec -> TYPE( %s ) NAME(%s)\n", type,name);
+		System.out.format("funcDec -> TYPE( %s ) NAME(%s)\n", type,name);
 
 
 

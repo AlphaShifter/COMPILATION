@@ -18,8 +18,8 @@ public class AST_STMT_RETURN extends AST_STMT
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		if (res != null) System.out.print("====================== stmt -> RETURN exp SEMICOLON\n");
-		if (res == null) System.out.print("====================== stmt -> RETURN SEMICOLON\n");
+		if (res != null) System.out.print("stmt -> RETURN exp SEMICOLON\n");
+		if (res == null) System.out.print("stmt -> RETURN SEMICOLON\n");
 
 		this.res = res;
 

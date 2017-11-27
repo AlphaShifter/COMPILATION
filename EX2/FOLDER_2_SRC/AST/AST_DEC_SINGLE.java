@@ -17,7 +17,7 @@ public class AST_DEC_SINGLE extends AST_DEC
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("====================== dec -> dec\n");
+		System.out.print("dec -> funcDec | varDec | classDec | arrayDec \n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -45,7 +45,7 @@ public class AST_DEC_SINGLE extends AST_DEC
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"Single Declareation");
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"Single Declaration");
 		if (dec  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
 	}
 }

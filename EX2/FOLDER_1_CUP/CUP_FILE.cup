@@ -104,23 +104,23 @@ non terminal AST_ID_LIST IDList;
 non terminal AST_CFIELD_LIST cFieldList;
 non terminal AST_CFIELD cField;
 non terminal AST_DEC_LIST decList;
+non terminal AST_PROGRAM Program;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
-
-precedence left GT;
-precedence left LT;
+precedence nonassoc EQ;
+precedence nonassoc GT;
+precedence nonassoc LT;
 precedence left DIVIDE;
 precedence left TIMES;
 precedence left PLUS;
 precedence left MINUS;
-precedence nonassoc EQ;
 
 /************************/
 /* START WITH: stmtList */
 /************************/
-start with decList;
+start with Program;
 
 /********************/
 /* DERIVATION RULES */
@@ -140,6 +140,8 @@ classDec ::=     CLASS ID:name1 LBRACE cFieldList:l RBRACE      {:RESULT = new A
 arrayDec 	::= 	ARRAY ID:name1 EQ ID:name2 LBRACK RBRACK 	{: RESULT = new AST_DEC_ARRAY(name1,name2);:}
             ;
 
+Program     ::=  decList:l                                      {:RESULT = new AST_PROGRAM(l);:}
+            ;
 
 dec ::=       varDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
                | funcDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
