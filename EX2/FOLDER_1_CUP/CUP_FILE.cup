@@ -158,9 +158,10 @@ stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
 					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
 					;
 
-expList     ::=     exp: e                  {: RESULT = new AST_EXP_LIST(e, null); :}
-                    | exp: e COMMA expList:l  {: RESULT = new AST_EXP_LIST(e, l); :}
+expList     ::=     exp: e COMMA expList:l  {: RESULT = new AST_EXP_LIST(e, l); :}
+                    | exp: e    {: RESULT = new AST_EXP_LIST(e, null); :}
                     ;
+
 IDList      ::=     ID: name1  ID: name2                {: RESULT = new AST_ID_LIST(name1,name2, null); :}
                     | ID: name1 ID: name2 COMMA IDList:l  {: RESULT = new AST_ID_LIST(name1,name2, l); :}
                      ;

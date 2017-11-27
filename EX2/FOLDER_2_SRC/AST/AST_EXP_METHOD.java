@@ -23,7 +23,7 @@ public class AST_EXP_METHOD extends AST_EXP {
         //TODO: finish the current implementation - also, implement AST_EXP_METHOD
         this.var = var;
         this.id = id;
-        this. args = args;
+        this.args = args;
 
     }
 
@@ -37,8 +37,12 @@ public class AST_EXP_METHOD extends AST_EXP {
         /*********************************/
 		/* Print to AST GRAPHIZ DOT file */
         /*********************************/
-        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Method: NAME(%s)",id));
-        if(var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
-        if(args != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, args.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Call for method Method: NAME(%s)",id));
+        if(var != null) {
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
+        }
+        if(args != null) {
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, args.SerialNumber);
+        }
     }
 }

@@ -46,7 +46,7 @@ public class AST_EXP_SINGLE extends AST_EXP
 		/***************************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			String.format("EXP(%s)",exp));
+			String.format("Single Expression"));
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

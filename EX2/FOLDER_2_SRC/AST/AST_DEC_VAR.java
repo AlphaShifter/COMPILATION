@@ -48,7 +48,7 @@ public class AST_DEC_VAR extends AST_DEC
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("TYPE(%s) NAME(%s)", type, name));
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Variable Deceleration: TYPE(%s) NAME(%s)", type, name));
 		if (exp != null)
 			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
 	}}

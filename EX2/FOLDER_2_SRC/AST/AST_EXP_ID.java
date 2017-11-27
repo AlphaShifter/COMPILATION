@@ -45,7 +45,9 @@ public class AST_EXP_ID extends AST_EXP
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
-		if (exp == null)AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("STRING(%s)", value));
-		else AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+
+
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("ID(%s)", value));
+		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
 	}
 }

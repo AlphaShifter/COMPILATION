@@ -23,7 +23,7 @@ public class AST_STMT_METHOD extends AST_STMT {
         //TODO: finish the current implementation - also, implement AST_EXP_METHOD
         this.var = var;
         this.id = id;
-        this. args = args;
+        this.args = args;
 
     }
 
