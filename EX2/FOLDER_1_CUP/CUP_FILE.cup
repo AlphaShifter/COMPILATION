@@ -109,13 +109,13 @@ non terminal AST_PROGRAM Program;
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
+precedence left PLUS;
+precedence left MINUS;
+precedence left TIMES;
+precedence left DIVIDE;
 precedence nonassoc EQ;
 precedence nonassoc GT;
 precedence nonassoc LT;
-precedence left DIVIDE;
-precedence left TIMES;
-precedence left PLUS;
-precedence left MINUS;
 
 /************************/
 /* START WITH: stmtList */

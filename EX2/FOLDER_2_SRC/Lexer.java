@@ -290,10 +290,9 @@ class Lexer implements java_cup.runtime.Scanner {
 	/* Enable token position extraction from main */
 	/**********************************************/
 	public int getTokenStartPosition() { return yycolumn + 1; }
+	public int getCharPos() { return yycolumn + 1; }
 
-	public boolean isSizeGood(int num){ return (num > -32768 && num < 32767); }
-
-	public int getCharPos(){return yycolumn + 1;}
+	public boolean isSizeGood(int num){ return (num >= -32768 && num <= 32767); }
 
 
   /**
@@ -697,7 +696,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 3: 
             { int num = new Integer(yytext());
          if(isSizeGood(num)){
-            return symbol(TokenNames.NUMBER, num);
+            return symbol(TokenNames.INT, num);
          } else {
             return symbol(TokenNames.error);
          }
