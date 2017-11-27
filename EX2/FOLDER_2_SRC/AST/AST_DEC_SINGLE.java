@@ -45,6 +45,7 @@ public class AST_DEC_SINGLE extends AST_DEC
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"Single Declareation");
 		if (dec  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
 	}
 }

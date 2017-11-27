@@ -52,7 +52,7 @@ public class AST_STMT_LIST extends AST_Node
 		/**********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"STMT\nLIST\n");
+			"STMT LIST");
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

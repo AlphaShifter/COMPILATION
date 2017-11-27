@@ -29,7 +29,7 @@ public class AST_STMT_RETURN extends AST_STMT
 	{
 		System.out.print("AST NODE STMT RETURN\n");
 		if(res != null) res.PrintMe();
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"STMT\nRETURN\n");
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"STMT RETURN");
 		if(res != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,res.SerialNumber);
 	}
 }

@@ -43,7 +43,7 @@ public class AST_DEC_FUNC extends AST_DEC
 		/*******************************/
 		/* AST NODE TYPE = AST ID EXP */
 		/*******************************/
-		System.out.format("AST NODE decFUNC ( %s ) (%s)\n",type, name);
+		System.out.format("AST NODE decFUNC ( %s ) (%s)",type, name);
 		if (idList != null) idList.PrintMe();
 		if (stmtList != null) stmtList.PrintMe();
 

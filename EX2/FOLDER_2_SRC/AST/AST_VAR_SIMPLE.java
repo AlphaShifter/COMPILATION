@@ -43,6 +43,6 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			String.format("SIMPLE\nVAR\n(%s)",name));
+			String.format("SIMPLE VAR(%s)",name));
 	}
 }

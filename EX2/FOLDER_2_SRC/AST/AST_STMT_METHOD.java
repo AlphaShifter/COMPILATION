@@ -26,4 +26,19 @@ public class AST_STMT_METHOD extends AST_STMT {
         this. args = args;
 
     }
+
+    public void PrintMe()
+    {
+        /*******************************/
+		/* AST NODE TYPE = AST INT METHOD */
+        /*******************************/
+        System.out.format("AST NODE METHOD( %s )\n", id);
+
+        /*********************************/
+		/* Print to AST GRAPHIZ DOT file */
+        /*********************************/
+        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NAME(%s)",id));
+        if(var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
+        if(args != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, args.SerialNumber);
+    }
 }

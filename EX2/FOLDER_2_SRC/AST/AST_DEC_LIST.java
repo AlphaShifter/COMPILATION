@@ -51,7 +51,7 @@ public class AST_DEC_LIST extends AST_Node
         /**********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "DEC\nLIST\n");
+                "DEC LIST");
 
         /****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

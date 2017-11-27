@@ -45,7 +45,7 @@ public class AST_STMT_IF extends AST_STMT
 		/**********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 				SerialNumber,
-				"STMT\nIF\n");
+				"STMT IF");
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

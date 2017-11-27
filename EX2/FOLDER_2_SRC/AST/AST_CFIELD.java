@@ -21,9 +21,9 @@ public class AST_CFIELD extends AST_Node{
         /***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
         /***************************************/
-//        AST_GRAPHVIZ.getInstance().logNode(
-//                SerialNumber,
-//                "ASSIGN\nleft := right\n");
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                "CFIELD ");
 
         /****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

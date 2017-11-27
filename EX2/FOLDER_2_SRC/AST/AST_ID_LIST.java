@@ -53,7 +53,7 @@ public class AST_ID_LIST extends AST_Node
 		/**********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"ID\nLIST\n");
+			"ID LIST");
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

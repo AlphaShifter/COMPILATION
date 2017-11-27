@@ -51,7 +51,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		/***************************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"ASSIGN\nleft := right\n");
+			"ASSIGN left := right");
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

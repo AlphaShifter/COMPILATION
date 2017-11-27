@@ -52,7 +52,7 @@ public class AST_CFIELD_LIST extends AST_Node
         /**********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "CFIELD\nLIST\n");
+                "CFIELD LIST");
 
         /****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

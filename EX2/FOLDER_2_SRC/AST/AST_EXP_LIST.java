@@ -52,7 +52,7 @@ public class AST_EXP_LIST extends AST_Node
 		/**********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"EXP\nLIST\n");
+			"EXP LIST");
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

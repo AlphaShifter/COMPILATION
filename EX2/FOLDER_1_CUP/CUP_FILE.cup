@@ -145,6 +145,7 @@ dec ::=       varDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
                | funcDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
                |classDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
                |arrayDec:v {:RESULT = new AST_DEC_SINGLE(v);:}
+               |COMMENT
                 ;
 
 decList     ::=     dec:d decList:l {:RESULT = new AST_DEC_LIST(d,l); :}
