@@ -33,7 +33,8 @@ public class AST_EXP_METHOD extends AST_EXP {
 		/* AST NODE TYPE = AST INT METHOD */
         /*******************************/
         System.out.format("AST NODE METHOD( %s )\n", id);
-
+        if(var != null) var.PrintMe();
+        if(args != null) args.PrintMe();
         /*********************************/
 		/* Print to AST GRAPHIZ DOT file */
         /*********************************/
