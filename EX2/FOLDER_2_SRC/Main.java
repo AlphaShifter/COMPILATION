@@ -14,10 +14,10 @@ public class Main
 		AST_DEC_LIST AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
-		//String inputFilename = argv[0];
-		//String outputFilename = argv[1];
-		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_03_Merge_Lists.txt";
-		String outputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_5_OUTPUT/out.txt";
+		String inputFilename = argv[0];
+		String outputFilename = argv[1];
+/*		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_03_Merge_Lists.txt";
+		String outputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_5_OUTPUT/out.txt";*/
 
 		try
 		{
