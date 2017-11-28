@@ -50,7 +50,7 @@ public class Main
 				
 			}
 			else{
-				file_writer.write("ERROR("+p.lineNumber+")");
+				file_writer.write("ERROR("+p.lineNumber+")\n");
 			}
 			
 			/*************************/
