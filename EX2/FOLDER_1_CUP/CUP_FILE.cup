@@ -3,25 +3,35 @@
 /*************/
 import java_cup.runtime.*;
 import AST.*;
+import java.io.PrintWriter;
 
 parser code 
 {:
 	public Lexer lexer;
-
-	public Parser(Lexer lexer)
+	public boolean wasSuccessful=true;
+	public int lineNumber=0;
+	public PrintWriter writer;
+	public Parser(Lexer lexer, PrintWriter writer)
 	{
 		super(lexer);
 		this.lexer = lexer;
+		this.writer=writer;
 	}
 	public void report_error(String message, Object info)
 	{
-		System.out.print("ERROR >> ");		
+		writer.write("ERROR("+lexer.getLine()+")");
+		writer.close();
+		System.exit(0);
+		/*
+		lineNumber=lexer.getLine();
+		wasSuccessful=false;
+		System.out.print("ERRORR >> ");		
 		System.out.print("[");
 		System.out.print(lexer.getLine());
 		System.out.print(":");
 		System.out.print(lexer.getCharPos());
 		System.out.print("] ");		
-		System.exit(0);
+		System.exit(0);*/
 	}
 :}
 

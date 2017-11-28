@@ -39,12 +39,19 @@ public class Main
 			/*******************************/
 			/* [4] Initialize a new parser */
 			/*******************************/
-			p = new Parser(l);
+			p = new Parser(l,file_writer);
 
 			/***********************************/
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
 			/***********************************/
 			AST = (AST_PROGRAM) p.parse().value;
+			file_writer.write("OK");
+			if(p.wasSuccessful){
+				
+			}
+			else{
+				file_writer.write("ERROR("+p.lineNumber+")");
+			}
 			
 			/*************************/
 			/* [6] Print the AST ... */
@@ -60,6 +67,8 @@ public class Main
 			/* [8] Finalize AST GRAPHIZ DOT file */
 			/*************************************/
 			AST_GRAPHVIZ.getInstance().finalizeFile();
+
+
     	}
 			     
 		catch (Exception e)
