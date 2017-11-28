@@ -45,12 +45,12 @@ public class Main
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
 			/***********************************/
 			AST = (AST_PROGRAM) p.parse().value;
-			file_writer.write("OK");
+			file_writer.write("OK\n");
 			if(p.wasSuccessful){
 				
 			}
 			else{
-				file_writer.write("ERROR("+p.lineNumber+")");
+				file_writer.write("ERROR("+p.lineNumber+")\n");
 			}
 			
 			/*************************/
