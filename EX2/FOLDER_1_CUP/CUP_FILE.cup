@@ -19,7 +19,7 @@ parser code
 	}
 	public void report_error(String message, Object info)
 	{
-		writer.write("ERROR("+lexer.getLine()+")");
+		writer.write("ERROR("+lexer.getLine()+")\n");
 		writer.close();
 		System.exit(0);
 		/*
