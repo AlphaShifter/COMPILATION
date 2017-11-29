@@ -185,7 +185,7 @@ class Lexer implements java_cup.runtime.Scanner {
   private static final String ZZ_ERROR_MSG[] = {
     "Unknown internal scanner error",
     "Error: could not match input",
-    "Error: pushback type was too large"
+    "Error: pushback value was too large"
   };
 
   /**
@@ -269,8 +269,8 @@ class Lexer implements java_cup.runtime.Scanner {
   /** 
    * The number of occupied positions in zzBuffer beyond zzEndRead.
    * When a lead/high surrogate has been read from the input stream
-   * into the final zzBuffer position, this will have a type of 1;
-   * otherwise, it will have a type of 0.
+   * into the final zzBuffer position, this will have a value of 1;
+   * otherwise, it will have a value of 0.
    */
   private int zzFinalHighSurrogate = 0;
 
@@ -458,7 +458,7 @@ class Lexer implements java_cup.runtime.Scanner {
    * It is equivalent to yytext().charAt(pos), but faster
    *
    * @param pos the position of the character to fetch. 
-   *            A type from 0 to yylength()-1.
+   *            A value from 0 to yylength()-1.
    *
    * @return the character at position pos
    */
