@@ -1,7 +1,7 @@
 package AST;
 
 public class AST_CFIELD extends AST_Node{
-    AST_DEC dec;
+    public AST_DEC dec;
     public AST_CFIELD(AST_DEC v){
 
         System.out.println("cField -> varDec | funcDec ");

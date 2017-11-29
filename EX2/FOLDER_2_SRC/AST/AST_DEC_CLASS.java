@@ -5,7 +5,9 @@ public class AST_DEC_CLASS extends AST_DEC
 
 	String name;
 	String ext;
-	AST_CFIELD_LIST cfieldList;
+	public AST_CFIELD_LIST cfieldList;
+	public AST_FUNC_LIST funcList;
+	public AST_VAR_LIST varList;
 
 	/*********************************************************/
 	/* The default message for an unknown AST DECLERATION node */
