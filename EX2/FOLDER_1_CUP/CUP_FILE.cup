@@ -21,8 +21,6 @@ parser code
 	{
 		writer.write("ERROR("+lexer.getLine()+")\n");
 		writer.close();
-		System.exit(0);
-		/*
 		lineNumber=lexer.getLine();
 		wasSuccessful=false;
 		System.out.print("ERRORR >> ");		
@@ -31,7 +29,7 @@ parser code
 		System.out.print(":");
 		System.out.print(lexer.getCharPos());
 		System.out.print("] ");		
-		System.exit(0);*/
+		System.exit(0);
 	}
 :}
 
