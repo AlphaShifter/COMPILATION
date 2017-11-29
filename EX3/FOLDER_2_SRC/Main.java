@@ -14,10 +14,13 @@ public class Main
 		AST_PROGRAM AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
-		String inputFilename = "C:\\Users\\Gilad\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\TEST_06_Print_Primes_Error.txt";
+		String inputFilename = argv[0];
+		String outputFilename = argv[1];
+
+/*		String inputFilename = "C:\\Users\\Gilad\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\TEST_06_Print_Primes_Error.txt";
 		String outputFilename = "C:\\Users\\Gilad\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\out.txt";
-/*		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_03_Merge_Lists.txt";
-		String outputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_5_OUTPUT/out.txt";*/
+		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_03_Merge_Lists.txt";
+		String outputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_5_OUTPUT/out.txt";   */
 
 		try
 		{
