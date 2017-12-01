@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_EXP_LIST extends AST_Node
+public class AST_EXP_LIST extends AST_LIST
 {
 	/****************/
 	/* DATA MEMBERS */
@@ -60,5 +60,14 @@ public class AST_EXP_LIST extends AST_Node
 		if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,head.SerialNumber);
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
-	
+
+	@Override
+	public AST_EXP getHead() {
+		return this.head;
+	}
+
+	@Override
+	public AST_EXP_LIST getTail() {
+		return this.tail;
+	}
 }

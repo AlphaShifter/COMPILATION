@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_CFIELD_LIST extends AST_Node
+public class AST_CFIELD_LIST extends AST_LIST
 {
     /****************/
 	/* DATA MEMBERS */
@@ -61,4 +61,13 @@ public class AST_CFIELD_LIST extends AST_Node
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
 
+    @Override
+    public AST_CFIELD getHead() {
+        return this.head;
+    }
+
+    @Override
+    public AST_CFIELD_LIST getTail() {
+        return this.tail;
+    }
 }

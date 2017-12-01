@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_ID_LIST extends AST_Node
+public class AST_ID_LIST extends AST_LIST
 {
 	/****************/
 	/* DATA MEMBERS */
@@ -61,5 +61,14 @@ public class AST_ID_LIST extends AST_Node
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("ID1(%s) ID2(%s)", head1, head2));
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
-	
+
+	@Override
+	public AST_Node getHead() {
+		return null;
+	}
+
+	@Override
+	public AST_LIST getTail() {
+		return null;
+	}
 }
