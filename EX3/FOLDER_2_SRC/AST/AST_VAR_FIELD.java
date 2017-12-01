@@ -1,93 +1,92 @@
 package AST;
 
-public class AST_VAR_FIELD extends AST_VAR
-{
-	public AST_VAR var;
-	public String fieldName;
-	
-	/******************/
-	/* CONSTRUCTOR(S) */
+public class AST_VAR_FIELD extends AST_VAR {
+    public AST_VAR var;
+    public String fieldName;
 
-	public AST_VAR getVar() {
-		return var;
-	}
-
-	public void setVar(AST_VAR var) {
-		this.var = var;
-	}
-
-	public String getFieldName() {
-		return fieldName;
-	}
-
-	public void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
-	}
-
-	/******************/
-	public AST_VAR_FIELD(AST_VAR var,String fieldName)
-	{
-		/******************************/
+    /******************/
+    public AST_VAR_FIELD(AST_VAR var, String fieldName) {
+        /******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
+        /******************************/
+        SerialNumber = AST_Node_Serial_Number.getFresh();
 
-		/***************************************/
+        /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
-		/***************************************/
-		System.out.format("var -> var DOT ID( %s )\n",fieldName);
+        /***************************************/
+        System.out.format("var -> var DOT ID( %s )\n", fieldName);
 
-		/*******************************/
+        /*******************************/
 		/* COPY INPUT DATA NENBERS ... */
-		/*******************************/
-		this.var = var;
-		this.fieldName = fieldName;
-	}
+        /*******************************/
+        this.var = var;
+        this.fieldName = fieldName;
+    }
 
-	/*************************************************/
+    /******************/
+    /* CONSTRUCTOR(S) */
+    public AST_VAR getVar() {
+        return var;
+    }
+
+    public void setVar(AST_VAR var) {
+        this.var = var;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
+
+    /*************************************************/
 	/* The printing message for a field var AST node */
-	/*************************************************/
-	public void PrintMe()
-	{
-		/*********************************/
+
+    /*************************************************/
+    public void PrintMe() {
+        /*********************************/
 		/* AST NODE TYPE = AST FIELD VAR */
-		/*********************************/
-		System.out.print("AST NODE FIELD VAR\n");
+        /*********************************/
+        System.out.print("AST NODE FIELD VAR\n");
 
-		/**********************************************/
+        /**********************************************/
 		/* RECURSIVELY PRINT VAR, then FIELD NAME ... */
-		/**********************************************/
-		if (var != null) var.PrintMe();
-		System.out.format("FIELD NAME( %s )\n",fieldName);
+        /**********************************************/
+        if (var != null) var.PrintMe();
+        System.out.format("FIELD NAME( %s )\n", fieldName);
 
-		/***************************************/
+        /***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			String.format("FIELD VAR...->%s",fieldName));
-		
-		/****************************************/
+        /***************************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                String.format("FIELD VAR...->%s", fieldName));
+
+        /****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
-		if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
-	}
+        /****************************************/
+        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
+    }
 
-	@Override
-	public AST_Node getLeft() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getLeft() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setLeft(){}
+    @Override
+    public void setLeft() {
+    }
 
-	@Override
-	public AST_Node getRight() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getRight() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setRight(){}
+    @Override
+    public void setRight() {
+    }
 }

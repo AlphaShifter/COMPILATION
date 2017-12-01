@@ -1,66 +1,67 @@
 package AST;
 
-public class AST_VAR_SIMPLE extends AST_VAR
-{
-	/************************/
-	/* simple variable name */
-	/************************/
-	public String name;
-	
-	/******************/
+public class AST_VAR_SIMPLE extends AST_VAR {
+    /************************/
+    /* simple variable name */
+    /************************/
+    public String name;
+
+    /******************/
 	/* CONSTRUCTOR(S) */
-	/******************/
-	public AST_VAR_SIMPLE(String name)
-	{
-		/******************************/
+
+    /******************/
+    public AST_VAR_SIMPLE(String name) {
+        /******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
-	
-		/***************************************/
+        /******************************/
+        SerialNumber = AST_Node_Serial_Number.getFresh();
+
+        /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
-		/***************************************/
-		System.out.format("var -> ID( %s )\n",name);
+        /***************************************/
+        System.out.format("var -> ID( %s )\n", name);
 
-		/*******************************/
+        /*******************************/
 		/* COPY INPUT DATA NENBERS ... */
-		/*******************************/
-		this.name = name;
-	}
+        /*******************************/
+        this.name = name;
+    }
 
-	/**************************************************/
+    /**************************************************/
 	/* The printing message for a simple var AST node */
-	/**************************************************/
-	public void PrintMe()
-	{
-		/**********************************/
+
+    /**************************************************/
+    public void PrintMe() {
+        /**********************************/
 		/* AST NODE TYPE = AST SIMPLE VAR */
-		/**********************************/
-		System.out.format("AST NODE SIMPLE VAR( %s )\n",name);
+        /**********************************/
+        System.out.format("AST NODE SIMPLE VAR( %s )\n", name);
 
-		/*********************************/
+        /*********************************/
 		/* Print to AST GRAPHIZ DOT file */
-		/*********************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			String.format("SIMPLE VAR(%s)",name));
-	}
+        /*********************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                String.format("SIMPLE VAR(%s)", name));
+    }
 
-	@Override
-	public AST_Node getLeft() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getLeft() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setLeft(){}
+    @Override
+    public void setLeft() {
+    }
 
-	@Override
-	public AST_Node getRight() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getRight() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setRight(){}
+    @Override
+    public void setRight() {
+    }
 }

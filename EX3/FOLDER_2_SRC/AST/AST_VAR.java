@@ -1,12 +1,11 @@
 package AST;
 
-public abstract class AST_VAR extends AST_Node
-{
+public abstract class AST_VAR extends AST_Node {
     /*********************************************************/
-	/* The default message for an unknown AST DECLERATION node */
+    /* The default message for an unknown AST DECLERATION node */
+
     /*********************************************************/
-    public void PrintMe()
-    {
+    public void PrintMe() {
         System.out.print("UNKNOWN AST DECELERATION NODE");
     }
 }

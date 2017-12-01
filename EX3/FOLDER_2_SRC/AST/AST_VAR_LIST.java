@@ -1,33 +1,14 @@
 package AST;
 
-public class AST_VAR_LIST extends AST_Node
-{
+public class AST_VAR_LIST extends AST_Node {
     /****************/
-	/* DATA MEMBERS */
+    /* DATA MEMBERS */
     /****************/
     public AST_DEC_VAR head;
     public AST_VAR_LIST tail;
 
-    public AST_DEC_VAR getHead() {
-        return head;
-    }
-
-    public void setHead(AST_DEC_VAR head) {
-        this.head = head;
-    }
-
-    public AST.AST_VAR_LIST getTail() {
-        return tail;
-    }
-
-    public void setTail(AST.AST_VAR_LIST tail) {
-        this.tail = tail;
-    }
-/******************/
-	/* CONSTRUCTOR(S) */
     /******************/
-    public AST_VAR_LIST(AST_DEC_VAR head, AST_VAR_LIST tail)
-    {
+    public AST_VAR_LIST(AST_DEC_VAR head, AST_VAR_LIST tail) {
         /******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -46,11 +27,29 @@ public class AST_VAR_LIST extends AST_Node
         this.tail = tail;
     }
 
+    public AST_DEC_VAR getHead() {
+        return head;
+    }
+
+    public void setHead(AST_DEC_VAR head) {
+        this.head = head;
+    }
+
+    public AST.AST_VAR_LIST getTail() {
+        return tail;
+    }
+/******************/
+	/* CONSTRUCTOR(S) */
+
+    public void setTail(AST.AST_VAR_LIST tail) {
+        this.tail = tail;
+    }
+
     /******************************************************/
 	/* The printing message for a cFIELD list AST node */
+
     /******************************************************/
-    public void PrintMe()
-    {
+    public void PrintMe() {
         /**************************************/
 		/* AST NODE TYPE = AST cFIELD LIST */
         /**************************************/
@@ -72,26 +71,28 @@ public class AST_VAR_LIST extends AST_Node
         /****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,head.SerialNumber);
-        if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
+        if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, head.SerialNumber);
+        if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, tail.SerialNumber);
     }
 
-	@Override
-	public AST_Node getLeft() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getLeft() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setLeft(){}
+    @Override
+    public void setLeft() {
+    }
 
-	@Override
-	public AST_Node getRight() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getRight() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setRight(){}
+    @Override
+    public void setRight() {
+    }
 
 }

@@ -1,12 +1,13 @@
 package AST;
 
-public class AST_CFIELD extends AST_Node{
+public class AST_CFIELD extends AST_Node {
     public AST_DEC dec;
-    public AST_CFIELD(AST_DEC v){
+
+    public AST_CFIELD(AST_DEC v) {
 
         System.out.println("cField -> varDec | funcDec ");
 
-        this.dec=v;
+        this.dec = v;
         SerialNumber = AST_Node_Serial_Number.getFresh();
     }
 
@@ -18,10 +19,9 @@ public class AST_CFIELD extends AST_Node{
         this.dec = dec;
     }
 
-    public void PrintMe()
-    {
+    public void PrintMe() {
         /********************************************/
-		/* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
+        /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
         /********************************************/
         System.out.print("AST NODE cField\n");
 
@@ -40,28 +40,28 @@ public class AST_CFIELD extends AST_Node{
         /****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, dec.SerialNumber);
     }
 
-	@Override
-	public AST_Node getLeft() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getLeft() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setLeft() {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void setLeft() {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public AST_Node getRight() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getRight() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setRight() {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void setRight() {
+        // TODO Auto-generated method stub
+    }
 }

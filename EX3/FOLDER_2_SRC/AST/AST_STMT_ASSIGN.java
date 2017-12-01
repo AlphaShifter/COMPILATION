@@ -1,97 +1,96 @@
 package AST;
 
-public class AST_STMT_ASSIGN extends AST_STMT
-{
-	/***************/
-	/*  var := exp */
-	/***************/
-	public AST_VAR var;
-	public AST_EXP exp;
+public class AST_STMT_ASSIGN extends AST_STMT {
+    /***************/
+    /*  var := exp */
+    /***************/
+    public AST_VAR var;
+    public AST_EXP exp;
 
-	/*******************/
-	/*  CONSTRUCTOR(S) */
-
-	public AST_VAR getVar() {
-		return var;
-	}
-
-	public void setVar(AST_VAR var) {
-		this.var = var;
-	}
-
-	public AST_EXP getExp() {
-		return exp;
-	}
-
-	public void setExp(AST_EXP exp) {
-		this.exp = exp;
-	}
-
-	/*******************/
-	public AST_STMT_ASSIGN(AST_VAR var,AST_EXP exp)
-	{
-		/******************************/
+    /*******************/
+    public AST_STMT_ASSIGN(AST_VAR var, AST_EXP exp) {
+        /******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
+        /******************************/
+        SerialNumber = AST_Node_Serial_Number.getFresh();
 
-		/***************************************/
+        /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
-		/***************************************/
-		System.out.print("stmt -> var ASSIGN exp SEMICOLON\n");
+        /***************************************/
+        System.out.print("stmt -> var ASSIGN exp SEMICOLON\n");
 
-		/*******************************/
+        /*******************************/
 		/* COPY INPUT DATA NENBERS ... */
-		/*******************************/
-		this.var = var;
-		this.exp = exp;
-	}
+        /*******************************/
+        this.var = var;
+        this.exp = exp;
+    }
 
-	/*********************************************************/
+    /*******************/
+	/*  CONSTRUCTOR(S) */
+    public AST_VAR getVar() {
+        return var;
+    }
+
+    public void setVar(AST_VAR var) {
+        this.var = var;
+    }
+
+    public AST_EXP getExp() {
+        return exp;
+    }
+
+    public void setExp(AST_EXP exp) {
+        this.exp = exp;
+    }
+
+    /*********************************************************/
 	/* The printing message for an assign statement AST node */
-	/*********************************************************/
-	public void PrintMe()
-	{
-		/********************************************/
+
+    /*********************************************************/
+    public void PrintMe() {
+        /********************************************/
 		/* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
-		/********************************************/
-		System.out.print("AST NODE ASSIGN STMT\n");
+        /********************************************/
+        System.out.print("AST NODE ASSIGN STMT\n");
 
-		/***********************************/
+        /***********************************/
 		/* RECURSIVELY PRINT VAR + EXP ... */
-		/***********************************/
-		if (var != null) var.PrintMe();
-		if (exp != null) exp.PrintMe();
+        /***********************************/
+        if (var != null) var.PrintMe();
+        if (exp != null) exp.PrintMe();
 
-		/***************************************/
+        /***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			"ASSIGN left := right");
-		
-		/****************************************/
+        /***************************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                "ASSIGN left := right");
+
+        /****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
-	}
+        /****************************************/
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+    }
 
-	@Override
-	public AST_Node getLeft() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getLeft() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setLeft(){}
+    @Override
+    public void setLeft() {
+    }
 
-	@Override
-	public AST_Node getRight() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AST_Node getRight() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setRight(){}
+    @Override
+    public void setRight() {
+    }
 }
