@@ -6,6 +6,15 @@ public class AST_STMT_RETURN extends AST_STMT
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
+
+	public AST_EXP getRes() {
+		return res;
+	}
+
+	public void setRes(AST_EXP res) {
+		this.res = res;
+	}
+
 	/*******************/
 	public AST_STMT_RETURN(AST_EXP res)
 	{
@@ -32,4 +41,22 @@ public class AST_STMT_RETURN extends AST_STMT
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"STMT RETURN");
 		if(res != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,res.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

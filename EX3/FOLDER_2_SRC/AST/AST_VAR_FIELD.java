@@ -7,6 +7,23 @@ public class AST_VAR_FIELD extends AST_VAR
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
+
+	public AST_VAR getVar() {
+		return var;
+	}
+
+	public void setVar(AST_VAR var) {
+		this.var = var;
+	}
+
+	public String getFieldName() {
+		return fieldName;
+	}
+
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
+	}
+
 	/******************/
 	public AST_VAR_FIELD(AST_VAR var,String fieldName)
 	{
@@ -55,4 +72,22 @@ public class AST_VAR_FIELD extends AST_VAR
 		/****************************************/
 		if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

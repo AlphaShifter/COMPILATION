@@ -6,6 +6,15 @@ public class AST_EXP_VAR extends AST_EXP
 
 	/******************/
 	/* CONSTRUCTOR(S) */
+
+	public AST_VAR getVar() {
+		return var;
+	}
+
+	public void setVar(AST_VAR var) {
+		this.var = var;
+	}
+
 	/******************/
 	public AST_EXP_VAR(AST_VAR var)
 	{
@@ -53,4 +62,22 @@ public class AST_EXP_VAR extends AST_EXP
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 			
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

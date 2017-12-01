@@ -7,6 +7,23 @@ public class AST_EXP_ID extends AST_EXP
 
 	/******************/
 	/* CONSTRUCTOR(S) */
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public AST_EXP getExp() {
+		return exp;
+	}
+
+	public void setExp(AST_EXP exp) {
+		this.exp = exp;
+	}
+
 	/******************/
 	public AST_EXP_ID(String id, AST_EXP exp)
 	{
@@ -50,4 +67,22 @@ public class AST_EXP_ID extends AST_EXP
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NEW ID(%s)", value));
 		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

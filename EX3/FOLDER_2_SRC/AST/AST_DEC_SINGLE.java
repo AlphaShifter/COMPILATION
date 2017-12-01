@@ -6,6 +6,15 @@ public class AST_DEC_SINGLE extends AST_DEC
 
 	/******************/
 	/* CONSTRUCTOR(S) */
+
+	public AST_DEC getDec() {
+		return dec;
+	}
+
+	public void setDec(AST_DEC dec) {
+		this.dec = dec;
+	}
+
 	/******************/
 	public AST_DEC_SINGLE(AST_DEC dec)
 	{
@@ -48,4 +57,22 @@ public class AST_DEC_SINGLE extends AST_DEC
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"Single Declaration");
 		if (dec  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

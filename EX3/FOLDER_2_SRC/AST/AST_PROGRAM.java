@@ -9,6 +9,15 @@ public class AST_PROGRAM extends AST_Node
 
 	/******************/
 	/* CONSTRUCTOR(S) */
+
+	public AST_DEC_LIST getDecList() {
+		return decList;
+	}
+
+	public void setDecList(AST_DEC_LIST decList) {
+		this.decList = decList;
+	}
+
 	/******************/
 	public AST_PROGRAM(AST_DEC_LIST decList)
 	{
@@ -49,4 +58,22 @@ public class AST_PROGRAM extends AST_Node
 
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,decList.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

@@ -8,6 +8,31 @@ public class AST_EXP_BINOP extends AST_EXP
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
+
+	public int getOP() {
+		return OP;
+	}
+
+	public void setOP(int OP) {
+		this.OP = OP;
+	}
+
+	public AST_EXP getLeft() {
+		return left;
+	}
+
+	public void setLeft(AST_EXP left) {
+		this.left = left;
+	}
+
+	public AST_EXP getRight() {
+		return right;
+	}
+
+	public void setRight(AST_EXP right) {
+		this.right = right;
+	}
+
 	/******************/
 	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP)
 	{
@@ -72,4 +97,10 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.SerialNumber);
 		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.SerialNumber);
 	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public void setRight(){}
 }

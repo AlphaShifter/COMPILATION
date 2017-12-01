@@ -10,6 +10,23 @@ public class AST_STMT_ASSIGN extends AST_STMT
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
+
+	public AST_VAR getVar() {
+		return var;
+	}
+
+	public void setVar(AST_VAR var) {
+		this.var = var;
+	}
+
+	public AST_EXP getExp() {
+		return exp;
+	}
+
+	public void setExp(AST_EXP exp) {
+		this.exp = exp;
+	}
+
 	/*******************/
 	public AST_STMT_ASSIGN(AST_VAR var,AST_EXP exp)
 	{
@@ -59,4 +76,22 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

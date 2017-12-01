@@ -9,6 +9,15 @@ public class AST_CFIELD extends AST_Node{
         this.dec=v;
         SerialNumber = AST_Node_Serial_Number.getFresh();
     }
+
+    public AST_DEC getDec() {
+        return dec;
+    }
+
+    public void setDec(AST_DEC dec) {
+        this.dec = dec;
+    }
+
     public void PrintMe()
     {
         /********************************************/
@@ -33,4 +42,26 @@ public class AST_CFIELD extends AST_Node{
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
     }
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight() {
+		// TODO Auto-generated method stub
+	}
 }

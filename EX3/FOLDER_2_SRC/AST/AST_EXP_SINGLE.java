@@ -25,7 +25,23 @@ public class AST_EXP_SINGLE extends AST_EXP
 		/*******************************/
 		this.exp = son;
 	}
-	
+
+	public int getOP() {
+		return OP;
+	}
+
+	public void setOP(int OP) {
+		this.OP = OP;
+	}
+
+	public AST_EXP getExp() {
+		return exp;
+	}
+
+	public void setExp(AST_EXP exp) {
+		this.exp = exp;
+	}
+
 	/*************************************************/
 	/* The printing message for a binop exp AST node */
 	/*************************************************/
@@ -53,4 +69,22 @@ public class AST_EXP_SINGLE extends AST_EXP
 		/****************************************/
 		if (exp  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

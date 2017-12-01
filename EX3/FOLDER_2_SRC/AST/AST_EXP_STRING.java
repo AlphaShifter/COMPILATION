@@ -27,6 +27,15 @@ public class AST_EXP_STRING extends AST_EXP
 
 	/************************************************/
 	/* The printing message for an INT EXP AST node */
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	/************************************************/
 	public void PrintMe()
 	{
@@ -42,4 +51,22 @@ public class AST_EXP_STRING extends AST_EXP
 			SerialNumber,
 			String.format("STRING(%s)",value));
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

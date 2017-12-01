@@ -35,4 +35,22 @@ public class AST_EXP_NIL extends AST_EXP
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NIL"));
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

@@ -10,6 +10,39 @@ public class AST_DEC_FUNC extends AST_DEC
 
 	/*********************************************************/
 	/* The default message for an unknown AST DECLERATION node */
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public AST_STMT_LIST getStmtList() {
+		return stmtList;
+	}
+
+	public void setStmtList(AST_STMT_LIST stmtList) {
+		this.stmtList = stmtList;
+	}
+
+	public AST_ID_LIST getIdList() {
+		return idList;
+	}
+
+	public void setIdList(AST_ID_LIST idList) {
+		this.idList = idList;
+	}
+
 	/*********************************************************/
 	public AST_DEC_FUNC(String type, String name, AST_ID_LIST idList, AST_STMT_LIST stmtList)
 	{
@@ -57,4 +90,22 @@ public class AST_DEC_FUNC extends AST_DEC
 		if (stmtList != null)
 			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, stmtList.SerialNumber);
 
-	}}
+	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}}

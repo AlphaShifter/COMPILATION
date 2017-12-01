@@ -10,6 +10,23 @@ public class AST_FUNC_LIST extends AST_Node
 
     /******************/
 	/* CONSTRUCTOR(S) */
+
+    public AST_DEC_FUNC getHead() {
+        return head;
+    }
+
+    public void setHead(AST_DEC_FUNC head) {
+        this.head = head;
+    }
+
+    public AST.AST_FUNC_LIST getTail() {
+        return tail;
+    }
+
+    public void setTail(AST.AST_FUNC_LIST tail) {
+        this.tail = tail;
+    }
+
     /******************/
     public AST_FUNC_LIST(AST_DEC_FUNC head, AST_FUNC_LIST tail)
     {
@@ -60,5 +77,23 @@ public class AST_FUNC_LIST extends AST_Node
         if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,head.SerialNumber);
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 
 }

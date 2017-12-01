@@ -1,6 +1,6 @@
 package AST;
 
-public abstract class AST_Node
+public abstract class AST_Node implements AST_CURSOR
 {
 	/*******************************************/
 	/* The serial number is for debug purposes */

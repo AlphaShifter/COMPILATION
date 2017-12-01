@@ -10,6 +10,23 @@ public class AST_DEC_LIST extends AST_Node
 
     /******************/
 	/* CONSTRUCTOR(S) */
+
+    public AST_DEC getHead() {
+        return head;
+    }
+
+    public void setHead(AST_DEC head) {
+        this.head = head;
+    }
+
+    public AST.AST_DEC_LIST getTail() {
+        return tail;
+    }
+
+    public void setTail(AST.AST_DEC_LIST tail) {
+        this.tail = tail;
+    }
+
     /******************/
     public AST_DEC_LIST(AST_DEC head, AST_DEC_LIST tail)
     {
@@ -60,5 +77,29 @@ public class AST_DEC_LIST extends AST_Node
         if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,head.SerialNumber);
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

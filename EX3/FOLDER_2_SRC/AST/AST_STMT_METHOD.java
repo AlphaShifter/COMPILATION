@@ -6,6 +6,30 @@ public class AST_STMT_METHOD extends AST_STMT {
     public AST_VAR var;
     public AST_EXP_LIST args;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public AST_VAR getVar() {
+        return var;
+    }
+
+    public void setVar(AST_VAR var) {
+        this.var = var;
+    }
+
+    public AST_EXP_LIST getArgs() {
+        return args;
+    }
+
+    public void setArgs(AST_EXP_LIST args) {
+        this.args = args;
+    }
+
     public AST_STMT_METHOD(AST_VAR var, String id, AST_EXP_LIST args){
         /******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -49,4 +73,22 @@ public class AST_STMT_METHOD extends AST_STMT {
         if(var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
         if(args != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, args.SerialNumber);
     }
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

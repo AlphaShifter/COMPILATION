@@ -11,6 +11,31 @@ public class AST_ID_LIST extends AST_Node
 
 	/******************/
 	/* CONSTRUCTOR(S) */
+
+	public String getHead1() {
+		return head1;
+	}
+
+	public void setHead1(String head1) {
+		this.head1 = head1;
+	}
+
+	public String getHead2() {
+		return head2;
+	}
+
+	public void setHead2(String head2) {
+		this.head2 = head2;
+	}
+
+	public AST.AST_ID_LIST getTail() {
+		return tail;
+	}
+
+	public void setTail(AST.AST_ID_LIST tail) {
+		this.tail = tail;
+	}
+
 	/******************/
 	public AST_ID_LIST(String head1, String head2, AST_ID_LIST tail)
 	{
@@ -61,5 +86,23 @@ public class AST_ID_LIST extends AST_Node
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("ID1(%s) ID2(%s)", head1, head2));
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 	
 }

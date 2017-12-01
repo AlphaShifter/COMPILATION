@@ -6,6 +6,15 @@ public class AST_EXP_INT extends AST_EXP
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
 	/******************/
 	public AST_EXP_INT(int value)
 	{
@@ -42,4 +51,22 @@ public class AST_EXP_INT extends AST_EXP
 			SerialNumber,
 			String.format("INT(%d)",value));
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

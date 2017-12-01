@@ -24,6 +24,22 @@ public class AST_STMT_WHILE extends AST_STMT
 		this.body = body;
 	}
 
+	public AST_EXP getCond() {
+		return cond;
+	}
+
+	public void setCond(AST_EXP cond) {
+		this.cond = cond;
+	}
+
+	public AST_STMT_LIST getBody() {
+		return body;
+	}
+
+	public void setBody(AST_STMT_LIST body) {
+		this.body = body;
+	}
+
 	/******************************************************/
 	/* The printing message for a statement list AST node */
 	/******************************************************/
@@ -53,4 +69,22 @@ public class AST_STMT_WHILE extends AST_STMT
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,cond.SerialNumber);
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }

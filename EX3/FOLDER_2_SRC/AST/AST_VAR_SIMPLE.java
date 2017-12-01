@@ -45,4 +45,22 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			SerialNumber,
 			String.format("SIMPLE VAR(%s)",name));
 	}
+
+	@Override
+	public AST_Node getLeft() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLeft(){}
+
+	@Override
+	public AST_Node getRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRight(){}
 }
