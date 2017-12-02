@@ -5,14 +5,13 @@ public class AST_ID_LIST extends AST_LIST
 	/****************/
 	/* DATA MEMBERS */
 	/****************/
-	public String head1;
-	public String head2;
+	public AST_DEC_VAR head;
 	public AST_ID_LIST tail;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_ID_LIST(String head1, String head2, AST_ID_LIST tail)
+	public AST_ID_LIST(String type, String name, AST_ID_LIST tail)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -28,8 +27,7 @@ public class AST_ID_LIST extends AST_LIST
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.head1 = head1;
-		this.head2 = head2;
+		this.head = new AST_DEC_VAR(type, name, null);
 		this.tail = tail;
 	}
 
@@ -41,11 +39,12 @@ public class AST_ID_LIST extends AST_LIST
 		/**************************************/
 		/* AST NODE TYPE = AST STATEMENT LIST */
 		/**************************************/
-		System.out.format("AST NODE ID LIST: ID1(&s) ID2(&s)\n",head1,head2);
+		System.out.format("AST NODE ID LIST:");
 
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */
 		/*************************************/
+		if (head != null) head.PrintMe();
 		if (tail != null) tail.PrintMe();
 
 		/**********************************/
@@ -58,17 +57,17 @@ public class AST_ID_LIST extends AST_LIST
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("ID1(%s) ID2(%s)", head1, head2));
+		if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,head.SerialNumber);
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
 
 	@Override
-	public AST_Node getHead() {
-		return null;
+	public AST_DEC_VAR getHead() {
+		return this.head;
 	}
 
 	@Override
-	public AST_LIST getTail() {
-		return null;
+	public AST_ID_LIST getTail() {
+		return this.tail;
 	}
 }
