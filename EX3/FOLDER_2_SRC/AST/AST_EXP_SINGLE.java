@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_EXP_SINGLE extends AST_EXP
 {
 	int OP;
@@ -52,5 +54,10 @@ public class AST_EXP_SINGLE extends AST_EXP
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (exp  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+	}
+
+	@Override
+	public TYPE getExpType() {
+		return exp.getExpType();
 	}
 }

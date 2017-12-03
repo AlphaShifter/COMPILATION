@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_EXP_VAR extends AST_EXP
 {
 	public AST_VAR var;
@@ -53,4 +55,11 @@ public class AST_EXP_VAR extends AST_EXP
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 			
 	}
+
+	@Override
+	public TYPE getExpType() {
+		//TODO look for the variable in the table and return it's type
+		return null;
+	}
+
 }

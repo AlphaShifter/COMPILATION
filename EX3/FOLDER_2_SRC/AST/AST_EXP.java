@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public abstract class AST_EXP extends AST_Node
 {
 	public int moish;
@@ -7,5 +9,6 @@ public abstract class AST_EXP extends AST_Node
 	{
 		System.out.print("UNKNOWN AST DECELERATION NODE");
 	}
+	public abstract TYPE getExpType();
 
 }

@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_EXP_BINOP extends AST_EXP
 {
 	int OP;
@@ -71,5 +73,10 @@ public class AST_EXP_BINOP extends AST_EXP
 		/****************************************/
 		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.SerialNumber);
 		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.SerialNumber);
+	}
+
+	@Override
+	public TYPE getExpType() {
+		return left.getExpType();
 	}
 }

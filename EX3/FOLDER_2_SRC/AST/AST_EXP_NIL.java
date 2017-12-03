@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.TYPE;
+import TYPES.TYPE_NIL;
+
 public class AST_EXP_NIL extends AST_EXP
 {
 
@@ -34,5 +37,10 @@ public class AST_EXP_NIL extends AST_EXP
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NIL"));
+	}
+
+	@Override
+	public TYPE getExpType() {
+		return TYPE_NIL.getInstance();
 	}
 }

@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_EXP_ID extends AST_EXP
 {
 	public String value;
@@ -50,4 +52,11 @@ public class AST_EXP_ID extends AST_EXP
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("NEW ID(%s)", value));
 		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
 	}
+
+	@Override
+	public TYPE getExpType() {
+		//TODO the type is ID look for it in table and return it
+		return null;
+	}
+
 }

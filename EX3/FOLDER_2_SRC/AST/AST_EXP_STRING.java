@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.TYPE;
+import TYPES.TYPE_STRING;
+
 public class AST_EXP_STRING extends AST_EXP
 {
 	public String value;
@@ -41,5 +44,10 @@ public class AST_EXP_STRING extends AST_EXP
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
 			String.format("STRING(%s)",value));
+	}
+
+	@Override
+	public TYPE getExpType() {
+		return TYPE_STRING.getInstance();
 	}
 }

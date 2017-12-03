@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_EXP_METHOD extends AST_EXP {
 
     public String id;
@@ -50,4 +52,11 @@ public class AST_EXP_METHOD extends AST_EXP {
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, args.SerialNumber);
         }
     }
+
+    @Override
+    public TYPE getExpType() {
+        //TODO look for the function in the table and return the return type
+        return null;
+    }
+
 }
