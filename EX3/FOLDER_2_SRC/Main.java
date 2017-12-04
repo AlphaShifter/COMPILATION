@@ -48,6 +48,8 @@ public class Main
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
 			/***********************************/
 			AST = (AST_PROGRAM) p.parse().value;
+
+
 			file_writer.write("OK\n");
 			if(p.wasSuccessful){
 				
@@ -71,6 +73,14 @@ public class Main
 			/*************************************/
 			AST_GRAPHVIZ.getInstance().finalizeFile();
 
+			Util.treeReduction(AST);
+
+			boolean retValue = Util.logClasses(AST); // try to log the classes of the program
+			if(retValue == true){
+				System.out.println("OK with classes\n");
+			} else{
+				System.out.println("ERROR with classes\n");
+			}
 
     	}
 			     

@@ -3,3 +3,8 @@ EX2/.idea/
 EX2/FOLDER_3_BIN/
 EX1/.idea/
 EX3/.idea/
+EX3/FOLDER_2_SRC/output_file.txt
+EX3/FOLDER_2_SRC/input_code.txt
+EX3/FOLDER_5_OUTPUT/AST_IN_GRAPHVIZ_DOT_FORMAT.txt
+EX2/makefile.txt
+EX2/PARSER

@@ -1,8 +1,12 @@
+import SYMBOL_TABLE.MY_SYMBOL_TABLE;
 import AST.*;
+import TYPES.TYPE_CLASS;
 
 public class Util {
 
-
+    /*
+    splits the list of fields in a AST_DEC_CLASS object into variables and methods
+     */
     public static void classSplit(AST_PROGRAM root){
         AST_DEC_LIST runner = root.decList;
         AST_CFIELD_LIST classRunner;
@@ -89,4 +93,24 @@ public class Util {
     }
 
 
+    public static boolean logClasses(AST_PROGRAM root){
+        MY_SYMBOL_TABLE symbolTable = MY_SYMBOL_TABLE.getInstance();
+        for(AST_Node node : root.decList){
+            if(node instanceof AST_DEC_CLASS){
+                AST_DEC_CLASS currNode = (AST_DEC_CLASS) node; // cast the node to a class declaration
+                if(symbolTable.get(currNode.getName()) != null){
+                    // the class has already been declared
+                    return false;
+                } else if((currNode.getExt() != null) && (symbolTable.get(currNode.getExt()) == null)){
+                    // the extended class (father) has not been declared yet
+                    return false;
+                } else{
+                    // add the new class to the symbol table
+                    TYPE_CLASS father = (TYPE_CLASS) symbolTable.get(currNode.getExt());
+                    symbolTable.add(currNode.getName(), new TYPE_CLASS(father, null, null));
+                }
+            }
+        }
+        return true;
+    }
 }

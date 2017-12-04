@@ -12,7 +12,7 @@ public class ASTListIterator implements Iterator<AST_Node>{
 
     @Override
     public boolean hasNext() {
-        return localList.getTail() != null;
+        return localList != null;
     }
 
     @Override

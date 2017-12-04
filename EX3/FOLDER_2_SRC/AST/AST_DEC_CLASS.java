@@ -58,4 +58,21 @@ public class AST_DEC_CLASS extends AST_DEC
 		if (cfieldList != null)
 			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cfieldList.SerialNumber);
 
-	}}
+	}
+
+	public String getName(){
+		return this.name;
+	}
+
+	public String getExt(){
+		return this.ext;
+	}
+
+	public AST_FUNC_LIST getFuncList() {
+		return funcList;
+	}
+
+	public AST_VAR_LIST getVarList() {
+		return varList;
+	}
+}
