@@ -48,6 +48,7 @@ public class AST_EXP_INT extends AST_EXP
 
 	@Override
 	public TYPE getExpType() {
-		return TYPE_INT.getInstance();
+		//TODO
+		return null;
 	}
 }

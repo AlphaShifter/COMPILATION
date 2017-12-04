@@ -14,14 +14,14 @@ public class MY_SYMBOL_TABLE {
     /* PREVENT INSTANTIATION ... */
 
     /*****************************/
-    protected SYMBOL_TABLE() {
+    protected MY_SYMBOL_TABLE() {
     }
     /******************************/
     /* GET SINGLETON INSTANCE ... */
     /******************************/
-    public static SYMBOL_TABLE getInstance() {
+    public static MY_SYMBOL_TABLE getInstance() {
         if (instance == null) {
-            instance = new SYMBOL_TABLE();
+            instance = new MY_SYMBOL_TABLE();
 
         }
         return instance;

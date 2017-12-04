@@ -70,7 +70,7 @@ public class Util {
         }
     }
 
-    public static void treeReduction_rec(AST_Node node){
+    private static void treeReduction_rec(AST_Node node){
         if(node == null) return;
         AST_Node left = node.left;
         AST_Node right = node.right;

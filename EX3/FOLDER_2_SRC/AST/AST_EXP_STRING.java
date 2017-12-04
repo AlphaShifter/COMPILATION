@@ -48,6 +48,7 @@ public class AST_EXP_STRING extends AST_EXP
 
 	@Override
 	public TYPE getExpType() {
-		return TYPE_STRING.getInstance();
+		//TODO implement this
+		return null;
 	}
 }

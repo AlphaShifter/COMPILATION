@@ -79,6 +79,7 @@ public class AST_EXP_BINOP extends AST_EXP
 
 	@Override
 	public TYPE getExpType() {
-		return leftExp.getExpType();
+		//TODO implement this
+		return null;
 	}
 }
