@@ -188,13 +188,13 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
                     | RETURN SEMICOLON                                          {:RESULT = new AST_STMT_RETURN(null); :}
                     | RETURN exp:l SEMICOLON                                    {:RESULT = new AST_STMT_RETURN(l); :}
-					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
+					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
                     | ID:name LPAREN RPAREN SEMICOLON				            {: RESULT = new AST_STMT_METHOD(null, name, null);:}
                     | var: v DOT ID:name LPAREN RPAREN SEMICOLON	            {: RESULT = new AST_STMT_METHOD(v, name, null);:}
                     | ID:name LPAREN expList:args RPAREN SEMICOLON		        {: RESULT = new AST_STMT_METHOD(null, name, args);:}
                     | var: v DOT ID:name LPAREN expList:args RPAREN	SEMICOLON	{: RESULT = new AST_STMT_METHOD(v, name, args);:}
-                    | varDec: dec                                               {: RESULT = new AST_DEC_SINGLE(dec);:}
+                    | varDec: dec                                               {: RESULT = new AST_STMT_DEC(dec);:}
                     | COMMENT
 					;
 

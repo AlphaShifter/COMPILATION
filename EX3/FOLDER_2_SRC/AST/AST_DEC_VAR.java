@@ -5,7 +5,7 @@ public class AST_DEC_VAR extends AST_DEC
 
 	String type;
 	String name;
-	AST_EXP exp;
+	public AST_EXP exp;
 
 	/*********************************************************/
 	/* The default message for an unknown AST DECLERATION node */
@@ -32,6 +32,8 @@ public class AST_DEC_VAR extends AST_DEC
 		this.type = type;
 		this.name = name;
 		this.exp = exp;
+
+		right = exp;
 	}
 
 	/************************************************/

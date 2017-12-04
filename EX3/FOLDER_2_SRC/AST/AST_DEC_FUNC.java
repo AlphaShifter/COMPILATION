@@ -5,8 +5,8 @@ public class AST_DEC_FUNC extends AST_DEC
 
 	String type;
 	String name;
-	AST_STMT_LIST stmtList;
-	AST_ID_LIST idList;
+	public AST_STMT_LIST stmtList;
+	public AST_ID_LIST idList;
 
 	/*********************************************************/
 	/* The default message for an unknown AST DECLERATION node */
@@ -24,6 +24,8 @@ public class AST_DEC_FUNC extends AST_DEC
 
 		System.out.format("funcDec -> TYPE( %s ) NAME(%s)\n", type,name);
 
+		left = idList;
+		right = stmtList;
 
 
 		/*******************************/

@@ -25,6 +25,7 @@ public class AST_EXP_VAR extends AST_EXP
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.var = var;
+		right = var;
 	}
 	
 	/***********************************************/

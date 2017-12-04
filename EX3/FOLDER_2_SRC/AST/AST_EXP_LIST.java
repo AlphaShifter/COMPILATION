@@ -29,6 +29,8 @@ public class AST_EXP_LIST extends AST_LIST
 		/*******************************/
 		this.head = head;
 		this.tail = tail;
+		left = head;
+		right = tail;
 	}
 
 	/******************************************************/

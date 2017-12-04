@@ -22,6 +22,8 @@ public class AST_STMT_IF extends AST_STMT
 
 		this.cond = cond;
 		this.body = body;
+		left = cond;
+		right = body;
 	}
 
 	/******************************************************/

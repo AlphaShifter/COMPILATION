@@ -23,6 +23,8 @@ public class AST_DEC_SINGLE extends AST_DEC
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.dec = dec;
+		left = null;
+		right = dec;
 	}
 	
 	/*************************************************/

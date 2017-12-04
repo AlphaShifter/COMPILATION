@@ -22,6 +22,8 @@ public class AST_STMT_WHILE extends AST_STMT
 
 		this.cond = cond;
 		this.body = body;
+		right = body;
+		left = cond;
 	}
 
 	/******************************************************/

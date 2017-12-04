@@ -31,6 +31,7 @@ public class AST_EXP_ID extends AST_EXP
 		/*******************************/
 		this.value = id;
 		this.exp = exp;
+		right = exp;
 	}
 
 	/************************************************/

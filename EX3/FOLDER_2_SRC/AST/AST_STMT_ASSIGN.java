@@ -28,6 +28,8 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		/*******************************/
 		this.var = var;
 		this.exp = exp;
+		left = var;
+		right = exp;
 	}
 
 	/*********************************************************/

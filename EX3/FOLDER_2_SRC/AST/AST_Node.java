@@ -2,6 +2,10 @@ package AST;
 
 public abstract class AST_Node
 {
+
+	public AST_Node left = null;
+	public AST_Node right = null;
+
 	/*******************************************/
 	/* The serial number is for debug purposes */
 	/* In particular, it can help in creating  */
@@ -15,5 +19,12 @@ public abstract class AST_Node
 	public void PrintMe()
 	{
 		System.out.print("AST NODE UNKNOWN\n");
+	}
+
+	public AST_Node getLeft() {
+		return left;
+	}
+	public AST_Node getRight(){
+		return right;
 	}
 }
