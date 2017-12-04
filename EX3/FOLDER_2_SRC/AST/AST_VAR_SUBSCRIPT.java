@@ -25,6 +25,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/*******************************/
 		this.var = var;
 		this.subscript = subscript;
+		left = var;
+		right = subscript;
 	}
 
 	/*****************************************************/

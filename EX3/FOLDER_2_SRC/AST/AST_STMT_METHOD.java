@@ -31,6 +31,8 @@ public class AST_STMT_METHOD extends AST_STMT {
         this.id = id;
         this.args = args;
 
+        left = var;
+        right = args;
     }
 
     public void PrintMe()

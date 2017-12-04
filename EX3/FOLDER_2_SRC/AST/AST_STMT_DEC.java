@@ -1,16 +1,13 @@
 package AST;
 
-import TYPES.TYPE;
-
-public class AST_EXP_SINGLE extends AST_EXP
+public class AST_STMT_DEC extends AST_STMT
 {
-	int OP;
-	public AST_EXP exp;
+	public AST_DEC_VAR dec;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_SINGLE(AST_EXP son)
+	public AST_STMT_DEC(AST_DEC_VAR dec)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -20,13 +17,13 @@ public class AST_EXP_SINGLE extends AST_EXP
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("exp -> (exp)\n");
+		System.out.print("stmt -> varDec\n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.exp = son;
-		right = exp;
+		this.dec = dec;
+		right = dec;
 	}
 	
 	/*************************************************/
@@ -37,28 +34,19 @@ public class AST_EXP_SINGLE extends AST_EXP
 				/*************************************/
 		/* AST NODE TYPE = AST SUBSCRIPT VAR */
 		/*************************************/
-		System.out.print("AST NODE SINGLE EXP\n");
+		System.out.print("AST NODE SINGLE dec\n");
 
 		/**************************************/
 		/* RECURSIVELY PRINT left + right ... */
 		/**************************************/
-		if (exp != null) exp.PrintMe();
+		if (dec != null) dec.PrintMe();
 
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			String.format("Single Expression"));
-		
+
+
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		if (exp  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
-	}
-
-	@Override
-	public TYPE getExpType() {
-		return exp.getExpType();
+		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"Var Declaration");
+		if (dec  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
 	}
 }

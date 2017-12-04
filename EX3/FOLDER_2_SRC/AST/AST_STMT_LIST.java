@@ -29,6 +29,9 @@ public class AST_STMT_LIST extends AST_LIST
 		/*******************************/
 		this.head = head;
 		this.tail = tail;
+
+		left = head;
+		right = tail;
 	}
 
 	/******************************************************/

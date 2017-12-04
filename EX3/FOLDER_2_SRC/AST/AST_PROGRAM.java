@@ -26,6 +26,7 @@ public class AST_PROGRAM extends AST_Node
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.decList = decList;
+		right = decList;
 	}
 
 	/**************************************************/

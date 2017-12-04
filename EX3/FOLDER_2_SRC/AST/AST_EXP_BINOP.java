@@ -5,8 +5,8 @@ import TYPES.TYPE;
 public class AST_EXP_BINOP extends AST_EXP
 {
 	int OP;
-	public AST_EXP left;
-	public AST_EXP right;
+	public AST_EXP leftExp;
+	public AST_EXP rightExp;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -28,6 +28,8 @@ public class AST_EXP_BINOP extends AST_EXP
 		/*******************************/
 		this.left = left;
 		this.right = right;
+		rightExp = right;
+		leftExp = left;
 		this.OP = OP;
 	}
 	
@@ -77,6 +79,6 @@ public class AST_EXP_BINOP extends AST_EXP
 
 	@Override
 	public TYPE getExpType() {
-		return left.getExpType();
+		return leftExp.getExpType();
 	}
 }

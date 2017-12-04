@@ -29,6 +29,9 @@ public class AST_ID_LIST extends AST_LIST
 		/*******************************/
 		this.head = new AST_DEC_VAR(type, name, null);
 		this.tail = tail;
+
+		left = head;
+		right = tail;
 	}
 
 	/******************************************************/

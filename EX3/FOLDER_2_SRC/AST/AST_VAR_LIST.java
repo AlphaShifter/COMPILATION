@@ -29,6 +29,8 @@ public class AST_VAR_LIST extends AST_LIST
         /*******************************/
         this.head = head;
         this.tail = tail;
+        left = head;
+        right = tail;
     }
 
     /******************************************************/

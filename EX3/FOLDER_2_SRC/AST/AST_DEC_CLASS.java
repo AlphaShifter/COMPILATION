@@ -25,7 +25,7 @@ public class AST_DEC_CLASS extends AST_DEC
 
 		System.out.format("decClass -> name( %s )\n", name);
 
-
+		right = cfieldList;
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */

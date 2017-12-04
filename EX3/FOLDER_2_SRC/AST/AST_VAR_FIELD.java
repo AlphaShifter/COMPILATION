@@ -25,6 +25,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		/*******************************/
 		this.var = var;
 		this.fieldName = fieldName;
+		right = var;
 	}
 
 	/*************************************************/

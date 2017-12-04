@@ -1,5 +1,4 @@
 package TYPES;
-
 /**
  * Created by giladi on 03/12/2017.
  */

@@ -30,7 +30,8 @@ public class AST_EXP_METHOD extends AST_EXP {
         this.var = var;
         this.id = id;
         this.args = args;
-
+        left = var;
+        right = args;
     }
 
     public void PrintMe()

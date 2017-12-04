@@ -913,7 +913,7 @@ class CUP$Parser$actions {
 		int decleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int decright = ((Symbol)CUP$Parser$stack.peek()).right;
 		AST_DEC_VAR dec = (AST_DEC_VAR)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new AST_DEC_SINGLE(dec);
+		 RESULT = new AST_STMT_DEC(dec);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",2, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

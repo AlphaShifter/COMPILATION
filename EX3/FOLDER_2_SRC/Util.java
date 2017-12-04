@@ -42,8 +42,51 @@ public class Util {
 
                     classRunner = classRunner.tail;
                 }
+                head.left = head.varList;
+                head.right = head.funcList;
             }
             runner = runner.tail;
         }
     }
+
+
+    private static void decReduction(AST_PROGRAM root){
+       AST_DEC_LIST runner = root.decList;
+       while(runner != null){
+           if(runner.head instanceof AST_DEC_SINGLE)
+               runner.head = ((AST_DEC_SINGLE) runner.head).dec;
+           runner = runner.tail;
+       }
+    }
+
+
+
+    public static void treeReduction(AST_PROGRAM root){
+        //reduce the decs
+        decReduction(root);
+        //break down to decs
+        for(AST_Node node: root.decList) {
+            treeReduction_rec(node);
+        }
+    }
+
+    public static void treeReduction_rec(AST_Node node){
+        if(node == null) return;
+        AST_Node left = node.left;
+        AST_Node right = node.right;
+        if(left != null){
+            if(left instanceof AST_EXP_SINGLE){
+                node.left = ((AST_EXP_SINGLE) left).exp;
+            }
+        }
+        if(right != null){
+            if (right instanceof AST_EXP_SINGLE){
+                node.right = ((AST_EXP_SINGLE) right).exp;
+            }
+        }
+        treeReduction_rec(node.left);
+        treeReduction_rec(node.right);
+    }
+
+
 }
