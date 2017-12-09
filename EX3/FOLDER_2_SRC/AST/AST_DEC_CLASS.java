@@ -1,5 +1,7 @@
 package AST;
 
+import Auxillery.Scanners;
+
 public class AST_DEC_CLASS extends AST_DEC
 {
 
@@ -75,4 +77,9 @@ public class AST_DEC_CLASS extends AST_DEC
 	public AST_VAR_LIST getVarList() {
 		return varList;
 	}
+
+	public boolean varScanner(){
+		return Scanners.classVarInitScanner(this);
+	}
+
 }

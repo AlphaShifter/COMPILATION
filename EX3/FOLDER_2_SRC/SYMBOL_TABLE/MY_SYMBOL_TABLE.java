@@ -1,10 +1,9 @@
 package SYMBOL_TABLE;
 
 import TYPES.TYPE;
+import TYPES.TYPE_CLASS;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class MY_SYMBOL_TABLE {
 
@@ -36,6 +35,22 @@ public class MY_SYMBOL_TABLE {
         return table.get(name);
     }
 
-
+    public void debugClasses(){
+        Set<Map.Entry<String,TYPE>> s = table.entrySet();
+        for(Map.Entry<String,TYPE> e: s){
+            TYPE type = e.getValue();
+            if(type instanceof TYPE_CLASS){
+                TYPE_CLASS c = (TYPE_CLASS)type;
+                String out = "======Class: " + c.name;
+                if(c.father != null){
+                    out = out + " Extends " + c.father.name;
+                }
+                out += "=======";
+                System.out.println(out);
+                System.out.println("***Vars:");
+                c.data_members.print();
+            }
+        }
+    }
 
 }

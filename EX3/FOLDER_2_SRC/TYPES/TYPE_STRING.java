@@ -10,7 +10,7 @@ public class TYPE_STRING extends TYPE
 	/*****************************/
 	/* PREVENT INSTANTIATION ... */
 	/*****************************/
-	protected TYPE_STRING() {}
+	protected TYPE_STRING() {this.name = "string";}
 
 	/******************************/
 	/* GET SINGLETON INSTANCE ... */

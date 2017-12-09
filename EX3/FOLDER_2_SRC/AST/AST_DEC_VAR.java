@@ -3,8 +3,8 @@ package AST;
 public class AST_DEC_VAR extends AST_DEC
 {
 
-	String type;
-	String name;
+	public String type;
+	public String name;
 	public AST_EXP exp;
 
 	/*********************************************************/

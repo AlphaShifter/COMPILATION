@@ -9,5 +9,11 @@ public class TYPE_CLASS_VAR_DEC_LIST
 	{
 		this.head = head;
 		this.tail = tail;
-	}	
+	}
+
+	public void print(){
+		System.out.println(head);
+		if(tail != null)
+			tail.print();
+	}
 }

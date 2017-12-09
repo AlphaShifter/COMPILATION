@@ -10,7 +10,7 @@ public class TYPE_INT extends TYPE
 	/*****************************/
 	/* PREVENT INSTANTIATION ... */
 	/*****************************/
-	protected TYPE_INT() {}
+	protected TYPE_INT() {this.name = "int";}
 
 	/******************************/
 	/* GET SINGLETON INSTANCE ... */

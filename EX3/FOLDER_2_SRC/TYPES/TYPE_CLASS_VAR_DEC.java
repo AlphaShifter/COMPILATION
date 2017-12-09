@@ -10,4 +10,8 @@ public class TYPE_CLASS_VAR_DEC
 		this.t = t;
 		this.name = name;
 	}
+	@Override
+	public String toString(){
+		return t.name + " ->  " + name;
+	}
 }

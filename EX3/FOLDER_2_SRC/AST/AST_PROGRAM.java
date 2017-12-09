@@ -50,4 +50,14 @@ public class AST_PROGRAM extends AST_Node
 
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,decList.SerialNumber);
 	}
+
+	public boolean concreateMixer(){
+		boolean res = true;
+		for(AST_Node dec: decList){
+			if(dec instanceof AST_DEC_CLASS){
+				res = res && ((AST_DEC_CLASS) dec).varScanner();
+			}
+		}
+		return res;
+	}
 }
