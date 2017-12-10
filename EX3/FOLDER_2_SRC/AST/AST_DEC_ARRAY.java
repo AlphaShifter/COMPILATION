@@ -1,5 +1,6 @@
 package AST;
 
+import Auxillery.Util;
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
@@ -55,18 +56,10 @@ public class AST_DEC_ARRAY extends AST_DEC
 
 	}
 	public boolean arrayScan(){
-		TYPE t;
-		if (this.type.equals("int"))
-			t = TYPE_INT.getInstance();
-		else if (this.type.equals("string"))
-			t = TYPE_STRING.getInstance();
-		else {
-			//TODO Scope
-			t = MY_SYMBOL_TABLE.getInstance().get(this.type);
-			//undefined class type
-			if (t == null)
-				return false;
-		}
+		TYPE t = Util.stringToType(this.type);
+		//TODO Scope
+		if(t == null)
+			return false;
 		TYPE_ARRAY newType = new TYPE_ARRAY(t, this.name);
 		MY_SYMBOL_TABLE.getInstance().add(this.name, newType);
 		return true;

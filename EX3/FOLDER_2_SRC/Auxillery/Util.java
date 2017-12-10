@@ -2,7 +2,7 @@ package Auxillery;
 
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
 import AST.*;
-import TYPES.TYPE_CLASS;
+import TYPES.*;
 
 public class Util {
 
@@ -114,5 +114,31 @@ public class Util {
             }
         }
         return true;
+    }
+
+    public static TYPE stringToType(String str){
+        TYPE t;
+        if (str.equals("int"))
+            return TYPE_INT.getInstance();
+        else if (str.equals("string"))
+            return TYPE_STRING.getInstance();
+        else {
+            t = MY_SYMBOL_TABLE.getInstance().get(str);
+            return t;
+        }
+    }
+
+    public static boolean isFatherOf(TYPE son, TYPE father){
+        if( !(son instanceof TYPE_CLASS) || !(father instanceof TYPE_CLASS))
+            return false;
+        TYPE_CLASS sonClass = (TYPE_CLASS)son;
+        TYPE_CLASS fatherClass = (TYPE_CLASS)father;
+        TYPE_CLASS ext = sonClass.father;
+        while(ext != null){
+            if(ext == fatherClass)
+                return true;
+            ext = ext.father;
+        }
+        return false;
     }
 }
