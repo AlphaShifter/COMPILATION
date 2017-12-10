@@ -57,6 +57,10 @@ public class AST_PROGRAM extends AST_Node
 			if(dec instanceof AST_DEC_CLASS){
 				res = res && ((AST_DEC_CLASS) dec).varScanner();
 			}
+			if (dec instanceof AST_DEC_ARRAY){
+				res = res && ((AST_DEC_ARRAY) dec).arrayScan();
+			}
+
 		}
 		return res;
 	}
