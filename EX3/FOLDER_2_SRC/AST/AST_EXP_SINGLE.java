@@ -1,6 +1,7 @@
 package AST;
 
 import TYPES.TYPE;
+import TYPES.TYPE_STRING;
 
 public class AST_EXP_SINGLE extends AST_EXP
 {
@@ -56,6 +57,12 @@ public class AST_EXP_SINGLE extends AST_EXP
 		/****************************************/
 		if (exp  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
+
+	public TYPE SemantMe()
+	{
+		return TYPE_STRING.getInstance();
+	}
+
 
 	@Override
 	public TYPE getExpType() {

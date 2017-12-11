@@ -1,6 +1,6 @@
 package TYPES;
 
-public class TYPE_FUNCTION_LIST
+public class TYPE_FUNCTION_LIST extends TYPE
 {
 	public TYPE_FUNCTION head;
 	public TYPE_FUNCTION_LIST tail;

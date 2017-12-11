@@ -1,12 +1,14 @@
 package AST;
 
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.TYPE;
+
 public class AST_VAR_SIMPLE extends AST_VAR
 {
 	/************************/
 	/* simple variable name */
 	/************************/
 	public String name;
-	
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
@@ -44,5 +46,15 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
 			String.format("SIMPLE VAR(%s)",name));
+	}
+
+	public TYPE SemantMe()
+	{
+		return SYMBOL_TABLE.getInstance().find(name);
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
 	}
 }

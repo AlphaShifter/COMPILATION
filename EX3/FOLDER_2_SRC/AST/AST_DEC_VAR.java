@@ -2,10 +2,8 @@ package AST;
 
 import Auxillery.Util;
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
-import TYPES.TYPE;
-import TYPES.TYPE_INT;
-import TYPES.TYPE_NIL;
-import TYPES.TYPE_STRING;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.*;
 
 public class AST_DEC_VAR extends AST_DEC
 {
@@ -62,40 +60,50 @@ public class AST_DEC_VAR extends AST_DEC
 			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
 	}
 
+	public TYPE SemantMe()
+	{
+		TYPE t;
+
+		/****************************/
+		/* [1] Check If Type exists */
+		/****************************/
+		t = SYMBOL_TABLE.getInstance().find(type);
+				if (t == null)
+		{
+			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
+			System.exit(0);
+		}
+
+		/**************************************/
+		/* [2] Check That Name does NOT exist */
+		/**************************************/
+		if (SYMBOL_TABLE.getInstance().find(name) != null)
+		{
+			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
+		}
+
+		/***************************************************/
+		/* [3] Enter the Function Type to the Symbol Table */
+		/***************************************************/
+		SYMBOL_TABLE.getInstance().enter(name,t);
+
+		/*********************************************************/
+		/* [4] Return value is irrelevant for class declarations */
+		/*********************************************************/
+		return null;
+	}
+
     public boolean varScanner() {
         TYPE t = Util.stringToType(this.type);
         //TODO Scope
         if (t == null)
             return false;
 
+        //check if deceleration is no empty
         if (this.exp != null) {
-            TYPE expType = this.exp.getExpType();
-            if(expType == null){
-                //TODO ERROR
-                return false;
-            }
-            if (t != expType) {
-                //we only allow type difference in the following cases:
-                //father into son
-                //NIL into obj or array
-                if (expType == TYPE_NIL.getInstance()) {
-                    //if we assign NIL into primitive: error
-                    if (t == TYPE_INT.getInstance() || t == TYPE_STRING.getInstance()) {
-                        //TODO ERROR
-                        return false;
-                    }
-                }
-                //if expType is a primitive: error
-                if (expType == TYPE_INT.getInstance() || expType == TYPE_STRING.getInstance()) {
-                    //TODO ERROR
-                    return false;
-                }
-                //check if expType is father of t
-                if (!Util.isFatherOf(t, expType)) {
-                    //TODO ERROR
-                    return false;
-                }
-            }
+            //deceleration is not empty - check the assignment
+            if(!AST_STMT_ASSIGN.assignmentChecker(t,this.exp))
+                return false; //error is embedded in the checker
         }
         MY_SYMBOL_TABLE.getInstance().add(this.name, t);
         return true;

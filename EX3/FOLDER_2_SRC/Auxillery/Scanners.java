@@ -92,6 +92,7 @@ public class Scanners {
                 }
             }
             //TODO remove the class getter
+            //insert to the class in the symbol table
             TYPE_CLASS classType = (TYPE_CLASS) MY_SYMBOL_TABLE.getInstance().get(decClass.getName());
             classType.addDataMember(new TYPE_CLASS_VAR_DEC(varType, decVar.name));
         }

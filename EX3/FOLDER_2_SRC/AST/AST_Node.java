@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public abstract class AST_Node
 {
 
@@ -26,5 +28,10 @@ public abstract class AST_Node
 	}
 	public AST_Node getRight(){
 		return right;
+	}
+
+	public TYPE SemantMe()
+	{
+		return null;
 	}
 }

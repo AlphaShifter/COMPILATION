@@ -1,6 +1,11 @@
 package AST;
 
 import Auxillery.Scanners;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.TYPE;
+import TYPES.TYPE_CLASS;
+import TYPES.TYPE_CLASS_VAR_DEC_LIST;
+import TYPES.TYPE_FUNCTION_LIST;
 
 public class AST_DEC_CLASS extends AST_DEC
 {
@@ -60,6 +65,38 @@ public class AST_DEC_CLASS extends AST_DEC
 		if (cfieldList != null)
 			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cfieldList.SerialNumber);
 
+	}
+
+
+
+
+	public TYPE SemantMe()
+	{
+		/*************************/
+		/* [1] Begin Class Scope */
+		/*************************/
+		SYMBOL_TABLE.getInstance().beginScope();
+
+		/***************************/
+		/* [2] Semant Data Members */
+		/*******************
+		 * ********/
+		TYPE_CLASS t = new TYPE_CLASS(name,null, (TYPE_CLASS_VAR_DEC_LIST)varList.SemantMe(), (TYPE_FUNCTION_LIST)funcList.SemantMe());
+
+		/*****************/
+		/* [3] End Scope */
+		/*****************/
+		SYMBOL_TABLE.getInstance().endScope();
+
+		/************************************************/
+		/* [4] Enter the Class Type to the Symbol Table */
+		/************************************************/
+		SYMBOL_TABLE.getInstance().enter(name,t);
+
+		/*********************************************************/
+		/* [5] Return value is irrelevant for class declarations */
+		/*********************************************************/
+		return null;
 	}
 
 	public String getName(){

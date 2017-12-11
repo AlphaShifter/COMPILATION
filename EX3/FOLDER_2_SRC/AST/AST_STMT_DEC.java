@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_STMT_DEC extends AST_STMT
 {
 	public AST_DEC_VAR dec;
@@ -25,7 +27,11 @@ public class AST_STMT_DEC extends AST_STMT
 		this.dec = dec;
 		right = dec;
 	}
-	
+	public TYPE SemantMe()
+	{
+		return dec.SemantMe();
+	}
+
 	/*************************************************/
 	/* The printing message for a binop exp AST node */
 	/*************************************************/

@@ -58,4 +58,10 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		if (var       != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.SerialNumber);
 	}
+
+	@Override
+	public String getName() {
+		//TODO Sement before getting the name
+		return var.getName();
+	}
 }

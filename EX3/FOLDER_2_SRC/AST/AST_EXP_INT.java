@@ -46,6 +46,12 @@ public class AST_EXP_INT extends AST_EXP
 			String.format("INT(%d)",value));
 	}
 
+	public TYPE SemantMe()
+	{
+		return TYPE_INT.getInstance();
+	}
+
+
 	@Override
 	public TYPE getExpType() {
 		//TODO

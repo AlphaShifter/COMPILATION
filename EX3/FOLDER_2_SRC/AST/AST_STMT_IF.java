@@ -1,5 +1,9 @@
 package AST;
 
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.TYPE;
+import TYPES.TYPE_INT;
+
 public class AST_STMT_IF extends AST_STMT
 {
 	public AST_EXP cond;
@@ -25,6 +29,39 @@ public class AST_STMT_IF extends AST_STMT
 		left = cond;
 		right = body;
 	}
+
+
+	public TYPE SemantMe()
+	{
+		/****************************/
+		/* [0] Semant the Condition */
+		/****************************/
+		if (cond.SemantMe() != TYPE_INT.getInstance())
+		{
+			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
+		}
+
+		/*************************/
+		/* [1] Begin Class Scope */
+		/*************************/
+		SYMBOL_TABLE.getInstance().beginScope();
+
+		/***************************/
+		/* [2] Semant Data Members */
+		/***************************/
+		body.SemantMe();
+
+		/*****************/
+		/* [3] End Scope */
+		/*****************/
+		SYMBOL_TABLE.getInstance().endScope();
+
+		/*********************************************************/
+		/* [4] Return value is irrelevant for class declarations */
+		/*********************************************************/
+		return null;
+	}
+
 
 	/******************************************************/
 	/* The printing message for a statement list AST node */
