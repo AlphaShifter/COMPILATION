@@ -30,8 +30,5 @@ public abstract class AST_Node
 		return right;
 	}
 
-	public TYPE SemantMe()
-	{
-		return null;
-	}
+	public TYPE SemantMe() {return null;}
 }

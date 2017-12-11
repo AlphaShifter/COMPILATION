@@ -2,10 +2,7 @@ package AST;
 
 import Auxillery.Scanners;
 import SYMBOL_TABLE.SYMBOL_TABLE;
-import TYPES.TYPE;
-import TYPES.TYPE_CLASS;
-import TYPES.TYPE_CLASS_VAR_DEC_LIST;
-import TYPES.TYPE_FUNCTION_LIST;
+import TYPES.*;
 
 public class AST_DEC_CLASS extends AST_DEC
 {
@@ -81,7 +78,8 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* [2] Semant Data Members */
 		/*******************
 		 * ********/
-		TYPE_CLASS t = new TYPE_CLASS(name,null, (TYPE_CLASS_VAR_DEC_LIST)varList.SemantMe(), (TYPE_FUNCTION_LIST)funcList.SemantMe());
+		//TODO look for a father
+		TYPE_CLASS t = new TYPE_CLASS(name,null, cfieldList.SemantMe());
 
 		/*****************/
 		/* [3] End Scope */
@@ -96,6 +94,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/*********************************************************/
 		/* [5] Return value is irrelevant for class declarations */
 		/*********************************************************/
+		//TODO recursion on the lists
 		return null;
 	}
 

@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_PROGRAM extends AST_Node
 {
 	/************************/
@@ -49,6 +51,11 @@ public class AST_PROGRAM extends AST_Node
 			String.format("START OF PROGRAM"));
 
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,decList.SerialNumber);
+	}
+
+	@Override
+	public TYPE SemantMe() {
+		return this.decList.SemantMe();
 	}
 
 	public boolean concreateMixer(){

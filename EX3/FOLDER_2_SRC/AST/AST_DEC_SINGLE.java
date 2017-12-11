@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_DEC_SINGLE extends AST_DEC
 {
 	public AST_DEC dec;
@@ -49,5 +51,10 @@ public class AST_DEC_SINGLE extends AST_DEC
 		/****************************************/
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"Single Declaration");
 		if (dec  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
+	}
+
+	@Override
+	public TYPE SemantMe() {
+		return this.dec.SemantMe();
 	}
 }

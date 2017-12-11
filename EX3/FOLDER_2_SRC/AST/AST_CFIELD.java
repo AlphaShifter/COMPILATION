@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_CFIELD extends AST_Node{
     public AST_DEC dec;
     public AST_CFIELD(AST_DEC v){
@@ -32,5 +34,10 @@ public class AST_CFIELD extends AST_Node{
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
+    }
+
+    @Override
+    public TYPE SemantMe() {
+        return dec.SemantMe();
     }
 }

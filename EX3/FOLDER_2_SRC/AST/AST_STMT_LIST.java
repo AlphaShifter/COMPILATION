@@ -66,14 +66,6 @@ public class AST_STMT_LIST extends AST_LIST
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
 
-	public TYPE SemantMe()
-	{
-		if (head != null) head.SemantMe();
-		if (tail != null) tail.SemantMe();
-
-		return null;
-	}
-
 	@Override
 	public AST_STMT getHead() {
 		return this.head;
