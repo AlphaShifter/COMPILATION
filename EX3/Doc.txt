@@ -7,7 +7,6 @@ AST_DEC_VAR.java
 	Variable declaration is possible only when a there wasn'type a previously defined variable with the same name.
 
 AST_EXP_BINOP.java
-	if two arrays of type T are defined, they are not interchangeable: ????
 	Testing equality between two expressions is legal whenever the two have the same type or when one type is  derived from the other.
 	 class variable or array variable can be tested for equality with NULL.
 	 illegal to compare a string variable to NULL
@@ -40,6 +39,7 @@ AST_VAR_SUBSCRIPT.java
 AST_DEC_ARRAY.java
 	allocating arrays with the NEW operator must be done with an integral size. 
 	Defining arrays is only possible in the uppermost scope
+	if two arrays of type T are defined, they are not interchangeable: ????
 	
 AST_DEC_CLASS.java
 	Defining classes is only possible in the uppermost scope

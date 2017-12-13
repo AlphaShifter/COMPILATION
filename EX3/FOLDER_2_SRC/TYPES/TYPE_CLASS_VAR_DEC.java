@@ -14,4 +14,8 @@ public class TYPE_CLASS_VAR_DEC
 	public String toString(){
 		return t.name + " ->  " + name;
 	}
+
+	public String getType() {
+		return "TYPE_CLASS_VAR_DEC";
+	}
 }

@@ -79,19 +79,41 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.SerialNumber);
 		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.SerialNumber);
 	}
-
+/*	Testing equality between two expressions is legal whenever the two have the same type or when one type is  derived from the other.
+	 class variable or array variable can be tested for equality with NULL.
+	 illegal to compare a string variable to NULL
+	resulting type of a semantically valid comparison is the primitive type int*/
 	public TYPE SemantMe()
 	{
 		TYPE t1 = null;
 		TYPE t2 = null;
 
-		if (left  != null) t1 = left.SemantMe();
-		if (right != null) t2 = right.SemantMe();
+		if (leftExp  != null) t1 = leftExp.SemantMe();
+		if (rightExp != null) t2 = rightExp.SemantMe();
 
-		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
-		{
-			return TYPE_INT.getInstance();
-		}
+		if(TYPE.eqByType(t1,t2)){
+            if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
+            {
+                return TYPE_INT.getInstance();
+            }
+        }
+        else if(OP==6){
+            if(TYPE.eqByString(t1,"TYPE_NIL")){//they are not of the same type
+                //check if one of them is null and the other is either a class or an array
+                if(TYPE.eqByString(t2,"TYPE_ARRAY")||TYPE.eqByString(t2,"TYPE_CLASS")){
+                    return TYPE_INT.getInstance();
+                }
+            }
+            else if(TYPE.eqByString(t2,"TYPE_NIL")){
+                if(TYPE.eqByString(t1,"TYPE_ARRAY")||TYPE.eqByString(t1,"TYPE_CLASS")){
+                    return TYPE_INT.getInstance();
+                }
+            }
+            else if(true){//TODO one type is  derived from the other.
+
+            }
+        }
+
 		System.exit(0);
 		return null;
 	}

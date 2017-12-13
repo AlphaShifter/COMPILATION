@@ -16,4 +16,9 @@ public class TYPE_CLASS_VAR_DEC_LIST extends TYPE
 		if(tail != null)
 			tail.print();
 	}
+
+	public String getType() {
+		return "TYPE_CLASS_VAR_DEC_LIST";
+	}
+
 }

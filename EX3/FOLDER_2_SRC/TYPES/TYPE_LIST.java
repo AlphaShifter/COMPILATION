@@ -16,4 +16,8 @@ public class   TYPE_LIST extends TYPE
 		this.head = head;
 		this.tail = tail;
 	}
+
+	public String getType() {
+		return "TYPE_LIST";
+	}
 }

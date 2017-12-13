@@ -23,4 +23,7 @@ public class TYPE_STRING extends TYPE
 		}
 		return instance;
 	}
+	public String getType() {
+		return "TYPE_STRING";
+	}
 }

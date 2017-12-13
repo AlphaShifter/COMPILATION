@@ -12,4 +12,7 @@ public class TYPE_ARRAY extends TYPE {
         this.name = name;
     }
 
+    public String getType() {
+        return "TYPE_ARRAY";
+    }
 }

@@ -13,5 +13,8 @@ public class TYPE_FUNCTION extends TYPE{
         this.name = name;
         this.returnType = returnType;
     }
+    public String getType() {
+        return "TYPE_FUNCTION";
+    }
 
 }
