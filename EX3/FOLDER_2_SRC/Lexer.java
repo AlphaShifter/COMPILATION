@@ -43,9 +43,9 @@ class Lexer implements java_cup.runtime.Scanner {
     "\5\0\1\27\1\30\1\11\1\22\1\24\1\23\1\25\1\10\1\4"+
     "\11\5\1\12\1\26\1\15\1\13\1\17\2\0\32\6\1\14\1\0"+
     "\1\16\3\0\1\31\1\6\1\34\1\43\1\37\1\50\1\6\1\46"+
-    "\1\44\2\6\1\35\1\6\1\42\3\6\1\32\1\36\1\41\1\47"+
-    "\1\6\1\45\1\40\1\33\1\6\1\20\1\0\1\21\7\0\1\51"+
-    "\u1fa2\0\1\51\1\51\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\1\44\2\6\1\35\1\6\1\42\1\6\1\6\1\6\1\32\1\36"+
+    "\1\41\1\47\1\6\1\45\1\40\1\33\1\6\1\20\1\0\1\21"+
+    "\7\0\1\51\u1fa2\0\1\51\1\51\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -185,7 +185,7 @@ class Lexer implements java_cup.runtime.Scanner {
   private static final String ZZ_ERROR_MSG[] = {
     "Unknown internal scanner error",
     "Error: could not match input",
-    "Error: pushback type was too large"
+    "Error: pushback value was too large"
   };
 
   /**
@@ -269,8 +269,8 @@ class Lexer implements java_cup.runtime.Scanner {
   /** 
    * The number of occupied positions in zzBuffer beyond zzEndRead.
    * When a lead/high surrogate has been read from the input stream
-   * into the final zzBuffer position, this will have a type of 1;
-   * otherwise, it will have a type of 0.
+   * into the final zzBuffer position, this will have a value of 1;
+   * otherwise, it will have a value of 0.
    */
   private int zzFinalHighSurrogate = 0;
 
@@ -284,7 +284,7 @@ class Lexer implements java_cup.runtime.Scanner {
 	/*******************************************/
 	/* Enable line number extraction from main */
 	/*******************************************/
-	public int getLine() { return yyline + 1; } 
+	public int getLine() { return yyline + 1; }
 
 	/**********************************************/
 	/* Enable token position extraction from main */
@@ -315,7 +315,7 @@ class Lexer implements java_cup.runtime.Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 160) {
+    while (i < 164) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -458,7 +458,7 @@ class Lexer implements java_cup.runtime.Scanner {
    * It is equivalent to yytext().charAt(pos), but faster
    *
    * @param pos the position of the character to fetch. 
-   *            A type from 0 to yylength()-1.
+   *            A value from 0 to yylength()-1.
    *
    * @return the character at position pos
    */
@@ -480,7 +480,7 @@ class Lexer implements java_cup.runtime.Scanner {
    *
    * In a wellformed scanner (no or only correct usage of 
    * yypushback(int) and a match-all fallback rule) this method 
-   * will only be called with things that "Can'type Possibly Happen".
+   * will only be called with things that "Can't Possibly Happen".
    * If this method is called, something is seriously wrong
    * (e.g. a JFlex bug producing a faulty scanner etc.).
    *

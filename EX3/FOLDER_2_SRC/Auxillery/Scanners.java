@@ -1,13 +1,18 @@
 package Auxillery;
 
 import AST.*;
+import AST.VAR.*;
+import AST.EXP.*;
+import AST.DEC.*;
+import AST.STMT.*;
+
 import AST.VAR.AST_VAR_SUBSCRIPT;
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
 import TYPES.*;
 
 public class Scanners {
 
-    public static boolean arrayDecScanner(AST_PROGRAM root) {
+ /*   public static boolean arrayDecScanner(AST_PROGRAM root) {
         //run over decs
         for (AST_Node dec : root.decList) {
             if (dec instanceof AST_DEC_ARRAY) {
@@ -29,7 +34,7 @@ public class Scanners {
             }
         }
         return true;
-    }
+    }*/
 
     public static boolean expSubscriptChecker(AST_PROGRAM root) {
         boolean res = true;
