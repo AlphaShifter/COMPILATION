@@ -2,7 +2,7 @@ array IntArray = int[]
 
 void BubbleSort(IntArray arr, int size)
 {
-    int i := 0;
+    int size := 0;
     int min := -32767;
     int minIndex := -1;
     
@@ -33,6 +33,5 @@ void main()
     arr[5] := 30;
     arr[6] := -580;
     
-    BubbleSort(arr,7);
+    PrintPrimes(2,100);
 }
-
