@@ -48,7 +48,7 @@ public class MY_SYMBOL_TABLE {
                 out += "=======";
                 System.out.println(out);
                 System.out.println("***Vars:");
-                c.data_members.print();
+               // c.data_members.print();
             }
         }
     }
