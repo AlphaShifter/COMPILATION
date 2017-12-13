@@ -24,6 +24,7 @@ SRC_FILES                 = ${SRC_DIR}/*.java              \
                             ${SRC_DIR}/AST/EXP/*.java          \
                             ${SRC_DIR}/AST/DEC/*.java          \
                             ${SRC_DIR}/TYPES/*.java        \
+                            ${SRC_DIR}/Auxillery/*.java        \
                             ${SRC_DIR}/SYMBOL_TABLE/*.java
 EXTERNAL_JAR_FILES        = ${EXTERNAL_JARS_DIR}/java-cup-11b-runtime.jar
 MANIFEST_FILE             = ${MANIFEST_DIR}/MANIFEST.MF

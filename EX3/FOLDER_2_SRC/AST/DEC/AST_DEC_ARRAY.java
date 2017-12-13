@@ -1,4 +1,4 @@
-package AST;
+package AST.DEC;
 
 import Auxillery.Util;
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
@@ -7,6 +7,9 @@ import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
 import TYPES.TYPE_STRING;
+import AST.AST_GRAPHVIZ;
+import AST.AST_LIST;
+import AST.AST_Node_Serial_Number;
 
 public class AST_DEC_ARRAY extends AST_DEC
 {

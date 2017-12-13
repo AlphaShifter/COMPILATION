@@ -6,6 +6,10 @@ import AST.EXP.AST_EXP_SINGLE;
 import AST.VAR.AST_VAR_LIST;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
+import AST.VAR.*;
+import AST.EXP.*;
+import AST.DEC.*;
+import AST.STMT.*;
 
 public class Util {
 
