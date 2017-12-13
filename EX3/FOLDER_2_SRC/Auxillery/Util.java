@@ -1,7 +1,9 @@
 package Auxillery;
 
-import SYMBOL_TABLE.MY_SYMBOL_TABLE;
+import AST.DEC.*;
 import AST.*;
+import AST.EXP.AST_EXP_SINGLE;
+import AST.VAR.AST_VAR_LIST;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 

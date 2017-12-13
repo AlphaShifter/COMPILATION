@@ -1,19 +1,20 @@
-package AST;
+package AST.VAR;
 
-import AST.DEC.AST_DEC_LIST;
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
+import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 
-public class AST_PROGRAM extends AST_Node
+public class AST_VAR_SIMPLE extends AST_VAR
 {
 	/************************/
 	/* simple variable name */
 	/************************/
-	public AST_DEC_LIST decList;
-
+	public String name;
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_PROGRAM(AST_DEC_LIST decLis)
+	public AST_VAR_SIMPLE(String name)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -23,13 +24,12 @@ public class AST_PROGRAM extends AST_Node
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.format("Program -> [decList]+");
+		System.out.format("var -> ID( %s )\n",name);
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.decList = decList;
-		right = decList;
+		this.name = name;
 	}
 
 	/**************************************************/
@@ -40,36 +40,23 @@ public class AST_PROGRAM extends AST_Node
 		/**********************************/
 		/* AST NODE TYPE = AST SIMPLE VAR */
 		/**********************************/
-		System.out.format("AST NODE PROGRAM");
+		System.out.format("AST NODE SIMPLE VAR( %s )\n",name);
 
-
-		decList.PrintMe();
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			String.format("START OF PROGRAM"));
+			String.format("SIMPLE VAR(%s)",name));
+	}
 
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,decList.SerialNumber);
+	public TYPE SemantMe()
+	{
+		return SYMBOL_TABLE.getInstance().find(name);
 	}
 
 	@Override
-	public TYPE SemantMe() {
-		return this.decList.SemantMe();
+	public String getName() {
+		return this.name;
 	}
-
-//	public boolean concreateMixer(){
-//		boolean res = true;
-//		for(AST_Node dec: decList){
-//			if(dec instanceof AST_DEC_CLASS){
-//				res = res && ((AST_DEC_CLASS) dec).varScanner();
-//			}
-//			if (dec instanceof AST_DEC_ARRAY){
-//				res = res && ((AST_DEC_ARRAY) dec).arrayScan();
-//			}
-//
-//		}
-//		return res;
-//	}
 }

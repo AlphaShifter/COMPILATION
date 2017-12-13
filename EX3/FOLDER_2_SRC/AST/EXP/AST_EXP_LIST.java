@@ -1,19 +1,21 @@
-package AST;
+package AST.EXP;
 
-import AST.DEC.AST_DEC_VAR;
+import AST.AST_GRAPHVIZ;
+import AST.AST_LIST;
+import AST.AST_Node_Serial_Number;
 
-public class AST_ID_LIST extends AST_LIST
+public class AST_EXP_LIST extends AST_LIST
 {
 	/****************/
 	/* DATA MEMBERS */
 	/****************/
-	public AST_DEC_VAR head;
-	public AST_ID_LIST tail;
+	public AST_EXP head;
+	public AST_EXP_LIST tail;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_ID_LIST(String type, String name, AST_ID_LIST tail)
+	public AST_EXP_LIST(AST_EXP head, AST_EXP_LIST tail)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -23,15 +25,14 @@ public class AST_ID_LIST extends AST_LIST
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		if (tail != null) System.out.print("ids -> ID ID ids\n");
-		if (tail == null) System.out.print("ids -> ID ID     \n");
+		if (tail != null) System.out.print("exps -> exp exps\n");
+		if (tail == null) System.out.print("exps -> exp      \n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.head = new AST_DEC_VAR(type, name, null);
+		this.head = head;
 		this.tail = tail;
-
 		left = head;
 		right = tail;
 	}
@@ -44,7 +45,7 @@ public class AST_ID_LIST extends AST_LIST
 		/**************************************/
 		/* AST NODE TYPE = AST STATEMENT LIST */
 		/**************************************/
-		System.out.format("AST NODE ID LIST:");
+		System.out.print("AST NODE EXP LIST\n");
 
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */
@@ -57,7 +58,7 @@ public class AST_ID_LIST extends AST_LIST
 		/**********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"ID LIST");
+			"EXP LIST");
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
@@ -67,12 +68,12 @@ public class AST_ID_LIST extends AST_LIST
 	}
 
 	@Override
-	public AST_DEC_VAR getHead() {
+	public AST_EXP getHead() {
 		return this.head;
 	}
 
 	@Override
-	public AST_ID_LIST getTail() {
+	public AST_EXP_LIST getTail() {
 		return this.tail;
 	}
 }

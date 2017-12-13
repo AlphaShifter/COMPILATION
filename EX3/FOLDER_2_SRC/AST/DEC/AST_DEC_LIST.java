@@ -1,19 +1,21 @@
-package AST;
+package AST.DEC;
 
-import AST.DEC.AST_DEC_FUNC;
+import AST.AST_GRAPHVIZ;
+import AST.AST_LIST;
+import AST.AST_Node_Serial_Number;
 
-public class AST_FUNC_LIST extends AST_LIST
+public class AST_DEC_LIST extends AST_LIST
 {
     /****************/
 	/* DATA MEMBERS */
     /****************/
-    public AST_DEC_FUNC head;
-    public AST_FUNC_LIST tail;
+    public AST_DEC head;
+    public AST_DEC_LIST tail;
 
     /******************/
 	/* CONSTRUCTOR(S) */
     /******************/
-    public AST_FUNC_LIST(AST_DEC_FUNC head, AST_FUNC_LIST tail)
+    public AST_DEC_LIST(AST_DEC head, AST_DEC_LIST tail)
     {
         /******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -67,12 +69,12 @@ public class AST_FUNC_LIST extends AST_LIST
     }
 
     @Override
-    public AST_DEC_FUNC getHead() {
+    public AST_DEC getHead() {
         return this.head;
     }
 
     @Override
-    public AST_FUNC_LIST getTail() {
+    public AST_DEC_LIST getTail() {
         return this.tail;
     }
 }
