@@ -2,11 +2,18 @@ package AST;
 
 import TYPES.TYPE;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AST_Node
 {
+	public static int currLine = 0;
+
+	public int myLine = currLine;
 
 	public AST_Node left = null;
 	public AST_Node right = null;
+
 
 	/*******************************************/
 	/* The serial number is for debug purposes */
@@ -31,4 +38,12 @@ public abstract class AST_Node
 	}
 
 	public TYPE SemantMe() {return null;}
+	public void printLineNum(){
+		System.out.print(this.myLine + "   ");
+		System.out.println(this.getClass().getSimpleName());
+		currLine++;
+
+		if(left!=null)left.printLineNum();
+		if(right!=null)right.printLineNum();
+	}
 }

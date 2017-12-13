@@ -11,6 +11,6 @@ public abstract class AST_DEC extends AST_Node
 	{
 		System.out.print("UNKNOWN AST DECELERATION NODE");
 	}
-	public abstract TYPE SemantMe();
+//	public abstract TYPE SemantMe();
 
 }

@@ -15,7 +15,7 @@ public class TYPE_CLASS extends TYPE {
 	/* packed together with the class methods         */
     /**************************************************/
     public TYPE_CLASS_VAR_DEC_LIST data_members = null;
-    public TYPE_FUNCTION_LIST function_list = null;
+    public TYPE_LIST function_list = null;
     public TYPE_LIST members;
     private TYPE_CLASS_VAR_DEC_LIST lastDataMember;
 

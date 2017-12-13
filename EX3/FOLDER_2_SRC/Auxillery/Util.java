@@ -109,7 +109,7 @@ public class Util {
                 } else{
                     // add the new class to the symbol table
                     TYPE_CLASS father = (TYPE_CLASS) symbolTable.get(currNode.getExt());
-                    symbolTable.add(currNode.getName(), new TYPE_CLASS(currNode.getName(), father, null, null));
+                    symbolTable.add(currNode.getName(), new TYPE_CLASS(currNode.getName(), father, null));
                 }
             }
         }

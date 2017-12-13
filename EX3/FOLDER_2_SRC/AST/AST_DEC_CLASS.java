@@ -4,118 +4,99 @@ import Auxillery.Scanners;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
-public class AST_DEC_CLASS extends AST_DEC
-{
+public class AST_DEC_CLASS extends AST_DEC {
 
-	String name;
-	String ext;
-	public AST_CFIELD_LIST cfieldList;
-	public AST_FUNC_LIST funcList;
-	public AST_VAR_LIST varList;
+    public AST_CLASS_SIG sig;
+    public AST_CFIELD_LIST cfieldList;
+    public AST_FUNC_LIST funcList;
+    public AST_VAR_LIST varList;
 
-	/*********************************************************/
-	/* The default message for an unknown AST DECLERATION node */
-	/*********************************************************/
-	public AST_DEC_CLASS(String name, String ext, AST_CFIELD_LIST cfieldList)
-	{
-		/******************************/
+    /*********************************************************/
+    /* The default message for an unknown AST DECLERATION node */
+
+    /*********************************************************/
+    public AST_DEC_CLASS(AST_CLASS_SIG sig, AST_CFIELD_LIST cfieldList) {
+        /******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
+        /******************************/
+        SerialNumber = AST_Node_Serial_Number.getFresh();
 
-		/***************************************/
+        /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
-		/***************************************/
+        /***************************************/
 
-		System.out.format("decClass -> name( %s )\n", name);
+        System.out.format("decClass -> SIG BODY )\n");
 
-		right = cfieldList;
+        right = cfieldList;
+        left = sig;
 
-		/*******************************/
+        /*******************************/
 		/* COPY INPUT DATA NENBERS ... */
-		/*******************************/
-		this.name = name;
-		this.cfieldList = cfieldList;
-		this.ext = ext;
-	}
+        /*******************************/
+        this.cfieldList = cfieldList;
+        this.sig = sig;
+    }
 
-	/************************************************/
+    /************************************************/
 	/* The printing message for an INT EXP AST node */
-	/************************************************/
-	public void PrintMe()
-	{
-		/*******************************/
+
+    /************************************************/
+    public void PrintMe() {
+        /*******************************/
 		/* AST NODE TYPE = AST ID EXP */
-		/*******************************/
-		System.out.format("AST NODE decClass ( %s )\n",name);
-		if(ext != null) System.out.format("extends %s",ext);
-		if (cfieldList != null) cfieldList.PrintMe();
+        /*******************************/
+        if (sig != null) sig.PrintMe();
+        if (cfieldList != null) cfieldList.PrintMe();
 
 
-		/*********************************/
+        /*********************************/
 		/* Print to AST GRAPHIZ DOT file */
-		/*********************************/
-		if (ext != null)
-			AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Class Declaration NAME(%s) EXTENDS", name,ext));
-		else
-			AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Class Declaration NAME(%s)", name));
-		if (cfieldList != null)
-			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cfieldList.SerialNumber);
+        /*********************************/
+        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Class Declaration"));
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, sig.SerialNumber);
+        if (cfieldList != null)
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cfieldList.SerialNumber);
 
-	}
+    }
 
 
-
-
-	public TYPE SemantMe()
-	{
-		/*************************/
+    public TYPE SemantMe() {
+        /*************************/
 		/* [1] Begin Class Scope */
-		/*************************/
-		SYMBOL_TABLE.getInstance().beginScope();
+        /*************************/
+        SYMBOL_TABLE.getInstance().beginScope();
 
-		/***************************/
-		/* [2] Semant Data Members */
-		/*******************
-		 * ********/
-		//TODO look for a father
-		TYPE_CLASS t = new TYPE_CLASS(name,null, cfieldList.SemantMe());
+        //Sement the sig
+        TYPE_CLASS t = sig.SemantMe();
+        //Sement the body
+        //TODO sement class vars
+        //t.data_members = varList.SemantMe();
+        //Sement the functions
+        t.function_list = funcList.SemantMe();
 
-		/*****************/
+        /*****************/
 		/* [3] End Scope */
-		/*****************/
-		SYMBOL_TABLE.getInstance().endScope();
+        /*****************/
+        SYMBOL_TABLE.getInstance().endScope();
 
-		/************************************************/
-		/* [4] Enter the Class Type to the Symbol Table */
-		/************************************************/
-		SYMBOL_TABLE.getInstance().enter(name,t);
 
-		/*********************************************************/
+        /*********************************************************/
 		/* [5] Return value is irrelevant for class declarations */
-		/*********************************************************/
-		//TODO recursion on the lists
-		return null;
-	}
+        /*********************************************************/
+        return null;
+    }
 
-	public String getName(){
-		return this.name;
-	}
 
-	public String getExt(){
-		return this.ext;
-	}
+    public AST_FUNC_LIST getFuncList() {
+        return funcList;
+    }
 
-	public AST_FUNC_LIST getFuncList() {
-		return funcList;
-	}
+    public AST_VAR_LIST getVarList() {
+        return varList;
+    }
 
-	public AST_VAR_LIST getVarList() {
-		return varList;
-	}
-
-	public boolean varScanner(){
-		return Scanners.classVarInitScanner(this);
-	}
+    public boolean varScanner() {
+        return Scanners.classVarInitScanner(this);
+    }
 
 }
