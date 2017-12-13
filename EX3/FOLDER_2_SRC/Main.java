@@ -1,6 +1,8 @@
    
 import java.io.*;
 import java.io.PrintWriter;
+
+import Auxillery.Util;
 import java_cup.runtime.Symbol;
 import AST.*;
 
@@ -14,13 +16,13 @@ public class Main
 		AST_PROGRAM AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
-		String inputFilename = argv[0];
-		String outputFilename = argv[1];
+//		String inputFilename = argv[0];
+//		String outputFilename = argv[1];
 
-/*		String inputFilename = "C:\\Users\\Gilad\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\TEST_06_Print_Primes_Error.txt";
-		String outputFilename = "C:\\Users\\Gilad\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\out.txt";
-		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_03_Merge_Lists.txt";
-		String outputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_5_OUTPUT/out.txt";   */
+		String inputFilename = "C:\\Users\\Ilsar\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\TEST_03_Merge_Lists.txt";
+		String outputFilename = "C:\\Users\\Ilsar\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\out.txt";
+//		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_03_Merge_Lists.txt";
+//		String outputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_5_OUTPUT/out.txt";
 
 		try
 		{
@@ -75,14 +77,16 @@ public class Main
 
 			Util.treeReduction(AST);
 
-			boolean retValue = Util.logClasses(AST); // try to log the classes of the program
-			if(retValue == true){
-				System.out.println("OK with classes\n");
-			} else{
-				System.out.println("ERROR with classes\n");
-			}
 
-    	}
+			//boolean retValue = Util.logClasses(AST); // try to log the classes of the program
+//			if(retValue == true){
+//				System.out.println("OK with classes\n");
+//			} else{
+//				System.out.println("ERROR with classes\n");
+//			}
+//
+//			System.out.println(AST.line);
+		}
 			     
 		catch (Exception e)
 		{

@@ -54,48 +54,49 @@ public class Scanners {
         right = expSubscriptChecker_rec(node.right);
         return (left && res && right);
     }
-
-    //check the class's varDecs that if they are inited - they are inited with a primitive type
-    //also inserts them to the table
-    public static boolean classVarInitScanner(AST_DEC_CLASS decClass) {
-        //iterate over the vars
-        for (AST_Node var : decClass.varList) {
-            //check if the var as assignment
-            AST_DEC_VAR decVar = (AST_DEC_VAR) var;
-            //get the var type
-            TYPE varType = null;
-            if (decVar.type.equals("int"))
-                varType = TYPE_INT.getInstance();
-            else if (decVar.type.equals("string"))
-                varType = TYPE_STRING.getInstance();
-            else {
-                // an object Type - find it on the table
-                varType = MY_SYMBOL_TABLE.getInstance().get(decVar.type);
-                if (varType == null) {
-                    //TODO ERROR
-                    return false;
-                }
-            }
-            //check if the init has basic assignment
-            if (decVar.exp != null) {
-                if (decVar.exp instanceof AST_EXP_INT && varType != TYPE_INT.getInstance()) {
-                    //TODO ERROR
-                    return false;
-                }
-                if (decVar.exp instanceof AST_EXP_STRING && varType != TYPE_STRING.getInstance()) {
-                    //TODO ERROR
-                    return false;
-                }
-                if (varType != TYPE_STRING.getInstance() && varType != TYPE_INT.getInstance() && !(decVar.exp instanceof AST_EXP_NIL)) {
-                    //TODO ERROR
-                    return false;
-                }
-            }
-            //TODO remove the class getter
-            //insert to the class in the symbol table
-            TYPE_CLASS classType = (TYPE_CLASS) MY_SYMBOL_TABLE.getInstance().get(decClass.getName());
-            classType.addDataMember(new TYPE_CLASS_VAR_DEC(varType, decVar.name));
-        }
-        return true;
-    }
 }
+
+//    //check the class's varDecs that if they are inited - they are inited with a primitive type
+//    //also inserts them to the table
+//    public static boolean classVarInitScanner(AST_DEC_CLASS decClass) {
+//        //iterate over the vars
+//        for (AST_Node var : decClass.varList) {
+//            //check if the var as assignment
+//            AST_DEC_VAR decVar = (AST_DEC_VAR) var;
+//            //get the var type
+//            TYPE varType = null;
+//            if (decVar.type.equals("int"))
+//                varType = TYPE_INT.getInstance();
+//            else if (decVar.type.equals("string"))
+//                varType = TYPE_STRING.getInstance();
+//            else {
+//                // an object Type - find it on the table
+//                varType = MY_SYMBOL_TABLE.getInstance().get(decVar.type);
+//                if (varType == null) {
+//                    //TODO ERROR
+//                    return false;
+//                }
+//            }
+//            //check if the init has basic assignment
+//            if (decVar.exp != null) {
+//                if (decVar.exp instanceof AST_EXP_INT && varType != TYPE_INT.getInstance()) {
+//                    //TODO ERROR
+//                    return false;
+//                }
+//                if (decVar.exp instanceof AST_EXP_STRING && varType != TYPE_STRING.getInstance()) {
+//                    //TODO ERROR
+//                    return false;
+//                }
+//                if (varType != TYPE_STRING.getInstance() && varType != TYPE_INT.getInstance() && !(decVar.exp instanceof AST_EXP_NIL)) {
+//                    //TODO ERROR
+//                    return false;
+//                }
+//            }
+//            //TODO remove the class getter
+//            //insert to the class in the symbol table
+//            TYPE_CLASS classType = (TYPE_CLASS) MY_SYMBOL_TABLE.getInstance().get(decClass.getName());
+//            classType.addDataMember(new TYPE_CLASS_VAR_DEC(varType, decVar.name));
+//        }
+//        return true;
+//    }
+//}

@@ -58,17 +58,17 @@ public class AST_PROGRAM extends AST_Node
 		return this.decList.SemantMe();
 	}
 
-	public boolean concreateMixer(){
-		boolean res = true;
-		for(AST_Node dec: decList){
-			if(dec instanceof AST_DEC_CLASS){
-				res = res && ((AST_DEC_CLASS) dec).varScanner();
-			}
-			if (dec instanceof AST_DEC_ARRAY){
-				res = res && ((AST_DEC_ARRAY) dec).arrayScan();
-			}
-
-		}
-		return res;
-	}
+//	public boolean concreateMixer(){
+//		boolean res = true;
+//		for(AST_Node dec: decList){
+//			if(dec instanceof AST_DEC_CLASS){
+//				res = res && ((AST_DEC_CLASS) dec).varScanner();
+//			}
+//			if (dec instanceof AST_DEC_ARRAY){
+//				res = res && ((AST_DEC_ARRAY) dec).arrayScan();
+//			}
+//
+//		}
+//		return res;
+//	}
 }

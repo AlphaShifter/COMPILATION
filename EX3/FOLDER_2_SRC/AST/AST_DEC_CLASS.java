@@ -70,7 +70,7 @@ public class AST_DEC_CLASS extends AST_DEC {
         TYPE_CLASS t = sig.SemantMe();
         //Sement the body
         //TODO sement class vars
-        //t.data_members = varList.SemantMe();
+        //type.data_members = varList.SemantMe();
         //Sement the functions
         t.function_list = funcList.SemantMe();
 
@@ -94,9 +94,9 @@ public class AST_DEC_CLASS extends AST_DEC {
     public AST_VAR_LIST getVarList() {
         return varList;
     }
-
-    public boolean varScanner() {
-        return Scanners.classVarInitScanner(this);
-    }
+//
+//    public boolean varScanner() {
+//        return Scanners.classVarInitScanner(this);
+//    }
 
 }

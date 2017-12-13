@@ -2,6 +2,7 @@ package AST;
 
 import Auxillery.Util;
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
+import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
@@ -55,13 +56,17 @@ public class AST_DEC_ARRAY extends AST_DEC
 
 
 	}
-	public boolean arrayScan(){
+
+	@Override
+	public TYPE_ARRAY SemantMe(){
 		TYPE t = Util.stringToType(this.type);
-		//TODO Scope
-		if(t == null)
-			return false;
+		if(t == null){
+			Util.printError(this.myLine);
+			return null;
+		}
 		TYPE_ARRAY newType = new TYPE_ARRAY(t, this.name);
-		MY_SYMBOL_TABLE.getInstance().add(this.name, newType);
-		return true;
+		SYMBOL_TABLE.getInstance().enter(this.name,newType);
+		return newType;
 	}
+
 }

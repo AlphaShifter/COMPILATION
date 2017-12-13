@@ -1,5 +1,6 @@
 package AST;
 
+import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_INT;
@@ -69,6 +70,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		if (cond.SemantMe() != TYPE_INT.getInstance())
 		{
 			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
+			Util.printError(cond.myLine);
 		}
 
 		/*************************/

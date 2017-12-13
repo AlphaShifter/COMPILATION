@@ -480,7 +480,7 @@ class Lexer implements java_cup.runtime.Scanner {
    *
    * In a wellformed scanner (no or only correct usage of 
    * yypushback(int) and a match-all fallback rule) this method 
-   * will only be called with things that "Can't Possibly Happen".
+   * will only be called with things that "Can'type Possibly Happen".
    * If this method is called, something is seriously wrong
    * (e.g. a JFlex bug producing a faulty scanner etc.).
    *

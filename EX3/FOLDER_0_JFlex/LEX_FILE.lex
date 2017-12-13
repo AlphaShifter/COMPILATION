@@ -59,7 +59,7 @@ import java_cup.runtime.*;
 	/*******************************************/
 	/* Enable line number extraction from main */
 	/*******************************************/
-	public int getLine() { return yyline + 1; } 
+	public int getLine() { return yyline + 1; }
 
 	/**********************************************/
 	/* Enable token position extraction from main */
@@ -74,7 +74,7 @@ import java_cup.runtime.*;
 /* MACRO DECALARATIONS */
 /***********************/
 LineTerminator	= \r|\n|\r\n
-WhiteSpace		= {LineTerminator} | [ \t\f]
+WhiteSpace		= {LineTerminator} | [ \type\f]
 INTEGER			= 0 | [1-9][0-9]*
 LETTER          = [a-z] | [A-Z]
 ALPHANUM        = {LETTER} | [0-9]

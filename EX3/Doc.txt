@@ -1,47 +1,47 @@
-AST_DEC_FUNC
+AST_DEC_FUNC.java
 	Methods overloading is legal  only when the overridden method is of a derived class.
 	Method M1 cannot refer to a method M2, whenever M2 is defined after M1 in the class. (running find on  his m2)
 	 method M can refer to a data member d, even if d is defined after M in the class. (running find on  d himeself)
 
-AST_DEC_VAR
-	Variable declaration is possible only when a there wasn't a previously defined variable with the same name.
+AST_DEC_VAR.java
+	Variable declaration is possible only when a there wasn'type a previously defined variable with the same name.
 
-AST_EXP_BINOP
+AST_EXP_BINOP.java
 	if two arrays of type T are defined, they are not interchangeable: ????
 	Testing equality between two expressions is legal whenever the two have the same type or when one type is  derived from the other.
 	 class variable or array variable can be tested for equality with NULL.
 	 illegal to compare a string variable to NULL
 	resulting type of a semantically valid comparison is the primitive type int
 
-AST_EXP_METHOD
+AST_EXP_METHOD.java
 	Method M1 cannot refer to a method M2, whenever M2 is defined after M1 in the class. (running find on  his m2)
 	 method M can refer to a data member d, even if d is defined after M in the class. (running find on  d himeself)
 
-AST_STMT_ASSIGN
+AST_STMT_ASSIGN.java
 	Assignment type mismatch is only possible when the mismatched type is derived from the original class or is  NULL
 	Assigning NULL to array and class variables is legal
 	assigning NULL to string variables is illegal
 
-AST_STMT_METHOD
+AST_STMT_METHOD.java
 	Method M1 cannot refer to a method M2, whenever M2 is defined after M1 in the class. (running find on  his m2)
 	 method M can refer to a data member d, even if d is defined after M in the class. (running find on  d himeself)
 
-AST_STMT_RETURN
+AST_STMT_RETURN.java
 	NULL sent instead of an integer array is semantically allowed.
 	must check that the returned expression is compatible with the function return type
 	Class Type mismatching is only possible when the mismatched type is derived from the original class or is  NULL
 
-AST_VAR_FIELD
+AST_VAR_FIELD.java
 	a declared data member inside a class can be initialized only with a constant value:  where it is either of the form either string,null,strict integer with no binop operation. (for example: not 7+4) The type of the expression inside the condition must be of type int.
 
-AST_VAR_SUBSCRIPT
+AST_VAR_SUBSCRIPT.java
 	accessing an array entry is semantically valid only when the subscript expression has an integer type. 
 
-AST_DEC_ARRAY
+AST_DEC_ARRAY.java
 	allocating arrays with the NEW operator must be done with an integral size. 
 	Defining arrays is only possible in the uppermost scope
 	
-AST_DEC_CLASS
+AST_DEC_CLASS.java
 	Defining classes is only possible in the uppermost scope
 	Classes can refer to only previously defined classes
 	Classes can extend only previously defined classes
@@ -50,32 +50,32 @@ AST_DEC_CLASS
 
 
 
-AST_CFIELD_LIST
-AST_CFIELD
-AST_VAR
-AST_VAR_LIST
-AST_VAR_SIMPLE
-AST_STMT_DEC
-AST_STMT_IF
-AST_STMT_WHILE
-AST_STMT
-AST_STMT_LIST
-AST_EXP_NIL
-AST_EXP_SINGLE
-AST_EXP_STRING
-AST_EXP_VAR
-AST_FUNC_LIST
-AST_GRAPHVIZ
-AST_ID_LIST
-ASTListIterator
-AST_LIST
-AST_Node
-AST_Node_Serial_Number
-AST_PROGRAM
-AST_EXP_ID
-AST_EXP_INT
-AST_EXP
-AST_EXP_LIST
-AST_DEC
-AST_DEC_LIST
-AST_DEC_SINGLE
+AST_CFIELD_LIST.java
+AST_CFIELD.java
+AST_VAR.java
+AST_VAR_LIST.java
+AST_VAR_SIMPLE.java
+AST_STMT_DEC.java
+AST_STMT_IF.java
+AST_STMT_WHILE.java
+AST_STMT.java
+AST_STMT_LIST.java
+AST_EXP_NIL.java
+AST_EXP_SINGLE.java
+AST_EXP_STRING.java
+AST_EXP_VAR.java
+AST_FUNC_LIST.java
+AST_GRAPHVIZ.java
+AST_ID_LIST.java
+ASTListIterator.java
+AST_LIST.java
+AST_Node.java
+AST_Node_Serial_Number.java
+AST_PROGRAM.java
+AST_EXP_ID.java
+AST_EXP_INT.java
+AST_EXP.java
+AST_EXP_LIST.java
+AST_DEC.java
+AST_DEC_LIST.java
+AST_DEC_SINGLE.java

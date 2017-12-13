@@ -58,8 +58,6 @@ public class AST_CLASS_SIG extends AST_Node
 	}
 
 
-
-
 	public TYPE_CLASS SemantMe()
 	{
 

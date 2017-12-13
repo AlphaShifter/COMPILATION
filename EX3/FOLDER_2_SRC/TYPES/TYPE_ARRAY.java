@@ -5,10 +5,10 @@ package TYPES;
  */
 public class TYPE_ARRAY extends TYPE {
 
-    public TYPE t;
+    public TYPE type;
 
-    public TYPE_ARRAY(TYPE t, String name) {
-        this.t = t;
+    public TYPE_ARRAY(TYPE type, String name) {
+        this.type = type;
         this.name = name;
     }
 

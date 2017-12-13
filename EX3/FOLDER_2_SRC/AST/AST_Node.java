@@ -38,11 +38,10 @@ public abstract class AST_Node
 	}
 
 	public TYPE SemantMe() {return null;}
+
 	public void printLineNum(){
 		System.out.print(this.myLine + "   ");
 		System.out.println(this.getClass().getSimpleName());
-		currLine++;
-
 		if(left!=null)left.printLineNum();
 		if(right!=null)right.printLineNum();
 	}

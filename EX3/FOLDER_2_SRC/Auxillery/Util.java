@@ -2,6 +2,7 @@ package Auxillery;
 
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
 import AST.*;
+import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
 public class Util {
@@ -95,26 +96,26 @@ public class Util {
     }
 
 
-    public static boolean logClasses(AST_PROGRAM root){
-        MY_SYMBOL_TABLE symbolTable = MY_SYMBOL_TABLE.getInstance();
-        for(AST_Node node : root.decList){
-            if(node instanceof AST_DEC_CLASS){
-                AST_DEC_CLASS currNode = (AST_DEC_CLASS) node; // cast the node to a class declaration
-                if(symbolTable.get(currNode.getName()) != null){
-                    // the class has already been declared
-                    return false;
-                } else if((currNode.getExt() != null) && (symbolTable.get(currNode.getExt()) == null)){
-                    // the extended class (father) has not been declared yet
-                    return false;
-                } else{
-                    // add the new class to the symbol table
-                    TYPE_CLASS father = (TYPE_CLASS) symbolTable.get(currNode.getExt());
-                    symbolTable.add(currNode.getName(), new TYPE_CLASS(currNode.getName(), father, null));
-                }
-            }
-        }
-        return true;
-    }
+//    public static boolean logClasses(AST_PROGRAM root){
+//        MY_SYMBOL_TABLE symbolTable = MY_SYMBOL_TABLE.getInstance();
+//        for(AST_Node node : root.decList){
+//            if(node instanceof AST_DEC_CLASS){
+//                AST_DEC_CLASS currNode = (AST_DEC_CLASS) node; // cast the node to a class declaration
+//                if(symbolTable.get(currNode.getName()) != null){
+//                    // the class has already been declared
+//                    return false;
+//                } else if((currNode.getExt() != null) && (symbolTable.get(currNode.getExt()) == null)){
+//                    // the extended class (father) has not been declared yet
+//                    return false;
+//                } else{
+//                    // add the new class to the symbol table
+//                    TYPE_CLASS father = (TYPE_CLASS) symbolTable.get(currNode.getExt());
+//                    symbolTable.add(currNode.getName(), new TYPE_CLASS(currNode.getName(), father, null));
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
     public static TYPE stringToType(String str){
         TYPE t;
@@ -123,12 +124,19 @@ public class Util {
         else if (str.equals("string"))
             return TYPE_STRING.getInstance();
         else {
-            t = MY_SYMBOL_TABLE.getInstance().get(str);
+            t = SYMBOL_TABLE.getInstance().find(str);
             return t;
         }
     }
 
+    public static void printError(int lineNum){
+        System.out.println("ERROR ("  + lineNum + ")");
+        System.exit(0);
+    }
+
     public static boolean isFatherOf(TYPE son, TYPE father){
+        if(son == null || father == null)
+            return false;
         if( !(son instanceof TYPE_CLASS) || !(father instanceof TYPE_CLASS))
             return false;
         TYPE_CLASS sonClass = (TYPE_CLASS)son;

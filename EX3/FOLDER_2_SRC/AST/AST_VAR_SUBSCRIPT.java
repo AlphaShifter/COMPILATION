@@ -1,5 +1,9 @@
 package AST;
 
+import Auxillery.Util;
+import TYPES.TYPE;
+import TYPES.TYPE_INT;
+
 public class AST_VAR_SUBSCRIPT extends AST_VAR
 {
 	public AST_VAR var;
@@ -59,9 +63,22 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.SerialNumber);
 	}
 
+
+	@Override
+	public TYPE SemantMe() {
+		TYPE expType = subscript.SemantMe();
+		if (expType != TYPE_INT.getInstance()) {
+			System.out.println("Error: array access is not with integer value");
+			Util.printError(this.myLine);
+		}
+
+		return var.SemantMe();
+	}
+
 	@Override
 	public String getName() {
-		//TODO Sement before getting the name
-		return var.getName();
+		return this.var.getName();
 	}
+
+
 }
