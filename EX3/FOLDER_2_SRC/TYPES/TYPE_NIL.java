@@ -23,4 +23,8 @@ public class TYPE_NIL extends TYPE
 		}
 		return instance;
 	}
+
+	public String getType() {
+		return "TYPE_NIL";
+	}
 }

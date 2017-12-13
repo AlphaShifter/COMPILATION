@@ -28,4 +28,7 @@ public class TYPE_CLASS extends TYPE {
         this.members = members;
         this.name = name;
     }
+    public String getType() {
+        return "TYPE_CLASS";
+    }
 }

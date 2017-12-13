@@ -9,5 +9,8 @@ public class TYPE_FUNCTION_LIST extends TYPE
 	{
 		this.head = head;
 		this.tail = tail;
-	}	
+	}
+	public String getType() {
+	return "TYPE_FUNCTION_LIST";
+}
 }
