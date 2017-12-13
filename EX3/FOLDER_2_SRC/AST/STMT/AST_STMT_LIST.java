@@ -1,6 +1,8 @@
-package AST;
+package AST.STMT;
 
-import TYPES.TYPE;
+import AST.AST_GRAPHVIZ;
+import AST.AST_LIST;
+import AST.AST_Node_Serial_Number;
 
 public class AST_STMT_LIST extends AST_LIST
 {

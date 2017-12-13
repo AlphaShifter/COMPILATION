@@ -1,8 +1,9 @@
-package AST;
+package AST.EXP;
 
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
 import TYPES.TYPE;
 import TYPES.TYPE_NIL;
-import TYPES.TYPE_STRING;
 
 public class AST_EXP_NIL extends AST_EXP
 {

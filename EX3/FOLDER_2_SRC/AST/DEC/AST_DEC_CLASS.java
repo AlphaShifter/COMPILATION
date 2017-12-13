@@ -1,21 +1,22 @@
-package AST;
+package AST.DEC;
 
+import AST.*;
+import AST.VAR.AST_VAR_LIST;
 import SYMBOL_TABLE.SYMBOL_TABLE;
-import TYPES.TYPE;
-import TYPES.TYPE_FUNCTION;
-import TYPES.TYPE_LIST;
+import TYPES.*;
 
-public class AST_DEC_FUNC extends AST_DEC {
+public class AST_DEC_CLASS extends AST_DEC {
 
-
-    public AST_STMT_LIST stmtList;
-    public AST_FUNC_SIG sig;
+    public AST_CLASS_SIG sig;
+    public AST_CFIELD_LIST cfieldList;
+    public AST_FUNC_LIST funcList;
+    public AST_VAR_LIST varList;
 
     /*********************************************************/
     /* The default message for an unknown AST DECLERATION node */
 
     /*********************************************************/
-    public AST_DEC_FUNC(AST_FUNC_SIG sig, AST_STMT_LIST list) {
+    public AST_DEC_CLASS(AST_CLASS_SIG sig, AST_CFIELD_LIST cfieldList) {
         /******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -25,17 +26,15 @@ public class AST_DEC_FUNC extends AST_DEC {
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
 
-        System.out.format("funcDec -> SIG BODY)\n");
+        System.out.format("decClass -> SIG BODY )\n");
 
+        right = cfieldList;
         left = sig;
-        right = list;
-
 
         /*******************************/
 		/* COPY INPUT DATA NENBERS ... */
         /*******************************/
-
-        this.stmtList = list;
+        this.cfieldList = cfieldList;
         this.sig = sig;
     }
 
@@ -47,51 +46,58 @@ public class AST_DEC_FUNC extends AST_DEC {
         /*******************************/
 		/* AST NODE TYPE = AST ID EXP */
         /*******************************/
-        System.out.format("AST NODE decFUNC");
         if (sig != null) sig.PrintMe();
-        if (stmtList != null) stmtList.PrintMe();
+        if (cfieldList != null) cfieldList.PrintMe();
 
 
         /*********************************/
 		/* Print to AST GRAPHIZ DOT file */
         /*********************************/
-        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Func Declaration"));
-        if (sig != null)
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, sig.SerialNumber);
-        if (stmtList != null)
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, stmtList.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Class Declaration"));
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, sig.SerialNumber);
+        if (cfieldList != null)
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cfieldList.SerialNumber);
 
     }
 
-    public TYPE SemantMe() {
 
-        /****************************/
-		/* [1] Begin Function Scope */
-        /****************************/
+    public TYPE SemantMe() {
+        /*************************/
+		/* [1] Begin Class Scope */
+        /*************************/
         SYMBOL_TABLE.getInstance().beginScope();
 
-
-        /*******************/
-		/* [2] Semant sig */
-        /*******************/
-        sig.SemantMe();
-
-
-        /*******************/
-		/* [3] Semant Body */
-        /*******************/
-        stmtList.SemantMe();
+        //Sement the sig
+        TYPE_CLASS t = sig.SemantMe();
+        //Sement the body
+        //TODO sement class vars
+        //type.data_members = varList.SemantMe();
+        //Sement the functions
+        t.function_list = funcList.SemantMe();
 
         /*****************/
-		/* [4] End Scope */
+		/* [3] End Scope */
         /*****************/
         SYMBOL_TABLE.getInstance().endScope();
 
 
         /*********************************************************/
-		/* [6] Return value is irrelevant for class declarations */
+		/* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
         return null;
     }
+
+
+    public AST_FUNC_LIST getFuncList() {
+        return funcList;
+    }
+
+    public AST_VAR_LIST getVarList() {
+        return varList;
+    }
+//
+//    public boolean varScanner() {
+//        return Scanners.classVarInitScanner(this);
+//    }
 
 }

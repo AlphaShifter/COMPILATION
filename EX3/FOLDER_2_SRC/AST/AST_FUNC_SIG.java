@@ -1,5 +1,6 @@
 package AST;
 
+import AST.DEC.AST_DEC_VAR;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_FUNCTION;

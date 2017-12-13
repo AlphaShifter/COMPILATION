@@ -1,5 +1,6 @@
 package AST;
 
+import AST.DEC.AST_DEC;
 import TYPES.TYPE;
 
 public class AST_CFIELD extends AST_Node{

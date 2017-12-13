@@ -1,5 +1,8 @@
-package AST;
+package AST.VAR;
 
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
+import AST.EXP.AST_EXP;
 import Auxillery.Util;
 import TYPES.TYPE;
 import TYPES.TYPE_INT;

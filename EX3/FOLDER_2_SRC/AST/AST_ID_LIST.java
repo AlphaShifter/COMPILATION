@@ -1,5 +1,7 @@
 package AST;
 
+import AST.DEC.AST_DEC_VAR;
+
 public class AST_ID_LIST extends AST_LIST
 {
 	/****************/

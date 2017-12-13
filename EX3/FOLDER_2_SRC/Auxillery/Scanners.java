@@ -1,6 +1,7 @@
 package Auxillery;
 
 import AST.*;
+import AST.VAR.AST_VAR_SUBSCRIPT;
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
 import TYPES.*;
 

@@ -3,6 +3,10 @@
 /*************/
 import java_cup.runtime.*;
 import AST.*;
+import AST.VAR.*;
+import AST.EXP.*;
+import AST.STMT.*;
+import AST.DEC.*;
 import java.io.PrintWriter;
 
 parser code 

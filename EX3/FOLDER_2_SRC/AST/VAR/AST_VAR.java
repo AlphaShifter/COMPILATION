@@ -1,5 +1,6 @@
-package AST;
+package AST.VAR;
 
+import AST.AST_Node;
 import TYPES.TYPE;
 
 public abstract class AST_VAR extends AST_Node

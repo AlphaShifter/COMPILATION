@@ -1,5 +1,6 @@
-package AST;
+package AST.EXP;
 
+import AST.AST_Node;
 import TYPES.TYPE;
 
 public abstract class AST_EXP extends AST_Node

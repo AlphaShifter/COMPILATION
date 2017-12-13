@@ -1,4 +1,9 @@
-package AST;
+package AST.VAR;
+
+import AST.AST_GRAPHVIZ;
+import AST.AST_LIST;
+import AST.AST_Node_Serial_Number;
+import AST.DEC.AST_DEC_VAR;
 
 public class AST_VAR_LIST extends AST_LIST
 {

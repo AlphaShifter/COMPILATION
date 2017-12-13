@@ -1,5 +1,7 @@
 package AST;
 
+import AST.DEC.AST_DEC_FUNC;
+
 public class AST_FUNC_LIST extends AST_LIST
 {
     /****************/

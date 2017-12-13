@@ -1,16 +1,18 @@
-package AST;
+package AST.EXP;
 
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
 import TYPES.TYPE;
-import TYPES.TYPE_STRING;
+import TYPES.TYPE_INT;
 
-public class AST_EXP_STRING extends AST_EXP
+public class AST_EXP_INT extends AST_EXP
 {
-	public String value;
-
+	public int value;
+	
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_STRING(String str)
+	public AST_EXP_INT(int value)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -20,12 +22,12 @@ public class AST_EXP_STRING extends AST_EXP
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.format(" exp -> String( %s )\n", str);
+		System.out.format("exp -> INT( %d )\n", value);
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.value = str;
+		this.value = value;
 	}
 
 	/************************************************/
@@ -36,24 +38,25 @@ public class AST_EXP_STRING extends AST_EXP
 		/*******************************/
 		/* AST NODE TYPE = AST INT EXP */
 		/*******************************/
-		System.out.format("AST NODE STRING( %s )\n",value);
+		System.out.format("AST NODE INT( %d )\n",value);
 
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			String.format("STRING(%s)",value));
+			String.format("INT(%d)",value));
 	}
 
-	@Override
-	public TYPE SemantMe() {
-		return TYPE_STRING.getInstance();
+	public TYPE SemantMe()
+	{
+		return TYPE_INT.getInstance();
 	}
+
 
 	@Override
 	public TYPE getExpType() {
-		//TODO implement this
+		//TODO
 		return null;
 	}
 }

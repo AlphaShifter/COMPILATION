@@ -1,11 +1,14 @@
-package AST;
+package AST.STMT;
 
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
+import AST.EXP.AST_EXP;
 import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_INT;
 
-public class AST_STMT_WHILE extends AST_STMT
+public class AST_STMT_IF extends AST_STMT
 {
 	public AST_EXP cond;
 	public AST_STMT_LIST body;
@@ -13,7 +16,7 @@ public class AST_STMT_WHILE extends AST_STMT
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_WHILE(AST_EXP cond,AST_STMT_LIST body)
+	public AST_STMT_IF(AST_EXP cond,AST_STMT_LIST body)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -23,42 +26,12 @@ public class AST_STMT_WHILE extends AST_STMT
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("stmt -> WHILE (exp) {stmts} \n");
+		System.out.print("stmt -> IF (exp) {stmts} \n");
 
 		this.cond = cond;
 		this.body = body;
-		right = body;
 		left = cond;
-	}
-
-	/******************************************************/
-	/* The printing message for a statement list AST node */
-	/******************************************************/
-	public void PrintMe()
-	{
-		/**************************************/
-		/* AST NODE TYPE = AST STATEMENT LIST */
-		/**************************************/
-		System.out.print("AST NODE STMT WHILE\n");
-
-		/*************************************/
-		/* RECURSIVELY PRINT HEAD + TAIL ... */
-		/*************************************/
-		if (cond != null) cond.PrintMe();
-		if (body != null) body.PrintMe();
-
-		/**********************************/
-		/* PRINT to AST GRAPHVIZ DOT file */
-		/**********************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-				SerialNumber,
-				"STMT WHILE");
-
-		/****************************************/
-		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,cond.SerialNumber);
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);
+		right = body;
 	}
 
 
@@ -92,5 +65,36 @@ public class AST_STMT_WHILE extends AST_STMT
 		/* [4] Return value is irrelevant for class declarations */
 		/*********************************************************/
 		return null;
+	}
+
+
+	/******************************************************/
+	/* The printing message for a statement list AST node */
+	/******************************************************/
+	public void PrintMe()
+	{
+		/**************************************/
+		/* AST NODE TYPE = AST STATEMENT LIST */
+		/**************************************/
+		System.out.print("AST NODE STMT IF\n");
+
+		/*************************************/
+		/* RECURSIVELY PRINT HEAD + TAIL ... */
+		/*************************************/
+		if (cond != null) cond.PrintMe();
+		if (body != null) body.PrintMe();
+
+		/**********************************/
+		/* PRINT to AST GRAPHVIZ DOT file */
+		/**********************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+				SerialNumber,
+				"STMT IF");
+
+		/****************************************/
+		/* PRINT Edges to AST GRAPHVIZ DOT file */
+		/****************************************/
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,cond.SerialNumber);
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);
 	}
 }

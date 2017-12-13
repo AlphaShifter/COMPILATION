@@ -1,5 +1,6 @@
-package AST;
+package AST.DEC;
 
+import AST.AST_Node;
 import TYPES.TYPE;
 
 public abstract class AST_DEC extends AST_Node

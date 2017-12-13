@@ -1,15 +1,19 @@
-package AST;
+package AST.EXP;
 
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
 import TYPES.TYPE;
+import TYPES.TYPE_STRING;
 
-public class AST_STMT_DEC extends AST_STMT
+public class AST_EXP_SINGLE extends AST_EXP
 {
-	public AST_DEC_VAR dec;
+	int OP;
+	public AST_EXP exp;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_DEC(AST_DEC_VAR dec)
+	public AST_EXP_SINGLE(AST_EXP son)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -19,19 +23,15 @@ public class AST_STMT_DEC extends AST_STMT
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("stmt -> varDec\n");
+		System.out.print("exp -> (exp)\n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.dec = dec;
-		right = dec;
+		this.exp = son;
+		right = exp;
 	}
-	public TYPE SemantMe()
-	{
-		return dec.SemantMe();
-	}
-
+	
 	/*************************************************/
 	/* The printing message for a binop exp AST node */
 	/*************************************************/
@@ -40,19 +40,34 @@ public class AST_STMT_DEC extends AST_STMT
 				/*************************************/
 		/* AST NODE TYPE = AST SUBSCRIPT VAR */
 		/*************************************/
-		System.out.print("AST NODE SINGLE dec\n");
+		System.out.print("AST NODE SINGLE EXP\n");
 
 		/**************************************/
 		/* RECURSIVELY PRINT left + right ... */
 		/**************************************/
-		if (dec != null) dec.PrintMe();
+		if (exp != null) exp.PrintMe();
 
-
-
+		/***************************************/
+		/* PRINT Node to AST GRAPHVIZ DOT file */
+		/***************************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+			SerialNumber,
+			String.format("Single Expression"));
+		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"Var Declaration");
-		if (dec  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
+		if (exp  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+	}
+
+	public TYPE SemantMe()
+	{
+		return TYPE_STRING.getInstance();
+	}
+
+
+	@Override
+	public TYPE getExpType() {
+		return exp.getExpType();
 	}
 }

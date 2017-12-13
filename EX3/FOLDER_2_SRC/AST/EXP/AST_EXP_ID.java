@@ -1,5 +1,7 @@
-package AST;
+package AST.EXP;
 
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
 import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;

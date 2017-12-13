@@ -1,4 +1,9 @@
-package AST;
+package AST.STMT;
+
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
+import AST.VAR.AST_VAR;
+import AST.EXP.AST_EXP_LIST;
 
 public class AST_STMT_METHOD extends AST_STMT {
 

@@ -1,5 +1,8 @@
-package AST;
+package AST.EXP;
 
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
+import AST.VAR.AST_VAR;
 import TYPES.TYPE;
 
 public class AST_EXP_VAR extends AST_EXP

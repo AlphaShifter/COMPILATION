@@ -1,5 +1,6 @@
-package AST;
+package AST.STMT;
 
+import AST.AST_Node;
 import TYPES.TYPE;
 
 public abstract class AST_STMT extends AST_Node

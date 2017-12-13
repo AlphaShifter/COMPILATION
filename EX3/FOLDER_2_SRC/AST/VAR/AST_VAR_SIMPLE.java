@@ -1,5 +1,7 @@
-package AST;
+package AST.VAR;
 
+import AST.AST_GRAPHVIZ;
+import AST.AST_Node_Serial_Number;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 

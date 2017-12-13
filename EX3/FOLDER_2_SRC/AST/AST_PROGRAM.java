@@ -1,5 +1,6 @@
 package AST;
 
+import AST.DEC.AST_DEC_LIST;
 import TYPES.TYPE;
 
 public class AST_PROGRAM extends AST_Node
