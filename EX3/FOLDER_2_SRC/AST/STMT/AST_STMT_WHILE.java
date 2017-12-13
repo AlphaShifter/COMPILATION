@@ -72,7 +72,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/****************************/
 		if (cond.SemantMe() != TYPE_INT.getInstance())
 		{
-			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
+			System.out.format(">> ERROR [%d:%d] condition inside WHILE is not integral\n",2,2);
 			Util.printError(cond.myLine);
 		}
 

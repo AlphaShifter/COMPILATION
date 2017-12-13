@@ -81,7 +81,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		if(t1 == null || t2 == null)
 			return null;
 
-		if(assignmentChecker(t1,t2))
+		if(!assignmentChecker(t1,t2))
 		{
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 			Util.printError(this.myLine);
@@ -90,7 +90,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	}
 
 	//t1 := t2
-	public static boolean assignmentChecker(TYPE t1, TYPE t2){
+	private static boolean assignmentChecker(TYPE t1, TYPE t2){
 		if(t1 == TYPE_NIL.getInstance())
 			return false;
 
@@ -99,7 +99,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 			//father into son
 			//NIL into obj or array
 			//case 1: t1 is and array
-			if(t1 instanceof TYPE_ARRAY){
+			if(t1.isArray()){
 				TYPE_ARRAY t1Arr = (TYPE_ARRAY)t1;
 				if(t2 == TYPE_NIL.getInstance()) //nil into array
 					return true;
