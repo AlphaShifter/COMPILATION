@@ -72,20 +72,7 @@ public class AST_DEC_CLASS extends AST_DEC
 	{
 		/*************************/
 		/* [1] Begin Class Scope */
-<<<<<<< Updated upstream
-        /*************************/
-        SYMBOL_TABLE.getInstance().beginScope();
 
-        //Sement the sig
-        TYPE_CLASS t = sig.SemantMe();
-        //Sement the body
-        //TODO sement class vars
-        //type.data_members = varList.SemantMe();
-        //Sement the functions
-        t.function_list = funcList.SemantMe();
-
-        /*****************/
-=======
 		/*************************/
 		SYMBOL_TABLE.getInstance().beginScope();
 
@@ -102,7 +89,6 @@ public class AST_DEC_CLASS extends AST_DEC
 
 
 		/*****************/
->>>>>>> Stashed changes
 		/* [3] End Scope */
 		/*****************/
 		SYMBOL_TABLE.getInstance().endScope();
@@ -130,22 +116,9 @@ public class AST_DEC_CLASS extends AST_DEC
 		return funcList;
 	}
 
-<<<<<<< Updated upstream
-    public AST_VAR_LIST getVarList() {
-        return varList;
-    }
-//
-//    public boolean varScanner() {
-//        return Scanners.classVarInitScanner(this);
-//    }
-=======
+
 	public AST_VAR_LIST getVarList() {
 		return varList;
 	}
-
-	public boolean varScanner(){
-		return Scanners.classVarInitScanner(this);
-	}
->>>>>>> Stashed changes
 
 }

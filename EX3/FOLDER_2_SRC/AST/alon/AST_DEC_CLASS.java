@@ -1,6 +1,9 @@
 package AST.alon;
 
 import AST.*;
+import AST.DEC.*;
+import AST.EXP.*;
+import AST.VAR.*;
 import Auxillery.Scanners;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
@@ -67,26 +70,11 @@ public class AST_DEC_CLASS extends AST_DEC
 	}
 
 
-
-
 	public TYPE SemantMe()
 	{
 		/*************************/
 		/* [1] Begin Class Scope */
-<<<<<<< Updated upstream
-        /*************************/
-        SYMBOL_TABLE.getInstance().beginScope();
 
-        //Sement the sig
-        TYPE_CLASS t = sig.SemantMe();
-        //Sement the body
-        //TODO sement class vars
-        //type.data_members = varList.SemantMe();
-        //Sement the functions
-        t.function_list = funcList.SemantMe();
-
-        /*****************/
-=======
 		/*************************/
 		SYMBOL_TABLE.getInstance().beginScope();
 
@@ -96,14 +84,13 @@ public class AST_DEC_CLASS extends AST_DEC
 		 * ********/
 		TYPE_CLASS father = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
 		//TODO recursion on the lists
-		if(this.varList != null) varList.cSemantMe(sig.name /* passes name of class containing the variables*/);
+		//if(this.varList != null) varList.cSemantMe(sig.name /* passes name of class containing the variables*/);
 		if(this.funcList != null) funcList.SemantMe();
 
 		TYPE_CLASS t = new TYPE_CLASS(sig.name,father,null);
 
 
 		/*****************/
->>>>>>> Stashed changes
 		/* [3] End Scope */
 		/*****************/
 		SYMBOL_TABLE.getInstance().endScope();
@@ -131,22 +118,9 @@ public class AST_DEC_CLASS extends AST_DEC
 		return funcList;
 	}
 
-<<<<<<< Updated upstream
-    public AST_VAR_LIST getVarList() {
-        return varList;
-    }
-//
-//    public boolean varScanner() {
-//        return Scanners.classVarInitScanner(this);
-//    }
-=======
+
 	public AST_VAR_LIST getVarList() {
 		return varList;
 	}
-
-	public boolean varScanner(){
-		return Scanners.classVarInitScanner(this);
-	}
->>>>>>> Stashed changes
 
 }

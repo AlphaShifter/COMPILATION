@@ -74,21 +74,9 @@ public class Main
 			/* [8] Finalize AST GRAPHIZ DOT file */
 			/*************************************/
 			AST_GRAPHVIZ.getInstance().finalizeFile();
-<<<<<<< Updated upstream
 
 			Util.treeReduction(AST);
 
-=======
-//
-//			Util.treeReduction(AST);
-//
-//			boolean retValue = Util.logClasses(AST); // try to log the classes of the program
-//			if(retValue == true){
-//				System.out.println("OK with classes\n");
-//			} else{
-//				System.out.println("ERROR with classes\n");
-//			}
->>>>>>> Stashed changes
 
 			//boolean retValue = Util.logClasses(AST); // try to log the classes of the program
 //			if(retValue == true){

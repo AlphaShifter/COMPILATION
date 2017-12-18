@@ -1,6 +1,6 @@
 package TYPES;
 
-public class   TYPE_LIST extends TYPE
+public class TYPE_LIST extends TYPE
 {
 	/****************/
 	/* DATA MEMBERS */
@@ -20,4 +20,7 @@ public class   TYPE_LIST extends TYPE
 	public String getType() {
 		return "TYPE_LIST";
 	}
+
+	public void add(TYPE t){return;}
+
 }

@@ -8,8 +8,8 @@ import TYPES.TYPE_CLASS;
 public class AST_CLASS_SIG extends AST_Node
 {
 
-	String name;
-	String ext;
+	public String name;
+	public String ext;
 
 	/*********************************************************/
 	/* The default message for an unknown AST DECLERATION node */

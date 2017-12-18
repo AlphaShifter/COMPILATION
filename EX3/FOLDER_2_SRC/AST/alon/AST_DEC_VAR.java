@@ -1,6 +1,8 @@
 package AST.alon;
 
 import AST.*;
+import AST.DEC.*;
+import AST.EXP.*;
 import Auxillery.Util;
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -95,7 +97,6 @@ public class AST_DEC_VAR extends AST_DEC
 		return null;
 	}
 
-<<<<<<< Updated upstream
 //    public boolean varScanner() {
 //        TYPE t = Util.stringToType(this.type);
 //        //TODO Scope
@@ -111,22 +112,7 @@ public class AST_DEC_VAR extends AST_DEC
 //        MY_SYMBOL_TABLE.getInstance().add(this.name, t);
 //        return true;
 //    }
-=======
-    public boolean varScanner() {
-        TYPE t = Util.stringToType(this.type);
-        //TODO Scope
-        if (t == null)
-            return false;
 
-        //check if deceleration is no empty
-        if (this.exp != null) {
-            //deceleration is not empty - check the assignment
-            if(!AST_STMT_ASSIGN.assignmentChecker(t,this.exp))
-                return false; //error is embedded in the checker
-        }
-        MY_SYMBOL_TABLE.getInstance().add(this.name, t);
-        return true;
-    }
 
     public TYPE cSemantMe(String containingClassName){
 		TYPE t;
@@ -176,7 +162,7 @@ public class AST_DEC_VAR extends AST_DEC
 						"variable %s is of invalid type\n",2,2,name);
 				System.exit(0);
 			} else{
-				containingClass.data_members.add(new TYPE_CLASS_VAR_DEC(((TYPE_ARRAY) t).t, name));
+				containingClass.data_members.add(new TYPE_CLASS_VAR_DEC(((TYPE_ARRAY) t).type, name));
 			}
 		}
 
@@ -188,5 +174,4 @@ public class AST_DEC_VAR extends AST_DEC
 
 		return null;
 	}
->>>>>>> Stashed changes
 }
