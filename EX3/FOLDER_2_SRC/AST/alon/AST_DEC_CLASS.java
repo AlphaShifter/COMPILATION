@@ -1,9 +1,10 @@
-package AST.DEC;
+package AST.alon;
 
 import AST.*;
-import AST.VAR.AST_VAR_LIST;
+import Auxillery.Scanners;
 import SYMBOL_TABLE.SYMBOL_TABLE;
-import TYPES.*;
+import TYPES.TYPE;
+import TYPES.TYPE_CLASS;
 
 public class AST_DEC_CLASS extends AST_DEC
 {

@@ -16,11 +16,11 @@ public class Main
 		AST_PROGRAM AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
-		String inputFilename = argv[0];
-		String outputFilename = argv[1];
+//		String inputFilename = argv[0];
+//		String outputFilename = argv[1];
 
-//		String inputFilename = "C:\\Users\\Ilsar\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\TEST_03_Merge_Lists.txt";
-//		String outputFilename = "C:\\Users\\Ilsar\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\out.txt";
+		String inputFilename = "C:\\Users\\Ilsar\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\TEST_03_Merge_Lists.txt";
+		String outputFilename = "C:\\Users\\Ilsar\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\out.txt";
 //		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_03_Merge_Lists.txt";
 //		String outputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_5_OUTPUT/out.txt";
 
@@ -74,21 +74,9 @@ public class Main
 			/* [8] Finalize AST GRAPHIZ DOT file */
 			/*************************************/
 			AST_GRAPHVIZ.getInstance().finalizeFile();
-<<<<<<< Updated upstream
 
 			Util.treeReduction(AST);
 
-=======
-//
-//			Util.treeReduction(AST);
-//
-//			boolean retValue = Util.logClasses(AST); // try to log the classes of the program
-//			if(retValue == true){
-//				System.out.println("OK with classes\n");
-//			} else{
-//				System.out.println("ERROR with classes\n");
-//			}
->>>>>>> Stashed changes
 
 			//boolean retValue = Util.logClasses(AST); // try to log the classes of the program
 //			if(retValue == true){

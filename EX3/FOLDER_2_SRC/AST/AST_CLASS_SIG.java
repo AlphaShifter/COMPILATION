@@ -66,17 +66,25 @@ public class AST_CLASS_SIG extends AST_Node
 		/*******************
 		 * ********/
 		//TODO look for a father
-		TYPE_CLASS t = new TYPE_CLASS(name,null,null);
-
-		/************************************************/
-		/* [4] Enter the Class Type to the Symbol Table */
-		/************************************************/
-		SYMBOL_TABLE.getInstance().enter(name,t);
+		TYPE_CLASS father = null;
+		if(ext != null){
+			father = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(ext);
+			if(father == null){
+				System.out.format(">> ERROR [%d,%d] extended class %s has not been defined\n", 2, 2, ext);
+				System.exit(0);
+			}
+		}
+//		TYPE_CLASS t = new TYPE_CLASS(name,father,null);
+//
+//		/************************************************/
+//		/* [4] Enter the Class Type to the Symbol Table */
+//		/************************************************/
+//		SYMBOL_TABLE.getInstance().enter(name,t);
 
 		/*********************************************************/
 		/* [5] Return value is irrelevant for class declarations */
 		/*********************************************************/
-		return t;
+		return father;
 	}
 
 	public String getName(){
