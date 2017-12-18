@@ -63,7 +63,7 @@ public class AST_EXP_ID extends AST_EXP {
     public TYPE SemantMe() {
         if (exp != null) { //array assignment
             TYPE expType = exp.SemantMe();
-            if (expType != TYPE_INT.getInstance()) { //arrai init can be only with integer size
+            if (expType != TYPE_INT.getInstance()) { //array init can be only with integer size
                 System.out.println("ERROR: creating an array with non-integer size");
                 Util.printError(myLine);
                 return null;

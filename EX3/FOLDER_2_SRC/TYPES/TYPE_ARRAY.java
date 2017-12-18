@@ -12,6 +12,9 @@ public class TYPE_ARRAY extends TYPE {
         this.name = name;
     }
 
+    @Override
+    public boolean isArray(){return true;}
+
     public String getType() {
         return "TYPE_ARRAY";
     }

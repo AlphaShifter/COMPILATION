@@ -28,6 +28,12 @@ public class TYPE_CLASS extends TYPE {
         this.members = members;
         this.name = name;
     }
+
+    @Override
+    public boolean isClass() {
+        return true;
+    }
+
     public String getType() {
         return "TYPE_CLASS";
     }
