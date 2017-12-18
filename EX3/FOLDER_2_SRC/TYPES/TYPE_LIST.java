@@ -29,7 +29,10 @@ public class TYPE_LIST extends TYPE
 			curr = curr.tail;
 		}
 		//add t as new member of the list
-		curr.tail = new TYPE_LIST(t,null);
+		if(this.head == null)
+			this.head = t;
+		else
+			curr.tail = new TYPE_LIST(t,null);
 	}
 
 }

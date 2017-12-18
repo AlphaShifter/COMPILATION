@@ -65,7 +65,6 @@ public class AST_CLASS_SIG extends AST_Node
 		/* [2] Semant Data Members */
 		/*******************
 		 * ********/
-		//TODO look for a father
 		TYPE_CLASS father = null;
 		if(ext != null){
 			father = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(ext);
@@ -74,17 +73,17 @@ public class AST_CLASS_SIG extends AST_Node
 				System.exit(0);
 			}
 		}
-//		TYPE_CLASS t = new TYPE_CLASS(name,father,null);
-//
-//		/************************************************/
-//		/* [4] Enter the Class Type to the Symbol Table */
-//		/************************************************/
-//		SYMBOL_TABLE.getInstance().enter(name,t);
+		TYPE_CLASS t = new TYPE_CLASS(name,father,null);
+
+		/************************************************/
+		/* [4] Enter the Class Type to the Symbol Table */
+		/************************************************/
+		SYMBOL_TABLE.getInstance().enter(name,t);
 
 		/*********************************************************/
 		/* [5] Return value is irrelevant for class declarations */
 		/*********************************************************/
-		return father;
+		return t;
 	}
 
 	public String getName(){

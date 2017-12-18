@@ -27,7 +27,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 
-		System.out.format("decClass -> name( %s )\n", this.sig.name);
+		System.out.format("decClass -> SIG body");
 
 		right = cfieldList;
 
@@ -80,12 +80,14 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* [2] Semant Data Members */
 		/*******************
 		 * ********/
-		TYPE_CLASS father = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
+		TYPE_CLASS t = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
 		//TODO recursion on the lists
-		if(this.varList != null) varList.cSemantMe(sig.name /* passes name of class containing the variables*/);
-		if(this.funcList != null) funcList.SemantMe();
+		TYPE_LIST varTypeList = null;
+		if(this.varList != null)
+			varTypeList = varList.cSemantMe(sig.name /* passes name of class containing the variables*/);
+		//if(this.funcList != null) funcList.SemantMe();
 
-		TYPE_CLASS t = new TYPE_CLASS(sig.name,father,null);
+		t.data_members = varTypeList;
 
 
 		/*****************/
