@@ -21,6 +21,15 @@ public class TYPE_LIST extends TYPE
 		return "TYPE_LIST";
 	}
 
-	public void add(TYPE t){return;}
+	//add TYPE t to the end of the list
+	public void add(TYPE t){
+		//find the end of the list
+		TYPE_LIST curr = this;
+		while(curr.tail != null){
+			curr = curr.tail;
+		}
+		//add t as new member of the list
+		curr.tail = new TYPE_LIST(t,null);
+	}
 
 }
