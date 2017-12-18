@@ -1,6 +1,7 @@
 package AST;
 
 import Auxillery.Scanners;
+import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_CLASS;
@@ -70,10 +71,17 @@ public class AST_CLASS_SIG extends AST_Node
 			father = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(ext);
 			if(father == null){
 				System.out.format(">> ERROR [%d,%d] extended class %s has not been defined\n", 2, 2, ext);
-				System.exit(0);
+				Util.printError(myLine);
 			}
 		}
 		TYPE_CLASS t = new TYPE_CLASS(name,father,null);
+		//get father's vars
+		if(father != null){
+			//TODO: make sure that inheritances rules apply
+			t.data_members.addAll(father.data_members);
+			t.function_list.addAll(father.function_list);
+		}
+
 
 		/************************************************/
 		/* [4] Enter the Class Type to the Symbol Table */

@@ -87,7 +87,7 @@ public class AST_DEC_CLASS extends AST_DEC
 			varTypeList = varList.cSemantMe(sig.name /* passes name of class containing the variables*/);
 		//if(this.funcList != null) funcList.SemantMe();
 
-		t.data_members = varTypeList;
+		t.data_members.addAll(varTypeList);
 
 
 		/*****************/

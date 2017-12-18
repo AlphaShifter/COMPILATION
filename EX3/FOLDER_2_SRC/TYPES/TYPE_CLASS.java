@@ -15,7 +15,7 @@ public class TYPE_CLASS extends TYPE {
 	/* packed together with the class methods         */
     /**************************************************/
     public TYPE_LIST data_members;
-    public TYPE_LIST function_list = null;
+    public TYPE_LIST function_list;
     public TYPE_LIST members;
     private TYPE_CLASS_VAR_DEC_LIST lastDataMember;
 
@@ -28,6 +28,7 @@ public class TYPE_CLASS extends TYPE {
         this.members = members;
         this.name = name;
         data_members = new TYPE_LIST(null,null);
+        function_list = new TYPE_LIST(null,null);
     }
 
     @Override
