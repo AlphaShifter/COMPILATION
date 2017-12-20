@@ -63,14 +63,15 @@ public class TYPE_LIST extends TYPE
 	if does not exist in list, returns null
 	 */
 	public TYPE findInList(String query) {
-		TYPE currHead = head;
-		TYPE_LIST currTail = tail;
+		TYPE_LIST currTail = this;
+		if(this.head == null) //empty list
+			return null;
 		while(currTail != null) {
+			TYPE_FUNCTION currHead = (TYPE_FUNCTION)currTail.head;
 			if(currHead.name.equals(query)) {
 				return currHead;
 			}
 			// update the pointers
-			currHead = currTail.head;
 			currTail = currTail.tail;
 		}
 		return null;

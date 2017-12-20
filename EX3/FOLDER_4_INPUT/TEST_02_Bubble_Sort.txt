@@ -13,7 +13,7 @@ void BubbleSort(IntArray arr, int size)
         {
             if (arr[j] < min)
             {
-                int i := arr[minIndex];
+                int somePahkjfha := arr[minIndex];
                 arr[minIndex] := arr[j];
                 arr[j] := i;
             }

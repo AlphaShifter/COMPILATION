@@ -70,11 +70,9 @@ public class AST_EXP_METHOD extends AST_EXP {
             }
             TYPE_CLASS classType = (TYPE_CLASS) c;
 
-            for (TYPE_LIST runner = classType.function_list; runner != null; runner = runner.tail) {
-                //cast
-                if (runner.head.name.equals(this.id))
-                    func = (TYPE_FUNCTION) runner.head;
-            }
+
+            func =(TYPE_FUNCTION)classType.function_list.findInList(this.id);
+
             //check if we got the func
             if (func == null) {
                 System.out.println("ERROR: no such func " + id + " in class" + classType.name);

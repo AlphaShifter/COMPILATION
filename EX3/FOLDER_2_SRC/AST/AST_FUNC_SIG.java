@@ -164,7 +164,7 @@ public class AST_FUNC_SIG extends AST_Node {
         // check whether function of same name exists in father class
         TYPE_CLASS containingClass = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(className);
         // check if the father has a function by the same name
-        TYPE_FUNCTION overloadedFunc = (TYPE_FUNCTION) containingClass.function_list.findInList(name);
+        TYPE_FUNCTION overloadedFunc = (TYPE_FUNCTION) containingClass.function_list.findInList(this.name);
         if (overloadedFunc != null) { // if function by same name exists in father
             // if return type is different that is an error
             if (overloadedFunc.returnType != returnType) {
