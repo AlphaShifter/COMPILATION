@@ -83,12 +83,14 @@ public class AST_DEC_CLASS extends AST_DEC
 		TYPE_CLASS t = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
 		//TODO recursion on the lists
 		TYPE_LIST varTypeList = null;
+		TYPE_LIST funcTypeList = null;
 		if(this.varList != null)
 			varTypeList = varList.cSemantMe(sig.name /* passes name of class containing the variables*/);
-		//if(this.funcList != null) funcList.SemantMe();
+		if(this.funcList != null)
+			funcTypeList = funcList.cSemantMe(sig.name /* passes name of class containing the function */);
 
 		t.data_members.addAll(varTypeList);
-
+		t.function_list.addAll(funcTypeList);
 
 		/*****************/
 		/* [3] End Scope */

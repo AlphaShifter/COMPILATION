@@ -6,6 +6,7 @@ import AST.AST_Node_Serial_Number;
 import AST.STMT.AST_STMT_LIST;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
+import TYPES.TYPE_FUNCTION;
 
 public class AST_DEC_FUNC extends AST_DEC {
 
@@ -76,7 +77,8 @@ public class AST_DEC_FUNC extends AST_DEC {
         /*******************/
 		/* [2] Semant sig */
         /*******************/
-        sig.SemantMe();
+        TYPE_FUNCTION newFuncDec = null;
+        newFuncDec = (TYPE_FUNCTION) sig.SemantMe();
 
 
         /*******************/
@@ -93,7 +95,39 @@ public class AST_DEC_FUNC extends AST_DEC {
         /*********************************************************/
 		/* [6] Return value is irrelevant for class declarations */
         /*********************************************************/
-        return null;
+        return newFuncDec; // returns the new type to be added to the list of function types
     }
 
+    public TYPE cSemantMe(String name) {
+
+        /****************************/
+		/* [1] Begin Function Scope */
+        /****************************/
+        SYMBOL_TABLE.getInstance().beginScope();
+
+
+        /*******************/
+		/* [2] Semant sig */
+        /*******************/
+        TYPE_FUNCTION newFuncDec = null;
+        newFuncDec = (TYPE_FUNCTION) sig.cSemantMe(name);
+
+
+        /*******************/
+		/* [3] Semant Body */
+        /*******************/
+        stmtList.SemantMe();
+
+        /*****************/
+		/* [4] End Scope */
+        /*****************/
+        SYMBOL_TABLE.getInstance().endScope();
+
+
+        /*********************************************************/
+		/* [6] Return value is irrelevant for class declarations */
+        /*********************************************************/
+        return newFuncDec; // returns the new type to be added to the list of function types
+
+    }
 }

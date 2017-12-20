@@ -13,4 +13,5 @@ public class TYPE_FUNCTION_LIST extends TYPE
 	public String getType() {
 	return "TYPE_FUNCTION_LIST";
 }
+
 }
