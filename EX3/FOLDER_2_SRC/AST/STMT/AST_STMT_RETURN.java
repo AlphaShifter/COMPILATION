@@ -29,11 +29,31 @@ public class AST_STMT_RETURN extends AST_STMT
 		right = res;
 	}
 
-	public void PrintMe()
-	{
+	public void PrintMe(){
 		System.out.print("AST NODE STMT RETURN\n");
 		if(res != null) res.PrintMe();
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"STMT RETURN");
 		if(res != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,res.SerialNumber);
 	}
+
+
+	@Override
+    public TYPE SemantMe(){
+    	TYPE t=null;
+    	if(res != null){
+    		t = res.SemantMe();//TODO - maybe check if t is null
+    		if(Util.isA(t,func_type)){
+				return t;
+			}
+    	}
+		else{
+			if(func_type == TYPE_VOID.getInstance()){
+    			return null;
+    		}
+		} 
+		Util.printError(this.myLine);
+		return null;
+	}
+
+
 }

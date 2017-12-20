@@ -109,12 +109,11 @@ public class AST_EXP_BINOP extends AST_EXP
                     return TYPE_INT.getInstance();
                 }
             }
-            else if(true){//TODO one type is  derived from the other.
-
+            else if (Util.areRelated(t1,t2)){
+            	return TYPE_INT.getInstance();
             }
         }
-
-		System.exit(0);
+		Util.printError(this.myLine);
 		return null;
 	}
 

@@ -154,4 +154,20 @@ public class Util {
         }
         return false;
     }
+    public static boolean areRelated(TYPE a, TYPE b) {
+        return isFatherOf(a,b)||isFatherOf(b,a);
+    }
+
+
+    public static boolean isPrimitive(TYPE a){
+        return a==TYPE_INT.getInstance() || a==TYPE_STRING.getInstance();
+    }
+
+    public static boolean isA(TYPE a, TYPE b){
+        if(isFatherOf(a,b)) return true;
+        if(a==TYPE_NIL.getInstance() && !isPrimitive(b)) return true;
+        return false;
+
+    }
+
 }
