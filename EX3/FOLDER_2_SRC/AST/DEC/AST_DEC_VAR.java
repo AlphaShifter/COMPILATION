@@ -3,6 +3,8 @@ package AST.DEC;
 import AST.EXP.AST_EXP;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
+import AST.STMT.AST_STMT_ASSIGN;
+import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 import AST.DEC.*;
@@ -72,10 +74,10 @@ public class AST_DEC_VAR extends AST_DEC
 		/* [1] Check If Type exists */
 		/****************************/
 		t = SYMBOL_TABLE.getInstance().find(type);
-				if (t == null)
+		if (t == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
-			System.exit(0);
+			Util.printError(myLine);
 		}
 
 		/**************************************/
@@ -84,7 +86,14 @@ public class AST_DEC_VAR extends AST_DEC
 		if (SYMBOL_TABLE.getInstance().find(name) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
-			System.exit(0);
+			Util.printError(myLine);
+		}
+
+		//check if we can assign the exp into the dec
+		TYPE expType = exp.SemantMe();
+		if(!AST_STMT_ASSIGN.assignmentChecker(t,expType)){
+			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+			Util.printError(this.myLine);
 		}
 
 		/***************************************************/
