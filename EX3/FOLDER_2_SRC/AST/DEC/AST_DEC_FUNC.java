@@ -4,7 +4,6 @@ import AST.AST_FUNC_SIG;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.STMT.AST_STMT_LIST;
-import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 
@@ -13,7 +12,6 @@ public class AST_DEC_FUNC extends AST_DEC {
 
     public AST_STMT_LIST stmtList;
     public AST_FUNC_SIG sig;
-    public static TYPE func_type =null;
 
     /*********************************************************/
     /* The default message for an unknown AST DECLERATION node */
@@ -79,7 +77,7 @@ public class AST_DEC_FUNC extends AST_DEC {
 		/* [2] Semant sig */
         /*******************/
         sig.SemantMe();
-        func_type= Util.stringToType(sig.type);
+
 
         /*******************/
 		/* [3] Semant Body */
