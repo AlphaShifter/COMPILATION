@@ -77,14 +77,16 @@ public class AST_FUNC_SIG extends AST_Node {
             System.out.format(">> ERROR [%d:%d] non existing return type %s\n", 6, 6, returnType);
         }
 
-        for (AST_Node node : idList) {
-            AST_DEC_VAR var = (AST_DEC_VAR) node;
-            t = SYMBOL_TABLE.getInstance().find(var.type);
-            if (t == null) {
-                System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, var.type);
-            } else {
-                type_list = new TYPE_LIST(t, type_list);
-                SYMBOL_TABLE.getInstance().enter(var.name, t);
+        if(idList != null) {
+            for (AST_Node node : idList) {
+                AST_DEC_VAR var = (AST_DEC_VAR) node;
+                t = SYMBOL_TABLE.getInstance().find(var.type);
+                if (t == null) {
+                    System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, var.type);
+                } else {
+                    type_list = new TYPE_LIST(t, type_list);
+                    SYMBOL_TABLE.getInstance().enter(var.name, t);
+                }
             }
         }
 

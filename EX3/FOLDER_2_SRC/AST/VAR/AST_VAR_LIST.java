@@ -4,6 +4,7 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_LIST;
 import AST.AST_Node_Serial_Number;
 import AST.DEC.AST_DEC_VAR;
+import TYPES.TYPE_LIST;
 
 public class AST_VAR_LIST extends AST_LIST
 {
@@ -68,6 +69,11 @@ public class AST_VAR_LIST extends AST_LIST
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
 
+    public TYPE_LIST cSemantMe(String name){
+        TYPE_LIST t = new TYPE_LIST(head.cSemantMe(name),null);
+        if(tail != null) t.tail = tail.cSemantMe(name);
+        return t;
+    }
     @Override
     public AST_DEC_VAR getHead() {
         return this.head;

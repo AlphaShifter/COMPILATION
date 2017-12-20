@@ -3,8 +3,10 @@ package AST.VAR;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import Auxillery.Util;
+import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_CLASS;
+import TYPES.TYPE_CLASS_VAR_DEC;
 import TYPES.TYPE_LIST;
 
 public class AST_VAR_FIELD extends AST_VAR {
@@ -87,8 +89,9 @@ public class AST_VAR_FIELD extends AST_VAR {
         /************************************/
 
         for (TYPE_LIST it = tc.data_members; it != null; it = it.tail) {
-            if (it.head.name.equals(fieldName)) {
-                return it.head;
+            TYPE_CLASS_VAR_DEC dec = (TYPE_CLASS_VAR_DEC)it.head;
+            if (dec.name.equals(fieldName)) {
+                return ((TYPE_CLASS_VAR_DEC) it.head).t;
             }
         }
 

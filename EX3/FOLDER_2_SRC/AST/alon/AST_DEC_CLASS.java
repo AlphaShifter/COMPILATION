@@ -1,9 +1,13 @@
-package AST.DEC;
+package AST.alon;
 
 import AST.*;
-import AST.VAR.AST_VAR_LIST;
+import AST.DEC.*;
+import AST.EXP.*;
+import AST.VAR.*;
+import Auxillery.Scanners;
 import SYMBOL_TABLE.SYMBOL_TABLE;
-import TYPES.*;
+import TYPES.TYPE;
+import TYPES.TYPE_CLASS;
 
 public class AST_DEC_CLASS extends AST_DEC
 {
@@ -27,7 +31,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 
-		System.out.format("decClass -> SIG body");
+		System.out.format("decClass -> name( %s )\n", this.sig.name);
 
 		right = cfieldList;
 
@@ -66,8 +70,6 @@ public class AST_DEC_CLASS extends AST_DEC
 	}
 
 
-
-
 	public TYPE SemantMe()
 	{
 		/*************************/
@@ -80,14 +82,12 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* [2] Semant Data Members */
 		/*******************
 		 * ********/
-		TYPE_CLASS t = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
+		TYPE_CLASS father = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
 		//TODO recursion on the lists
-		TYPE_LIST varTypeList = null;
-		if(this.varList != null)
-			varTypeList = varList.cSemantMe(sig.name /* passes name of class containing the variables*/);
-		//if(this.funcList != null) funcList.SemantMe();
+		if(this.varList != null) varList.cSemantMe(sig.name /* passes name of class containing the variables*/);
+		if(this.funcList != null) funcList.SemantMe();
 
-		t.data_members.addAll(varTypeList);
+		TYPE_CLASS t = new TYPE_CLASS(sig.name,father,null);
 
 
 		/*****************/

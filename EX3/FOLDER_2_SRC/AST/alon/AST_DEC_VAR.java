@@ -1,15 +1,12 @@
-package AST.DEC;
+package AST.alon;
 
-import AST.EXP.AST_EXP;
-import AST.AST_GRAPHVIZ;
-import AST.AST_Node_Serial_Number;
-import AST.STMT.AST_STMT_ASSIGN;
-import Auxillery.Util;
-import SYMBOL_TABLE.SYMBOL_TABLE;
-import TYPES.*;
+import AST.*;
 import AST.DEC.*;
 import AST.EXP.*;
-import AST.VAR.*;
+import Auxillery.Util;
+import SYMBOL_TABLE.MY_SYMBOL_TABLE;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.*;
 
 public class AST_DEC_VAR extends AST_DEC
 {
@@ -74,10 +71,10 @@ public class AST_DEC_VAR extends AST_DEC
 		/* [1] Check If Type exists */
 		/****************************/
 		t = SYMBOL_TABLE.getInstance().find(type);
-		if (t == null)
+				if (t == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
-			Util.printError(myLine);
+			System.exit(0);
 		}
 
 		/**************************************/
@@ -86,14 +83,7 @@ public class AST_DEC_VAR extends AST_DEC
 		if (SYMBOL_TABLE.getInstance().find(name) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
-			Util.printError(myLine);
-		}
-
-		//check if we can assign the exp into the dec
-		TYPE expType = exp.SemantMe();
-		if(!AST_STMT_ASSIGN.assignmentChecker(t,expType)){
-			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
-			Util.printError(this.myLine);
+			System.exit(0);
 		}
 
 		/***************************************************/
@@ -131,7 +121,6 @@ public class AST_DEC_VAR extends AST_DEC
 		/* [1] Check If Type exists */
 		/****************************/
 		t = SYMBOL_TABLE.getInstance().find(type);
-		TYPE_CLASS_VAR_DEC newDec = null;
 		if (t == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
@@ -155,7 +144,7 @@ public class AST_DEC_VAR extends AST_DEC
 						"variable %s is of invalid type\n",2,2,name);
 				System.exit(0);
 			} else{
-				newDec = new TYPE_CLASS_VAR_DEC(TYPE_INT.getInstance(), name);
+				containingClass.data_members.add(new TYPE_CLASS_VAR_DEC(TYPE_INT.getInstance(), name));
 			}
 		} else if (exp instanceof AST_EXP_STRING){
 			if (!(t instanceof TYPE_STRING)){ 	// if assignment is of type 'string'
@@ -164,7 +153,7 @@ public class AST_DEC_VAR extends AST_DEC
 						"variable %s is of invalid type\n",2,2,name);
 				System.exit(0);
 			} else{
-				newDec = new TYPE_CLASS_VAR_DEC(TYPE_STRING.getInstance(), name);
+				containingClass.data_members.add(new TYPE_CLASS_VAR_DEC(TYPE_STRING.getInstance(), name));
 			}
 		} else if (exp instanceof AST_EXP_NIL){
 			// if assignment is NIL check that variable is of pointer type
@@ -173,12 +162,9 @@ public class AST_DEC_VAR extends AST_DEC
 						"variable %s is of invalid type\n",2,2,name);
 				System.exit(0);
 			} else{
-				newDec = new TYPE_CLASS_VAR_DEC(((TYPE_ARRAY) t).type, name);
+				containingClass.data_members.add(new TYPE_CLASS_VAR_DEC(((TYPE_ARRAY) t).type, name));
 			}
-		} else if (exp == null){
-			newDec = new TYPE_CLASS_VAR_DEC(t,name);
 		}
-		containingClass.data_members.add(newDec);
 
 
 		/***************************************************/
@@ -186,6 +172,6 @@ public class AST_DEC_VAR extends AST_DEC
 		/***************************************************/
 		SYMBOL_TABLE.getInstance().enter(name,t);
 
-		return newDec;
+		return null;
 	}
 }

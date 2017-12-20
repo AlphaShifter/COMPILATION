@@ -13,7 +13,7 @@ public class AST_PROGRAM extends AST_Node
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_PROGRAM(AST_DEC_LIST decLis)
+	public AST_PROGRAM(AST_DEC_LIST decList)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
