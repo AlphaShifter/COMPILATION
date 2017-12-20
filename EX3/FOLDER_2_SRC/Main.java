@@ -16,9 +16,17 @@ public class Main
 		AST_PROGRAM AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
-		String inputFilename = argv[0];
-		String outputFilename = argv[1];
+		String inputFilename;
+		String outputFilename;
+		if(argv.length==0){
+			inputFilename = "FOLDER_4_INPUT/TEST_04_Matrices.txt";
+			outputFilename = "FOLDER_5_OUTPUT/SemanticStatus.txt";
+		}
+		else{
 
+			inputFilename = argv[0];
+			outputFilename = argv[1];
+		}
 //		String inputFilename = "C:\\Users\\Ilsar\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\TEST_03_Merge_Lists.txt";
 //		String outputFilename = "C:\\Users\\Ilsar\\Documents\\Compilation\\EX2\\FOLDER_4_INPUT\\out.txt";
 //		String inputFilename = "/Users/giladi/COMPILATION_TAU/EX2/FOLDER_4_INPUT/TEST_03_Merge_Lists.txt";
