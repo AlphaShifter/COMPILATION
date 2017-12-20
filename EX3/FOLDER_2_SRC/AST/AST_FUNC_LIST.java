@@ -1,6 +1,7 @@
 package AST;
 
 import AST.DEC.AST_DEC_FUNC;
+import TYPES.TYPE_LIST;
 
 public class AST_FUNC_LIST extends AST_LIST
 {
@@ -74,5 +75,12 @@ public class AST_FUNC_LIST extends AST_LIST
     @Override
     public AST_FUNC_LIST getTail() {
         return this.tail;
+    }
+
+    //
+    public TYPE_LIST cSemantMe(String name) {
+        TYPE_LIST t = new TYPE_LIST(head.cSemantMe(name),null);
+        if(tail != null) t.tail = tail.cSemantMe(name);
+        return t;
     }
 }

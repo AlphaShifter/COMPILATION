@@ -58,4 +58,46 @@ public class TYPE_LIST extends TYPE
 		}
 	}
 
+	/*
+	finds the entry that corresponds to the name 'query'
+	if does not exist in list, returns null
+	 */
+	public TYPE findInList(String query) {
+		TYPE currHead = head;
+		TYPE_LIST currTail = tail;
+		while(currTail != null) {
+			if(currHead.name.equals(query)) {
+				return currHead;
+			}
+			// update the pointers
+			currHead = currTail.head;
+			currTail = currTail.tail;
+		}
+		return null;
+	}
+
+
+	// checks that the arguments passed to two different functions are the same
+	public boolean compareFuncArgsByType(TYPE_LIST compareTo) {
+		TYPE currHead1 = head;
+		TYPE currHead2 = compareTo.head;
+		TYPE_LIST currTail1 = tail;
+		TYPE_LIST currTail2 = compareTo.tail;
+		while((currTail1 != null) && (currTail2 != null)){ // go on until reached end of either list
+			// if the types of the arguments are not equal
+			if(!currHead1.getType().equals(currHead2.getType())) {
+				return false;
+			}
+			currHead1 = currTail1.head;
+			currHead2 = currTail2.head;
+			currTail1 = currTail1.tail;
+			currTail2 = currTail2.tail;
+		}
+		if((currTail1 != null) || (currTail2 != null)) {
+			return false;
+		}
+		return true;
+	}
+
+
 }
