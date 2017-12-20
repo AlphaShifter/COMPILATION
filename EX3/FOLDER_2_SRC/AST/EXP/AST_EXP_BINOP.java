@@ -4,6 +4,7 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import Auxillery.Util;
 import TYPES.TYPE;
+import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
 
 public class AST_EXP_BINOP extends AST_EXP
@@ -91,6 +92,11 @@ public class AST_EXP_BINOP extends AST_EXP
 
 		if (leftExp  != null) t1 = leftExp.SemantMe();
 		if (rightExp != null) t2 = rightExp.SemantMe();
+
+		if(t1.isArray())
+			t1 = ((TYPE_ARRAY)t1).type;
+		if(t2.isArray())
+			t2 = ((TYPE_ARRAY)t2).type;
 
 		if(TYPE.eqByType(t1,t2)){
             if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))

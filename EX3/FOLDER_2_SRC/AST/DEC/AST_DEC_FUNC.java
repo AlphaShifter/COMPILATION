@@ -14,7 +14,8 @@ public class AST_DEC_FUNC extends AST_DEC {
 
     public AST_STMT_LIST stmtList;
     public AST_FUNC_SIG sig;
-    public static TYPE func_type =null;
+    public static TYPE func_type = null;
+
 
     /*********************************************************/
     /* The default message for an unknown AST DECLERATION node */
@@ -22,7 +23,7 @@ public class AST_DEC_FUNC extends AST_DEC {
     /*********************************************************/
     public AST_DEC_FUNC(AST_FUNC_SIG sig, AST_STMT_LIST list) {
         /******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
+        /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
 
@@ -73,13 +74,14 @@ public class AST_DEC_FUNC extends AST_DEC {
         /****************************/
 		/* [1] Begin Function Scope */
         /****************************/
-        SYMBOL_TABLE.getInstance().beginScope();
-
 
         /*******************/
 		/* [2] Semant sig */
         /*******************/
+        SYMBOL_TABLE.getInstance().beginScope();
+
         TYPE_FUNCTION newFuncDec = null;
+        func_type = Util.stringToType(sig.type);
         newFuncDec = (TYPE_FUNCTION) sig.SemantMe();
 
         /*******************/
@@ -91,6 +93,8 @@ public class AST_DEC_FUNC extends AST_DEC {
 		/* [4] End Scope */
         /*****************/
         SYMBOL_TABLE.getInstance().endScope();
+
+        SYMBOL_TABLE.getInstance().enter(sig.name, newFuncDec);
 
 
         /*********************************************************/

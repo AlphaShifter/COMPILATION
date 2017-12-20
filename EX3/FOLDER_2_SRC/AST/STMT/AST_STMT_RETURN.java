@@ -54,9 +54,8 @@ public class AST_STMT_RETURN extends AST_STMT {
             }
         }
         System.out.println("error incompatible error in function type");
-        Util.printError(this.myLine);
+        Util.printError(res.myLine);
         return null;
     }
-
 
 }

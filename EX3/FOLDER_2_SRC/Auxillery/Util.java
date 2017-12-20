@@ -164,6 +164,7 @@ public class Util {
     }
 
     public static boolean isA(TYPE a, TYPE b){
+        if(a == b) return true;
         if(isFatherOf(a,b)) return true;
         if(a==TYPE_NIL.getInstance() && !isPrimitive(b)) return true;
         return false;
