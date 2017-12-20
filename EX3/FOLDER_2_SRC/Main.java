@@ -76,9 +76,12 @@ public class Main
 			AST_GRAPHVIZ.getInstance().finalizeFile();
 
 			Util.treeReduction(AST);
+			Util.classSplit(AST);
+
+			AST.SemantMe();
 
 
-			//boolean retValue = Util.logClasses(AST); // try to log the classes of the program
+						//boolean retValue = Util.logClasses(AST); // try to log the classes of the program
 //			if(retValue == true){
 //				System.out.println("OK with classes\n");
 //			} else{
