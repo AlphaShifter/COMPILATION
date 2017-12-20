@@ -93,6 +93,9 @@ public class TYPE_LIST extends TYPE
 			currTail1 = currTail1.tail;
 			currTail2 = currTail2.tail;
 		}
+		if((currTail1 != null) || (currTail2 != null)) {
+			return false;
+		}
 		return true;
 	}
 
