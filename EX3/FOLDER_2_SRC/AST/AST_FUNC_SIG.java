@@ -8,8 +8,8 @@ import TYPES.TYPE_LIST;
 
 public class AST_FUNC_SIG extends AST_Node {
 
-    String type;
-    String name;
+    public String type;
+    public String name;
     public AST_ID_LIST idList;
 
     /*********************************************************/
