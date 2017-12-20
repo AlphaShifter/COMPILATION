@@ -74,13 +74,14 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* [1] Begin Class Scope */
 
 		/*************************/
+		TYPE_CLASS t = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
+
 		SYMBOL_TABLE.getInstance().beginScope();
 
 		/***************************/
 		/* [2] Semant Data Members */
 		/*******************
 		 * ********/
-		TYPE_CLASS t = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
 		//TODO recursion on the lists
 		TYPE_LIST varTypeList = null;
 		TYPE_LIST funcTypeList = null;

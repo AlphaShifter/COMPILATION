@@ -79,17 +79,16 @@ public class TYPE_LIST extends TYPE
 
 	// checks that the arguments passed to two different functions are the same
 	public boolean compareFuncArgsByType(TYPE_LIST compareTo) {
-		TYPE currHead1 = head;
-		TYPE currHead2 = compareTo.head;
-		TYPE_LIST currTail1 = tail;
-		TYPE_LIST currTail2 = compareTo.tail;
+
+		TYPE_LIST currTail1 = this;
+		TYPE_LIST currTail2 = compareTo;
 		while((currTail1 != null) && (currTail2 != null)){ // go on until reached end of either list
+			TYPE currHead1 = currTail1.head;
+			TYPE currHead2 = currTail2.head;
 			// if the types of the arguments are not equal
-			if(!currHead1.getType().equals(currHead2.getType())) {
+			if(currHead1 != currHead2) {
 				return false;
 			}
-			currHead1 = currTail1.head;
-			currHead2 = currTail2.head;
 			currTail1 = currTail1.tail;
 			currTail2 = currTail2.tail;
 		}

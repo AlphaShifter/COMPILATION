@@ -3,7 +3,9 @@ package AST.EXP;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.VAR.AST_VAR;
-import TYPES.TYPE;
+import Auxillery.Util;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.*;
 
 public class AST_EXP_METHOD extends AST_EXP {
 
@@ -11,9 +13,9 @@ public class AST_EXP_METHOD extends AST_EXP {
     public AST_VAR var;
     public AST_EXP_LIST args;
 
-    public AST_EXP_METHOD(AST_VAR var, String id, AST_EXP_LIST args){
+    public AST_EXP_METHOD(AST_VAR var, String id, AST_EXP_LIST args) {
         /******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
+        /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
 
@@ -24,12 +26,11 @@ public class AST_EXP_METHOD extends AST_EXP {
             System.out.printf("exp -> var. %s (exps)\n", id);
         else if ((var != null) && (args == null))
             System.out.printf("exp -> var. %s ()\n", id);
-        else if((var == null) && (args != null))
+        else if ((var == null) && (args != null))
             System.out.printf("exp -> %s (exps)\n", id);
         else
             System.out.printf("exp -> %s ()\n", id);
 
-        //TODO: finish the current implementation - also, implement AST_EXP_METHOD
         this.var = var;
         this.id = id;
         this.args = args;
@@ -37,24 +38,112 @@ public class AST_EXP_METHOD extends AST_EXP {
         right = args;
     }
 
-    public void PrintMe()
-    {
+    public void PrintMe() {
         /*******************************/
 		/* AST NODE TYPE = AST INT METHOD */
         /*******************************/
         System.out.format("AST NODE METHOD( %s )\n", id);
-        if(var != null) var.PrintMe();
-        if(args != null) args.PrintMe();
+        if (var != null) var.PrintMe();
+        if (args != null) args.PrintMe();
         /*********************************/
 		/* Print to AST GRAPHIZ DOT file */
         /*********************************/
-        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Call for method: NAME(%s)",id));
-        if(var != null) {
+        AST_GRAPHVIZ.getInstance().logNode(SerialNumber, String.format("Call for method: NAME(%s)", id));
+        if (var != null) {
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
         }
-        if(args != null) {
+        if (args != null) {
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, args.SerialNumber);
         }
+    }
+
+    @Override
+    public TYPE SemantMe() {
+        TYPE_FUNCTION func = null;
+        if(var != null) {
+            TYPE c = var.SemantMe();
+            //check if c is a class
+            if (!c.isClass()) {
+                System.out.println("Error: calling a method from non-class object");
+                Util.printError(this.myLine);
+                return null;
+            }
+            TYPE_CLASS classType = (TYPE_CLASS) c;
+
+            for (TYPE_LIST runner = classType.function_list; runner != null; runner = runner.tail) {
+                //cast
+                if (runner.head.name.equals(this.id))
+                    func = (TYPE_FUNCTION) runner.head;
+            }
+            //check if we got the func
+            if (func == null) {
+                System.out.println("ERROR: no such func " + id + " in class" + classType.name);
+                Util.printError(this.myLine);
+                return null;
+            }
+        } else{
+            func =(TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.id);
+            if (func == null) {
+                System.out.println("ERROR: no such func " + id);
+                Util.printError(this.myLine);
+                return null;
+            }
+        }
+        //we found the func, now check the args
+        //check case: no args
+        if (args == null) {
+            if (func.arguments != null) {
+                System.out.println("Error: too few arguments sent to function");
+                Util.printError(myLine);
+            }
+        }
+        if (func.arguments == null) {
+            if (args != null) {
+                System.out.println("Error: too many arguments sent to function");
+                Util.printError(myLine);
+            }
+        }
+        //if both are null: end
+        if(!(func.arguments == null && args == null))
+            funcCallSemanter(args, func);
+        //the args are good, return the type
+        return func.returnType;
+
+    }
+
+
+    public static void funcCallSemanter(AST_EXP_LIST args, TYPE_FUNCTION func) {
+        //run on both
+        AST_EXP_LIST argRunner = args;
+        TYPE_LIST funcRunner = func.arguments;
+        while (argRunner != null && funcRunner != null) {
+            //check if the current argument is compatible with the current func argument
+            TYPE currArgType = argRunner.head.SemantMe();
+            TYPE currFuncType = funcRunner.head;
+            if (currArgType != currFuncType) { //if they are the same - no problem
+                if (!Util.isA(currArgType, currFuncType)) {
+                    // the arg is not compatible with the function args
+                    System.out.println("Error: invalid parameter type sent to function");
+                    Util.printError(argRunner.head.myLine);
+                }
+
+            }
+            //move both runners
+            argRunner = argRunner.tail;
+            funcRunner = funcRunner.tail;
+        }
+        //check that both are empty
+        if (argRunner != null) {
+            System.out.println("Error: too many arguments sent to function");
+            Util.printError(args.myLine);
+        }
+        if (funcRunner != null) {
+            System.out.println("Error: too few arguments sent to function");
+            Util.printError(args.myLine);
+        }
+
+        //we got here - all good
+
     }
 
     @Override
