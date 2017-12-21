@@ -101,13 +101,17 @@ public class AST_STMT_ASSIGN extends AST_STMT
 			//case 1: t1 is and array
 			if(t1.isArray()){
 				TYPE_ARRAY t1Arr = (TYPE_ARRAY)t1;
+				TYPE t1ArrType = t1Arr.type;
+				while(t1ArrType.isArray()) {
+					t1ArrType = ((TYPE_ARRAY)t1ArrType).type;
+				}
 				if(t2 == TYPE_NIL.getInstance()) //nil into array
 					return true;
 				if(t2 instanceof TYPE_ARRAY){ // new array
 					if(t1Arr.type == ((TYPE_ARRAY) t2).type)
 						return true;
 				}
-				if(t1Arr.type == t2)
+				if(t1ArrType == t2)
 					return true;
 			}
 			else if (t2 == TYPE_NIL.getInstance()) {
