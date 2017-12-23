@@ -2,6 +2,7 @@ package AST.VAR;
 
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
+import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 
@@ -52,6 +53,10 @@ public class AST_VAR_SIMPLE extends AST_VAR
 
 	public TYPE SemantMe()
 	{
+		if(SYMBOL_TABLE.getInstance().find(name) == null){
+			System.out.println(">> ERROR: variable " + name + " has not been defined\n");
+			Util.printError(myLine);
+		}
 		return SYMBOL_TABLE.getInstance().find(name);
 	}
 
