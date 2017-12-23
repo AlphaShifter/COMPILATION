@@ -19,7 +19,7 @@ public class Main
 		String inputFilename;
 		String outputFilename;
 		if(argv.length==0){
-			inputFilename = "FOLDER_4_INPUT/TEST_04_Matrices.txt";
+			inputFilename = "FOLDER_4_INPUT/TEST_15_Integral_Allocation_Size_Integral_Subscript_Exp.txt";
 			outputFilename = "FOLDER_5_OUTPUT/SemanticStatus.txt";
 		}
 		else{
@@ -43,12 +43,13 @@ public class Main
 			/* [2] Initialize a file writer */
 			/********************************/
 			file_writer = new PrintWriter(outputFilename);
-			
+            Util.setWriter(file_writer);
+
 			/******************************/
 			/* [3] Initialize a new lexer */
 			/******************************/
 			l = new Lexer(file_reader);
-			
+
 			/*******************************/
 			/* [4] Initialize a new parser */
 			/*******************************/
@@ -60,24 +61,15 @@ public class Main
 			AST = (AST_PROGRAM) p.parse().value;
 
 
-			file_writer.write("OK\n");
-			if(p.wasSuccessful){
-				
-			}
-			else{
-				file_writer.write("ERROR("+p.lineNumber+")\n");
-			}
-			
 			/*************************/
 			/* [6] Print the AST ... */
 			/*************************/
 			AST.PrintMe();
-			
+
 			/*************************/
 			/* [7] Close output file */
 			/*************************/
-			file_writer.close();
-			
+
 			/*************************************/
 			/* [8] Finalize AST GRAPHIZ DOT file */
 			/*************************************/
@@ -85,9 +77,9 @@ public class Main
 
 			Util.treeReduction(AST);
 			Util.classSplit(AST);
-
-			AST.SemantMe();
-
+            AST.SemantMe();
+            file_writer.write("OK\n");
+            file_writer.close();
 
 						//boolean retValue = Util.logClasses(AST); // try to log the classes of the program
 //			if(retValue == true){
