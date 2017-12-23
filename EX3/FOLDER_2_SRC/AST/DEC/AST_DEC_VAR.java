@@ -86,14 +86,14 @@ public class AST_DEC_VAR extends AST_DEC
 		if (SYMBOL_TABLE.getInstance().find(name) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
-			Util.printError(this.myLine);
+			Util.printError(this.myLine -1);
 		}
 
 		//check if we can assign the exp into the dec
 		TYPE expType = exp.SemantMe();
 		if(!AST_STMT_ASSIGN.assignmentChecker(t,expType)){
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
-			Util.printError(this.myLine);
+			Util.printError(exp.myLine);
 		}
 
 		/***************************************************/
@@ -135,7 +135,8 @@ public class AST_DEC_VAR extends AST_DEC
 		if (t == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
-			System.exit(0);
+			Util.printError(this.myLine);
+
 		}
 
 		/**************************************/
@@ -144,7 +145,8 @@ public class AST_DEC_VAR extends AST_DEC
 		if (SYMBOL_TABLE.getInstance().find(name) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
-			System.exit(0);
+			Util.printError(this.myLine);
+
 		}
 
 		TYPE_CLASS containingClass = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(containingClassName);
@@ -153,7 +155,7 @@ public class AST_DEC_VAR extends AST_DEC
 			if (!(t instanceof TYPE_INT)){ // if assignment is of type 'int' check that variable is of type 'int'
 				System.out.format(">> ERROR [%d:%d] assignment to " +
 						"variable %s is of invalid type\n",2,2,name);
-				System.exit(0);
+				Util.printError(exp.myLine);
 			} else{
 				newDec = new TYPE_CLASS_VAR_DEC(TYPE_INT.getInstance(), name);
 			}
@@ -162,18 +164,18 @@ public class AST_DEC_VAR extends AST_DEC
 												// check that variable is of type 'string'
 				System.out.format(">> ERROR [%d:%d] assignment to " +
 						"variable %s is of invalid type\n",2,2,name);
-				System.exit(0);
+				Util.printError(exp.myLine);
 			} else{
 				newDec = new TYPE_CLASS_VAR_DEC(TYPE_STRING.getInstance(), name);
 			}
 		} else if (exp instanceof AST_EXP_NIL){
 			// if assignment is NIL check that variable is of pointer type
-			if (!(t instanceof TYPE_ARRAY)){
+			if (Util.isPrimitive(t)){
 				System.out.format(">> ERROR [%d:%d] assignment to " +
 						"variable %s is of invalid type\n",2,2,name);
-				System.exit(0);
+				Util.printError(exp.myLine);
 			} else{
-				newDec = new TYPE_CLASS_VAR_DEC(((TYPE_ARRAY) t).type, name);
+				newDec = new TYPE_CLASS_VAR_DEC(t, name);
 			}
 		} else if (exp == null){
 			newDec = new TYPE_CLASS_VAR_DEC(t,name);

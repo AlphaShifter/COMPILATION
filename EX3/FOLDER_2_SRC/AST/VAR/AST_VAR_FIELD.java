@@ -4,10 +4,7 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
-import TYPES.TYPE;
-import TYPES.TYPE_CLASS;
-import TYPES.TYPE_CLASS_VAR_DEC;
-import TYPES.TYPE_LIST;
+import TYPES.*;
 
 public class AST_VAR_FIELD extends AST_VAR {
     public AST_VAR var;
@@ -77,7 +74,9 @@ public class AST_VAR_FIELD extends AST_VAR {
         /*********************************/
 		/* [2] Make sure type is a class */
         /*********************************/
-        if (!(t instanceof TYPE_CLASS)) {
+        if(t.isArray())
+            t = ((TYPE_ARRAY)t).type;
+        if (!(t.isClass())) {
             System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n", 6, 6, fieldName);
             Util.printError(this.myLine);
         } else {

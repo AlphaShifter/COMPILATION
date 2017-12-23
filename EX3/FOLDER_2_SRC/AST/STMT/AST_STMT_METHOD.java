@@ -78,7 +78,8 @@ public class AST_STMT_METHOD extends AST_STMT {
 
             for (TYPE_LIST runner = classType.function_list; runner != null; runner = runner.tail) {
                 //cast
-                if (runner.head.name.equals(this.id))
+                TYPE_FUNCTION runnerF = (TYPE_FUNCTION)runner.head;
+                if (runnerF.name.equals(this.id))
                     func = (TYPE_FUNCTION) runner.head;
             }
             //check if we got the func

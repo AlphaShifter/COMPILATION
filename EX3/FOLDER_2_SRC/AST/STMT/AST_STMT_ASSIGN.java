@@ -113,6 +113,10 @@ public class AST_STMT_ASSIGN extends AST_STMT
 				}
 				if(t1ArrType == t2)
 					return true;
+				if(t1ArrType.isClass() && t2.isClass()){
+					if(Util.isFatherOf(t2,t1ArrType))
+						return true;
+				}
 			}
 			else if (t2 == TYPE_NIL.getInstance()) {
 				//if we assign NIL into primitive: error
@@ -125,7 +129,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 					return true;
 			}
 			//check if t2 is father of t1
-			else if (Util.isFatherOf(t1, t2)) {
+			else if (Util.isFatherOf(t2, t1)) {
 				return true;
 			} else {
 				//none of the above: return false

@@ -115,6 +115,7 @@ public class AST_DEC_FUNC extends AST_DEC {
 		/* [2] Semant sig */
         /*******************/
         TYPE_FUNCTION newFuncDec = null;
+        func_type = Util.stringToType(sig.type);
         newFuncDec = (TYPE_FUNCTION) sig.cSemantMe(name);
 
 

@@ -140,12 +140,12 @@ public class AST_FUNC_SIG extends AST_Node {
         // check whether a function of same name already exists
         if (SYMBOL_TABLE.getInstance().find(name) != null) {
             System.out.format(">> ERROR [%d:%d] function of name %s has already been declared\n", 6, 6, name);
-            Util.printError(currLine);
+            Util.printError(myLine);
         }
 
         if (returnType == null) {
             System.out.format(">> ERROR [%d:%d] non existing return type %s\n", 6, 6, "null");
-            Util.printError(currLine);
+            Util.printError(myLine);
         }
 
         if (idList != null) {
@@ -169,17 +169,17 @@ public class AST_FUNC_SIG extends AST_Node {
             // if return type is different that is an error
             if (overloadedFunc.returnType != returnType) {
                 System.out.format(">> ERROR [%d:%d] function overloading\n", 6, 6);
-                Util.printError(currLine);
+                Util.printError(myLine);
             } else {
                 // if return type is same but args are different that is an error
                 if (type_list == null) {
-                    if (containingClass.function_list != null) {
+                    if (overloadedFunc.arguments != null) {
                         System.out.format(">> ERROR [%d:%d] function overloading\n", 6, 6);
-                        Util.printError(currLine);
+                        Util.printError(myLine);
                     }
                 } else if (!type_list.compareFuncArgsByType(containingClass.function_list)) {
                     System.out.format(">> ERROR [%d:%d] function overloading\n", 6, 6);
-                    Util.printError(currLine);
+                    Util.printError(myLine);
                 }
                 // if return type and args correspond that is fine
             }
