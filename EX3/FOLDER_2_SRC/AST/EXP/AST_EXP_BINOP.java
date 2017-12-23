@@ -93,10 +93,18 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (leftExp  != null) t1 = leftExp.SemantMe();
 		if (rightExp != null) t2 = rightExp.SemantMe();
 
-		while(t1.isArray() && t2.isArray()) { // if t1 or t2 is an array of arrays, keep digging for the underlying type
-			t1 = ((TYPE_ARRAY) t1).type;
-			t2 = ((TYPE_ARRAY) t2).type;
+		if (t1==null){
+			Util.printError(leftExp.myLine);
+			return null;
 		}
+		if (t2==null){
+			Util.printError(rightExp.myLine);
+			return null;
+		}
+		while(t1.isArray()) // if t1 is an array of arrays, keep digging for the underlying type
+			t1 = ((TYPE_ARRAY)t1).type;
+		while(t2.isArray()) // if t2 is an array of arrays, keep digging for the underlying type
+			t2 = ((TYPE_ARRAY)t2).type;
 
 		if(TYPE.eqByType(t1,t2)){
             if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
