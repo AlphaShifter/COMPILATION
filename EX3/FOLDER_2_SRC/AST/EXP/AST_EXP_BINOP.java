@@ -102,10 +102,12 @@ public class AST_EXP_BINOP extends AST_EXP
 			Util.printError(rightExp.myLine);
 			return null;
 		}
-		while(t1.isArray()) // if t1 is an array of arrays, keep digging for the underlying type
+		//hile(t1.isArray()) // if t1 is an array of arrays, keep digging for the underlying type
+		while(t2.isArray() && t2.isArray()) { // if t2 is an array of arrays, keep digging for the underlying type
+			t2 = ((TYPE_ARRAY) t2).type;
 			t1 = ((TYPE_ARRAY)t1).type;
-		while(t2.isArray()) // if t2 is an array of arrays, keep digging for the underlying type
-			t2 = ((TYPE_ARRAY)t2).type;
+
+		}
 
 
 

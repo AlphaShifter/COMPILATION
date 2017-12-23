@@ -13,9 +13,9 @@ void BubbleSort(IntArray arr, int size)
         {
             if (arr[j] < min)
             {
-                int i := arr[minIndex];
+                int temp := arr[minIndex];
                 arr[minIndex] := arr[j];
-                arr[j] := i;
+                arr[j] := temp;
             }
         }
     }
