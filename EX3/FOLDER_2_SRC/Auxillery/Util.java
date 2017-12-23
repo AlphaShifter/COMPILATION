@@ -11,8 +11,10 @@ import AST.EXP.*;
 import AST.DEC.*;
 import AST.STMT.*;
 
-public class Util {
+import java.io.PrintWriter;
 
+public class Util {
+    public static PrintWriter file_writer=null;
     /*
     splits the list of fields in a AST_DEC_CLASS object into variables and methods
      */
@@ -135,7 +137,9 @@ public class Util {
     }
 
     public static void printError(int lineNum) {
-        System.out.println("ERROR (" + lineNum + ")");
+        System.out.println("ERROR(" + lineNum + ")");
+        file_writer.write("ERROR(" + lineNum + ")\n");
+        file_writer.close();
         System.exit(0);
     }
 
@@ -171,4 +175,7 @@ public class Util {
 
     }
 
+    public static void setWriter(PrintWriter writer) {
+        Util.file_writer = writer;
+    }
 }
