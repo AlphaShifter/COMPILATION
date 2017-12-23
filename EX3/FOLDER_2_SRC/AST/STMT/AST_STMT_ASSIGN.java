@@ -84,7 +84,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		if(!assignmentChecker(t1,t2))
 		{
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
-			Util.printError(this.myLine);
+			Util.printError(var.myLine);
 		}
 		return null;
 	}
@@ -94,6 +94,9 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		if(t1 == TYPE_NIL.getInstance())
 			return false;
 
+//		if(t1.isArray())
+//			t1 = ((TYPE_ARRAY)t1).type;
+
 		if (t1 != t2) {
 			//we only allow type difference in the following cases:
 			//father into son
@@ -102,21 +105,23 @@ public class AST_STMT_ASSIGN extends AST_STMT
 			if(t1.isArray()){
 				TYPE_ARRAY t1Arr = (TYPE_ARRAY)t1;
 				TYPE t1ArrType = t1Arr.type;
-				while(t1ArrType.isArray()) {
-					t1ArrType = ((TYPE_ARRAY)t1ArrType).type;
-				}
+//				while(t1ArrType.isArray()) {
+//					t1ArrType = ((TYPE_ARRAY)t1ArrType).type;
+//				}
 				if(t2 == TYPE_NIL.getInstance()) //nil into array
 					return true;
 				if(t2 instanceof TYPE_ARRAY){ // new array
 					if(t1Arr.type == ((TYPE_ARRAY) t2).type)
 						return true;
 				}
-				if(t1ArrType == t2)
-					return true;
-				if(t1ArrType.isClass() && t2.isClass()){
-					if(Util.isFatherOf(t2,t1ArrType))
-						return true;
-				}
+
+				return false;
+//				if(t1ArrType == t2)
+//					return true;
+//				if(t1ArrType.isClass() && t2.isClass()){
+//					if(Util.isFatherOf(t2,t1ArrType))
+//						return true;
+//				}
 			}
 			else if (t2 == TYPE_NIL.getInstance()) {
 				//if we assign NIL into primitive: error
@@ -124,10 +129,10 @@ public class AST_STMT_ASSIGN extends AST_STMT
 					return true;
 				}
 			}
-			if(t2.isArray()){
-				if(t1 == ((TYPE_ARRAY)t2).type)
-					return true;
-			}
+//			if(t2.isArray()){
+//				if(t1 == ((TYPE_ARRAY)t2).type)
+//					return true;
+//			}
 			//check if t2 is father of t1
 			else if (Util.isFatherOf(t2, t1)) {
 				return true;

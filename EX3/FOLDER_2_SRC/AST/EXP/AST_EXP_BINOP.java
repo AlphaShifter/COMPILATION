@@ -6,6 +6,7 @@ import Auxillery.Util;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
+import TYPES.TYPE_STRING;
 
 public class AST_EXP_BINOP extends AST_EXP
 {
@@ -106,11 +107,15 @@ public class AST_EXP_BINOP extends AST_EXP
 		while(t2.isArray()) // if t2 is an array of arrays, keep digging for the underlying type
 			t2 = ((TYPE_ARRAY)t2).type;
 
+
+
 		if(TYPE.eqByType(t1,t2)){
             if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
             {
                 return TYPE_INT.getInstance();
             }
+            if(t1 == TYPE_STRING.getInstance() && t2 == TYPE_STRING.getInstance() && OP == 0)
+            	return TYPE_STRING.getInstance();
         }
         else if(OP==6){
             if(TYPE.eqByString(t1,"TYPE_NIL")){//they are not of the same type
@@ -128,6 +133,7 @@ public class AST_EXP_BINOP extends AST_EXP
             	return TYPE_INT.getInstance();
             }
         }
+		System.out.println("Error: invalid parameters for binop");
 		Util.printError(this.myLine);
 		return null;
 	}

@@ -5,6 +5,7 @@ import AST.AST_Node_Serial_Number;
 import AST.EXP.AST_EXP;
 import Auxillery.Util;
 import TYPES.TYPE;
+import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
 
 public class AST_VAR_SUBSCRIPT extends AST_VAR {
@@ -74,7 +75,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
             Util.printError(this.myLine);
         }
 
-        return var.SemantMe();
+        TYPE_ARRAY array =(TYPE_ARRAY)var.SemantMe();
+        return array.type;
     }
 
     @Override
