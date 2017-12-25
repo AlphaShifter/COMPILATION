@@ -86,7 +86,7 @@ public class AST_DEC_VAR extends AST_DEC
 		if (SYMBOL_TABLE.getInstance().findInCurrScope(name) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
-			Util.printError(this.myLine -1);
+			Util.printError(this.myLine);
 		}
 
 		if(exp != null) {
@@ -151,7 +151,19 @@ public class AST_DEC_VAR extends AST_DEC
 
 		}
 
+
 		TYPE_CLASS containingClass = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(containingClassName);
+
+		//check if the class already has it
+		for(TYPE_LIST typeList = containingClass.data_members; typeList != null; typeList = typeList.tail){
+			TYPE_CLASS_VAR_DEC varDec = (TYPE_CLASS_VAR_DEC)typeList.head;
+			if(varDec != null) {
+				if (varDec.name.equals(this.name)) {
+					System.out.println("Error: variable shadowing is illegal");
+					Util.printError(this.myLine);
+				}
+			}
+		}
 
 		if (exp instanceof AST_EXP_INT){
 			if (!(t instanceof TYPE_INT)){ // if assignment is of type 'int' check that variable is of type 'int'

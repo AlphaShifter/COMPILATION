@@ -15,7 +15,6 @@ class Person
 }
 
 string bestFriend := "Jesse";
-Person p := new Person;
 
 class Student extends Person
 {
@@ -31,7 +30,7 @@ class Student extends Person
 			d := 5<6;
 			d := 5<6;
 			d := 5<6;
-			d := p.birthday();
+			d := bestFriend.birthday();
 			d := 5<6;
 			d := 5<6;
 			d := 5<6;

@@ -322,7 +322,9 @@ public class Parser extends java_cup.runtime.lr_parser {
     {
 
 	Symbol s;
-	s = lexer.next_token();
+        AST_Node.currLine = lexer.getLine();
+
+        s = lexer.next_token();
 	//System.out.print(s.sym);
 	System.out.print("[");
 	System.out.print(lexer.getLine());
@@ -337,7 +339,6 @@ public class Parser extends java_cup.runtime.lr_parser {
 		System.out.print(" )");
 	}
 	System.out.print("\n");
-	AST_Node.currLine = lexer.getLine();
 	return s;
 
     }

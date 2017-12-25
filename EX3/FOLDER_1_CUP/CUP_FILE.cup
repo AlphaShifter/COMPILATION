@@ -43,6 +43,7 @@ parser code
 scan with
 {:
 	Symbol s;
+	AST_Node.currLine = lexer.getLine();
 	s = lexer.next_token();
 	//System.out.print(s.sym);
 	System.out.print("[");
@@ -58,7 +59,6 @@ scan with
 		System.out.print(" )");
 	}
 	System.out.print("\n");
-	AST_Node.currLine = lexer.getLine();
 	return s;
 :};
 
