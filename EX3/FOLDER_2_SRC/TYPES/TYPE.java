@@ -12,6 +12,7 @@ public abstract class TYPE
 
 	public boolean isArray(){ return false;}
 	public boolean isClass(){ return false;}
+	public boolean isFunction() {return false;}
 
 	public static boolean eqByType(TYPE t1, TYPE t2){
 		return t1.getType().equals(t2.getType());

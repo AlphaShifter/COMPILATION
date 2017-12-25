@@ -7,6 +7,7 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
+import TYPES.TYPE_NIL;
 
 public class AST_EXP_ID extends AST_EXP {
     public String value;
@@ -78,6 +79,14 @@ public class AST_EXP_ID extends AST_EXP {
         TYPE t = SYMBOL_TABLE.getInstance().find(value);
         if (t == null) {
             System.out.println("ERROR: unknown object " + value);
+            Util.printError(myLine);
+        }
+        if(Util.isPrimitive(t) || t == TYPE_NIL.getInstance()){
+            System.out.println("Error: cannot initialize new primitive type");
+            Util.printError(myLine);
+        }
+        if(t.isArray() && exp == null){
+            System.out.println("Error: cannot initialize new array without specifying the size");
             Util.printError(myLine);
         }
         return t;

@@ -118,6 +118,10 @@ public class AST_EXP_METHOD extends AST_EXP {
             //check if the current argument is compatible with the current func argument
             TYPE currArgType = argRunner.head.SemantMe();
             TYPE currFuncType = funcRunner.head;
+            if(currArgType.isArray() && currFuncType.isArray()){
+                currArgType = ((TYPE_ARRAY)currArgType).type;
+                currFuncType = ((TYPE_ARRAY)currFuncType).type;
+            }
             if (currArgType != currFuncType) { //if they are the same - no problem
                 if (!Util.isA(currArgType, currFuncType)) {
                     // the arg is not compatible with the function args

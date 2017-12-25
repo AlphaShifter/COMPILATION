@@ -89,11 +89,13 @@ public class AST_DEC_VAR extends AST_DEC
 			Util.printError(this.myLine -1);
 		}
 
-		//check if we can assign the exp into the dec
-		TYPE expType = exp.SemantMe();
-		if(!AST_STMT_ASSIGN.assignmentChecker(t,expType)){
-			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
-			Util.printError(exp.myLine);
+		if(exp != null) {
+			//check if we can assign the exp into the dec
+			TYPE expType = exp.SemantMe();
+			if (!AST_STMT_ASSIGN.assignmentChecker(t, expType)) {
+				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n", 6, 6);
+				Util.printError(exp.myLine);
+			}
 		}
 
 		/***************************************************/

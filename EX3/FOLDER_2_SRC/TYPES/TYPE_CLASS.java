@@ -18,6 +18,7 @@ public class TYPE_CLASS extends TYPE {
     public TYPE_LIST function_list;
     public TYPE_LIST members;
     private TYPE_CLASS_VAR_DEC_LIST lastDataMember;
+    public TYPE_LIST localFuncs;
 
     /****************/
 	/* CTROR(S) ... */
@@ -29,6 +30,7 @@ public class TYPE_CLASS extends TYPE {
         this.name = name;
         data_members = new TYPE_LIST(null,null);
         function_list = new TYPE_LIST(null,null);
+        localFuncs = new TYPE_LIST(null,null);
     }
 
     @Override

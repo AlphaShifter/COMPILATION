@@ -66,13 +66,21 @@ public class AST_CLASS_SIG extends AST_Node
 		/* [2] Semant Data Members */
 		/*******************
 		 * ********/
+		TYPE father_temp = null;
 		TYPE_CLASS father = null;
 		if(ext != null){
-			father = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(ext);
-			if(father == null){
+			father_temp =  SYMBOL_TABLE.getInstance().find(ext);
+			if(father_temp == null){
 				System.out.format(">> ERROR [%d,%d] extended class %s has not been defined\n", 2, 2, ext);
 				Util.printError(myLine);
 			}
+			else if(!father_temp.isClass()){
+				System.out.format(">> ERROR [%d,%d] extended class %s is not a class Type\n", 2, 2, ext);
+				Util.printError(myLine);
+			} else {
+				father = (TYPE_CLASS)father_temp;
+			}
+
 		}
 		TYPE_CLASS t = new TYPE_CLASS(name,father,null);
 		//get father's vars

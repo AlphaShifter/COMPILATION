@@ -13,6 +13,9 @@ public class TYPE_FUNCTION extends TYPE{
         this.name = name;
         this.returnType = returnType;
     }
+
+    @Override
+    public boolean isFunction(){return true;}
     public String getType() {
         return "TYPE_FUNCTION";
     }

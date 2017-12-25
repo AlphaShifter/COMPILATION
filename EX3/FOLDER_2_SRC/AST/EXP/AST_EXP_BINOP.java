@@ -3,10 +3,7 @@ package AST.EXP;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import Auxillery.Util;
-import TYPES.TYPE;
-import TYPES.TYPE_ARRAY;
-import TYPES.TYPE_INT;
-import TYPES.TYPE_STRING;
+import TYPES.*;
 
 public class AST_EXP_BINOP extends AST_EXP
 {
@@ -102,24 +99,36 @@ public class AST_EXP_BINOP extends AST_EXP
 			Util.printError(rightExp.myLine);
 			return null;
 		}
-		//hile(t1.isArray()) // if t1 is an array of arrays, keep digging for the underlying type
-		while(t2.isArray() && t2.isArray()) { // if t2 is an array of arrays, keep digging for the underlying type
+		if(t1.isFunction() || t2.isFunction()){
+			System.out.println("Error: invalid arguments in binop");
+			Util.printError(this.myLine);
+		}
+		//while(t1.isArray()) // if t1 is an array of arrays, keep digging for the underlying type
+		while(t1.isArray() && t2.isArray()) { // if t2 is an array of arrays, keep digging for the underlying type
 			t2 = ((TYPE_ARRAY) t2).type;
 			t1 = ((TYPE_ARRAY)t1).type;
 
 		}
 
-
-
-		if(TYPE.eqByType(t1,t2)){
+		if(t1 == t2){
             if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
             {
                 return TYPE_INT.getInstance();
             }
             if(t1 == TYPE_STRING.getInstance() && t2 == TYPE_STRING.getInstance() && OP == 0)
             	return TYPE_STRING.getInstance();
+            if(OP == 6){
+            	return TYPE_INT.getInstance();
+			}
         }
         else if(OP==6){
+			if(t1.isArray() && t2.isArray()){
+				t1 = ((TYPE_ARRAY)t1).type;
+				t2 = ((TYPE_ARRAY)t2).type;
+			}
+			if(t1 == TYPE_NIL.getInstance() && t2 == TYPE_NIL.getInstance()){
+				return TYPE_INT.getInstance();
+			}
             if(TYPE.eqByString(t1,"TYPE_NIL")){//they are not of the same type
                 //check if one of them is null and the other is either a class or an array
                 if(TYPE.eqByString(t2,"TYPE_ARRAY")||TYPE.eqByString(t2,"TYPE_CLASS")){
@@ -134,6 +143,7 @@ public class AST_EXP_BINOP extends AST_EXP
             else if (Util.areRelated(t1,t2)){
             	return TYPE_INT.getInstance();
             }
+
         }
 		System.out.println("Error: invalid parameters for binop");
 		Util.printError(this.myLine);

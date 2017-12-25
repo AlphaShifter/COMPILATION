@@ -164,6 +164,13 @@ public class AST_FUNC_SIG extends AST_Node {
         // check whether function of same name exists in father class
         TYPE_CLASS containingClass = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(className);
         // check if the father has a function by the same name
+
+        if(containingClass.localFuncs.findInList(this.name) != null){
+            System.out.println("Error duplicate function declaration");
+            Util.printError(this.myLine);
+        }
+
+
         TYPE_FUNCTION overloadedFunc = (TYPE_FUNCTION) containingClass.function_list.findInList(this.name);
         if (overloadedFunc != null) { // if function by same name exists in father
             // if return type is different that is an error
@@ -193,6 +200,7 @@ public class AST_FUNC_SIG extends AST_Node {
         TYPE_FUNCTION newFuncDec = new TYPE_FUNCTION(returnType, name, type_list);
 
         SYMBOL_TABLE.getInstance().enter(name, newFuncDec);
+        containingClass.localFuncs.add(newFuncDec);
 
         return newFuncDec; // returns the newly created type to the ast function class
 
