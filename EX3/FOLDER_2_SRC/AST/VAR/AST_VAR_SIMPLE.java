@@ -57,7 +57,12 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			System.out.println(">> ERROR: variable " + name + " has not been defined\n");
 			Util.printError(myLine);
 		}
-		return SYMBOL_TABLE.getInstance().find(name);
+		TYPE t = SYMBOL_TABLE.getInstance().find(name);
+		if(t.name.equals(this.name)){
+			System.out.println("Error: static reference");
+			Util.printError(myLine);
+		}
+		return t;
 	}
 
 	@Override

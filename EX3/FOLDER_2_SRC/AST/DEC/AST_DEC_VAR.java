@@ -79,6 +79,13 @@ public class AST_DEC_VAR extends AST_DEC
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
 			Util.printError(myLine);
 		}
+		TYPE nameType = Util.stringToType(name);
+		if(nameType != null){
+			if(nameType.name.equals(this.name)){
+				System.out.println("Error: illegal name for var");
+				Util.printError(myLine);
+			}
+		}
 
 		/**************************************/
 		/* [2] Check That Name does NOT exist */
@@ -108,23 +115,6 @@ public class AST_DEC_VAR extends AST_DEC
 		/*********************************************************/
 		return null;
 	}
-
-//    public boolean varScanner() {
-//        TYPE t = Util.stringToType(this.type);
-//        //TODO Scope
-//        if (t == null)
-//            return false;
-//
-//        //check if deceleration is no empty
-//        if (this.exp != null) {
-//            //deceleration is not empty - check the assignment
-//            if(!AST_STMT_ASSIGN.assignmentChecker(t,this.exp))
-//                return false; //error is embedded in the checker
-//        }
-//        MY_SYMBOL_TABLE.getInstance().add(this.name, t);
-//        return true;
-//    }
-
 
     public TYPE cSemantMe(String containingClassName){
 		TYPE t;
