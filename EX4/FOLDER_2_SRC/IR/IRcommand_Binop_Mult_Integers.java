@@ -10,16 +10,18 @@ package IR;
 /*******************/
 /* PROJECT IMPORTS */
 /*******************/
-import TEMP.*;
-import MIPS.*;
 
-public class IRcommand_Binop_Add_Integers extends IRcommand
+import MIPS.sir_MIPS_a_lot;
+import TEMP.TEMP;
+import TEMP.TEMP_FACTORY;
+
+public class IRcommand_Binop_Mult_Integers extends IRcommand
 {
 	public TEMP t1;
 	public TEMP t2;
 	public TEMP dst;
-	
-	public IRcommand_Binop_Add_Integers(TEMP dst,TEMP t1,TEMP t2)
+
+	public IRcommand_Binop_Mult_Integers(TEMP dst, TEMP t1, TEMP t2)
 	{
 		this.dst = dst;
 		this.t1 = t1;
@@ -33,7 +35,7 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 		/******************************************************/
 		/* [0] Allocate a fresh temporary t4 for the addition */
 		/******************************************************/
-		TEMP t1_plus_t2 = TEMP_FACTORY.getInstance().getFreshTEMP();
+		TEMP t1_mult_t2 = TEMP_FACTORY.getInstance().getFreshTEMP();
 
 		/******************************************/
 		/* [1] Allocate a fresh temporary INT_MAX */
@@ -57,18 +59,23 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 		String label_no_overflow = getFreshLabel("no_overflow");
 
 		/*********************/
-		/* [4] t4 := t1 + t2 */
+		/* [4] calc t1 *t2 */
 		/*********************/
-		sir_MIPS_a_lot.getInstance().add(t1_plus_t2,t1,t2);
+		sir_MIPS_a_lot.getInstance().mult(t1,t2);
+
+		/*
+		save result to t1_mult_t2
+		 */
+		sir_MIPS_a_lot.getInstance().getHi(t1_mult_t2);
 		
 		/********************************************************/
 		/* [5] if (32767 <  t1_plus_t2) goto label_overflow;
 		    * if (-32767 > t1_plus_t2) goto label "overflow_min */
 		/*   (else)  if (32767 >= t1_plus_t2) goto label_no_overflow; */
 		/********************************************************/
-		sir_MIPS_a_lot.getInstance().blt(intMax,t1_plus_t2,label_overflow);
-		sir_MIPS_a_lot.getInstance().bgt(intMin,t1_plus_t2,label_overflow);
-		sir_MIPS_a_lot.getInstance().bge(intMax,t1_plus_t2,label_no_overflow);
+		sir_MIPS_a_lot.getInstance().blt(intMax,t1_mult_t2,label_overflow);
+		sir_MIPS_a_lot.getInstance().bgt(intMin,t1_mult_t2,label_overflow);
+		sir_MIPS_a_lot.getInstance().bge(intMax,t1_mult_t2,label_no_overflow);
 
 		/***********************/
 		/* [3] label_overflow: */
@@ -98,7 +105,7 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 		/*                        */
 		/**************************/
 		sir_MIPS_a_lot.getInstance().label(label_no_overflow);
-		sir_MIPS_a_lot.getInstance().load(dst,t1_plus_t2);
+		sir_MIPS_a_lot.getInstance().load(dst,t1_mult_t2);
 		sir_MIPS_a_lot.getInstance().jump(label_end);
 
 		/******************/
