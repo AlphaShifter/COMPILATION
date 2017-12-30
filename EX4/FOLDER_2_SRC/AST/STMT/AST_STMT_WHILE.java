@@ -4,10 +4,12 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.EXP.AST_EXP;
 import Auxillery.Util;
+import IR.*;
+import IR.IRcommand;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import TEMP.TEMP;
 import TYPES.TYPE;
 import TYPES.TYPE_INT;
-
 public class AST_STMT_WHILE extends AST_STMT
 {
 	public AST_EXP cond;
@@ -94,6 +96,30 @@ public class AST_STMT_WHILE extends AST_STMT
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */
 		/*********************************************************/
+		return null;
+	}
+	@Override
+	public TEMP IRme(){
+		//get start label
+		String startLabel = IRcommand.getFreshWhileStartLabel();
+		//get the cond label
+		String condLabel = IRcommand.getFreshWhileCondLabel();
+		//first, jump to the condition
+		IR.getInstance().Add_IRcommand(new IRcommand_Jump(condLabel));
+		//enter the start
+		IR.getInstance().Add_IRcommand(new IRcommand_Label(startLabel));
+		//IR the body
+		body.IRme();
+		//enter the condition label
+		IR.getInstance().Add_IRcommand(new IRcommand_Label(condLabel));
+		//IR the condition
+		TEMP condTemp = cond.IRme();
+		//create the while condition
+		IR.getInstance().Add_IRcommand(
+				new IRcommand_While(condTemp,startLabel)
+		);
+
+
 		return null;
 	}
 }

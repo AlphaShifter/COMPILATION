@@ -4,9 +4,13 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.EXP.AST_EXP;
 import Auxillery.Util;
+import IR.IR;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import TEMP.TEMP;
 import TYPES.TYPE;
 import TYPES.TYPE_INT;
+import IR.*;
+import MIPS.*;
 
 public class AST_STMT_IF extends AST_STMT
 {
@@ -96,5 +100,20 @@ public class AST_STMT_IF extends AST_STMT
 		/****************************************/
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,cond.SerialNumber);
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);
+	}
+	@Override
+	public TEMP IRme(){
+		TEMP expressionTemp = this.cond.IRme();
+		//create the end of the if block
+		String label = IRcommand.getFreshIfLabel();
+		IR.getInstance().Add_IRcommand(
+				new IRcommand_If_Start(expressionTemp,label)
+		);
+		//IR the body
+		body.IRme();
+		//add the end label
+		IR.getInstance().Add_IRcommand(new IRcommand_Label(label));
+		return null;
+
 	}
 }
