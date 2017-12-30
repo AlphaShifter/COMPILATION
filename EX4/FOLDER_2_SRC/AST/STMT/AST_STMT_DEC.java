@@ -4,7 +4,7 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.DEC.AST_DEC_VAR;
 import TYPES.TYPE;
-
+import TEMP.*;
 public class AST_STMT_DEC extends AST_STMT
 {
 	public AST_DEC_VAR dec;
@@ -58,4 +58,6 @@ public class AST_STMT_DEC extends AST_STMT
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,"Var Declaration");
 		if (dec  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
 	}
+	@Override
+	public TEMP IRme(){return this.dec.IRme();}
 }

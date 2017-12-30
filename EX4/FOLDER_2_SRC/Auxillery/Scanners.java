@@ -39,30 +39,30 @@ public class Scanners {
         return true;
     }
 
-    public static boolean expSubscriptChecker(AST_PROGRAM root) {
-        boolean res = true;
-        for (AST_Node dec : root.decList) {
-            //check that all nodes are OK
-            res = (res && expSubscriptChecker_rec(dec));
-        }
-        return res;
-    }
-
-    //node is OK iff it is not and subscript node
-    //OR it is subscript node and it's expression type is an integer
-    private static boolean expSubscriptChecker_rec(AST_Node node) {
-        if (node == null) return true;
-        boolean left;
-        boolean right;
-        boolean res = true;
-        if (node instanceof AST_VAR_SUBSCRIPT) {
-            AST_VAR_SUBSCRIPT as = (AST_VAR_SUBSCRIPT) node;
-            res = (as.subscript.getExpType() == TYPE_INT.getInstance());
-        }
-        left = expSubscriptChecker_rec(node.left);
-        right = expSubscriptChecker_rec(node.right);
-        return (left && res && right);
-    }
+//    public static boolean expSubscriptChecker(AST_PROGRAM root) {
+//        boolean res = true;
+//        for (AST_Node dec : root.decList) {
+//            //check that all nodes are OK
+//            res = (res && expSubscriptChecker_rec(dec));
+//        }
+//        return res;
+//    }
+//
+//    //node is OK iff it is not and subscript node
+//    //OR it is subscript node and it's expression type is an integer
+//    private static boolean expSubscriptChecker_rec(AST_Node node) {
+//        if (node == null) return true;
+//        boolean left;
+//        boolean right;
+//        boolean res = true;
+//        if (node instanceof AST_VAR_SUBSCRIPT) {
+//            AST_VAR_SUBSCRIPT as = (AST_VAR_SUBSCRIPT) node;
+//            res = (as.subscript.getExpType() == TYPE_INT.getInstance());
+//        }
+//        left = expSubscriptChecker_rec(node.left);
+//        right = expSubscriptChecker_rec(node.right);
+//        return (left && res && right);
+//    }
 }
 
 //    //check the class's varDecs that if they are inited - they are inited with a primitive type

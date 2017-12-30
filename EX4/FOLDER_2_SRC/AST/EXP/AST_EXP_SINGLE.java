@@ -65,9 +65,4 @@ public class AST_EXP_SINGLE extends AST_EXP
 		return exp.SemantMe();
 	}
 
-
-	@Override
-	public TYPE getExpType() {
-		return exp.getExpType();
-	}
 }

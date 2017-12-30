@@ -1,6 +1,7 @@
 package AST;
 
 import AST.DEC.AST_DEC_LIST;
+import TEMP.TEMP;
 import TYPES.TYPE;
 
 public class AST_PROGRAM extends AST_Node
@@ -58,6 +59,8 @@ public class AST_PROGRAM extends AST_Node
 	public TYPE SemantMe() {
 		return this.decList.SemantMe();
 	}
+
+	public TEMP IRme(){return this.decList.IRme();}
 
 //	public boolean concreateMixer(){
 //		boolean res = true;

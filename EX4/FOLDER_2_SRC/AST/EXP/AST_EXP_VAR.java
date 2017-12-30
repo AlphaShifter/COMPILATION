@@ -3,6 +3,7 @@ package AST.EXP;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.VAR.AST_VAR;
+import TEMP.TEMP;
 import TYPES.TYPE;
 
 public class AST_EXP_VAR extends AST_EXP
@@ -65,9 +66,7 @@ public class AST_EXP_VAR extends AST_EXP
 	}
 
 	@Override
-	public TYPE getExpType() {
-		//TODO look for the variable in the table and return it's type
-		return null;
+	public TEMP IRme() {
+		return var.IRme();
 	}
-
 }

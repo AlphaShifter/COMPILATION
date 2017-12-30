@@ -92,10 +92,5 @@ public class AST_EXP_ID extends AST_EXP {
         return t;
     }
 
-    @Override
-    public TYPE getExpType() {
-        //TODO the type is ID look for it in table and return it
-        return null;
-    }
 
 }
