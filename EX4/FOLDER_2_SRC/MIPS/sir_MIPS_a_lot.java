@@ -110,44 +110,33 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tj %s\n", inlabel);
     }
 
-    public void blt(TEMP oprnd1, TEMP oprnd2, String label) {
-        int i1 = oprnd1.getSerialNumber();
-        int i2 = oprnd2.getSerialNumber();
 
-        fileWriter.format("\tblt Temp_%d,Temp_%d,%s\n", i1, i2, label);
+    public void blt(TEMP oprnd1, TEMP oprnd2, String label) {
+
+        fileWriter.format("\tblt %s,%s,%s\n", tempToString(oprnd1), tempToString(oprnd2), label);
     }
 
     public void bge(TEMP oprnd1, TEMP oprnd2, String label) {
-        int i1 = oprnd1.getSerialNumber();
-        int i2 = oprnd2.getSerialNumber();
+        fileWriter.format("\tbge %s,%s,%s\n", tempToString(oprnd1), tempToString(oprnd2), label);
 
-        fileWriter.format("\tbge Temp_%d,Temp_%d,%s\n", i1, i2, label);
     }
 
     public void bgt(TEMP oprnd1, TEMP oprnd2, String label) {
-        int i1 = oprnd1.getSerialNumber();
-        int i2 = oprnd2.getSerialNumber();
+        fileWriter.format("\tbgt %s,%s,%s\n", tempToString(oprnd1), tempToString(oprnd2), label);
 
-        fileWriter.format("\tbgt Temp_%d,Temp_%d,%s\n", i1, i2, label);
     }
 
     public void ble(TEMP oprnd1, TEMP oprnd2, String label) {
-        int i1 = oprnd1.getSerialNumber();
-        int i2 = oprnd2.getSerialNumber();
+        fileWriter.format("\tble %s,%s,%s\n", tempToString(oprnd1), tempToString(oprnd2), label);
 
-        fileWriter.format("\tble Temp_%d,Temp_%d,%s\n", i1, i2, label);
     }
     public void beq(TEMP oprnd1, TEMP oprnd2, String label) {
-        int i1 = oprnd1.getSerialNumber();
-        int i2 = oprnd2.getSerialNumber();
+        fileWriter.format("\tbeq %s,%s,%s\n", tempToString(oprnd1), tempToString(oprnd2), label);
 
-        fileWriter.format("\tbeq Temp_%d,Temp_%d,%s\n", i1, i2, label);
     }
     public void bne(TEMP oprnd1, TEMP oprnd2, String label) {
-        int i1 = oprnd1.getSerialNumber();
-        int i2 = oprnd2.getSerialNumber();
+        fileWriter.format("\tbne %s,%s,%s\n", tempToString(oprnd1), tempToString(oprnd2), label);
 
-        fileWriter.format("\tbne Temp_%d,Temp_%d,%s\n", i1, i2, label);
     }
 
     public void printDivByZero(){
@@ -159,6 +148,16 @@ public class sir_MIPS_a_lot {
         fileWriter.print("\tli $v0,10\n");
         fileWriter.print("\tsyscall\n");
 
+    }
+
+    private String tempToString(TEMP t){
+        int i = t.getSerialNumber();
+
+        String s = "Temp_" + i;
+        if(t instanceof ZERO_REG)
+            s = "$zero";
+
+        return s;
     }
 
     /**************************************/

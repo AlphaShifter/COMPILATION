@@ -12,9 +12,7 @@ package IR;
 /*******************/
 
 import MIPS.sir_MIPS_a_lot;
-import TEMP.TEMP;
-import TEMP.TEMP_FACTORY;
-
+import TEMP.*;
 public class IRcommand_While extends IRcommand
 {
 	TEMP exp;
@@ -32,10 +30,7 @@ public class IRcommand_While extends IRcommand
 	public void MIPSme()
 	{
 
-		//if cond >= 1, go to the startLable
-		TEMP one =  TEMP_FACTORY.getInstance().getFreshTEMP();
-		sir_MIPS_a_lot.getInstance().li(one,1);
-		//if exp >= 1 - goto start label
-		sir_MIPS_a_lot.getInstance().bge(exp,one,statLabel);
+		//if exp != 0 - goto start label
+		sir_MIPS_a_lot.getInstance().bne(exp, ZERO_REG.getInstance(),statLabel);
 	}
 }
