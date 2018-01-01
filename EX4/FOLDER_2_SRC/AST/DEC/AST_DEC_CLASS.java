@@ -5,6 +5,9 @@ import AST.VAR.AST_VAR_LIST;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AST_DEC_CLASS extends AST_DEC
 {
 
@@ -12,6 +15,7 @@ public class AST_DEC_CLASS extends AST_DEC
 	public AST_CFIELD_LIST cfieldList;
 	public AST_FUNC_LIST funcList;
 	public AST_VAR_LIST varList;
+	public static Map<String,Integer> classLocalVarsCount = null;
 
 	/*********************************************************/
 	/* The default message for an unknown AST DECLERATION node */
@@ -77,6 +81,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		TYPE_CLASS t = sig.SemantMe(); // if there is a father class, will be returned by SemantMe
 
 		SYMBOL_TABLE.getInstance().beginScope();
+		classLocalVarsCount = new HashMap<>();
 
 		/***************************/
 		/* [2] Semant Data Members */
@@ -97,7 +102,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* [3] End Scope */
 		/*****************/
 		SYMBOL_TABLE.getInstance().endScope();
-
+		classLocalVarsCount = null;
 		/************************************************/
 		/* [4] Enter the Class Type to the Symbol Table */
 		/************************************************/

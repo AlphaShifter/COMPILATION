@@ -5,6 +5,7 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.STMT.AST_STMT_LIST;
 import Auxillery.Util;
+import Auxillery.VAR_KIND;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_FUNCTION;

@@ -2,6 +2,7 @@ package AST.VAR;
 
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
+import AST.DEC.AST_DEC_CLASS;
 import AST.DEC.AST_DEC_FUNC;
 import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -68,7 +69,10 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		}
 		//check if we are at function
 		if(AST_DEC_FUNC.funcLocalVarsCount != null){
-			myPlace = AST_DEC_FUNC.funcLocalVarsCount.get(name);
+		myPlace = AST_DEC_FUNC.funcLocalVarsCount.get(name);
+		}
+		if(AST_DEC_CLASS.classLocalVarsCount != null){
+			myPlace = AST_DEC_CLASS.classLocalVarsCount.get(name);
 		}
 		return t;
 	}
