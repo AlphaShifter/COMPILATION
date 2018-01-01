@@ -118,6 +118,11 @@ public class AST_DEC_VAR extends AST_DEC
 			AST_DEC_FUNC.funcLocalVarsCount.put(name,AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
 			myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
 		}
+		//check if we are at function. if we do, get the count
+		if(AST_DEC_CLASS.classLocalVarsCount != null){
+			AST_DEC_CLASS.classLocalVarsCount.put(name,AST_DEC_CLASS.classLocalVarsCount.size() + 1);
+			myPlace = AST_DEC_CLASS.classLocalVarsCount.size();
+		}
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */
