@@ -4,7 +4,7 @@ import AST.EXP.AST_EXP;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.STMT.AST_STMT_ASSIGN;
-import Auxillery.Util;
+import Auxillery.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 import AST.EXP.*;
@@ -19,6 +19,7 @@ public class AST_DEC_VAR extends AST_DEC
 	public String name;
 	public AST_EXP exp;
 	public int myPlace;
+	public VAR_KIND varKind;
 
 	/*********************************************************/
 	/* The default message for an unknown AST DECLERATION node */
@@ -117,12 +118,19 @@ public class AST_DEC_VAR extends AST_DEC
 		if(AST_DEC_FUNC.funcLocalVarsCount != null){
 			AST_DEC_FUNC.funcLocalVarsCount.put(name,AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
 			myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
+            varKind=VAR_KIND.ARGUMENT;
 		}
-		//check if we are at function. if we do, get the count
-		if(AST_DEC_CLASS.classLocalVarsCount != null){
+		//check if we are at class. if we do, get the count
+		else if(AST_DEC_CLASS.classLocalVarsCount != null){
 			AST_DEC_CLASS.classLocalVarsCount.put(name,AST_DEC_CLASS.classLocalVarsCount.size() + 1);
 			myPlace = AST_DEC_CLASS.classLocalVarsCount.size();
+            varKind=VAR_KIND.DATA_MEMBER;
 		}
+		else{
+		    //TODO singlton that counts how many locals we have seen? place it inside symbol table
+            myPlace=SYMBOL_TABLE.var_count++;
+            varKind=VAR_KIND.LOCAL;
+        }
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */

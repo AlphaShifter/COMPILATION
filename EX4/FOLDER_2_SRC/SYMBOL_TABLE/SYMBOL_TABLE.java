@@ -29,7 +29,7 @@ public class SYMBOL_TABLE {
     /**********************************************/
     private List<Map<String,TYPE>> tableList;
     private int scope_index = 0;
-
+    public static int var_count = 0;
 
 
     public void enter(String name, TYPE t) {
@@ -75,7 +75,6 @@ public class SYMBOL_TABLE {
 
         tableList.add(new HashMap<>());
         scope_index++;
-
         /*********************************************/
 		/* Print the symbol table after every change */
         /*********************************************/
@@ -87,7 +86,7 @@ public class SYMBOL_TABLE {
         //end the scope by deleting the last map
         tableList.remove(scope_index);
         scope_index--;
-
+        var_count=0;
         /*********************************************/
 		/* Print the symbol table after every change */
         /*********************************************/
