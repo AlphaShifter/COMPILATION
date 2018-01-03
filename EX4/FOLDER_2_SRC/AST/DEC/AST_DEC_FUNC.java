@@ -148,6 +148,9 @@ public class AST_DEC_FUNC extends AST_DEC {
 
     public TEMP IRme()
     {
+
+
+        this.sig.IRme();
         if (stmtList != null) stmtList.IRme();
 
         return null;

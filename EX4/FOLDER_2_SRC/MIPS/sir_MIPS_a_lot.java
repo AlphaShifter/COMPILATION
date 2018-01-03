@@ -49,15 +49,17 @@ public class sir_MIPS_a_lot {
     }
 
     public void load(TEMP dst, TEMP src) {
-        int idxdst = dst.getSerialNumber();
-        int idxsrc = src.getSerialNumber();
-        fileWriter.format("\tlw Temp_%d,0(Temp_%d)\n", idxdst, idxsrc);
+
+       // fileWriter.format("\tlw Temp_%d,0(Temp_%d)\n", idxdst, idxsrc);
+        fileWriter.format("\tlw %s,0(%s)\n", tempToString(dst), tempToString(src));
+
+
     }
 
     public void store(TEMP dst, TEMP src) {
-        int idxdst = dst.getSerialNumber();
-        int idxsrc = src.getSerialNumber();
-        fileWriter.format("\tsw Temp_%d,0(Temp_%d)\n", idxsrc, idxdst);
+
+        fileWriter.format("\tsw %s,0(%s)\n", tempToString(src), tempToString(dst));
+
     }
 
     public void li(TEMP t, int value) {
@@ -156,6 +158,9 @@ public class sir_MIPS_a_lot {
         String s = "Temp_" + i;
         if(t instanceof ZERO_REG)
             s = "$zero";
+        if(t instanceof ARGUMENT)
+            s = "$a" + ((ARGUMENT) t).getLocal();
+
 
         return s;
     }
