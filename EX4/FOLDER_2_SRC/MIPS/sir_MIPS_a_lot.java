@@ -39,13 +39,10 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tsyscall\n");
     }
 
-    public TEMP addressLocalVar(int serialLocalVarNum) {
-        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
-        int idx = t.getSerialNumber();
+    public void storeAddressLocalVar(TEMP src, int serialLocalVarNum) {
 
-        fileWriter.format("\taddi Temp_%d,$fp,%d\n", idx, -serialLocalVarNum * WORD_SIZE);
-
-        return t;
+        fileWriter.format("\tsw %s, %d($fp)\n", tempToString(src), - serialLocalVarNum * WORD_SIZE);
+       // fileWriter.format("\taddi Temp_%d,$fp,%d\n", idx, -serialLocalVarNum * WORD_SIZE);
     }
 
     public void load(TEMP dst, TEMP src) {
@@ -146,6 +143,18 @@ public class sir_MIPS_a_lot {
 
     }
 
+    public void openNewFP(int numOfVars){
+        fileWriter.format("\taddi $fp,$sp,%d\n",numOfVars*WORD_SIZE);
+
+    }
+
+    public void setRoomOnStack(int size){
+        fileWriter.format("\taddi $sp,$sp,%d\n",- size*WORD_SIZE);
+    }
+    public void saveRaOnStack(){
+        fileWriter.format("\tsw $ra,0($sp)\n");
+    }
+
     public void printDivByZero(){
         //print the error
         fileWriter.format("\tli $v0, 4\n");
@@ -224,12 +233,12 @@ public class sir_MIPS_a_lot {
 			/* [4] Print text section with entry point main */
             /************************************************/
             instance.fileWriter.print(".text\n");
-            instance.fileWriter.print("main:\n");
+            //instance.fileWriter.print("main:\n");
 
             /******************************************/
 			/* [5] Will work with <= 10 variables ... */
             /******************************************/
-            instance.fileWriter.print("\taddi $fp,$sp,40\n");
+            //instance.fileWriter.print("\taddi $fp,$sp,40\n");
         }
         return instance;
     }

@@ -2,6 +2,7 @@ package AST.DEC;
 
 import AST.AST_FUNC_SIG;
 import AST.AST_GRAPHVIZ;
+import AST.AST_ID_LIST;
 import AST.AST_Node_Serial_Number;
 import AST.STMT.AST_STMT_LIST;
 import Auxillery.*;
@@ -12,7 +13,9 @@ import TEMP.*;
 import IR.*;
 import MIPS.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AST_DEC_FUNC extends AST_DEC {
@@ -22,6 +25,7 @@ public class AST_DEC_FUNC extends AST_DEC {
     public AST_FUNC_SIG sig;
     public static TYPE func_type = null;
     public static Map<String,Integer>funcLocalVarsCount = null;
+    public int numOfVars = 0;
 
 
     /*********************************************************/
@@ -101,6 +105,7 @@ public class AST_DEC_FUNC extends AST_DEC {
 		/* [4] End Scope */
         /*****************/
         SYMBOL_TABLE.getInstance().endScope();
+        numOfVars = funcLocalVarsCount.size();
         funcLocalVarsCount = null;
 
         SYMBOL_TABLE.getInstance().enter(sig.name, newFuncDec);
@@ -118,6 +123,7 @@ public class AST_DEC_FUNC extends AST_DEC {
 		/* [1] Begin Function Scope */
         /****************************/
         SYMBOL_TABLE.getInstance().beginScope();
+        funcLocalVarsCount = new HashMap<>();
 
 
         /*******************/
@@ -137,7 +143,8 @@ public class AST_DEC_FUNC extends AST_DEC {
 		/* [4] End Scope */
         /*****************/
         SYMBOL_TABLE.getInstance().endScope();
-
+        numOfVars = funcLocalVarsCount.size();
+        funcLocalVarsCount = null;
 
         /*********************************************************/
 		/* [6] Return value is irrelevant for class declarations */
@@ -150,7 +157,37 @@ public class AST_DEC_FUNC extends AST_DEC {
     {
 
 
-        this.sig.IRme();
+        //global function
+        if(this.sig.container == null){
+            String newLabel = IRcommand.getFreshFuncLabel(this.sig.name);
+
+            //update the symbol table to have the new func
+            TYPE_FUNCTION funcT = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.sig.name);
+            funcT.myLabel = newLabel;
+
+            //print the label
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_Label(newLabel)
+            );
+
+
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_Fun_Prologue(this.numOfVars,this.sig.name.toLowerCase().trim().equals("main"))
+            );
+
+            //get the temps for each of the args
+            List<TEMP> tempList = new ArrayList<>();
+            for(AST_ID_LIST runner = this.sig.idList; runner != null; runner = runner.tail){
+                AST_DEC_VAR local = runner.head;
+                if(local == null)
+                    break;
+                tempList.add(local.IRme());
+            }
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_func_dec(newLabel,tempList)
+            );
+
+        }
         if (stmtList != null) stmtList.IRme();
 
         return null;
