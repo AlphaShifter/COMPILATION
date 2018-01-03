@@ -21,6 +21,7 @@ int main()
                 }
                 j := j+1;
             }
+            j := 2;
             i := i+1;
         }
 
@@ -29,5 +30,6 @@ int main()
             PrintInt(p);
         }
         flag := 0;
+        p := p + 1;
     }
 }
