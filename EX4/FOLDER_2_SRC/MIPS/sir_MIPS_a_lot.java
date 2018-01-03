@@ -26,6 +26,7 @@ public class sir_MIPS_a_lot {
 
     /***********************/
     public void finalizeFile() {
+        fileWriter.print("END_OF_PROGRAM:\n");
         fileWriter.print("\tli $v0,10\n");
         fileWriter.print("\tsyscall\n");
         fileWriter.close();
@@ -37,6 +38,10 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tmove $a0,Temp_%d\n", idx);
         fileWriter.format("\tli $v0,1\n");
         fileWriter.format("\tsyscall\n");
+    }
+
+    public void comment(String comment){
+        fileWriter.format("##### %s\n",comment);
     }
 
     public void storeAddressLocalVar(TEMP src, int serialLocalVarNum) {
@@ -154,6 +159,14 @@ public class sir_MIPS_a_lot {
     public void saveRaOnStack(){
         fileWriter.format("\tsw $ra,0($sp)\n");
     }
+    public void restoreRaFromStack(int offset){
+        fileWriter.format("\tlw $ra, %d(fd)\n", -offset*WORD_SIZE);
+    }
+    public void saveReturnOnStack(int offset, TEMP t){
+        fileWriter.format("\tsw %s, %d(fp)\n", tempToString(t), -offset*WORD_SIZE);
+    }
+    public void jal(){fileWriter.format("\tjal $ra\n");}
+
 
     public void printDivByZero(){
         //print the error
@@ -233,7 +246,10 @@ public class sir_MIPS_a_lot {
 			/* [4] Print text section with entry point main */
             /************************************************/
             instance.fileWriter.print(".text\n");
-            //instance.fileWriter.print("main:\n");
+            instance.fileWriter.print("### start with main function\n");
+            instance.fileWriter.print("j main\n");
+            instance.fileWriter.print("############################\n");
+
 
             /******************************************/
 			/* [5] Will work with <= 10 variables ... */

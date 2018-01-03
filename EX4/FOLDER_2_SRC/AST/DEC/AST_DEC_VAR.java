@@ -228,7 +228,7 @@ public class AST_DEC_VAR extends AST_DEC {
                 );
             }
             //else if it an argument, get it value from the $a registers
-            //TODO change to stack?
+            //TODO change from 0-4 arguments to list that starts on a0
             else if (this.varKind == VAR_KIND.ARGUMENT) {
                 IR.getInstance().Add_IRcommand(
                         new IRcommand_Store_AddressLocalVar(ARGUMENT.getInstance(myPlace), myPlace)

@@ -159,7 +159,9 @@ public class AST_DEC_FUNC extends AST_DEC {
 
         //global function
         if(this.sig.container == null){
-            String newLabel = IRcommand.getFreshFuncLabel(this.sig.name);
+
+            //if main class, unique label
+            String newLabel = this.isMainClass() ? "main" : IRcommand.getFreshFuncLabel(this.sig.name);
 
             //update the symbol table to have the new func
             TYPE_FUNCTION funcT = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.sig.name);
@@ -172,7 +174,7 @@ public class AST_DEC_FUNC extends AST_DEC {
 
 
             IR.getInstance().Add_IRcommand(
-                    new IRcommand_Fun_Prologue(this.numOfVars,this.sig.name.toLowerCase().trim().equals("main"))
+                    new IRcommand_Fun_Prologue(this.numOfVars,this.isMainClass())
             );
 
             //get the temps for each of the args
@@ -181,15 +183,24 @@ public class AST_DEC_FUNC extends AST_DEC {
                 AST_DEC_VAR local = runner.head;
                 if(local == null)
                     break;
-                tempList.add(local.IRme());
+                tempList.add(local.IRme()); //this line also saves the argument on the FP
             }
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_func_dec(newLabel,tempList)
-            );
-
         }
         if (stmtList != null) stmtList.IRme();
 
+        //default return
+        if(!this.isMainClass()){
+            IR.getInstance().Add_IRcommand(new IRcommand_Return(this.numOfVars,ZERO_REG.getInstance()));
+        } else{
+            //end program
+            IR.getInstance().Add_IRcommand(new IRcommand_Jump("END_OF_PROGRAM"));
+        }
+
+        IR.getInstance().Add_IRcommand(new IRcommand_Comment("End of " + this.sig.name + " function"));
         return null;
+    }
+
+    private boolean isMainClass(){
+        return this.sig.name.toLowerCase().trim().equals("main");
     }
 }
