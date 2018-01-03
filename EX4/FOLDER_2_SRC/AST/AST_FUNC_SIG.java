@@ -2,14 +2,22 @@ package AST;
 
 import AST.DEC.AST_DEC_VAR;
 import Auxillery.Util;
+import IR.IR;
+import IR.IRcommand;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
+import TEMP.*;
+import IR.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AST_FUNC_SIG extends AST_Node {
 
     public String type;
     public String name;
     public AST_ID_LIST idList;
+    public TYPE_CLASS container = null;
 
     /*********************************************************/
     /* The default message for an unknown AST DECLERATION node */
@@ -202,7 +210,49 @@ public class AST_FUNC_SIG extends AST_Node {
         SYMBOL_TABLE.getInstance().enter(name, newFuncDec);
         containingClass.localFuncs.add(newFuncDec);
 
+        this.container = containingClass;
+
         return newFuncDec; // returns the newly created type to the ast function class
 
     }
+
+    @Override
+    public TEMP IRme(){
+
+
+        //global function
+        if(this.container == null){
+            String newLabel = IRcommand.getFreshFuncLabel(this.name);
+
+            //update the symbol table to have the new func
+            TYPE_FUNCTION funcT = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.name);
+            funcT.myLabel = newLabel;
+
+            //print the label
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_Label(newLabel)
+            );
+            
+
+            //TODO epilogue
+
+
+            //get the temps for each of the args
+            List<TEMP> tempList = new ArrayList<>();
+            for(AST_ID_LIST runner = this.idList; runner != null; runner = runner.tail){
+                AST_DEC_VAR local = runner.head;
+                if(local == null)
+                    break;
+                tempList.add(local.IRme());
+            }
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_func_dec(newLabel,tempList)
+            );
+
+        }
+
+        return null;
+    }
+
+
 }

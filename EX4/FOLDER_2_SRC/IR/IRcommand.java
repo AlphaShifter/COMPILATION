@@ -25,6 +25,7 @@ public abstract class IRcommand
 	public static String getFreshIfLabel(){ return String.format("Label_%d_%s",label_counter++,"End_if_block");}
 	public static String getFreshWhileStartLabel(){return String.format("Label_%d_%s",label_counter++,"While_Start_block");}
 	public static String getFreshWhileCondLabel(){return String.format("Label_%d_%s",label_counter++,"While_Block_Cond");}
+	public static String getFreshFuncLabel(String name){return String.format("Label_%d_Func_%s",label_counter++,name);}
 
 	/***************/
 	/* MIPS me !!! */

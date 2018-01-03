@@ -225,6 +225,22 @@ public class AST_DEC_VAR extends AST_DEC
 					sir_MIPS_a_lot.getInstance().addressLocalVar(myPlace),
 					exp.IRme()));
 		}
+		else{
+			//local decs, store it with 0 value
+			if(this.varKind == VAR_KIND.LOCAL){
+				IR.getInstance().Add_IRcommand(new IRcommand_Store(
+						sir_MIPS_a_lot.getInstance().addressLocalVar(myPlace),
+						ZERO_REG.getInstance()));
+			}
+			//else if it an argument, get it value from the $a registers
+			//TODO change to stack?
+			else if(this.varKind == VAR_KIND.ARGUMENT){
+				IR.getInstance().Add_IRcommand(new IRcommand_Store(
+						sir_MIPS_a_lot.getInstance().addressLocalVar(myPlace),
+						ARGUMENT.getInstance(myPlace)));
+			}
+
+		}
 		return null;
 	}
 }
