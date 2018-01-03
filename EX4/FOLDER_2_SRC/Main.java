@@ -19,8 +19,8 @@ public class Main {
         String inputFilename;
         String outputFilename;
         if (argv.length == 0) {
-            inputFilename = "C:\\Users\\Ilsar\\Documents\\COMPILATION\\EX4\\FOLDER_4_INPUT\\Input.txt";
-            outputFilename = "C:\\Users\\Ilsar\\Documents\\COMPILATION\\EX4\\FOLDER_5_OUTPUT\\out.txt";
+            inputFilename = "FOLDER_4_INPUT/TEST_00_Print_Primes_Simple.txt";
+            outputFilename = "FOLDER_5_OUTPUT/mips_prime_output.txt";
         } else {
             inputFilename = argv[0];
             outputFilename = argv[1];
