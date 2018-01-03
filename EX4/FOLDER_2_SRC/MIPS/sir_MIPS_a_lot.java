@@ -53,6 +53,11 @@ public class sir_MIPS_a_lot {
        // fileWriter.format("\tlw Temp_%d,0(Temp_%d)\n", idxdst, idxsrc);
         fileWriter.format("\tlw %s,0(%s)\n", tempToString(dst), tempToString(src));
 
+    }
+
+    public void loadAddressLocalVar(TEMP dst, int serialLocalVarNum){
+        int idx = dst.getSerialNumber();
+        fileWriter.format("\taddi Temp_%d,$fp,%d\n", idx, -serialLocalVarNum * WORD_SIZE);
 
     }
 
