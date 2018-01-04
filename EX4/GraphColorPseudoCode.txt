@@ -1,23 +1,28 @@
 nFUNCTION Color graph (Graph) RETU~NING the Colors_used_set:
-  if( Graph == the_Empty_graph):
+  if( Graph == the_Empty_graph)
    return the Empty set
+
   // Find the curr_node:
   curr_node= No_node;
-  for( Node IN Graph_nodes):
-    int deg=0;
-    for( Arc IN Graph_arcs):
-      if( Arc contains Node:)
-        deg++;
-    if( curr_node = No_node OR deg < min_deg)
-      curr_node=Node;
-      min_deg=deg;
-  // Remove curr_node from Graph:
+  for( Node IN Graph_nodes){
+      int deg=0;
+      for( Arc IN Graph_arcs):
+        if( Arc contains Node:)
+          deg++;
+      if( curr_node = No_node OR deg < min_deg){
+        curr_node=Node;
+        min_deg=deg;
+        }
+      }
+  // remove curr_node):
   curr_node_arc_set=Empty_set;
-    for( Arc IN  Graph_arcs):
-      if( Arc contains curr_node)
-        Remove Arc from Graph_arcs;
-        Insert Arc in curr_node_arc_set;
-  Remove curr_node from Graph_nodes;
+    for( Arc IN  Graph_arcs){
+          if( Arc contains curr_node){
+            Graph_arcs.remove(Arc);
+            curr_node_arc_set.insert(Arc);  
+          }
+        }
+  Graph_nodes.remove(curr_node);
 
 
   // Color the reduced Graph recursively:
@@ -25,28 +30,31 @@ nFUNCTION Color graph (Graph) RETU~NING the Colors_used_set:
 
   // Color the curr_node:
   Left_over_colors_set=Colors_used_set;
-  for( Arc IN curr_node_arc_set):
-    for( End_point IN Arc):
-      if( End_point /= curr_node)
-        Remove End_point.color from Left_over_colors_set;
-  if( Left_over_colors_set.size()==0)
-    Color=New_color;
-    Insert Color in Colors_used_set;
-    Insert Color in Left_over_colors_set;
+  for( Arc IN curr_node_arc_set){
+      for( End_point IN Arc){
+            if( End_point /= curr_node)
+              Left_over_colors_set.remove(End_point.color);
+              }
+            }
+  if( Left_over_colors_set.size()==0){
+      Color=New_color;
+      Colors_used_set.insert(Color);
+      Left_over_colors_set.insert(Color);
+      }
   curr_node.setDes(emitColor(Left_over_colors_set));
 
 
 
   // Reattach the curr_node:
-  Insert curr_node in Graph_nodes;
+  Graph_nodes.insert(curr_node);
   for(Arc : curr_node_arc_set):
-    Insert Arc in Graph_arcs;
-  RETURN Colors_used_set;
+    Graph_arcs.insert(Arc);
+  return Colors_used_set;
 
-Left_over_colors_set
-curr_node
-Colors_used_set
-curr_node_arc_set
-Graph_nodes
-Graph_arcs
-min_deg
+HashSet Left_over_colors_set
+TmpRegister curr_node
+HashSet Colors_used_set
+HashSet curr_node_arc_set
+HashSet Graph_nodes
+HashSet Graph_arcs
+int min_deg
