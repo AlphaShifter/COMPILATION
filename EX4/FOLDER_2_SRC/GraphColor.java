@@ -3,10 +3,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.io.*;
+import java.util.*;
+import java.util.LinkedList;
 
 
 public class GraphColor {
+
+
+
 public static void main(String args[]) throws IOException {
+  
     ArrayList<TmpRegister> tmp_list= new ArrayList<TmpRegister>();
 
     int tmp_num=80;
@@ -38,23 +45,28 @@ public static void main(String args[]) throws IOException {
       }
     int total=0;
     int inter_count=0;
+    Graph g1 = new Graph(tmp_num+1);
     for (TmpRegister t:tmp_list) {
         for (TmpRegister k:tmp_list) {
             if(k.isInterfering(t)&&k.id!=t.id){
 
                 k.addInterferance(t);
+                g1.addEdge(t.id, k.id);
                 inter_count++;
             }
 //            System.out.println(t);
             total++;
         }
     }
-    tmp_list.sort(Comparator.comparingInt(tmpRegister -> tmpRegister.inter_list.size()));
+    // tmp_list.sort(Comparator.comparingInt(tmpRegister -> tmpRegister.inter_list.size()));
+    // for (TmpRegister t:tmp_list) {
+    //   for (int i : t.inter_list ) {
+    //     System.out.println(i);
+    //   }
+    //     System.out.println(t);
+    // }
 
-    for (TmpRegister t:tmp_list) {
-        System.out.println(t);
-    }
-
+  g1.greedyColoring();
 }
 
 
