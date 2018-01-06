@@ -177,13 +177,12 @@ public class AST_DEC_FUNC extends AST_DEC {
                     new IRcommand_Fun_Prologue(this.numOfVars,this.isMainClass())
             );
 
-            //get the temps for each of the args
-            List<TEMP> tempList = new ArrayList<>();
+            //IR the arguments
             for(AST_ID_LIST runner = this.sig.idList; runner != null; runner = runner.tail){
                 AST_DEC_VAR local = runner.head;
                 if(local == null)
                     break;
-                tempList.add(local.IRme()); //this line also saves the argument on the FP
+                local.IRme(); //this line also saves the argument on the FP
             }
         }
         if (stmtList != null) stmtList.IRme();

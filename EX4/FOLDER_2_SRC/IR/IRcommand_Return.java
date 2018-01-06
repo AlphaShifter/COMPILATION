@@ -31,11 +31,18 @@ public class IRcommand_Return extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-
-		//same data to the empty space
-		sir_MIPS_a_lot.getInstance().saveReturnOnStack(fpSize + 2, data); //fpsize + 2 because +1 is the return address in +2 is the saved empty space
-		sir_MIPS_a_lot.getInstance().restoreRaFromStack(fpSize + 1); //retrieve the return address
+		sir_MIPS_a_lot.getInstance().closeFrame();
+		//restore old FP
+		sir_MIPS_a_lot.getInstance().resotreOldFp(0);
+		//pop
+		sir_MIPS_a_lot.getInstance().setRoomOnStack(-1);
+		//restore return location
+		sir_MIPS_a_lot.getInstance().restoreRaFromStack(0); //retrieve the return address
+		//pop
+		sir_MIPS_a_lot.getInstance().setRoomOnStack(-1);
+		//save return value
+		sir_MIPS_a_lot.getInstance().saveReturnOnStack(0, data);
 		//jal
-		sir_MIPS_a_lot.getInstance().jal();
+		sir_MIPS_a_lot.getInstance().jr();
 	}
 }

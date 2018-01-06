@@ -1,16 +1,21 @@
 package AST.STMT;
 
 import AST.AST_GRAPHVIZ;
+import AST.AST_Node;
 import AST.AST_Node_Serial_Number;
+import AST.EXP.AST_EXP;
 import AST.EXP.AST_EXP_METHOD;
 import AST.VAR.AST_VAR;
 import AST.EXP.AST_EXP_LIST;
 import Auxillery.Util;
+import IR.IR;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import TEMP.*;
 import TYPES.TYPE;
 import TYPES.TYPE_CLASS;
 import TYPES.TYPE_FUNCTION;
 import TYPES.TYPE_LIST;
+import IR.*;
 
 public class AST_STMT_METHOD extends AST_STMT {
 
@@ -114,6 +119,42 @@ public class AST_STMT_METHOD extends AST_STMT {
             AST_EXP_METHOD.funcCallSemanter(args, func);
         //the args are good, return the type
         return func.returnType;
+    }
+
+    @Override
+    public TEMP IRme(){
+        //check if this a print command
+        if(this.id.equals("PrintInt")){
+            IR.getInstance().Add_IRcommand(new IRcommandPrintInt(this.args.getHead().IRme()));
+            return ZERO_REG.getInstance();
+        }
+
+        //save the temps on stack
+        IR.getInstance().Add_IRcommand(new IRcommand_SaveTempsOnStack());
+        //save the arguments to $a registers
+        //TODO make this an array
+        int count = 0;
+        for(AST_Node runner: this.args){
+            AST_EXP head = (AST_EXP)runner;
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_Store(ARGUMENT.getInstance(count),head.IRme()
+            ));
+            count++;
+        }
+        //jump
+        String targetLabel = ((TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(this.id)).myLabel;
+        IR.getInstance().Add_IRcommand(new IRcommand_Jal(targetLabel));
+
+        //we are back
+
+        //restore the temps
+        IR.getInstance().Add_IRcommand(new IRcommand_LoadTempsFromStack());
+        //load the return value
+        TEMP returnValue = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR.getInstance().Add_IRcommand(new IRcommand_LoadFromStack(returnValue,0));
+        //pop the return value and temps from stack
+        IR.getInstance().Add_IRcommand(new IRcommand_Fun_Epiloge());
+        return returnValue;
     }
 
 

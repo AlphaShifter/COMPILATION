@@ -114,7 +114,7 @@ public class AST_DEC_VAR extends AST_DEC {
         if (AST_DEC_FUNC.funcLocalVarsCount != null) {
             AST_DEC_FUNC.funcLocalVarsCount.put(name, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
             myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
-            varKind = VAR_KIND.ARGUMENT;
+            varKind = VAR_KIND.LOCAL;
         }
         //check if we are at class. if we do, get the count
         else if (AST_DEC_CLASS.classLocalVarsCount != null) {

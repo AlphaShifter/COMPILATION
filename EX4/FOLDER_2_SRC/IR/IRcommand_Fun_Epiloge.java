@@ -10,23 +10,17 @@ package IR;
 /*******************/
 /* PROJECT IMPORTS */
 /*******************/
-import TEMP.*;
-import MIPS.*;
 
-public class IRcommandPrintInt extends IRcommand
+import MIPS.sir_MIPS_a_lot;
+
+public class IRcommand_Fun_Epiloge extends IRcommand
 {
-	TEMP t;
-	
-	public IRcommandPrintInt(TEMP t)
-	{
-		this.t = t;
-	}
-	
+
+
 	/***************/
 	/* MIPS me !!! */
 	/***************/
-	public void MIPSme()
-	{
-		sir_MIPS_a_lot.getInstance().print_int(this.t);
+	public void MIPSme() {
+		sir_MIPS_a_lot.getInstance().setRoomOnStack(-9);
 	}
 }

@@ -60,6 +60,8 @@ public class sir_MIPS_a_lot {
     public void loadAddressLocalVar(TEMP dst, int serialLocalVarNum){
         int idx = dst.getSerialNumber();
         fileWriter.format("\taddi Temp_%d,$fp,%d\n", idx, -serialLocalVarNum * WORD_SIZE);
+       //   fileWriter.format("\taddi Temp_%d,$sp,%d\n", idx, -serialLocalVarNum * WORD_SIZE);
+
 
     }
 
@@ -148,24 +150,51 @@ public class sir_MIPS_a_lot {
 
     }
 
-    public void openNewFP(int numOfVars){
-        fileWriter.format("\taddi $fp,$sp,%d\n",numOfVars*WORD_SIZE);
+    public void openNewFrame(int numOfVars){
+        //save old FP to the stack
+        fileWriter.format("\taddi $sp $sp -4\n");
+        fileWriter.format("\tsw  $fp 0($sp)\n");
 
+        //save the FP to the current stack point
+        fileWriter.format("\tmove $fp,$sp\n");
+        //open room on the stack
+        fileWriter.format("\taddi $sp,$sp,%d\n",-numOfVars*WORD_SIZE);
+
+    }
+
+    public void closeFrame(){
+        fileWriter.format("\tmove $sp, $fp\n");
     }
 
     public void setRoomOnStack(int size){
-        fileWriter.format("\taddi $sp,$sp,%d\n",- size*WORD_SIZE);
+        fileWriter.format("\taddi $sp,$sp,%d\n", -size*WORD_SIZE);
     }
+
+    public void saveRegOnStack(TEMP res, int offset){
+        fileWriter.format("\tsw %s, %d($sp)\n", tempToString(res),offset*WORD_SIZE);
+    }
+
+    public void loadRegfromStack(TEMP res, int offset){
+        fileWriter.format("\tlw %s, %d($sp)\n", tempToString(res),offset*WORD_SIZE);
+    }
+
+
     public void saveRaOnStack(){
         fileWriter.format("\tsw $ra,0($sp)\n");
     }
+
+    public void resotreOldFp(int offset){
+        fileWriter.format("\tlw $fp, %d($fp)\n",offset*WORD_SIZE);
+    }
+
     public void restoreRaFromStack(int offset){
-        fileWriter.format("\tlw $ra, %d(fd)\n", -offset*WORD_SIZE);
+        fileWriter.format("\tlw $ra, %d(sp)\n", offset*WORD_SIZE);
     }
     public void saveReturnOnStack(int offset, TEMP t){
-        fileWriter.format("\tsw %s, %d(fp)\n", tempToString(t), -offset*WORD_SIZE);
+        fileWriter.format("\tsw %s, %d(sp)\n", tempToString(t), offset*WORD_SIZE);
     }
-    public void jal(){fileWriter.format("\tjal $ra\n");}
+    public void jal(String target){fileWriter.format("\tjal %s\n",target);}
+    public void jr(){fileWriter.format("\tjr $ra\n");}
 
 
     public void printDivByZero(){
@@ -187,7 +216,8 @@ public class sir_MIPS_a_lot {
             s = "$zero";
         if(t instanceof ARGUMENT)
             s = "$a" + ((ARGUMENT) t).getLocal();
-
+        if(t instanceof TEMP_REG)
+            s = "%t" +((TEMP_REG)t).getLocal();
 
         return s;
     }

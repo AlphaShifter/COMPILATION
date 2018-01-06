@@ -10,16 +10,16 @@ package IR;
 /*******************/
 /* PROJECT IMPORTS */
 /*******************/
-import TEMP.*;
-import MIPS.*;
 
-public class IRcommandPrintInt extends IRcommand
+import MIPS.sir_MIPS_a_lot;
+
+public class IRcommand_Jal extends IRcommand
 {
-	TEMP t;
-	
-	public IRcommandPrintInt(TEMP t)
+	String label;
+
+	public IRcommand_Jal(String label)
 	{
-		this.t = t;
+		this.label = label;
 	}
 	
 	/***************/
@@ -27,6 +27,6 @@ public class IRcommandPrintInt extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		sir_MIPS_a_lot.getInstance().print_int(this.t);
+		sir_MIPS_a_lot.getInstance().jal(label);
 	}
 }

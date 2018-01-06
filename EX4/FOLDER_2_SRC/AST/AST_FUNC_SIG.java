@@ -1,7 +1,9 @@
 package AST;
 
+import AST.DEC.AST_DEC_FUNC;
 import AST.DEC.AST_DEC_VAR;
 import Auxillery.Util;
+import Auxillery.VAR_KIND;
 import IR.IR;
 import IR.IRcommand;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -109,6 +111,12 @@ public class AST_FUNC_SIG extends AST_Node {
 
                     type_list.add(t);
                     SYMBOL_TABLE.getInstance().enter(var.name, t);
+                    if (AST_DEC_FUNC.funcLocalVarsCount != null) {
+                        AST_DEC_FUNC.funcLocalVarsCount.put(var.name, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
+                        var.myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
+                        var.varKind = VAR_KIND.ARGUMENT;
+                    }
+
                 }
             }
         }
@@ -165,6 +173,11 @@ public class AST_FUNC_SIG extends AST_Node {
                 } else {
                     type_list = new TYPE_LIST(t, type_list);
                     SYMBOL_TABLE.getInstance().enter(var.name, t);
+                    if (AST_DEC_FUNC.funcLocalVarsCount != null) {
+                        AST_DEC_FUNC.funcLocalVarsCount.put(var.name, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
+                        var.myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
+                        var.varKind = VAR_KIND.ARGUMENT;
+                    }
                 }
             }
         }

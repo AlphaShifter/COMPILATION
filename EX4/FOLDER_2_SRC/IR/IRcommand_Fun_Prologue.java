@@ -12,7 +12,6 @@ package IR;
 /*******************/
 
 import MIPS.sir_MIPS_a_lot;
-import TEMP.TEMP;
 
 public class IRcommand_Fun_Prologue extends IRcommand
 {
@@ -38,7 +37,7 @@ public class IRcommand_Fun_Prologue extends IRcommand
 			sir_MIPS_a_lot.getInstance().saveRaOnStack();
 		}
 		//open the frame
-		sir_MIPS_a_lot.getInstance().openNewFP(numOfVars);
+		sir_MIPS_a_lot.getInstance().openNewFrame(numOfVars);
 
 	}
 }
