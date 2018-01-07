@@ -17,11 +17,9 @@ import TEMP.TEMP;
 public class IRcommand_Return extends IRcommand
 {
 	TEMP data;
-	int fpSize;
 
-	public IRcommand_Return(int fpSize, TEMP data)
+	public IRcommand_Return(TEMP data)
 	{
-		this.fpSize = fpSize;
 		this.data = data;
 
 	}

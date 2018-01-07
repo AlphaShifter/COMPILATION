@@ -5,6 +5,8 @@ import AST.AST_Node_Serial_Number;
 import AST.DEC.AST_DEC_FUNC;
 import AST.EXP.AST_EXP;
 import Auxillery.Util;
+import IR.*;
+import TEMP.*;
 import TYPES.TYPE;
 import TYPES.TYPE_VOID;
 
@@ -56,6 +58,13 @@ public class AST_STMT_RETURN extends AST_STMT {
         System.out.println("error incompatible error in function type");
         Util.printError(res.myLine);
         return null;
+    }
+
+    @Override
+    public TEMP IRme() {
+        TEMP t = this.res == null ? ZERO_REG.getInstance() : this.res.IRme();
+        IR.getInstance().Add_IRcommand(new IRcommand_Return(t));
+        return t;
     }
 
 }

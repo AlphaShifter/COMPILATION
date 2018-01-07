@@ -105,7 +105,7 @@ public class IRcommand_Binop_Mult_Integers extends IRcommand
 		/*                        */
 		/**************************/
 		sir_MIPS_a_lot.getInstance().label(label_no_overflow);
-		sir_MIPS_a_lot.getInstance().load(dst,t1_mult_t2);
+		sir_MIPS_a_lot.getInstance().move(dst,t1_mult_t2);
 		sir_MIPS_a_lot.getInstance().jump(label_end);
 
 		/******************/

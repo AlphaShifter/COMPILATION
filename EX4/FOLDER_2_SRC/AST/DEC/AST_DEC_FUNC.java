@@ -189,7 +189,7 @@ public class AST_DEC_FUNC extends AST_DEC {
 
         //default return
         if(!this.isMainClass()){
-            IR.getInstance().Add_IRcommand(new IRcommand_Return(this.numOfVars,ZERO_REG.getInstance()));
+            IR.getInstance().Add_IRcommand(new IRcommand_Return(ZERO_REG.getInstance()));
         } else{
             //end program
             IR.getInstance().Add_IRcommand(new IRcommand_Jump("END_OF_PROGRAM"));

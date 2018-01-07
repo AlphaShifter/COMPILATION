@@ -69,7 +69,7 @@ public class sir_MIPS_a_lot {
     public void move(TEMP dst, TEMP src) {
 
         //fileWriter.format("\tsw %s,0(%s)\n", tempToString(src), tempToString(dst));
-        fileWriter.format("\tmove %s,%s\n", tempToString(src), tempToString(dst));
+        fileWriter.format("\tmove %s,%s\n", tempToString(dst), tempToString(src));
 
     }
 
@@ -190,10 +190,10 @@ public class sir_MIPS_a_lot {
     }
 
     public void restoreRaFromStack(int offset){
-        fileWriter.format("\tlw $ra, %d(sp)\n", offset*WORD_SIZE);
+        fileWriter.format("\tlw $ra, %d($sp)\n", offset*WORD_SIZE);
     }
     public void saveReturnOnStack(int offset, TEMP t){
-        fileWriter.format("\tsw %s, %d(sp)\n", tempToString(t), offset*WORD_SIZE);
+        fileWriter.format("\tsw %s, %d($sp)\n", tempToString(t), offset*WORD_SIZE);
     }
     public void jal(String target){fileWriter.format("\tjal %s\n",target);}
     public void jr(){fileWriter.format("\tjr $ra\n");}
@@ -219,7 +219,7 @@ public class sir_MIPS_a_lot {
         if(t instanceof ARGUMENT)
             s = "$a" + ((ARGUMENT) t).getLocal();
         if(t instanceof TEMP_REG)
-            s = "%t" +((TEMP_REG)t).getLocal();
+            s = "$t" +((TEMP_REG)t).getLocal();
 
         return s;
     }
