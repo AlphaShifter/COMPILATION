@@ -5,10 +5,10 @@ import AST.AST_Node_Serial_Number;
 import AST.VAR.AST_VAR;
 import AST.EXP.AST_EXP;
 import Auxillery.Util;
-import IR.IR;
+import IR.*;
 import TEMP.TEMP;
 import TYPES.*;
-import IR.*;
+
 public class AST_STMT_ASSIGN extends AST_STMT
 {
 	/***************/
@@ -95,7 +95,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		TEMP t1 = var.IRme();
 		TEMP t2 = exp.IRme();
 		IR.getInstance().Add_IRcommand(
-				new IRcommand_Store(t1,t2)
+				new IRcommand_Move(t1,t2)
 		);
 		return t1;
 	}

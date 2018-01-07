@@ -59,16 +59,17 @@ public class sir_MIPS_a_lot {
 
     public void loadAddressLocalVar(TEMP dst, int serialLocalVarNum){
         int idx = dst.getSerialNumber();
-        fileWriter.format("\tlw %s, %d(fp)\n",tempToString(dst),-serialLocalVarNum*WORD_SIZE);
+        fileWriter.format("\tlw %s, %d($fp)\n",tempToString(dst),-serialLocalVarNum*WORD_SIZE);
        // fileWriter.format("\taddi Temp_%d,$fp,%d\n", idx, -serialLocalVarNum * WORD_SIZE);
        //   fileWriter.format("\taddi Temp_%d,$sp,%d\n", idx, -serialLocalVarNum * WORD_SIZE);
 
 
     }
 
-    public void store(TEMP dst, TEMP src) {
+    public void move(TEMP dst, TEMP src) {
 
-        fileWriter.format("\tsw %s,0(%s)\n", tempToString(src), tempToString(dst));
+        //fileWriter.format("\tsw %s,0(%s)\n", tempToString(src), tempToString(dst));
+        fileWriter.format("\tmove %s,%s\n", tempToString(src), tempToString(dst));
 
     }
 

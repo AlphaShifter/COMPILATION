@@ -9,7 +9,7 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 import TEMP.*;
 import IR.*;
-import MIPS.*;
+
 public class AST_EXP_METHOD extends AST_EXP {
 
     public String id;
@@ -168,7 +168,7 @@ public class AST_EXP_METHOD extends AST_EXP {
             for(AST_Node runner: this.args){
                 AST_EXP head = (AST_EXP)runner;
                 IR.getInstance().Add_IRcommand(
-                        new IRcommand_Store(ARGUMENT.getInstance(count),head.IRme()
+                        new IRcommand_Move(ARGUMENT.getInstance(count),head.IRme()
                         ));
                 count++;
             }

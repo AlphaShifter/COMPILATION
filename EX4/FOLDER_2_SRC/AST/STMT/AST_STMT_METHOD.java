@@ -8,7 +8,6 @@ import AST.EXP.AST_EXP_METHOD;
 import AST.VAR.AST_VAR;
 import AST.EXP.AST_EXP_LIST;
 import Auxillery.Util;
-import IR.IR;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TEMP.*;
 import TYPES.TYPE;
@@ -137,7 +136,7 @@ public class AST_STMT_METHOD extends AST_STMT {
         for(AST_Node runner: this.args){
             AST_EXP head = (AST_EXP)runner;
             IR.getInstance().Add_IRcommand(
-                    new IRcommand_Store(ARGUMENT.getInstance(count),head.IRme()
+                    new IRcommand_Move(ARGUMENT.getInstance(count),head.IRme()
             ));
             count++;
         }
