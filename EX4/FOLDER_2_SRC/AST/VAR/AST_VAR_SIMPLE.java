@@ -87,9 +87,9 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 		TEMP memory = TEMP_FACTORY.getInstance().getFreshTEMP();
 
-		IR.getInstance().Add_IRcommand(new IRcommand_Load_AddressLocalVar(memory,myPlace));
+		IR.getInstance().Add_IRcommand(new IRcommand_Load_AddressLocalVar(memory, myPlace));
 
-				IR.getInstance().Add_IRcommand(new IRcommand_Move(
+		IR.getInstance().Add_IRcommand(new IRcommand_Move(
 				t,
 				memory));
 

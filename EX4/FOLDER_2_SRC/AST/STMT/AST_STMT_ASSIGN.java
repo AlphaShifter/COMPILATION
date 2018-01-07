@@ -4,6 +4,7 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import AST.VAR.AST_VAR;
 import AST.EXP.AST_EXP;
+import AST.VAR.AST_VAR_SIMPLE;
 import Auxillery.Util;
 import IR.*;
 import TEMP.TEMP;
@@ -94,9 +95,12 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	public TEMP IRme(){
 		TEMP t1 = var.IRme();
 		TEMP t2 = exp.IRme();
-		IR.getInstance().Add_IRcommand(
-				new IRcommand_Move(t1,t2)
-		);
+//		IR.getInstance().Add_IRcommand(
+//				new IRcommand_Move(t1,t2)
+//		);
+		//TODO store on non-simple var types
+		if(var instanceof AST_VAR_SIMPLE)
+			IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressLocalVar(t2,((AST_VAR_SIMPLE) var).myPlace));
 		return t1;
 	}
 

@@ -153,29 +153,43 @@ public class AST_EXP_BINOP extends AST_EXP
 	}
 
 
-	public TEMP IRme()
-	{
+	public TEMP IRme() {
 		TEMP t1 = null;
 		TEMP t2 = null;
 		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
 
-		assert(false);
+		assert (false);
 
-		if (left  != null) t1 = left.IRme();
+		if (left != null) t1 = left.IRme();
 		if (right != null) t2 = right.IRme();
 
-		if (OP == 0)
-		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
+		//TODO implement stuff other than integers
+		switch (OP) {
+			case 0:
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst, t1, t2));
+				break;
+			case 1:
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Sub_Integers(dst, t1, t2));
+				break;
+			case 2:
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Mult_Integers(dst, t1, t2));
+				break;
+			case 3:
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Div_Integers(dst, t1, t2));
+				break;
+			case 4:
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_LT_Integers(dst, t1, t2));
+				break;
+			case 5:
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_GT_Integers(dst, t1, t2));
+				break;
+			case 6:
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Eq_Integers(dst, t1, t2));
+				break;
+			default:
+				break;
 		}
-		if (OP == 4)
-		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_LT_Integers(dst,t1,t2));
-		}
+
 		return dst;
 	}
 }
