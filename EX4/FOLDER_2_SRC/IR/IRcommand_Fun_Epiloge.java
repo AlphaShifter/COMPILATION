@@ -13,6 +13,9 @@ package IR;
 
 import MIPS.sir_MIPS_a_lot;
 
+/*
+does second part of epilogue: pops temps from stack and the return value (assumes it has been read)
+ */
 public class IRcommand_Fun_Epiloge extends IRcommand
 {
 

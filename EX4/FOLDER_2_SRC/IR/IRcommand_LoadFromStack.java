@@ -19,6 +19,10 @@ public class IRcommand_LoadFromStack extends IRcommand
 
 	TEMP dst;
 	int offset;
+
+	/**
+	 load word in offset (in words) from stack into dst
+	 */
 	public IRcommand_LoadFromStack(TEMP dst, int offset)
 	{
 		this.dst = dst;

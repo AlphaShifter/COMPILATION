@@ -100,7 +100,7 @@ public class IRcommand_Binop_Mult_Integers extends IRcommand
 		/**************************/
 		/* [4] label_no_overflow: */
 		/*                        */
-		/*         t3 := t1+t2    */
+		/*         t3 := t1*t2    */
 		/*         goto end;      */
 		/*                        */
 		/**************************/

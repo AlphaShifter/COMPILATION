@@ -19,6 +19,9 @@ public class IRcommand_Store_AddressLocalVar extends IRcommand
 	TEMP src;
 	int myPlace;
 
+	/*
+	stores src on stack, in offset @myPlace from FP (saves on the frame)
+	 */
 	public IRcommand_Store_AddressLocalVar(TEMP src, int myPlace)
 	{
 		this.src = src;

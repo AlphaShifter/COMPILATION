@@ -100,6 +100,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 //		);
 		//TODO store on non-simple var types
 		if(var instanceof AST_VAR_SIMPLE)
+			//stores t2 on the stack, to the location of var (update var)
 			IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressLocalVar(t2,((AST_VAR_SIMPLE) var).myPlace));
 		return t1;
 	}

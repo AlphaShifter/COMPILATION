@@ -229,43 +229,4 @@ public class AST_FUNC_SIG extends AST_Node {
 
     }
 
-    @Override
-    public TEMP IRme(){
-
-
-        //global function
-        if(this.container == null){
-            String newLabel = IRcommand.getFreshFuncLabel(this.name);
-
-            //update the symbol table to have the new func
-            TYPE_FUNCTION funcT = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.name);
-            funcT.myLabel = newLabel;
-
-            //print the label
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_Label(newLabel)
-            );
-            
-
-            //TODO epilogue
-
-
-            //get the temps for each of the args
-            List<TEMP> tempList = new ArrayList<>();
-            for(AST_ID_LIST runner = this.idList; runner != null; runner = runner.tail){
-                AST_DEC_VAR local = runner.head;
-                if(local == null)
-                    break;
-                tempList.add(local.IRme());
-            }
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_func_dec(newLabel,tempList)
-            );
-
-        }
-
-        return null;
-    }
-
-
 }

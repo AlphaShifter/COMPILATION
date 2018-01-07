@@ -19,6 +19,9 @@ public class IRcommand_LoadTempsFromStack extends IRcommand
 	/***************/
 	/* MIPS me !!! */
 	/***************/
+	/**
+	 * load the 8 temps registers from stack
+	 */
 	public void MIPSme()
 	{
 		for(int i = 0; i < 8; i++) {

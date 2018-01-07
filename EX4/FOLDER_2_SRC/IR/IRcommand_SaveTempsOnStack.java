@@ -20,6 +20,9 @@ public class IRcommand_SaveTempsOnStack extends IRcommand
 	/***************/
 	/* MIPS me !!! */
 	/***************/
+	/*
+	saves the 8 registers on stack (done in function prologue
+	 */
 	public void MIPSme()
 	{
 		sir_MIPS_a_lot.getInstance().setRoomOnStack(8); //8 temps
