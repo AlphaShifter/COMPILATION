@@ -10,7 +10,7 @@ public class TEMP_REG extends TEMP {
     private static TEMP_REG arg1 = null;
     private static TEMP_REG arg2 = null;
     private static TEMP_REG arg3 = null;
-    private static TEMP_REG arg4= null;
+    private static TEMP_REG arg4 = null;
     private static TEMP_REG arg5 = null;
     private static TEMP_REG arg6 = null;
     private static TEMP_REG arg7 = null;

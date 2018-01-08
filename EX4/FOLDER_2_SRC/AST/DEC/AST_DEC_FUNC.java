@@ -25,6 +25,8 @@ public class AST_DEC_FUNC extends AST_DEC {
     public AST_FUNC_SIG sig;
     public static TYPE func_type = null;
     public static Map<String,Integer>funcLocalVarsCount = null;
+    public static Map<String,Integer>funcFreqCount = null;
+
     public int numOfVars = 0;
 
 
@@ -91,6 +93,11 @@ public class AST_DEC_FUNC extends AST_DEC {
         /*******************/
         SYMBOL_TABLE.getInstance().beginScope();
         funcLocalVarsCount = new HashMap<>();
+        /*
+        the funcLocalVarsCount will store in the format of name_freq:  the name and the order of the var amogs all of the vars in
+        the same name under the function (like nested flow controls)
+         */
+        funcFreqCount = new HashMap<>();
 
         TYPE_FUNCTION newFuncDec = null;
         func_type = Util.stringToType(sig.type);
@@ -104,6 +111,7 @@ public class AST_DEC_FUNC extends AST_DEC {
         /*****************/
 		/* [4] End Scope */
         /*****************/
+        funcFreqCount = null;
         SYMBOL_TABLE.getInstance().endScope();
         numOfVars = funcLocalVarsCount.size();
         funcLocalVarsCount = null;

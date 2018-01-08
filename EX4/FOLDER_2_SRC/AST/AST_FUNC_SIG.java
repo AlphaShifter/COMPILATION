@@ -111,8 +111,20 @@ public class AST_FUNC_SIG extends AST_Node {
 
                     type_list.add(t);
                     SYMBOL_TABLE.getInstance().enter(var.name, t);
+                    //check if we are at function. if we do, get the count
                     if (AST_DEC_FUNC.funcLocalVarsCount != null) {
-                        AST_DEC_FUNC.funcLocalVarsCount.put(var.name, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
+                        int c = 1;
+                        //increase frequency
+                        if(AST_DEC_FUNC.funcFreqCount.containsKey(var.name)){
+                            c = AST_DEC_FUNC.funcFreqCount.get(var.name);
+                            c += 1;
+                            AST_DEC_FUNC.funcFreqCount.put(var.name,c);
+                        } else {
+                            AST_DEC_FUNC.funcFreqCount.put(var.name,1);
+                        }
+                        //out the name with it's frequency
+                        String newName = var.name + "_" + c;
+                        AST_DEC_FUNC.funcLocalVarsCount.put(newName, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
                         var.myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
                         var.varKind = VAR_KIND.ARGUMENT;
                     }

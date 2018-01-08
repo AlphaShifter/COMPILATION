@@ -133,7 +133,7 @@ public class AST_STMT_METHOD extends AST_STMT {
         //save the arguments to $a registers
         //TODO make this an array
         int count = 0;
-        if (this.args != null) {
+        if (args != null) {
             for (AST_Node runner : this.args) {
                 AST_EXP head = (AST_EXP) runner;
                 IR.getInstance().Add_IRcommand(
