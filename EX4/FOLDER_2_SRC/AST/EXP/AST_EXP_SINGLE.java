@@ -2,6 +2,7 @@ package AST.EXP;
 
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
+import TEMP.TEMP;
 import TYPES.TYPE;
 import TYPES.TYPE_STRING;
 
@@ -64,5 +65,8 @@ public class AST_EXP_SINGLE extends AST_EXP
 	{
 		return exp.SemantMe();
 	}
+
+	@Override
+	public TEMP IRme(){ return this.exp.IRme();}
 
 }

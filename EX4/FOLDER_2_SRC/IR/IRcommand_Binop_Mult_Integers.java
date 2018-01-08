@@ -66,7 +66,7 @@ public class IRcommand_Binop_Mult_Integers extends IRcommand
 		/*
 		save result to t1_mult_t2
 		 */
-		sir_MIPS_a_lot.getInstance().getHi(t1_mult_t2);
+		sir_MIPS_a_lot.getInstance().getLo(t1_mult_t2);
 		
 		/********************************************************/
 		/* [5] if (32767 <  t1_plus_t2) goto label_overflow;
