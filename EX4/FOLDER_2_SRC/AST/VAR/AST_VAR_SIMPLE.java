@@ -67,12 +67,16 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			System.out.println("Error: static reference");
 			Util.printError(myLine);
 		}
+
+		int freq = AST_DEC_FUNC.funcFreqCount.get(name);
+		String newName = name + "_" + freq;
+
 		//check if we are at function
 		if(AST_DEC_FUNC.funcLocalVarsCount != null){
-			myPlace = AST_DEC_FUNC.funcLocalVarsCount.get(this.name);
+			myPlace = AST_DEC_FUNC.funcLocalVarsCount.get(newName);
 		}
 		if(AST_DEC_CLASS.classLocalVarsCount != null){
-			myPlace = AST_DEC_CLASS.classLocalVarsCount.get(this.name);
+			myPlace = AST_DEC_CLASS.classLocalVarsCount.get(newName);
 		}
 		return t;
 	}
@@ -84,6 +88,8 @@ public class AST_VAR_SIMPLE extends AST_VAR
 
 	public TEMP IRme()
 	{
+		System.out.println("My place is " + myPlace);
+
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 		TEMP memory = TEMP_FACTORY.getInstance().getFreshTEMP();
 

@@ -10,7 +10,7 @@ public class TEMP_REG extends TEMP {
     private static TEMP_REG arg1 = null;
     private static TEMP_REG arg2 = null;
     private static TEMP_REG arg3 = null;
-    private static TEMP_REG arg4= null;
+    private static TEMP_REG arg4 = null;
     private static TEMP_REG arg5 = null;
     private static TEMP_REG arg6 = null;
     private static TEMP_REG arg7 = null;
@@ -73,7 +73,7 @@ public class TEMP_REG extends TEMP {
                     arg6.local = 6;
 
                 }
-                return arg3;
+                return arg6;
             case 7:
                 if(arg7 == null){
                     arg7 = new TEMP_REG(-1);

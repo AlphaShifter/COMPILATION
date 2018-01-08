@@ -16,6 +16,8 @@ import java.util.Map;
 /*******************/
 /* PROJECT IMPORTS */
 /*******************/
+import AST.DEC.AST_DEC;
+import AST.DEC.AST_DEC_FUNC;
 import TYPES.*;
 
 /****************/
@@ -83,6 +85,22 @@ public class SYMBOL_TABLE {
 
 
     public void endScope() {
+        /*
+        we ended a scope, that means that the following instances of the variable name
+        will be of the previous one, therefor:
+        decrease the function's frequancy counter
+         */
+        if(AST_DEC_FUNC.funcFreqCount != null) {
+            for (String elem : tableList.get(scope_index).keySet()) {
+                int c = AST_DEC_FUNC.funcFreqCount.get(elem);
+                c--;
+                if(c > 0)
+                   AST_DEC_FUNC.funcFreqCount.put(elem,c);
+                else
+                    AST_DEC_FUNC.funcFreqCount.remove(elem);
+            }
+        }
+
         //end the scope by deleting the last map
         tableList.remove(scope_index);
         scope_index--;

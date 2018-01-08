@@ -109,13 +109,24 @@ public class AST_DEC_VAR extends AST_DEC {
         /***************************************************/
         SYMBOL_TABLE.getInstance().enter(name, t);
 
-
         //check if we are at function. if we do, get the count
         if (AST_DEC_FUNC.funcLocalVarsCount != null) {
-            AST_DEC_FUNC.funcLocalVarsCount.put(name, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
+            int c = 1;
+            //increase frequency
+            if(AST_DEC_FUNC.funcFreqCount.containsKey(name)){
+                c = AST_DEC_FUNC.funcFreqCount.get(name);
+                c += 1;
+                AST_DEC_FUNC.funcFreqCount.put(name,c);
+            } else {
+                AST_DEC_FUNC.funcFreqCount.put(name,1);
+            }
+            //out the name with it's frequency
+            String newName = name + "_" + c;
+            AST_DEC_FUNC.funcLocalVarsCount.put(newName, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
             myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
             varKind = VAR_KIND.LOCAL;
         }
+
         //check if we are at class. if we do, get the count
         else if (AST_DEC_CLASS.classLocalVarsCount != null) {
             AST_DEC_CLASS.classLocalVarsCount.put(name, AST_DEC_CLASS.classLocalVarsCount.size() + 1);
@@ -211,6 +222,7 @@ public class AST_DEC_VAR extends AST_DEC {
     }
 
     public TEMP IRme() {
+
         if (exp != null) {
 
             TEMP t = exp.IRme();
