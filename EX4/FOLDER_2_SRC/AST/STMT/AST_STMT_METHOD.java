@@ -133,12 +133,14 @@ public class AST_STMT_METHOD extends AST_STMT {
         //save the arguments to $a registers
         //TODO make this an array
         int count = 0;
-        for(AST_Node runner: this.args){
-            AST_EXP head = (AST_EXP)runner;
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_Move(ARGUMENT.getInstance(count),head.IRme()
-            ));
-            count++;
+        if (this.args != null) {
+            for (AST_Node runner : this.args) {
+                AST_EXP head = (AST_EXP) runner;
+                IR.getInstance().Add_IRcommand(
+                        new IRcommand_Move(ARGUMENT.getInstance(count), head.IRme()
+                        ));
+                count++;
+            }
         }
         //jump
         String targetLabel = ((TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(this.id)).myLabel;

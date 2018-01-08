@@ -73,7 +73,7 @@ public class TEMP_REG extends TEMP {
                     arg6.local = 6;
 
                 }
-                return arg3;
+                return arg6;
             case 7:
                 if(arg7 == null){
                     arg7 = new TEMP_REG(-1);
