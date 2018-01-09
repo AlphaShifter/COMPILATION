@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.io.*;
 import java.util.*;
 import java.util.LinkedList;
+import java.util.function.Predicate;
 
 
 public class GraphColor {
@@ -16,11 +17,11 @@ public static void main(String args[]) throws IOException {
   
     ArrayList<TmpRegister> tmp_list= new ArrayList<TmpRegister>();
 
-    int tmp_num=80;
+    int tmp_num=5000;
       for (int tmp_index=0;tmp_index<=tmp_num;tmp_index++){
 
           String line = null;
-          BufferedReader bufferedReader = new BufferedReader(new FileReader("/home/ohad/workspace/Courses/2017A/Compilation/Compilation_Homework/EX4/FOLDER_5_OUTPUT/MIPS.txt"));
+          BufferedReader bufferedReader = new BufferedReader(new FileReader("FOLDER_5_OUTPUT/MIPS.txt"));
           int start=0;
           int end=0;
           int i=1;
@@ -40,12 +41,15 @@ public static void main(String args[]) throws IOException {
           }
           // close the BufferedReader when we're done
           bufferedReader.close();
-          System.out.println("Temp_"+tmp_index+" liveness range:["+start+","+end+")");
+          if(start == 0 && end == 0)
+              break;
           tmp_list.add(new TmpRegister(tmp_index,start,end));
       }
+    //clear non-used temps (range 0:0)
+
     int total=0;
     int inter_count=0;
-    Graph g1 = new Graph(tmp_num+1);
+    Graph g1 = new Graph(tmp_list.size());
     for (TmpRegister t:tmp_list) {
         for (TmpRegister k:tmp_list) {
             if(k.isInterfering(t)&&k.id!=t.id){
