@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.*;
 import java.util.LinkedList;
 import java.util.function.Predicate;
+import java.util.regex.*;
 
 
 public class GraphColor {
@@ -16,29 +17,35 @@ public class GraphColor {
 public static void main(String args[]) throws IOException {
   
     ArrayList<TmpRegister> tmp_list= new ArrayList<TmpRegister>();
-
+    Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
     int tmp_num=5000;
-      for (int tmp_index=0;tmp_index<=tmp_num;tmp_index++){
+      for (int tmp_index=0;tmp_index<=1;tmp_index++){
 
           String line = null;
-          BufferedReader bufferedReader = new BufferedReader(new FileReader("FOLDER_5_OUTPUT/MIPS.txt"));
+          BufferedReader bufferedReader = new BufferedReader(new FileReader("../FOLDER_5_OUTPUT/MIPS.txt"));
           int start=0;
           int end=0;
           int i=1;
           while ((line = bufferedReader.readLine()) != null){
-            String splited = Arrays.toString(line.split("[, \(\)]"));
-              if(splited.contains("Temp_"+tmp_index)){
+            System.out.println(Arrays.toString(p.split(line)));
+            for (String splited : p.split(line)) {
+              // System.out.println(splited);
+              if(splited.equals("Temp_"+tmp_index)){
                   start=i++;
                   end=i;
                   break;
               }
+            }
               i++;
           }
-          while ((splited = bufferedReader.readLine()) != null){
-            String splited = Arrays.toString(line.split("[, \(\)]"));
-              if(splited.contains("Temp_"+tmp_index)){
+          while ((line = bufferedReader.readLine()) != null){
+            System.out.println(Arrays.toString(p.split(line)));
+              for (String splited : p.split(line)) {
+                 System.out.println(splited);
+                if(splited.equals("Temp_"+tmp_index)){
                   end=i;
               }
+            }
               i++;
           }
           // close the BufferedReader when we're done
@@ -64,13 +71,13 @@ public static void main(String args[]) throws IOException {
             total++;
         }
     }
-    // tmp_list.sort(Comparator.comparingInt(tmpRegister -> tmpRegister.inter_list.size()));
-    // for (TmpRegister t:tmp_list) {
-    //   for (int i : t.inter_list ) {
-    //     System.out.println(i);
-    //   }
-    //     System.out.println(t);
-    // }
+    tmp_list.sort(Comparator.comparingInt(tmpRegister -> tmpRegister.inter_list.size()));
+    for (TmpRegister t:tmp_list) {
+        System.out.println(t);
+      // for (int i : t.inter_list ) {
+      // }
+      //   System.out.println(t);
+    }
 
   g1.greedyColoring();
 }
