@@ -19,7 +19,7 @@ public class Main {
         String inputFilename;
         String outputFilename;
         if (argv.length == 0) {
-            inputFilename = "FOLDER_4_INPUT/TEST_00_Print_Primes_Simple.txt";
+            inputFilename = "FOLDER_4_INPUT/Input.txt";
             outputFilename = "FOLDER_5_OUTPUT/mips_prime_output.txt";
         } else {
             inputFilename = argv[0];

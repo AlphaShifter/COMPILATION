@@ -44,6 +44,13 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tmove $a0,%s\n", tempToString(t));
         fileWriter.format("\tli $v0,4\n");
         fileWriter.format("\tsyscall\n");
+
+    }
+
+    public void getStrLen(TEMP dst, TEMP address){
+        fileWriter.format("\tmove $a0, %s\n",tempToString(address));
+        jal("strlen");
+        fileWriter.format("\tmove %s, $v0\n",tempToString(dst));
     }
 
     public void mallocHeap(TEMP dest, int amount){
@@ -52,9 +59,6 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tsyscall\n");
         fileWriter.format("\tmove %s,$v0\n",tempToString(dest));
     }
-
-
-
 
     public void comment(String comment){
         fileWriter.format("##### %s\n",comment);
@@ -230,6 +234,93 @@ public class sir_MIPS_a_lot {
 
     }
 
+//    public void printStrlen(){ //chars
+//        fileWriter.print("strlen:\n");
+//        fileWriter.print("\tli $s0, 0\n");
+//        fileWriter.print("loop_strlen:\n");
+//        fileWriter.print("\tlb $s1, 0($a0)\n");
+//        fileWriter.print("\tbeqz $s1, exit_strlen\n");
+//        fileWriter.print("\taddi $a0, $a0, 1\n");
+//        fileWriter.print("\taddi $s0, $s0, 1\n");
+//        fileWriter.print("\tj loop_strlen\n");
+//        fileWriter.print("exit_strlen:\n");
+//        fileWriter.print("\tmove $v0, $s0\n");
+//        fileWriter.print("\tjr $ra\n");
+//    }
+
+    public void printStrlen(){ //words
+        fileWriter.print("strlen:\n");
+        fileWriter.print("\tli $s0, 0\n");
+        fileWriter.print("loop_strlen:\n");
+        fileWriter.print("\tlw $s1, 0($a0)\n");
+        fileWriter.print("\tbeqz $s1, exit_strlen\n");
+        fileWriter.format("\taddi $a0, $a0, %d\n",WORD_SIZE);
+        fileWriter.print("\taddi $s0, $s0, 1\n");
+        fileWriter.print("\tj loop_strlen\n");
+        fileWriter.print("exit_strlen:\n");
+        fileWriter.print("\tmove $v0, $s0\n");
+        fileWriter.print("\tjr $ra\n");
+    }
+
+    public void printStrcpy(){
+        fileWriter.print("strcpy:\n");
+        fileWriter.print("\tlb $s0 0($a0)\n");
+        fileWriter.print("\tbeqz $s0, exit_strcpy\n");
+        fileWriter.print("\tsb $s0 0($a1)\n");
+        fileWriter.print("\taddi $a0 $a0 1\n");
+        fileWriter.print("\taddi $a1 $a1 1\n");
+        fileWriter.print("\tj strcpy\n");
+        fileWriter.print("exit_strcpy:\n");
+        fileWriter.print("\tmove $v0, $a1\n");
+        fileWriter.print("\tjr $ra\n");
+    }
+
+    public void printStrCon(){
+
+
+        fileWriter.format("strcon:\n");
+        fileWriter.format("\taddi $sp,$sp,%d\n",2*WORD_SIZE);
+        fileWriter.format("\tsw $ra,0($sp)\n");
+        fileWriter.format("\tmove $s0 ,$a2\n"); //save arguments
+        fileWriter.format("\tmove $s1 ,$a0\n");
+        fileWriter.format("\tmove $s2 ,$a1\n");
+
+        fileWriter.format("\tli $s3,%d\n",WORD_SIZE);
+        fileWriter.format("\tmult $s3,$a2\n");
+        fileWriter.format("\tmflo $s3\n");
+
+        fileWriter.format("\taddi $a0, $s0,1\n");  //malloc
+        fileWriter.format("\tli $v0,9\n");
+        fileWriter.format("\tsyscall\n");
+        fileWriter.format("\tmove $s0,$v0\n"); //save new address t0
+        fileWriter.format("\tsw $s0,%d($sp)\n",WORD_SIZE);
+        fileWriter.format("\tmove $a1, $s0\n"); //copy first string
+        fileWriter.format("\tmove $a0, $s1\n");
+        jal("strcpy");
+        fileWriter.format("\tmove $a1, $v0\n"); //copy second string
+        fileWriter.format("\tmove $a0, $s2\n");
+        jal("strcpy");
+        fileWriter.format("\tlw $s0, %d($sp)\n",WORD_SIZE);
+
+        fileWriter.format("\tadd $s3, $s3, $s0\n");
+        fileWriter.format("\tsw $zero, 0($s3)\n");
+
+        fileWriter.format("\tmove $v0, $s0\n"); //return the address
+        fileWriter.format("\tlw $ra, 0($sp)\n");
+        fileWriter.format("\taddi $sp,$sp,%d\n",-2*WORD_SIZE);
+        fileWriter.format("\tjr $ra\n");
+
+    }
+
+    public void strCon(TEMP dest, TEMP s1, TEMP s2, TEMP size){
+        fileWriter.format("\tmove $a0, %s\n",tempToString(s1));
+        fileWriter.format("\tmove $a1, %s\n",tempToString(s2));
+        fileWriter.format("\tmove $a2, %s\n",tempToString(size));
+        jal("strcon");
+        fileWriter.format("\tmove %s, $v0\n",tempToString(dest));
+
+    }
+
     private String tempToString(TEMP t){
         int i = t.getSerialNumber();
 
@@ -302,6 +393,12 @@ public class sir_MIPS_a_lot {
             instance.fileWriter.print(".text\n");
             instance.fileWriter.print("### start with main function\n");
             instance.fileWriter.print("j main\n");
+            instance.fileWriter.print("############################\n");
+            instance.printStrlen();
+            instance.fileWriter.print("############################\n");
+            instance.printStrcpy();
+            instance.fileWriter.print("############################\n");
+            instance.printStrCon();
             instance.fileWriter.print("############################\n");
 
 
