@@ -26,15 +26,17 @@ public static void main(String args[]) throws IOException {
           int end=0;
           int i=1;
           while ((line = bufferedReader.readLine()) != null){
-              if(line.contains("Temp_"+tmp_index)){
+            String splited = Arrays.toString(line.split("[, \(\)]"));
+              if(splited.contains("Temp_"+tmp_index)){
                   start=i++;
                   end=i;
                   break;
               }
               i++;
           }
-          while ((line = bufferedReader.readLine()) != null){
-              if(line.contains("Temp_"+tmp_index)){
+          while ((splited = bufferedReader.readLine()) != null){
+            String splited = Arrays.toString(line.split("[, \(\)]"));
+              if(splited.contains("Temp_"+tmp_index)){
                   end=i;
               }
               i++;
