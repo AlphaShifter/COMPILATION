@@ -40,6 +40,22 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tsyscall\n");
     }
 
+    public void print_string(TEMP t) {
+        fileWriter.format("\tmove $a0,%s\n", tempToString(t));
+        fileWriter.format("\tli $v0,4\n");
+        fileWriter.format("\tsyscall\n");
+    }
+
+    public void mallocHeap(TEMP dest, int amount){
+        fileWriter.format("\tli $a0 ,%d\n",amount*WORD_SIZE);
+        fileWriter.format("\tli $v0,9\n");
+        fileWriter.format("\tsyscall\n");
+        fileWriter.format("\tmove %s,$v0\n",tempToString(dest));
+    }
+
+
+
+
     public void comment(String comment){
         fileWriter.format("##### %s\n",comment);
     }
@@ -176,6 +192,10 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tsw %s, %d($sp)\n", tempToString(res),offset*WORD_SIZE);
     }
 
+    public void saveOnHeap(TEMP src, TEMP address, int offset){
+        fileWriter.format("\tsw %s, %d(%s)\n", tempToString(src),offset*WORD_SIZE,tempToString(address));
+    }
+
     public void loadRegfromStack(TEMP res, int offset){
         fileWriter.format("\tlw %s, %d($sp)\n", tempToString(res),offset*WORD_SIZE);
     }
@@ -235,6 +255,8 @@ public class sir_MIPS_a_lot {
     /*****************************/
     protected sir_MIPS_a_lot() {
     }
+
+    public int getWORDSIZE(){return WORD_SIZE;}
 
     /******************************/
 	/* GET SINGLETON INSTANCE ... */

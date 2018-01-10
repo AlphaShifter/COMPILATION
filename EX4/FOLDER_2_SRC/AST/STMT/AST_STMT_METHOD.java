@@ -127,6 +127,10 @@ public class AST_STMT_METHOD extends AST_STMT {
             IR.getInstance().Add_IRcommand(new IRcommandPrintInt(this.args.getHead().IRme()));
             return ZERO_REG.getInstance();
         }
+        if(this.id.equals("PrintString")){
+            IR.getInstance().Add_IRcommand(new IRcommandPrintString(this.args.getHead().IRme()));
+            return ZERO_REG.getInstance();
+        }
 
         //save the temps on stack
         IR.getInstance().Add_IRcommand(new IRcommand_SaveTempsOnStack());
