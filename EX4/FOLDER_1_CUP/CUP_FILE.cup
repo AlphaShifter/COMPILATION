@@ -124,13 +124,14 @@ non terminal AST_CLASS_SIG classSig;
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
-precedence left PLUS;
-precedence left MINUS;
+precedence nonassoc EQ;
+precedence left GT;
+precedence left LT;
 precedence left TIMES;
 precedence left DIVIDE;
-precedence nonassoc EQ;
-precedence nonassoc GT;
-precedence nonassoc LT;
+precedence left MINUS;
+precedence left PLUS;
+
 
 /************************/
 /* START WITH: stmtList */
