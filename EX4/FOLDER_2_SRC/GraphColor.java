@@ -19,7 +19,7 @@ public static void main(String args[]) throws IOException,InterruptedException {
     ArrayList<TmpRegister> tmp_list= new ArrayList<TmpRegister>();
     ArrayList<String> psuFile= new ArrayList<String>();
     Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
-    String inputFile="../FOLDER_5_OUTPUT/MIPS.txt";
+    String inputFile="FOLDER_5_OUTPUT/MIPS.txt";
     // int tmp_num=TEMP_FACTORY.getCount();//TODO - get the number of temps from the temp factory
     int tmp_num=78;
       for (int tmp_index=0;tmp_index<=tmp_num;tmp_index++){
@@ -33,7 +33,8 @@ public static void main(String args[]) throws IOException,InterruptedException {
             // System.out.println(Arrays.toString(p.split(line)));
             for (String splited : p.split(line)) {
               if(splited.equals("Temp_"+tmp_index)){
-                  start=i++;
+                  if(start == 0)
+                    start=i++;
                   end=i;
                   break;
               }
@@ -56,7 +57,20 @@ public static void main(String args[]) throws IOException,InterruptedException {
               break;
           tmp_list.add(new TmpRegister(tmp_index,start,end));
       }
+
+    //end parameter is too large by 1, fix:
+
+    for(TmpRegister t: tmp_list){
+        t.end = t.end - 1;
+    }
     //clear non-used temps (range 0:0)
+
+
+    for(TmpRegister t: tmp_list){
+        System.out.println("v:" + t.id + " [" + t.start + ": " + t.end +"]");
+    }
+
+
 
     int total=0;
     int inter_count=0;
@@ -85,7 +99,7 @@ public static void main(String args[]) throws IOException,InterruptedException {
     // System.out.println(assignMap);
 
 
-      BufferedReader bufferedReader = new BufferedReader(new FileReader("../FOLDER_5_OUTPUT/MIPS.txt"));
+      BufferedReader bufferedReader = new BufferedReader(new FileReader("FOLDER_5_OUTPUT/MIPS.txt"));
           String line = null;
           while ((line = bufferedReader.readLine()) != null){
             for (int i=tmp_num;i>=0 ;i-- ) {
