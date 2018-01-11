@@ -7,36 +7,47 @@ import java.io.*;
 import java.util.*;
 import java.util.LinkedList;
 import java.util.function.Predicate;
-
+import java.util.regex.*;
+import TEMP.TEMP_FACTORY;
 
 public class GraphColor {
 
 
 
-public static void main(String args[]) throws IOException {
+public static void main(String args[]) throws IOException,InterruptedException {
   
     ArrayList<TmpRegister> tmp_list= new ArrayList<TmpRegister>();
-
-    int tmp_num=5000;
+    ArrayList<String> psuFile= new ArrayList<String>();
+    Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
+    String inputFile="../FOLDER_5_OUTPUT/MIPS.txt";
+    // int tmp_num=TEMP_FACTORY.getCount();//TODO - get the number of temps from the temp factory
+    int tmp_num=78;
       for (int tmp_index=0;tmp_index<=tmp_num;tmp_index++){
 
           String line = null;
-          BufferedReader bufferedReader = new BufferedReader(new FileReader("FOLDER_5_OUTPUT/MIPS.txt"));
+          BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
           int start=0;
           int end=0;
           int i=1;
           while ((line = bufferedReader.readLine()) != null){
-              if(line.contains("Temp_"+tmp_index)){
+            // System.out.println(Arrays.toString(p.split(line)));
+            for (String splited : p.split(line)) {
+              if(splited.equals("Temp_"+tmp_index)){
                   start=i++;
                   end=i;
                   break;
               }
+            }
               i++;
           }
           while ((line = bufferedReader.readLine()) != null){
-              if(line.contains("Temp_"+tmp_index)){
+            System.out.println(Arrays.toString(p.split(line)));
+              for (String splited : p.split(line)) {
+                 // System.out.println(splited);
+                if(splited.equals("Temp_"+tmp_index)){
                   end=i;
               }
+            }
               i++;
           }
           // close the BufferedReader when we're done
@@ -62,15 +73,54 @@ public static void main(String args[]) throws IOException {
             total++;
         }
     }
-    // tmp_list.sort(Comparator.comparingInt(tmpRegister -> tmpRegister.inter_list.size()));
+    tmp_list.sort(Comparator.comparingInt(tmpRegister -> tmpRegister.inter_list.size()));
     // for (TmpRegister t:tmp_list) {
-    //   for (int i : t.inter_list ) {
-    //     System.out.println(i);
-    //   }
     //     System.out.println(t);
+    //   // for (int i : t.inter_list ) {
+    //   // }
+    //   //   System.out.println(t);
     // }
+    PrintWriter fileWriter;
+    HashMap<Integer,Integer>assignMap = g1.greedyColoring();
+    // System.out.println(assignMap);
 
-  g1.greedyColoring();
+
+      BufferedReader bufferedReader = new BufferedReader(new FileReader("../FOLDER_5_OUTPUT/MIPS.txt"));
+          String line = null;
+          while ((line = bufferedReader.readLine()) != null){
+            for (int i=tmp_num;i>=0 ;i-- ) {
+            Pattern pat = Pattern.compile("Temp_"+i);              
+            // String oldstring="Temp_"+i;
+            Matcher m=pat.matcher(line);
+            line=m.replaceAll("\\$t"+assignMap.get(i));
+            // String newstring="$t"+assignMap.get(i);
+            // line=line.replaceAll(oldstring,newstring);
+            }
+            psuFile.add(line);
+          }
+          // System.out.println(psuFile);
+          for (String str1 :psuFile ) {
+            System.out.println(str1);
+          }
+
+
+/*
+    StringBuilder sb = new StringBuilder();
+    for (int i=tmp_num;i>=0 ;i-- ) {
+        // String[] command={"sed", "-i", "'s/Temp_"+i+"/$$t"+assignMap.get(i)+"/g'", "../FOLDER_5_OUTPUT/SPIM.txt"};
+        Process process= Runtime.getRuntime().exec(command);
+        process.waitFor();
+        // sb.append(command+" & ");
+      // System.out.println(Arrays.toString(command));
+    }
+
+
+*/
+    // sb.append(" echo hi");
+    // System.out.println(sb);
+    // ProcessBuilder pb = new ProcessBuilder(sb.toString());
+    // Process process = pb.start();
+    // process.waitFor();
 }
 
 

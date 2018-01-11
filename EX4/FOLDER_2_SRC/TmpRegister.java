@@ -41,6 +41,6 @@ public class TmpRegister {
 
     @Override
     public String toString() {
-        return "[id:"+id+", inter_list:"+inter_list.size()+"]";
+        return "[id:"+id+", inter_list:"+inter_list.size()+"]["+start+","+end+"]";
     }
 }
