@@ -1,0 +1,1 @@
+-jar C:\Users\Gilad\Documents\Compilation\EX4\FOLDER_7_EXTERNAL_JARS\java-cup-11b.jar -nowarn -parser Parser -symbols TokenNames -destdir C:\Users\Gilad\Documents\Compilation\EX4\FOLDER_1_CUP C:\Users\Gilad\Documents\Compilation\EX4\FOLDER_1_CUP\CUP_FILE.cup
