@@ -2,17 +2,20 @@
 import java.io.*;
 import java.util.*;
 import java.util.LinkedList;
+import java.util.HashMap;
 
 // This class represents an undirected graph using adjacency list
 class Graph
 {
 	private int V; // No. of vertices
 	private LinkedList<Integer> adj[]; //Adjacency List
+    public HashMap<Integer,Integer>AssignmentMap = null;
 
 	//Constructor
 	Graph(int v)
 	{
 		V = v;
+		AssignmentMap = new HashMap<>();
 		adj = new LinkedList[v];
 		for (int i=0; i<v; ++i)
 			adj[i] = new LinkedList();
@@ -27,7 +30,7 @@ class Graph
 
 	// Assigns colors (starting from 0) to all vertices and
 	// prints the assignment of colors
-	void greedyColoring()
+	HashMap<Integer,Integer> greedyColoring()
 	{
 		int result[] = new int[V];
 
@@ -72,9 +75,14 @@ class Graph
 		}
 
 		// print the result
-		for (int u = 0; u < V; u++)
-			System.out.println("Vertex " + u + " ---> Color "
-								+ result[u]);
+		for(int u : result){
+
+		}
+		for (int u = 0; u < V; u++){
+			AssignmentMap.put(u,result[u]);
+			// System.out.println("Vertex " + u + " ---> Color "+ result[u]);
+		}
+		return AssignmentMap;
 	}
 
 	// // Driver method
