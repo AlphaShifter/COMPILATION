@@ -3,11 +3,13 @@ package AST.EXP;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import Auxillery.Util;
+import IR.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
 import TYPES.TYPE_NIL;
+import TEMP.*;
 
 public class AST_EXP_ID extends AST_EXP {
     public String value;
@@ -15,7 +17,6 @@ public class AST_EXP_ID extends AST_EXP {
 
     /******************/
     /* CONSTRUCTOR(S) */
-
     /******************/
     public AST_EXP_ID(String id, AST_EXP exp) {
         /******************************/
@@ -92,5 +93,28 @@ public class AST_EXP_ID extends AST_EXP {
         return t;
     }
 
+    @Override
+    public TEMP IRme() {
+        TEMP address = TEMP_FACTORY.getInstance().getFreshTEMP();
+        int arraySize;
+        if (value.equals("int")) {
+            // assume that exp is an integer
+            arraySize = ((AST_EXP_INT)exp).value;
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_mallocHeap(address, arraySize)
+            );
 
+            for (int i = 0; i < arraySize; i++) {
+                // fill array with zero values
+                IR.getInstance().Add_IRcommand(
+                        new IRcommand_SaveOnHeap(ZERO_REG.getInstance(), address, i)
+                );
+            }
+
+            return address;
+        }
+
+
+        return null;
+    }
 }

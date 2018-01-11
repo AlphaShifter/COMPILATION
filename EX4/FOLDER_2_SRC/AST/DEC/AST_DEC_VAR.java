@@ -229,9 +229,10 @@ public class AST_DEC_VAR extends AST_DEC {
             IR.getInstance().Add_IRcommand(
                     new IRcommand_Store_AddressLocalVar(t, myPlace)
             );
-//			IR.getInstance().Add_IRcommand(new IRcommand_Move(
-//					sir_MIPS_a_lot.getInstance().addressLocalVar(myPlace),
-//					exp.IRme()));
+
+
+
+
         } else { // no exp: either default or an argument
             //local decs, store it with 0 value
             if (this.varKind == VAR_KIND.LOCAL) {

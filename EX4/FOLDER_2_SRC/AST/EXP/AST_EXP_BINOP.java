@@ -12,6 +12,7 @@ public class AST_EXP_BINOP extends AST_EXP
 	int OP;
 	public AST_EXP leftExp;
 	public AST_EXP rightExp;
+	boolean isString = false;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -117,9 +118,10 @@ public class AST_EXP_BINOP extends AST_EXP
             {
                 return TYPE_INT.getInstance();
             }
-            if(t1 == TYPE_STRING.getInstance() && t2 == TYPE_STRING.getInstance() && OP == 0)
-            	return TYPE_STRING.getInstance();
-            if(OP == 6){
+            if(t1 == TYPE_STRING.getInstance() && t2 == TYPE_STRING.getInstance() && OP == 0) {
+            	this.isString = true;
+				return TYPE_STRING.getInstance();
+			}if(OP == 6){
             	return TYPE_INT.getInstance();
 			}
         }
@@ -166,7 +168,10 @@ public class AST_EXP_BINOP extends AST_EXP
 		//TODO implement stuff other than integers
 		switch (OP) {
 			case 0:
-				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst, t1, t2));
+				if(!isString)
+					IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst, t1, t2));
+				else
+					IR.getInstance().Add_IRcommand(new IRcommand_StringCon(dst,t1,t2));
 				break;
 			case 1:
 				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Sub_Integers(dst, t1, t2));
