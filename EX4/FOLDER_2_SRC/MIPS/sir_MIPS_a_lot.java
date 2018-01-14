@@ -279,17 +279,17 @@ public class sir_MIPS_a_lot {
 
 
         fileWriter.format("strcon:\n");
-        fileWriter.format("\taddi $sp,$sp,%d\n",2*WORD_SIZE);
+        fileWriter.format("\taddi $sp,$sp,%d\n",-2*WORD_SIZE);
         fileWriter.format("\tsw $ra,0($sp)\n");
         fileWriter.format("\tmove $s0 ,$a2\n"); //save arguments
         fileWriter.format("\tmove $s1 ,$a0\n");
         fileWriter.format("\tmove $s2 ,$a1\n");
 
-        fileWriter.format("\tli $s3,%d\n",WORD_SIZE);
-        fileWriter.format("\tmult $s3,$a2\n");
-        fileWriter.format("\tmflo $s3\n");
 
-        fileWriter.format("\taddi $a0, $s0,1\n");  //malloc
+        fileWriter.format("\tli $a0, %d\n",WORD_SIZE);
+        fileWriter.format("\tmult $a0, $s0\n");
+        fileWriter.format("\tmflo $a0\n");
+
         fileWriter.format("\tli $v0,9\n");
         fileWriter.format("\tsyscall\n");
         fileWriter.format("\tmove $s0,$v0\n"); //save new address t0
@@ -300,14 +300,13 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tmove $a1, $v0\n"); //copy second string
         fileWriter.format("\tmove $a0, $s2\n");
         jal("strcpy");
+        fileWriter.format("\tsb $zero, 0($v0)\n"); //print an empty byte
+
+
         fileWriter.format("\tlw $s0, %d($sp)\n",WORD_SIZE);
-
-        fileWriter.format("\tadd $s3, $s3, $s0\n");
-        fileWriter.format("\tsw $zero, 0($s3)\n");
-
         fileWriter.format("\tmove $v0, $s0\n"); //return the address
         fileWriter.format("\tlw $ra, 0($sp)\n");
-        fileWriter.format("\taddi $sp,$sp,%d\n",-2*WORD_SIZE);
+        fileWriter.format("\taddi $sp,$sp,%d\n",2*WORD_SIZE);
         fileWriter.format("\tjr $ra\n");
 
     }
