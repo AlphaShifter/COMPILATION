@@ -200,6 +200,10 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tsw %s, %d(%s)\n", tempToString(src),offset*WORD_SIZE,tempToString(address));
     }
 
+    public void LoadFromHeap(TEMP dest, TEMP address, int offset){
+        fileWriter.format("\tlw %s, %d(%s)\n", tempToString(dest),offset*WORD_SIZE,tempToString(address));
+    }
+
     public void loadRegfromStack(TEMP res, int offset){
         fileWriter.format("\tlw %s, %d($sp)\n", tempToString(res),offset*WORD_SIZE);
     }

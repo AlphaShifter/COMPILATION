@@ -192,6 +192,7 @@ public class AST_DEC_FUNC extends AST_DEC {
                     break;
                 local.IRme(); //this line also saves the argument on the FP
             }
+            //TODO free memory(?)
         }
         if (stmtList != null) stmtList.IRme();
 

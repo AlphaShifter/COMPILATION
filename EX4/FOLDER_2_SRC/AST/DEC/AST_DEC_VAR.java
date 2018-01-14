@@ -241,10 +241,14 @@ public class AST_DEC_VAR extends AST_DEC {
                 );
             }
             //else if it an argument, get it value from the $a registers
-            //TODO change from 0-4 arguments to list that starts on a0
             else if (this.varKind == VAR_KIND.ARGUMENT) {
+                TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
                 IR.getInstance().Add_IRcommand(
-                        new IRcommand_Store_AddressLocalVar(ARGUMENT.getInstance(myPlace-1), myPlace)
+                        new IRcommand_LoadFromHeap(t,ARGUMENT.getInstance(0),myPlace - 1)
+                );
+
+                IR.getInstance().Add_IRcommand(
+                        new IRcommand_Store_AddressLocalVar(t, myPlace)
                 );
             }
 

@@ -19,6 +19,7 @@ public class IRcommand_LoadFromStack extends IRcommand
 
 	TEMP dst;
 	int offset;
+	boolean pop;
 
 	/**
 	 load word in offset (in words) from stack into dst
@@ -27,6 +28,13 @@ public class IRcommand_LoadFromStack extends IRcommand
 	{
 		this.dst = dst;
 		this.offset = offset;
+		this.pop = false;
+	}
+	public IRcommand_LoadFromStack(TEMP dst, int offset,boolean pop)
+	{
+		this.dst = dst;
+		this.offset = offset;
+		this.pop = pop;
 	}
 	
 	/***************/
@@ -35,5 +43,8 @@ public class IRcommand_LoadFromStack extends IRcommand
 	public void MIPSme()
 	{
 		sir_MIPS_a_lot.getInstance().loadRegfromStack(dst,this.offset);
+		if(pop){
+			sir_MIPS_a_lot.getInstance().setRoomOnStack(-1);
+		}
 	}
 }

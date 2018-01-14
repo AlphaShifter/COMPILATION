@@ -15,6 +15,8 @@ public class AST_EXP_METHOD extends AST_EXP {
     public String id;
     public AST_VAR var;
     public AST_EXP_LIST args;
+    public int argsLength;
+
 
     public AST_EXP_METHOD(AST_VAR var, String id, AST_EXP_LIST args) {
         /******************************/
@@ -39,6 +41,15 @@ public class AST_EXP_METHOD extends AST_EXP {
         this.args = args;
         left = var;
         right = args;
+
+
+        this.argsLength = 0;
+
+        if(args != null) {
+            for (AST_Node n : args)
+                this.argsLength++;
+        }
+
     }
 
     public void PrintMe() {
@@ -162,17 +173,35 @@ public class AST_EXP_METHOD extends AST_EXP {
 
             //save the temps on stack
             IR.getInstance().Add_IRcommand(new IRcommand_SaveTempsOnStack());
-            //save the arguments to $a registers
-            //TODO make this an array
+
+
+            //malloc new array and store it on $a0
+            IR.getInstance().Add_IRcommand(new IRcommand_mallocHeap(ARGUMENT.getInstance(0),argsLength));
+
             int count = 0;
-            if(this.args != null) {
+            if (args != null) {
+//            for (AST_Node runner : this.args) {
+//                AST_EXP head = (AST_EXP) runner;
+//                IR.getInstance().Add_IRcommand(
+//                        new IRcommand_Move(ARGUMENT.getInstance(count), head.IRme()
+//                        ));
+//                count++;
+//            }
+                //for each argument, IR it and pass it
                 for (AST_Node runner : this.args) {
                     AST_EXP head = (AST_EXP) runner;
-                    IR.getInstance().Add_IRcommand(
-                            new IRcommand_Move(ARGUMENT.getInstance(count), head.IRme()
-                            ));
+                    //save a0
+                    IR.getInstance().Add_IRcommand(new IRcommand_SaveRegOnStack(ARGUMENT.getInstance(0)));
+                    //IR head
+                    TEMP t = head.IRme();
+                    //restore a0
+                    IR.getInstance().Add_IRcommand(new IRcommand_LoadFromStack(ARGUMENT.getInstance(0),0,true));
+                    //pass temp
+                    IR.getInstance().Add_IRcommand(new IRcommand_passArgument(t,count));
                     count++;
                 }
+
+
             }
             //jump
             String targetLabel = ((TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(this.id)).myLabel;
