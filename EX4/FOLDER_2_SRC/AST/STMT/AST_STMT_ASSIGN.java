@@ -112,7 +112,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	}
 
 	//t1 := t2
-	public static boolean assignmentChecker(TYPE t1, TYPE t2){
+	public static boolean assignmentChecker(TYPE t1, TYPE t2){ 
 		if(t1 == TYPE_NIL.getInstance())
 			return false;
 

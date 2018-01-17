@@ -93,7 +93,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		if(this.funcList != null)
 			funcTypeList = funcList.cSemantMe(sig.name /* passes name of class containing the function */);
 
-		t.data_members.addAll(varTypeList);
+	//	t.data_members.addAll(varTypeList);
 		t.function_list.addAll(funcTypeList);
 
 		/*****************/

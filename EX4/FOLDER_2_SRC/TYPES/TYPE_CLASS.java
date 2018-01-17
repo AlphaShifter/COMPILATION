@@ -43,7 +43,9 @@ public class TYPE_CLASS extends TYPE {
         function_list = new TYPE_LIST(null,null);
         localFuncs = new TYPE_LIST(null,null);
         this.inits = new ArrayList<>();
-
+        if(father != null){
+            this.inits.addAll(father.inits);
+        }
     }
 
     @Override
