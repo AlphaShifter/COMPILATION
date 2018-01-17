@@ -188,6 +188,7 @@ public class AST_DEC_VAR extends AST_DEC {
                 Util.printError(exp.myLine);
             } else {
                 newDec = new TYPE_CLASS_VAR_DEC(TYPE_INT.getInstance(), name);
+                containingClass.inits.add(((AST_EXP_INT) exp).value);
             }
         } else if (exp instanceof AST_EXP_STRING) {
             if (!(t instanceof TYPE_STRING)) {    // if assignment is of type 'string'
@@ -197,6 +198,7 @@ public class AST_DEC_VAR extends AST_DEC {
                 Util.printError(exp.myLine);
             } else {
                 newDec = new TYPE_CLASS_VAR_DEC(TYPE_STRING.getInstance(), name);
+                containingClass.inits.add(((AST_EXP_STRING) exp).value);
             }
         } else if (exp instanceof AST_EXP_NIL) {
             // if assignment is NIL check that variable is of pointer type
@@ -206,11 +208,26 @@ public class AST_DEC_VAR extends AST_DEC {
                 Util.printError(exp.myLine);
             } else {
                 newDec = new TYPE_CLASS_VAR_DEC(t, name);
+                containingClass.inits.add(0);
             }
         } else if (exp == null) {
             newDec = new TYPE_CLASS_VAR_DEC(t, name);
+            containingClass.inits.add(0);
         }
+
+
         containingClass.data_members.add(newDec);
+
+
+        if (AST_DEC_CLASS.classLocalVarsCount != null) {
+            AST_DEC_CLASS.classLocalVarsCount.put(name, AST_DEC_CLASS.classLocalVarsCount.size() + 1);
+
+
+            myPlace = containingClass.data_members.getSize();
+           // myPlace = AST_DEC_CLASS.classLocalVarsCount.size();
+            varKind = VAR_KIND.DATA_MEMBER;
+        }
+
 
 
         /***************************************************/
@@ -229,9 +246,6 @@ public class AST_DEC_VAR extends AST_DEC {
             IR.getInstance().Add_IRcommand(
                     new IRcommand_Store_AddressLocalVar(t, myPlace)
             );
-
-
-
 
         } else { // no exp: either default or an argument
             //local decs, store it with 0 value

@@ -8,6 +8,7 @@ import AST.STMT.AST_STMT_LIST;
 import Auxillery.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
+import TYPES.TYPE_CLASS;
 import TYPES.TYPE_FUNCTION;
 import TEMP.*;
 import IR.*;
@@ -26,6 +27,12 @@ public class AST_DEC_FUNC extends AST_DEC {
     public static TYPE func_type = null;
     public static Map<String,Integer>funcLocalVarsCount = null;
     public static Map<String,Integer>funcFreqCount = null;
+
+    public int myPlace;
+    public boolean isClassFunc;
+    private String myLabel;
+    TYPE_CLASS container = null;
+
 
     public int numOfVars = 0;
 
@@ -48,7 +55,8 @@ public class AST_DEC_FUNC extends AST_DEC {
 
         left = sig;
         right = list;
-
+        this.myPlace = -1;
+        this.isClassFunc = false;
 
         /*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -141,6 +149,9 @@ public class AST_DEC_FUNC extends AST_DEC {
         func_type = Util.stringToType(sig.type);
         newFuncDec = (TYPE_FUNCTION) sig.cSemantMe(name);
 
+        this.myPlace = newFuncDec.myPlace;
+        this.isClassFunc = true;
+        this.container = sig.container;
 
         /*******************/
 		/* [3] Semant Body */
@@ -166,34 +177,35 @@ public class AST_DEC_FUNC extends AST_DEC {
 
 
         //global function
-        if(this.sig.container == null){
-
+        if(this.container == null) {
             //if main class, unique label
-            String newLabel = this.isMainClass() ? "main" : IRcommand.getFreshFuncLabel(this.sig.name);
-
-            //update the symbol table to have the new func
-            TYPE_FUNCTION funcT = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.sig.name);
-            funcT.myLabel = newLabel;
-
-            //print the label
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_Label(newLabel)
-            );
-
-
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_Fun_Prologue(this.numOfVars,this.isMainClass())
-            );
-
-            //IR the arguments
-            for(AST_ID_LIST runner = this.sig.idList; runner != null; runner = runner.tail){
-                AST_DEC_VAR local = runner.head;
-                if(local == null)
-                    break;
-                local.IRme(); //this line also saves the argument on the FP
-            }
-            //TODO free memory(?)
+             this.myLabel = this.isMainClass() ? "main" : IRcommand.getFreshFuncLabel(this.sig.name);
+        } else {
+            this.myLabel = IRcommand.getFreshFuncLabel(this.container.name + "_" + this.sig.name);
         }
+        //update the symbol table to have the new func
+
+        TYPE_FUNCTION funcT = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.sig.name);
+        funcT.myLabel = myLabel;
+
+        //print the label
+        IR.getInstance().Add_IRcommand(
+                new IRcommand_Label(myLabel)
+        );
+
+        IR.getInstance().Add_IRcommand(
+                new IRcommand_Fun_Prologue(this.numOfVars, this.isMainClass())
+        );
+
+        //IR the arguments
+        for (AST_ID_LIST runner = this.sig.idList; runner != null; runner = runner.tail) {
+            AST_DEC_VAR local = runner.head;
+            if (local == null)
+                break;
+            local.IRme(); //this line also saves the argument on the FP
+        }
+        //TODO free memory(?)
+
         if (stmtList != null) stmtList.IRme();
 
         //default return

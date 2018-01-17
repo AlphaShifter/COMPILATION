@@ -96,35 +96,35 @@ public class AST_EXP_ID extends AST_EXP {
     @Override
     public TEMP IRme() {
         TEMP address = TEMP_FACTORY.getInstance().getFreshTEMP();
-        TEMP size = TEMP_FACTORY.getInstance().getFreshTEMP();
         TEMP defaultValue = TEMP_FACTORY.getInstance().getFreshTEMP();
-        if (exp != null)
-            size = exp.IRme(); // find the size of the array through the expression in the brackets
-        int arraySize;
-        if (value.equals("int")) {
-            // assume that exp is an integer
-            arraySize = ((AST_EXP_INT)exp).value;
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_mallocHeap(address, arraySize + 1)
-            );
-
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_SaveOnHeap(size, address, 0)
-            );
-
-            // should delete before submitting, for debugging only
-            IR.getInstance().Add_IRcommand(
-                    new IRcommandConstInt(defaultValue, 7)
-            );
-            
-            for (int i = 1; i < arraySize + 1; i++) {
-                // fill array with zero values
+        if (exp != null) { //if its a new array
+            TEMP size = exp.IRme(); // find the size of the array through the expression in the brackets
+            int arraySize;
+            if (value.equals("int")) {
+                // assume that exp is an integer
+                arraySize = ((AST_EXP_INT) exp).value;
                 IR.getInstance().Add_IRcommand(
-                        new IRcommand_SaveOnHeap(defaultValue /* should substitute for zero */, address, i)
+                        new IRcommand_mallocHeap(address, arraySize + 1)
                 );
-            }
 
-            return address;
+                IR.getInstance().Add_IRcommand(
+                        new IRcommand_SaveOnHeap(size, address, 0)
+                );
+
+                // should delete before submitting, for debugging only
+                IR.getInstance().Add_IRcommand(
+                        new IRcommandConstInt(defaultValue, 7)
+                );
+
+                for (int i = 1; i < arraySize + 1; i++) {
+                    // fill array with zero values
+                    IR.getInstance().Add_IRcommand(
+                            new IRcommand_SaveOnHeap(defaultValue /* should substitute for zero */, address, i)
+                    );
+                }
+
+                return address;
+            }
         }
 
 

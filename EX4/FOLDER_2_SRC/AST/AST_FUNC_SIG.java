@@ -20,6 +20,7 @@ public class AST_FUNC_SIG extends AST_Node {
     public String name;
     public AST_ID_LIST idList;
     public TYPE_CLASS container = null;
+    public int myPlace;
 
     /*********************************************************/
     /* The default message for an unknown AST DECLERATION node */
@@ -223,6 +224,10 @@ public class AST_FUNC_SIG extends AST_Node {
                 }
                 // if return type and args correspond that is fine
             }
+            myPlace = overloadedFunc.myPlace;
+        } else{
+            myPlace = containingClass.funcCount + 1;
+            containingClass.funcCount++;
         }
 
 
@@ -231,6 +236,7 @@ public class AST_FUNC_SIG extends AST_Node {
         /***************************************************/
 
         TYPE_FUNCTION newFuncDec = new TYPE_FUNCTION(returnType, name, type_list);
+        newFuncDec.myPlace = myPlace;
 
         SYMBOL_TABLE.getInstance().enter(name, newFuncDec);
         containingClass.localFuncs.add(newFuncDec);

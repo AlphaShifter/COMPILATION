@@ -1,5 +1,10 @@
 package TYPES;
 
+import AST.DEC.AST_DEC_FUNC;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class TYPE_CLASS extends TYPE {
     /*********************************************************************/
     /* If this class does not extend a father class this should be null  */
@@ -20,6 +25,12 @@ public class TYPE_CLASS extends TYPE {
     private TYPE_CLASS_VAR_DEC_LIST lastDataMember;
     public TYPE_LIST localFuncs;
 
+
+    public List<Object>inits;
+
+
+    public int funcCount = 0;
+
     /****************/
 	/* CTROR(S) ... */
 
@@ -31,6 +42,8 @@ public class TYPE_CLASS extends TYPE {
         data_members = new TYPE_LIST(null,null);
         function_list = new TYPE_LIST(null,null);
         localFuncs = new TYPE_LIST(null,null);
+        this.inits = new ArrayList<>();
+
     }
 
     @Override

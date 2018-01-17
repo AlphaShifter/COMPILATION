@@ -99,5 +99,16 @@ public class TYPE_LIST extends TYPE
 		return true;
 	}
 
+	public int getSize(){
+		int res = 0;
+		for(TYPE_LIST runner = this; runner != null; runner = runner.tail){
+			res++;
+		}
+		if(this.head == null)
+			return 0;
+		else
+			return res;
+	}
+
 
 }

@@ -84,7 +84,6 @@ public class AST_CLASS_SIG extends AST_Node
 		TYPE_CLASS t = new TYPE_CLASS(name,father,null);
 		//get father's vars
 		if(father != null){
-			//TODO: make sure that inheritances rules apply
 			t.data_members.addAll(father.data_members);
 			t.function_list.addAll(father.function_list);
 		}
