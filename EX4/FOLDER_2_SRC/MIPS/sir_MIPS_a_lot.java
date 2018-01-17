@@ -233,9 +233,16 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tla $a0, string_illegal_div_by_0\n");
         fileWriter.format("\tsyscall\n");
         //exit
-        fileWriter.print("\tli $v0,10\n");
-        fileWriter.print("\tsyscall\n");
+        fileWriter.print("\tj END_OF_PROGRAM\n");
+    }
 
+    public void printIllegalPointer(){
+        //print the error
+        fileWriter.format("\tli $v0, 4\n");
+        fileWriter.format("\tla $a0, string_invalid_ptr_dref\n");
+        fileWriter.format("\tsyscall\n");
+        //exit
+        fileWriter.print("\tj END_OF_PROGRAM\n");
     }
 
 //    public void printStrlen(){ //chars
