@@ -2,15 +2,22 @@ package AST.VAR;
 
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
+import AST.DEC.AST_DEC_CLASS;
+import AST.DEC.AST_DEC_FUNC;
 import AST.EXP.AST_EXP;
+import AST.EXP.AST_EXP_INT;
 import Auxillery.Util;
+import IR.*;
+import IR.IRcommandPrintString;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
+import TEMP.*;
 
 public class AST_VAR_SUBSCRIPT extends AST_VAR {
     public AST_VAR var;
     public AST_EXP subscript;
+    public int myPlace;
 
     /******************/
     /* CONSTRUCTOR(S) */
@@ -76,6 +83,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
         }
 
         TYPE_ARRAY array =(TYPE_ARRAY)var.SemantMe();
+
+
         return array.type;
     }
 
@@ -84,5 +93,16 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
         return this.var.getName();
     }
 
+    public TEMP IRme() {
+
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        TEMP arrayStart = var.IRme();
+
+        IR.getInstance().Add_IRcommand(
+                new IRcommand_Access_Array(t, arrayStart, ((AST_EXP_INT)subscript).value)
+        );
+
+        return t;
+    }
 
 }

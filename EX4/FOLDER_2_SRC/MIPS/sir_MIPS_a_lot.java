@@ -245,6 +245,17 @@ public class sir_MIPS_a_lot {
         fileWriter.print("\tj END_OF_PROGRAM\n");
     }
 
+    public void printAccessViolation() {
+        //print the error
+        fileWriter.format("\tli $v0, 4\n");
+        fileWriter.format("\tla $a0, string_access_violation\n");
+        fileWriter.format("\tsyscall\n");
+        //exit
+        fileWriter.print("\tli $v0,10\n");
+        fileWriter.print("\tsyscall\n");
+
+    }
+
 //    public void printStrlen(){ //chars
 //        fileWriter.print("strlen:\n");
 //        fileWriter.print("\tli $s0, 0\n");

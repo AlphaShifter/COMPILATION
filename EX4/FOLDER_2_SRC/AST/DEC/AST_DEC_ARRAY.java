@@ -6,6 +6,7 @@ import AST.DEC.AST_DEC;
 import Auxillery.Util;
 import SYMBOL_TABLE.MY_SYMBOL_TABLE;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import TEMP.TEMP;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import TYPES.TYPE_INT;
@@ -74,5 +75,10 @@ public class AST_DEC_ARRAY extends AST_DEC
 		SYMBOL_TABLE.getInstance().enter(this.name,newType);
 		return newType;
 	}
+//
+//	public TEMP IRme() {
+//
+//		return null;
+//	}
 
 }
