@@ -89,6 +89,9 @@ public class Main {
             /***************************/
             sir_MIPS_a_lot.getInstance().finalizeFile();
 
+
+            GraphColor.garphColor();
+
             /**************************/
 			/* [12] Close output file */
             /**************************/

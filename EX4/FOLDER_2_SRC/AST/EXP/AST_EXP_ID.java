@@ -5,15 +5,14 @@ import AST.AST_Node_Serial_Number;
 import Auxillery.Util;
 import IR.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
-import TYPES.TYPE;
-import TYPES.TYPE_ARRAY;
-import TYPES.TYPE_INT;
-import TYPES.TYPE_NIL;
+import TYPES.*;
 import TEMP.*;
 
 public class AST_EXP_ID extends AST_EXP {
     public String value;
     public AST_EXP exp;
+    public TYPE_CLASS myClass;
+
 
     /******************/
     /* CONSTRUCTOR(S) */
@@ -90,14 +89,18 @@ public class AST_EXP_ID extends AST_EXP {
             System.out.println("Error: cannot initialize new array without specifying the size");
             Util.printError(myLine);
         }
+        if(t.isClass())
+            myClass = (TYPE_CLASS)t;
+
         return t;
     }
 
     @Override
     public TEMP IRme() {
         TEMP address = TEMP_FACTORY.getInstance().getFreshTEMP();
-        TEMP defaultValue = TEMP_FACTORY.getInstance().getFreshTEMP();
-        if (exp != null) { //if its a new array
+        if (exp != null) {
+            TEMP defaultValue = TEMP_FACTORY.getInstance().getFreshTEMP();
+            //if its a new array
             TEMP size = exp.IRme(); // find the size of the array through the expression in the brackets
             int arraySize;
             if (value.equals("int")) {
@@ -125,7 +128,36 @@ public class AST_EXP_ID extends AST_EXP {
 
                 return address;
             }
+        } else { // a class
+
+            //malloc the heap
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_mallocHeap(address,  myClass.data_members.getSize()+ 1)
+            );
+            //init the vars
+            int offset = 1;
+            for(Object e: myClass.inits){
+                if(e instanceof Integer){
+                    TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+                    IR.getInstance().Add_IRcommand(new IRcommandConstInt(t,(Integer)e));
+                    IR.getInstance().Add_IRcommand(
+                            new IRcommand_SaveOnHeap(t,address,offset)
+                    );
+                    offset++;
+                } else if(e instanceof String){
+                    TEMP s = AST_EXP_STRING.irString((String)e);
+                    IR.getInstance().Add_IRcommand(
+                            new IRcommand_SaveOnHeap(s,address,offset)
+                    );
+                    offset++;
+                }
+            }
+
+            return address;
         }
+
+
+
 
 
         return null;

@@ -1,8 +1,21 @@
+class B{
+
+    string c;
+}
+
+
+class A{
+    int a := 7;
+    int b := 9;
+    B inner;
+}
+
+
 int main()
 {
-	int i := 7;
-	int j := 8;
-	int k := 9;
-	PrintInt(i+j+k+55);
+    A a := new A;
+    a.inner := new B;
+    a.inner.c := "abcd";
+	PrintString(a.inner.c);
 }
 

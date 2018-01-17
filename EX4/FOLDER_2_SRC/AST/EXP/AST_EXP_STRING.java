@@ -58,9 +58,14 @@ public class AST_EXP_STRING extends AST_EXP
 
 	@Override
     public TEMP IRme() {
+       return irString(this.value);
+    }
+    
+    
+    public static TEMP irString(String value){
         TEMP address = TEMP_FACTORY.getInstance().getFreshTEMP();
         IR.getInstance().Add_IRcommand(
-                new IRcommand_mallocHeap(address, this.value.length() + 1)
+                new IRcommand_mallocHeap(address, value.length() + 1)
         );
         int res = 0;
         int count = 0;
@@ -108,5 +113,4 @@ public class AST_EXP_STRING extends AST_EXP
 
         return address;
     }
-
 }

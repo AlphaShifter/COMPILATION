@@ -217,6 +217,8 @@ public class AST_DEC_VAR extends AST_DEC {
 
 
         containingClass.data_members.add(newDec);
+        newDec.myPlace = containingClass.data_members.getSize();
+
 
 
         if (AST_DEC_CLASS.classLocalVarsCount != null) {

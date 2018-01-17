@@ -16,6 +16,7 @@ public class AST_DEC_CLASS extends AST_DEC
 	public AST_FUNC_LIST funcList;
 	public AST_VAR_LIST varList;
 	public static Map<String,Integer> classLocalVarsCount = null;
+	public TYPE_CLASS myType;
 
 	/*********************************************************/
 	/* The default message for an unknown AST DECLERATION node */
@@ -105,6 +106,8 @@ public class AST_DEC_CLASS extends AST_DEC
 		/************************************************/
 		SYMBOL_TABLE.getInstance().enter(sig.name,t);
 
+
+		this.myType = t;
 		/*********************************************************/
 		/* [5] Return value is irrelevant for class declarations */
 		/*********************************************************/

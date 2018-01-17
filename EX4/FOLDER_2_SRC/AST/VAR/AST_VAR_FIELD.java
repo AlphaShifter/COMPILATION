@@ -5,10 +5,16 @@ import AST.AST_Node_Serial_Number;
 import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
+import TEMP.*;
+import MIPS.*;
+import IR.*;
 
 public class AST_VAR_FIELD extends AST_VAR {
     public AST_VAR var;
     public String fieldName;
+    public TYPE_CLASS myclass = null;
+    public int myPlace;
+    public TEMP holder;
 
     /******************/
     /* CONSTRUCTOR(S) */
@@ -81,6 +87,7 @@ public class AST_VAR_FIELD extends AST_VAR {
             Util.printError(this.myLine);
         } else {
             tc = (TYPE_CLASS) t;
+            myclass = tc;
         }
 
         /************************************/
@@ -90,6 +97,7 @@ public class AST_VAR_FIELD extends AST_VAR {
         for (TYPE_LIST it = tc.data_members; it != null; it = it.tail) {
             TYPE_CLASS_VAR_DEC dec = (TYPE_CLASS_VAR_DEC)it.head;
             if (dec.name.equals(fieldName)) {
+                myPlace = ((TYPE_CLASS_VAR_DEC) it.head).myPlace;
                 return ((TYPE_CLASS_VAR_DEC) it.head).t;
             }
         }
@@ -101,6 +109,19 @@ public class AST_VAR_FIELD extends AST_VAR {
         System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n", 6, 6, fieldName);
         Util.printError(this.myLine);
         return null;
+    }
+
+    @Override
+    public TEMP IRme(){
+        //IR the var
+        holder = var.IRme();
+
+        //return the value in the right offset
+        TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR.getInstance().Add_IRcommand(
+                new IRcommand_LoadFromHeap(dest,holder,myPlace)
+        );
+        return dest;
     }
 
 
