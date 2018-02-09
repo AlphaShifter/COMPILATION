@@ -184,9 +184,12 @@ public class AST_STMT_METHOD extends AST_STMT {
             //store it on a1
             IR.getInstance().Add_IRcommand(new IRcommand_Move(ARGUMENT.getInstance(1),obj));
             //get function from table
-            //TODO change it from global data to per-object
+            TEMP jumpTable = TEMP_FACTORY.getInstance().getFreshTEMP();
+            IR.getInstance().Add_IRcommand(new IRcommand_LoadFromHeap(jumpTable,obj,0));
+
             TEMP target = TEMP_FACTORY.getInstance().getFreshTEMP();
-            IR.getInstance().Add_IRcommand(new IRcommand_GetFunctionFromTable(target,className,myPlace));
+            IR.getInstance().Add_IRcommand(new IRcommand_LoadFromHeap(target,jumpTable,myPlace));
+
             IR.getInstance().Add_IRcommand(new IRcommand_Jalr(target));
         } else {
             //jump

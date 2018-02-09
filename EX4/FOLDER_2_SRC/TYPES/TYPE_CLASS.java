@@ -53,6 +53,11 @@ public class TYPE_CLASS extends TYPE {
         return true;
     }
 
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
     public String getType() {
         return "TYPE_CLASS";
     }

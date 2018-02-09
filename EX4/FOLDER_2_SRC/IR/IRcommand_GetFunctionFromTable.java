@@ -17,19 +17,15 @@ import TEMP.TEMP;
 public class IRcommand_GetFunctionFromTable extends IRcommand
 {
 	TEMP dest;
-	int myPlace;
 	String className;
-	TEMP t;
 
 	/*
 	stores src on stack, in offset @myPlace from FP (saves on the frame)
 	 */
-	public IRcommand_GetFunctionFromTable(TEMP dest, String className, int myPlace)
+	public IRcommand_GetFunctionFromTable(TEMP dest, String className)
 	{
 		this.dest = dest;
-		this.myPlace = myPlace;
 		this.className = className;
-		this.t = TEMP_FACTORY.getInstance().getFreshTEMP();
 	}
 	
 	/***************/
@@ -38,6 +34,6 @@ public class IRcommand_GetFunctionFromTable extends IRcommand
 	public void MIPSme()
 	{
 
-		sir_MIPS_a_lot.getInstance().getFuncFromTable(dest,t,className,myPlace);
+		sir_MIPS_a_lot.getInstance().getFuncTable(dest,className);
 	}
 }

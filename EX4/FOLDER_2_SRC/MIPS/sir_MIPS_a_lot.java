@@ -78,10 +78,9 @@ public class sir_MIPS_a_lot {
 
     }
 
-    public void getFuncFromTable(TEMP dest, TEMP t, String name, int offset){
+    public void getFuncTable(TEMP dest, String name){
 
-        fileWriter.format("\tla %s, class_%s\n",tempToString(t),name);
-        fileWriter.format("\tlw %s, %d(%s)\n",tempToString(dest),offset * WORD_SIZE,tempToString(t));
+        fileWriter.format("\tla %s, class_%s\n",tempToString(dest),name);
     }
 
     public void loadAddressLocalVar(TEMP dst, int serialLocalVarNum){

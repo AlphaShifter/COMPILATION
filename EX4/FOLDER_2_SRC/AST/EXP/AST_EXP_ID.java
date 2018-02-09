@@ -134,6 +134,15 @@ public class AST_EXP_ID extends AST_EXP {
             IR.getInstance().Add_IRcommand(
                     new IRcommand_mallocHeap(address,  myClass.data_members.getSize()+ 1)
             );
+            //init the funcs
+
+            if(myClass.function_list.getSize() > 0){
+                //save the correct func table
+                TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+                IR.getInstance().Add_IRcommand(new IRcommand_GetFunctionFromTable(t,myClass.name));
+                IR.getInstance().Add_IRcommand(new IRcommand_SaveOnHeap(t,address,0));
+            }
+
             //init the vars
             int offset = 1;
             for(Object e: myClass.inits){

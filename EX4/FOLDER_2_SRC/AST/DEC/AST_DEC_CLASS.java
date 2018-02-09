@@ -83,7 +83,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		classLocalVarsCount = new HashMap<>();
 		if(t.father != null){
 			TYPE_LIST l = t.data_members;
-			while (l != null){
+			while (l != null && l.head != null){
 				TYPE_CLASS_VAR_DEC h = (TYPE_CLASS_VAR_DEC)l.head;
 				classLocalVarsCount.put(h.name,h.myPlace);
 				l = l.tail;
