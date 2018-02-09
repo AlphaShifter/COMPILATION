@@ -5,7 +5,6 @@ package TYPES;
 public class TYPE_FUNCTION extends TYPE{
 
     public TYPE returnType;
-    public String name;
     public TYPE_LIST arguments;
     public String myLabel = null;
     public int myPlace;
@@ -20,6 +19,9 @@ public class TYPE_FUNCTION extends TYPE{
     public boolean isFunction(){return true;}
     public String getType() {
         return "TYPE_FUNCTION";
+    }
+    public String getName() {
+        return this.name;
     }
 
 }

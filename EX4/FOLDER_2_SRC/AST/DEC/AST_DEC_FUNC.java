@@ -140,7 +140,18 @@ public class AST_DEC_FUNC extends AST_DEC {
         /****************************/
         SYMBOL_TABLE.getInstance().beginScope();
         funcLocalVarsCount = new HashMap<>();
-
+/*
+        the funcLocalVarsCount will store in the format of name_freq:  the name and the order of the var amogs all of the vars in
+        the same name under the function (like nested flow controls)
+         */
+        funcFreqCount = new HashMap<>();
+        //add the class's var table
+        int count = 1;
+        for(String e: AST_DEC_CLASS.classLocalVarsCount.keySet()){
+            funcFreqCount.put(e,1);
+            funcLocalVarsCount.put(e + "_1",AST_DEC_CLASS.classLocalVarsCount.get(e));
+            count++;
+        }
 
         /*******************/
 		/* [2] Semant sig */
@@ -161,8 +172,13 @@ public class AST_DEC_FUNC extends AST_DEC {
         /*****************/
 		/* [4] End Scope */
         /*****************/
+        funcFreqCount = null;
+
         SYMBOL_TABLE.getInstance().endScope();
         numOfVars = funcLocalVarsCount.size();
+        if(AST_DEC_CLASS.classLocalVarsCount != null){
+            numOfVars += AST_DEC_CLASS.classLocalVarsCount.size();
+        }
         funcLocalVarsCount = null;
 
         /*********************************************************/
@@ -184,8 +200,14 @@ public class AST_DEC_FUNC extends AST_DEC {
             this.myLabel = IRcommand.getFreshFuncLabel(this.container.name + "_" + this.sig.name);
         }
         //update the symbol table to have the new func
+        TYPE_FUNCTION funcT;
+        if(this.container == null) {
+            funcT = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.sig.name);
+        }else{
+            funcT = (TYPE_FUNCTION)container.function_list.findInList(this.sig.name);
+        }
 
-        TYPE_FUNCTION funcT = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.sig.name);
+
         funcT.myLabel = myLabel;
 
         //print the label
@@ -196,6 +218,16 @@ public class AST_DEC_FUNC extends AST_DEC {
         IR.getInstance().Add_IRcommand(
                 new IRcommand_Fun_Prologue(this.numOfVars, this.isMainClass())
         );
+
+        //get the object's variables
+        //on $a1 there is the object address
+        if(container != null){
+            for(int i = 1; i <= container.data_members.getSize(); i++){
+                TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+                IR.getInstance().Add_IRcommand(new IRcommand_LoadFromHeap(t,ARGUMENT.getInstance(1),i));
+                IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressLocalVar(t,i));
+            }
+        }
 
         //IR the arguments
         for (AST_ID_LIST runner = this.sig.idList; runner != null; runner = runner.tail) {

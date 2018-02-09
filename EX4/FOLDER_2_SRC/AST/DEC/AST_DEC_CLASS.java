@@ -2,11 +2,12 @@ package AST.DEC;
 
 import AST.*;
 import AST.VAR.AST_VAR_LIST;
+import IR.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import TEMP.TEMP;
 import TYPES.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AST_DEC_CLASS extends AST_DEC
 {
@@ -80,6 +81,14 @@ public class AST_DEC_CLASS extends AST_DEC
 
 		SYMBOL_TABLE.getInstance().beginScope();
 		classLocalVarsCount = new HashMap<>();
+		if(t.father != null){
+			TYPE_LIST l = t.data_members;
+			while (l != null){
+				TYPE_CLASS_VAR_DEC h = (TYPE_CLASS_VAR_DEC)l.head;
+				classLocalVarsCount.put(h.name,h.myPlace);
+				l = l.tail;
+			}
+		}
 
 		/***************************/
 		/* [2] Semant Data Members */
@@ -94,7 +103,7 @@ public class AST_DEC_CLASS extends AST_DEC
 			funcTypeList = funcList.cSemantMe(sig.name /* passes name of class containing the function */);
 
 	//	t.data_members.addAll(varTypeList);
-		t.function_list.addAll(funcTypeList);
+		t.function_list.addAll(funcTypeList,true);
 
 		/*****************/
 		/* [3] End Scope */
@@ -111,6 +120,33 @@ public class AST_DEC_CLASS extends AST_DEC
 		/*********************************************************/
 		/* [5] Return value is irrelevant for class declarations */
 		/*********************************************************/
+		return null;
+	}
+
+	@Override
+	public TEMP IRme() {
+
+		funcList.IRme();
+
+		List<TYPE_FUNCTION> funcs = new ArrayList<>();
+		TYPE_LIST curr = myType.function_list;
+		while (curr != null){
+			TYPE_FUNCTION h = (TYPE_FUNCTION)curr.head;
+			funcs.add(h);
+			curr = curr.tail;
+		}
+		funcs.sort(new Comparator<TYPE_FUNCTION>() {
+			@Override
+			public int compare(TYPE_FUNCTION o1, TYPE_FUNCTION o2) {
+				return Integer.compare(o1.myPlace,o2.myPlace);
+			}
+		});
+		List<String>funcsLabels = new ArrayList<>();
+		for(TYPE_FUNCTION e: funcs)
+			funcsLabels.add(e.myLabel);
+
+		IR.getInstance().Add_IRcommand(new IRcommand_ClassFuncsTable(funcsLabels,this.myType.name));
+
 		return null;
 	}
 

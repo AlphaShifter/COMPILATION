@@ -28,6 +28,8 @@ public abstract class IRcommand
 	public static String getFreshFuncLabel(String name){return String.format("Label_%d_Func_%s",label_counter++,name);}
 	public static String getFreshLegal(){return String.format("Label_%d_Legal",label_counter++);}
 
+	public boolean isData() {return false;}
+
 	/***************/
 	/* MIPS me !!! */
 	/***************/

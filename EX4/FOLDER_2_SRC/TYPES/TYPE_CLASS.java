@@ -56,4 +56,5 @@ public class TYPE_CLASS extends TYPE {
     public String getType() {
         return "TYPE_CLASS";
     }
+
 }

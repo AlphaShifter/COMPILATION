@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.io.*;
@@ -14,14 +17,14 @@ import TEMP.TEMP_FACTORY;
 public class GraphColor {
 
 
-    public static void garphColor() throws IOException, InterruptedException {
+    public static void garphColor(String outputPath) throws IOException, InterruptedException {
 
         ArrayList<TmpRegister> tmp_list = new ArrayList<TmpRegister>();
         ArrayList<String> psuFile = new ArrayList<String>();
         Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
         String inputFile = "FOLDER_5_OUTPUT/MIPS.txt";
         // int tmp_num=TEMP_FACTORY.getCount();//TODO - get the number of temps from the temp factory
-        int tmp_num = 150;
+        int tmp_num = 200;
         for (int tmp_index = 0; tmp_index <= tmp_num; tmp_index++) {
 
             String line = null;
@@ -127,6 +130,8 @@ public class GraphColor {
         for (String str1 : psuFile) {
             System.out.println(str1);
         }
+
+        Files.write(Paths.get(outputPath),psuFile);
 
 
 /*

@@ -18,4 +18,9 @@ public class TYPE_CLASS_VAR_DEC extends TYPE{
 	public String getType() {
 		return "TYPE_CLASS_VAR_DEC";
 	}
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
 }

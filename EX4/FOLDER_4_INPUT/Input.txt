@@ -1,21 +1,27 @@
-class B{
+class father{
 
     string c;
+
+    void foo(){ int x := 4; }
+    void too(){int z := 4; }
 }
 
 
-class A{
+class son extends father{
     int a := 7;
     int b := 9;
-    B inner;
+    void shoo(int k){PrintInt(k);}
+    void foo(){ PrintInt(b); }
+
+
 }
 
 
 int main()
 {
-    A a := new A;
-    a.inner := new B;
-    a.inner.c := "abcd";
-	PrintString(a.inner.c);
+   son a := new son;
+   a.shoo(144);
+   a.b := 11;
+   a.foo();
 }
 

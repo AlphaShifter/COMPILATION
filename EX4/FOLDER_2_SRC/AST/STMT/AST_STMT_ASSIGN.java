@@ -6,6 +6,7 @@ import AST.EXP.AST_EXP_ID;
 import AST.EXP.AST_EXP_INT;
 import AST.VAR.AST_VAR;
 import AST.EXP.AST_EXP;
+import AST.VAR.AST_VAR_FIELD;
 import AST.VAR.AST_VAR_SIMPLE;
 import Auxillery.Util;
 import IR.*;
@@ -103,9 +104,13 @@ public class AST_STMT_ASSIGN extends AST_STMT
 //				new IRcommand_Move(t1,t2)
 //		);
 		//TODO store on non-simple var types
-		if(var instanceof AST_VAR_SIMPLE)
+		if(var instanceof AST_VAR_SIMPLE) {
 			//stores t2 on the stack, to the location of var (update var)
-			IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressLocalVar(t2,((AST_VAR_SIMPLE) var).myPlace));
+			IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressLocalVar(t2, ((AST_VAR_SIMPLE) var).myPlace));
+		}
+		if(var instanceof AST_VAR_FIELD){
+			IR.getInstance().Add_IRcommand(new IRcommand_SaveOnHeap(t2,((AST_VAR_FIELD)var).holder,((AST_VAR_FIELD)var).myPlace));
+		}
 
 		return t1;
 	}

@@ -25,6 +25,8 @@ public class AST_STMT_METHOD extends AST_STMT {
     public AST_VAR var;
     public AST_EXP_LIST args;
     public int argsLength;
+    public String className;
+    public int myPlace;
 
     public AST_STMT_METHOD(AST_VAR var, String id, AST_EXP_LIST args) {
         /******************************/
@@ -90,13 +92,14 @@ public class AST_STMT_METHOD extends AST_STMT {
                 return null;
             }
             TYPE_CLASS classType = (TYPE_CLASS) c;
-
+            this.className = c.name;
             for (TYPE_LIST runner = classType.function_list; runner != null; runner = runner.tail) {
                 //cast
                 TYPE_FUNCTION runnerF = (TYPE_FUNCTION)runner.head;
                 if (runnerF.name.equals(this.id))
                     func = (TYPE_FUNCTION) runner.head;
             }
+            this.myPlace = func.myPlace -1;
             //check if we got the func
             if (func == null) {
                 System.out.println("ERROR: no such func " + id + " in class" + classType.name);
@@ -143,11 +146,11 @@ public class AST_STMT_METHOD extends AST_STMT {
             return ZERO_REG.getInstance();
         }
 
+
+
+
         //save the temps on stack
         IR.getInstance().Add_IRcommand(new IRcommand_SaveTempsOnStack());
-
-
-
         //malloc new array and store it on $a0
         IR.getInstance().Add_IRcommand(new IRcommand_mallocHeap(ARGUMENT.getInstance(0),argsLength));
 
@@ -173,12 +176,23 @@ public class AST_STMT_METHOD extends AST_STMT {
                 IR.getInstance().Add_IRcommand(new IRcommand_passArgument(t,count));
                 count++;
             }
-
-
         }
-        //jump
-        String targetLabel = ((TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(this.id)).myLabel;
-        IR.getInstance().Add_IRcommand(new IRcommand_Jal(targetLabel));
+
+        if(var != null){//class methods
+            //store and IR the object
+            TEMP obj = var.IRme();
+            //store it on a1
+            IR.getInstance().Add_IRcommand(new IRcommand_Move(ARGUMENT.getInstance(1),obj));
+            //get function from table
+            //TODO change it from global data to per-object
+            TEMP target = TEMP_FACTORY.getInstance().getFreshTEMP();
+            IR.getInstance().Add_IRcommand(new IRcommand_GetFunctionFromTable(target,className,myPlace));
+            IR.getInstance().Add_IRcommand(new IRcommand_Jalr(target));
+        } else {
+            //jump
+            String targetLabel = ((TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.id)).myLabel;
+            IR.getInstance().Add_IRcommand(new IRcommand_Jal(targetLabel));
+        }
 
         //we are back
 

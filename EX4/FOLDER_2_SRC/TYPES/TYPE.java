@@ -14,6 +14,10 @@ public abstract class TYPE
 	public boolean isClass(){ return false;}
 	public boolean isFunction() {return false;}
 
+	public String getName() {
+		return null;
+	}
+
 	public static boolean eqByType(TYPE t1, TYPE t2){
 		return t1.getType().equals(t2.getType());
 	}

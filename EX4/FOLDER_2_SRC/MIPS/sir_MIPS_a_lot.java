@@ -8,6 +8,7 @@ package MIPS;
 /*******************/
 
 import java.io.PrintWriter;
+import java.util.List;
 
 /*******************/
 /* PROJECT IMPORTS */
@@ -75,6 +76,12 @@ public class sir_MIPS_a_lot {
        // fileWriter.format("\tlw Temp_%d,0(Temp_%d)\n", idxdst, idxsrc);
         fileWriter.format("\tlw %s,0(%s)\n", tempToString(dst), tempToString(src));
 
+    }
+
+    public void getFuncFromTable(TEMP dest, TEMP t, String name, int offset){
+
+        fileWriter.format("\tla %s, class_%s\n",tempToString(t),name);
+        fileWriter.format("\tlw %s, %d(%s)\n",tempToString(dest),offset * WORD_SIZE,tempToString(t));
     }
 
     public void loadAddressLocalVar(TEMP dst, int serialLocalVarNum){
@@ -225,6 +232,8 @@ public class sir_MIPS_a_lot {
     }
     public void jal(String target){fileWriter.format("\tjal %s\n",target);}
     public void jr(){fileWriter.format("\tjr $ra\n");}
+    public void jalr(TEMP target){fileWriter.format("\tjalr %s\n",tempToString(target));}
+
 
 
     public void printDivByZero(){
@@ -253,7 +262,16 @@ public class sir_MIPS_a_lot {
         //exit
         fileWriter.print("\tli $v0,10\n");
         fileWriter.print("\tsyscall\n");
+    }
 
+    public void classFuncs(String className, List<String> funcs){
+        String s = funcs.get(0);
+        if (funcs.size() > 1) {
+            for (String str : funcs.subList(1,funcs.size())){
+                s = s + ", " + str;
+            }
+        }
+        fileWriter.format("class_%s:\t.word\t%s\n",className,s);
     }
 
 //    public void printStrlen(){ //chars
@@ -342,6 +360,22 @@ public class sir_MIPS_a_lot {
 
     }
 
+    public void printMain(){
+        /************************************************/
+			/* [4] Print text section with entry point main */
+        /************************************************/
+        fileWriter.print(".text\n");
+        fileWriter.print("### start with main function\n");
+        fileWriter.print("j main\n");
+        fileWriter.print("############################\n");
+        printStrlen();
+        fileWriter.print("############################\n");
+        printStrcpy();
+        fileWriter.print("############################\n");
+        printStrCon();
+        fileWriter.print("############################\n");
+    }
+
     private String tempToString(TEMP t){
         int i = t.getSerialNumber();
 
@@ -408,25 +442,6 @@ public class sir_MIPS_a_lot {
             instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
             instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
 
-            /************************************************/
-			/* [4] Print text section with entry point main */
-            /************************************************/
-            instance.fileWriter.print(".text\n");
-            instance.fileWriter.print("### start with main function\n");
-            instance.fileWriter.print("j main\n");
-            instance.fileWriter.print("############################\n");
-            instance.printStrlen();
-            instance.fileWriter.print("############################\n");
-            instance.printStrcpy();
-            instance.fileWriter.print("############################\n");
-            instance.printStrCon();
-            instance.fileWriter.print("############################\n");
-
-
-            /******************************************/
-			/* [5] Will work with <= 10 variables ... */
-            /******************************************/
-            //instance.fileWriter.print("\taddi $fp,$sp,40\n");
         }
         return instance;
     }

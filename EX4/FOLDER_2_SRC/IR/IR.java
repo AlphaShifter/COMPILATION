@@ -39,13 +39,22 @@ public class IR
 			it.tail = new IRcommandList(cmd,null);
 		}
 	}
+
+	public void MIPSData(){
+		if (head != null)
+			if(head.isData())
+				head.MIPSme();
+		if (tail != null) tail.MIPSData();
+	}
 	
 	/***************/
 	/* MIPS me !!! */
 	/***************/
 	public void MIPSme()
 	{
-		if (head != null) head.MIPSme();
+		if (head != null)
+			if(!head.isData())
+				head.MIPSme();
 		if (tail != null) tail.MIPSme();
 	}
 

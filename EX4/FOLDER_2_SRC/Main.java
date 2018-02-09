@@ -77,6 +77,10 @@ public class Main {
             /***********************/
 			/* [9] MIPS the IR ... */
             /***********************/
+            IR.getInstance().MIPSData();
+
+            MIPS.sir_MIPS_a_lot.getInstance().printMain();
+
             IR.getInstance().MIPSme();
 
             /**************************************/
@@ -90,7 +94,7 @@ public class Main {
             sir_MIPS_a_lot.getInstance().finalizeFile();
 
 
-            GraphColor.garphColor();
+            GraphColor.garphColor(outputFilename);
 
             /**************************/
 			/* [12] Close output file */

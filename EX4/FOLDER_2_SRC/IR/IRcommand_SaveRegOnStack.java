@@ -22,6 +22,7 @@ public class IRcommand_SaveRegOnStack extends IRcommand
 		this.reg = reg;
 	}
 
+
 	/***************/
 	/* MIPS me !!! */
 	/***************/
@@ -30,7 +31,7 @@ public class IRcommand_SaveRegOnStack extends IRcommand
 	 */
 	public void MIPSme()
 	{
-		sir_MIPS_a_lot.getInstance().setRoomOnStack(1); //8 temps
+		sir_MIPS_a_lot.getInstance().setRoomOnStack(1);
 		sir_MIPS_a_lot.getInstance().saveRegOnStack(reg, 0);
 
 	}

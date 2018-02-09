@@ -19,6 +19,7 @@ public class AST_DEC_VAR extends AST_DEC {
     public AST_EXP exp;
     public int myPlace;
     public VAR_KIND varKind;
+    public int argPlace = 0;
 
     /*********************************************************/
     /* The default message for an unknown AST DECLERATION node */
@@ -124,6 +125,8 @@ public class AST_DEC_VAR extends AST_DEC {
             String newName = name + "_" + c;
             AST_DEC_FUNC.funcLocalVarsCount.put(newName, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
             myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
+            if(AST_DEC_CLASS.classLocalVarsCount != null)
+                myPlace += AST_DEC_CLASS.classLocalVarsCount.size();
             varKind = VAR_KIND.LOCAL;
         }
 
@@ -219,11 +222,8 @@ public class AST_DEC_VAR extends AST_DEC {
         containingClass.data_members.add(newDec);
         newDec.myPlace = containingClass.data_members.getSize();
 
-
-
         if (AST_DEC_CLASS.classLocalVarsCount != null) {
             AST_DEC_CLASS.classLocalVarsCount.put(name, AST_DEC_CLASS.classLocalVarsCount.size() + 1);
-
 
             myPlace = containingClass.data_members.getSize();
            // myPlace = AST_DEC_CLASS.classLocalVarsCount.size();
@@ -260,14 +260,13 @@ public class AST_DEC_VAR extends AST_DEC {
             else if (this.varKind == VAR_KIND.ARGUMENT) {
                 TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
                 IR.getInstance().Add_IRcommand(
-                        new IRcommand_LoadFromHeap(t,ARGUMENT.getInstance(0),myPlace - 1)
+                        new IRcommand_LoadFromHeap(t,ARGUMENT.getInstance(0),argPlace-1)
                 );
 
                 IR.getInstance().Add_IRcommand(
                         new IRcommand_Store_AddressLocalVar(t, myPlace)
                 );
             }
-
         }
         return null;
     }

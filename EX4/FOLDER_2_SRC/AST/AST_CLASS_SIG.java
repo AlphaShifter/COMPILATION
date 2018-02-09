@@ -86,6 +86,7 @@ public class AST_CLASS_SIG extends AST_Node
 		if(father != null){
 			t.data_members.addAll(father.data_members);
 			t.function_list.addAll(father.function_list);
+			t.funcCount = father.funcCount;
 		}
 
 

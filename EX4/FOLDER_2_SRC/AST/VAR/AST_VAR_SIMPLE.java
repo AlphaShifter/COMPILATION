@@ -75,9 +75,9 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		if(AST_DEC_FUNC.funcLocalVarsCount != null){
 			myPlace = AST_DEC_FUNC.funcLocalVarsCount.get(newName);
 		}
-		if(AST_DEC_CLASS.classLocalVarsCount != null){
-			myPlace = AST_DEC_CLASS.classLocalVarsCount.get(newName);
-		}
+//		else if(AST_DEC_CLASS.classLocalVarsCount != null){
+//			myPlace = AST_DEC_CLASS.classLocalVarsCount.get(newName);
+//		}
 		return t;
 	}
 
