@@ -98,8 +98,8 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	public TEMP IRme(){
 		TEMP t1 = var.IRme();
 		TEMP t2 = exp.IRme();
-		TEMP address = TEMP_FACTORY.getInstance().getFreshTEMP();
-		int arraySize;
+//		TEMP address = TEMP_FACTORY.getInstance().getFreshTEMP();
+//		int arraySize;
 //		IR.getInstance().Add_IRcommand(
 //				new IRcommand_Move(t1,t2)
 //		);
