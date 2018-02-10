@@ -146,9 +146,6 @@ public class AST_STMT_METHOD extends AST_STMT {
             return ZERO_REG.getInstance();
         }
 
-
-
-
         //save the temps on stack
         IR.getInstance().Add_IRcommand(new IRcommand_SaveTempsOnStack());
         //malloc new array and store it on $a0

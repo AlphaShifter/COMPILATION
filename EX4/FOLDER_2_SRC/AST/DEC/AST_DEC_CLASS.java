@@ -126,27 +126,28 @@ public class AST_DEC_CLASS extends AST_DEC
 	@Override
 	public TEMP IRme() {
 
-		funcList.IRme();
+		if(funcList != null) {
+			funcList.IRme();
 
-		List<TYPE_FUNCTION> funcs = new ArrayList<>();
-		TYPE_LIST curr = myType.function_list;
-		while (curr != null){
-			TYPE_FUNCTION h = (TYPE_FUNCTION)curr.head;
-			funcs.add(h);
-			curr = curr.tail;
-		}
-		funcs.sort(new Comparator<TYPE_FUNCTION>() {
-			@Override
-			public int compare(TYPE_FUNCTION o1, TYPE_FUNCTION o2) {
-				return Integer.compare(o1.myPlace,o2.myPlace);
+			List<TYPE_FUNCTION> funcs = new ArrayList<>();
+			TYPE_LIST curr = myType.function_list;
+			while (curr != null) {
+				TYPE_FUNCTION h = (TYPE_FUNCTION) curr.head;
+				funcs.add(h);
+				curr = curr.tail;
 			}
-		});
-		List<String>funcsLabels = new ArrayList<>();
-		for(TYPE_FUNCTION e: funcs)
-			funcsLabels.add(e.myLabel);
+			funcs.sort(new Comparator<TYPE_FUNCTION>() {
+				@Override
+				public int compare(TYPE_FUNCTION o1, TYPE_FUNCTION o2) {
+					return Integer.compare(o1.myPlace, o2.myPlace);
+				}
+			});
+			List<String> funcsLabels = new ArrayList<>();
+			for (TYPE_FUNCTION e : funcs)
+				funcsLabels.add(e.myLabel);
 
-		IR.getInstance().Add_IRcommand(new IRcommand_ClassFuncsTable(funcsLabels,this.myType.name));
-
+			IR.getInstance().Add_IRcommand(new IRcommand_ClassFuncsTable(funcsLabels, this.myType.name));
+		}
 		return null;
 	}
 

@@ -18,6 +18,9 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
     public AST_VAR var;
     public AST_EXP subscript;
     public int myPlace;
+    public TEMP holder;
+    public TEMP value;
+
 
     /******************/
     /* CONSTRUCTOR(S) */
@@ -95,18 +98,25 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
 
     public TEMP IRme() {
 
-        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
-        TEMP arrayStart = var.IRme();
-
+        TEMP t;
+        TEMP arrayStart;
 
         if(subscript instanceof AST_EXP_INT) {
+            t = TEMP_FACTORY.getInstance().getFreshTEMP();
+            arrayStart = var.IRme();
             IR.getInstance().Add_IRcommand(
                     new IRcommand_Access_Array(t, arrayStart, ((AST_EXP_INT) subscript).value)
             );
         } else {
-            TEMP value = subscript.IRme();
-            //TODO ARRAY
+            this.value = subscript.IRme();
+            t = TEMP_FACTORY.getInstance().getFreshTEMP();
+            arrayStart = var.IRme();
+            IR.getInstance().Add_IRcommand(
+                    new IRcommand_Access_Array(t, arrayStart, value)
+            );
         }
+
+        this.holder = arrayStart;
 
         return t;
     }

@@ -103,7 +103,7 @@ public class AST_EXP_ID extends AST_EXP {
             //if its a new array
             TEMP size = exp.IRme(); // find the size of the array through the expression in the brackets
             int arraySize;
-            if (value.equals("int")) {
+//            if (value.equals("int")) {
                 // assume that exp is an integer
                 arraySize = ((AST_EXP_INT) exp).value;
                 IR.getInstance().Add_IRcommand(
@@ -116,7 +116,7 @@ public class AST_EXP_ID extends AST_EXP {
 
                 // should delete before submitting, for debugging only
                 IR.getInstance().Add_IRcommand(
-                        new IRcommandConstInt(defaultValue, 7)
+                        new IRcommandConstInt(defaultValue, 0)
                 );
 
                 for (int i = 1; i < arraySize + 1; i++) {
@@ -127,7 +127,7 @@ public class AST_EXP_ID extends AST_EXP {
                 }
 
                 return address;
-            }
+           // }
         } else { // a class
 
             //malloc the heap
@@ -169,6 +169,6 @@ public class AST_EXP_ID extends AST_EXP {
 
 
 
-        return null;
+     //   return null;
     }
 }

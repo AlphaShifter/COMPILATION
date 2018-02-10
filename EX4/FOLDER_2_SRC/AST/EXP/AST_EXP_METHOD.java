@@ -16,6 +16,9 @@ public class AST_EXP_METHOD extends AST_EXP {
     public AST_VAR var;
     public AST_EXP_LIST args;
     public int argsLength;
+    public int myPlace;
+    public String className;
+
 
 
     public AST_EXP_METHOD(AST_VAR var, String id, AST_EXP_LIST args) {
@@ -83,16 +86,17 @@ public class AST_EXP_METHOD extends AST_EXP {
                 return null;
             }
             TYPE_CLASS classType = (TYPE_CLASS) c;
+            this.className = c.name;
 
 
             func =(TYPE_FUNCTION)classType.function_list.findInList(this.id);
-
             //check if we got the func
             if (func == null) {
                 System.out.println("ERROR: no such func " + id + " in class" + classType.name);
                 Util.printError(this.myLine);
                 return null;
             }
+            this.myPlace = func.myPlace -1;
         } else{
             func =(TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.id);
             if (func == null) {
@@ -165,21 +169,23 @@ public class AST_EXP_METHOD extends AST_EXP {
     public TEMP IRme()
     {
 
-        if(this.var == null) { // not a class function
-            if(this.id.equals("PrintInt")){
-                IR.getInstance().Add_IRcommand(new IRcommandPrintInt(this.args.getHead().IRme()));
-                return ZERO_REG.getInstance();
-            }
+        //check if this a print command
+        if(this.id.equals("PrintInt")){
+            IR.getInstance().Add_IRcommand(new IRcommandPrintInt(this.args.getHead().IRme()));
+            return ZERO_REG.getInstance();
+        }
+        if(this.id.equals("PrintString")){
+            IR.getInstance().Add_IRcommand(new IRcommandPrintString(this.args.getHead().IRme()));
+            return ZERO_REG.getInstance();
+        }
 
-            //save the temps on stack
-            IR.getInstance().Add_IRcommand(new IRcommand_SaveTempsOnStack());
+        //save the temps on stack
+        IR.getInstance().Add_IRcommand(new IRcommand_SaveTempsOnStack());
+        //malloc new array and store it on $a0
+        IR.getInstance().Add_IRcommand(new IRcommand_mallocHeap(ARGUMENT.getInstance(0),argsLength));
 
-
-            //malloc new array and store it on $a0
-            IR.getInstance().Add_IRcommand(new IRcommand_mallocHeap(ARGUMENT.getInstance(0),argsLength));
-
-            int count = 0;
-            if (args != null) {
+        int count = 0;
+        if (args != null) {
 //            for (AST_Node runner : this.args) {
 //                AST_EXP head = (AST_EXP) runner;
 //                IR.getInstance().Add_IRcommand(
@@ -187,38 +193,50 @@ public class AST_EXP_METHOD extends AST_EXP {
 //                        ));
 //                count++;
 //            }
-                //for each argument, IR it and pass it
-                for (AST_Node runner : this.args) {
-                    AST_EXP head = (AST_EXP) runner;
-                    //save a0
-                    IR.getInstance().Add_IRcommand(new IRcommand_SaveRegOnStack(ARGUMENT.getInstance(0)));
-                    //IR head
-                    TEMP t = head.IRme();
-                    //restore a0
-                    IR.getInstance().Add_IRcommand(new IRcommand_LoadFromStack(ARGUMENT.getInstance(0),0,true));
-                    //pass temp
-                    IR.getInstance().Add_IRcommand(new IRcommand_passArgument(t,count));
-                    count++;
-                }
-
-
+            //for each argument, IR it and pass it
+            for (AST_Node runner : this.args) {
+                AST_EXP head = (AST_EXP) runner;
+                //save a0
+                IR.getInstance().Add_IRcommand(new IRcommand_SaveRegOnStack(ARGUMENT.getInstance(0)));
+                //IR head
+                TEMP t = head.IRme();
+                //restore a0
+                IR.getInstance().Add_IRcommand(new IRcommand_LoadFromStack(ARGUMENT.getInstance(0),0,true));
+                //pass temp
+                IR.getInstance().Add_IRcommand(new IRcommand_passArgument(t,count));
+                count++;
             }
-            //jump
-            String targetLabel = ((TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(this.id)).myLabel;
-            IR.getInstance().Add_IRcommand(new IRcommand_Jal(targetLabel));
-
-            //we are back
-
-            //restore the temps
-            IR.getInstance().Add_IRcommand(new IRcommand_LoadTempsFromStack());
-            //load the return value
-            TEMP returnValue = TEMP_FACTORY.getInstance().getFreshTEMP();
-            IR.getInstance().Add_IRcommand(new IRcommand_LoadFromStack(returnValue,0));
-            //pop the return value and temps from stack
-            IR.getInstance().Add_IRcommand(new IRcommand_Fun_Epiloge());
-            return returnValue;
         }
-        return null;
+
+        if(var != null){//class methods
+            //store and IR the object
+            TEMP obj = var.IRme();
+            //store it on a1
+            IR.getInstance().Add_IRcommand(new IRcommand_Move(ARGUMENT.getInstance(1),obj));
+            //get function from table
+            TEMP jumpTable = TEMP_FACTORY.getInstance().getFreshTEMP();
+            IR.getInstance().Add_IRcommand(new IRcommand_LoadFromHeap(jumpTable,obj,0));
+
+            TEMP target = TEMP_FACTORY.getInstance().getFreshTEMP();
+            IR.getInstance().Add_IRcommand(new IRcommand_LoadFromHeap(target,jumpTable,myPlace));
+
+            IR.getInstance().Add_IRcommand(new IRcommand_Jalr(target));
+        } else {
+            //jump
+            String targetLabel = ((TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.id)).myLabel;
+            IR.getInstance().Add_IRcommand(new IRcommand_Jal(targetLabel));
+        }
+
+        //we are back
+
+        //restore the temps
+        IR.getInstance().Add_IRcommand(new IRcommand_LoadTempsFromStack());
+        //load the return value
+        TEMP returnValue = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR.getInstance().Add_IRcommand(new IRcommand_LoadFromStack(returnValue,0));
+        //pop the return value and temps from stack
+        IR.getInstance().Add_IRcommand(new IRcommand_Fun_Epiloge());
+        return returnValue;
     }
 
 }
