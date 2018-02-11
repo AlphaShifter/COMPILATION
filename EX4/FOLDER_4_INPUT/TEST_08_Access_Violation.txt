@@ -38,21 +38,8 @@ void main()
 
 	moish.grades[COMPILATION] := 99;
 
-	if (moish.getAverage() > 90)
-	{
-		// mysterious raise pattern ... 
-		moish.lastYearSalaries[moish.age] := moish.lastYearSalaries[moish.birthday()] + 1000;
-	}
-	
 	University TAU := new Student[37];
 	
-	TAU[39+moish.age+moish.birthday()].ID := 777;
-	TAU[39+moish.age+moish.birthday()].ID := 777;
-	TAU[39+moish.age+moish.birthday()].ID := 777;
-	TAU[39+moish.age+moish.birthday()].ID := 777;
-	TAU[39+moish.age+moish.birthday()]    := TAU;
-	TAU[39+moish.age+moish.birthday()].ID := 777;
-	TAU[39+moish.age+moish.birthday()].ID := 777;
-	TAU[39+moish.age+moish.birthday()].ID := 777;
-	TAU[39+moish.age+moish.birthday()].ID := 777;
+	TAU[3] := moish;
+	TAU[3].lastYearSalaries[TAU[3].grades[COMPILATION]] := 999;
 }
