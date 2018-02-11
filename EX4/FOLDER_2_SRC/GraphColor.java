@@ -24,7 +24,7 @@ public class GraphColor {
         Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
         String inputFile = "FOLDER_5_OUTPUT/MIPS.txt";
         // int tmp_num=TEMP_FACTORY.getCount();//TODO - get the number of temps from the temp factory
-        int tmp_num = 200;
+        int tmp_num = 10000;
         for (int tmp_index = 0; tmp_index <= tmp_num; tmp_index++) {
 
             String line = null;

@@ -62,7 +62,7 @@ public class IRcommand_Binop_Div_Integers extends IRcommand
 		/*
 		save result to t1_div_t2
 		 */
-		sir_MIPS_a_lot.getInstance().getHi(t1_div_t2);
+		sir_MIPS_a_lot.getInstance().getLo(t1_div_t2);
 		sir_MIPS_a_lot.getInstance().label(label_no_overflow);
 		sir_MIPS_a_lot.getInstance().move(dst,t1_div_t2);
 		sir_MIPS_a_lot.getInstance().jump(label_end);

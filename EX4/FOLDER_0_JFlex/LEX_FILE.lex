@@ -76,7 +76,7 @@ import java_cup.runtime.*;
 LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \type\f]
 INTEGER			= 0 | [1-9][0-9]*
-LETTER          = [a-z] | [A-Z]
+LETTER          = [a-z] | [A-Z] | " "
 ALPHANUM        = {LETTER} | [0-9]
 ID				= {LETTER}+{ALPHANUM}*
 STRING          = [\"]{ALPHANUM}*[\"]

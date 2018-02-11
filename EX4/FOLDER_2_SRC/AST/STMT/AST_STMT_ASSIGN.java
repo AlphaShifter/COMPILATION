@@ -21,6 +21,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	/***************/
 	public AST_VAR var;
 	public AST_EXP exp;
+	public static boolean isAssign = false;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
@@ -97,7 +98,9 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	}
 
 	public TEMP IRme(){
+		isAssign = true;
 		TEMP t1 = var.IRme();
+		isAssign = false;
 		TEMP t2 = exp.IRme();
 //		TEMP address = TEMP_FACTORY.getInstance().getFreshTEMP();
 //		int arraySize;

@@ -4,6 +4,8 @@ import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
 import TYPES.TYPE;
 import TYPES.TYPE_NIL;
+import TEMP.*;
+import IR.*;
 
 public class AST_EXP_NIL extends AST_EXP {
 
@@ -43,6 +45,11 @@ public class AST_EXP_NIL extends AST_EXP {
 
     public TYPE SemantMe() {
         return TYPE_NIL.getInstance();
+    }
+
+    @Override
+    public TEMP IRme(){
+        return ZERO_REG.getInstance();
     }
 
 }

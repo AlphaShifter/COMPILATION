@@ -2,6 +2,7 @@ package AST.VAR;
 
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
+import AST.STMT.AST_STMT_ASSIGN;
 import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
@@ -117,9 +118,11 @@ public class AST_VAR_FIELD extends AST_VAR {
         holder = var.IRme();
 
         //if holder is zero, than it is uninited: throw exception
-        String legal = IRcommand.getFreshLegal();
-        IR.getInstance().Add_IRcommand(new IRcommand_CheckPointerAccess(holder,legal));
-        IR.getInstance().Add_IRcommand(new IRcommand_Label(legal));
+        if(!AST_STMT_ASSIGN.isAssign) {
+            String legal = IRcommand.getFreshLegal();
+            IR.getInstance().Add_IRcommand(new IRcommand_CheckPointerAccess(holder, legal));
+            IR.getInstance().Add_IRcommand(new IRcommand_Label(legal));
+        }
         //return the value in the right offset
         TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
         IR.getInstance().Add_IRcommand(
