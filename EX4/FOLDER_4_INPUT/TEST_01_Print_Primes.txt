@@ -5,7 +5,7 @@ int IsPrime(int p)
     
     while (i<p)
     {
-        j := 2;
+		j := 2;
         while (j<p)
         {
             if (i*j = p)
@@ -22,14 +22,12 @@ int IsPrime(int p)
 void PrintPrimes(int start, int end)
 {
     int p := start;
-    string s := "TT";
     
     while (p < end+1)
     {
         if (IsPrime(p))
         {
             PrintInt(p);
-            PrintString(s);
         }
         p := p + 1;
     }

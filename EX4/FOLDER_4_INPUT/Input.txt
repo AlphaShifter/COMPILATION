@@ -1,27 +1,8 @@
-class father{
-
-    string c;
-
-    void foo(){ int x := 4; }
-    void too(){int z := 4; }
-}
-
-
-class son extends father{
-    int a := 7;
-    int b := 9;
-    void shoo(int k){PrintInt(k);}
-    void foo(){ PrintInt(b); }
-
-
-}
-
-
 int main()
 {
-   son a := new son;
-   a.shoo(144);
-   a.b := 11;
-   a.foo();
+	int i := 7;
+	int j := 8;
+	int k := 9;
+	PrintInt(i+j+k+55);
 }
 

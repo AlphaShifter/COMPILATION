@@ -1,11 +1,5 @@
 array IntArray = int[]
 
-int monthJuly()
-{
-	int july := 7;
-	return july;
-}
-
 class Person
 {
 	int ID;
@@ -33,6 +27,8 @@ class Student extends Person
 	}
 }
 
+array University = Student[]
+
 void main()
 {
 	Student moish := new Student;
@@ -40,12 +36,10 @@ void main()
 	moish.lastYearSalaries := new int[12];
 	int COMPILATION := 6;
 
-	moish.grades[COMPILATION] := 99;
+	moish.grades[COMPILATION] := 9;
 
-	if (moish.getAverage() > 90)
-	{
-		// mysterious raise pattern ... 
-		moish.lastYearSalaries[moish.age] := moish.lastYearSalaries[moish.birthday()] + 1000;
-	}
-	Student dave := new Person;
+	University TAU := new Student[37];
+	
+	TAU[3] := moish;
+	TAU[5].lastYearSalaries[TAU[3].grades[COMPILATION]] := 999;
 }
