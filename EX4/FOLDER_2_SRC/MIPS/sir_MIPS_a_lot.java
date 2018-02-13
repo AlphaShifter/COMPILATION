@@ -91,6 +91,11 @@ public class sir_MIPS_a_lot {
 
 
     }
+    public void storeAddressGlobalVar(TEMP dst, int myPlace){
+
+    }
+
+
 
     public void move(TEMP dst, TEMP src) {
 
@@ -385,6 +390,9 @@ public class sir_MIPS_a_lot {
             s = "$a" + ((ARGUMENT) t).getLocal();
         if(t instanceof TEMP_REG)
             s = "$t" +((TEMP_REG)t).getLocal();
+        if(t instanceof GLOBAL_VAR)
+            s =  4*(((GLOBAL_VAR) t).pos)+"($s6)";
+
 
         return s;
     }
