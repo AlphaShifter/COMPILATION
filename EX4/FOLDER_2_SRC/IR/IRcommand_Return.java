@@ -17,6 +17,7 @@ import TEMP.TEMP;
 public class IRcommand_Return extends IRcommand
 {
 	TEMP data;
+	boolean isMain;
 
 
 	/**
@@ -26,6 +27,14 @@ public class IRcommand_Return extends IRcommand
 	public IRcommand_Return(TEMP data)
 	{
 		this.data = data;
+		this.isMain = false;
+
+	}
+
+	public IRcommand_Return(boolean isMain)
+	{
+		this.data = null;
+		this.isMain = isMain;
 
 	}
 	
@@ -34,19 +43,24 @@ public class IRcommand_Return extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		//close func's frame
-		sir_MIPS_a_lot.getInstance().closeFrame();
-		//restore old FP
-		sir_MIPS_a_lot.getInstance().resotreOldFp(0);
-		//pop
-		sir_MIPS_a_lot.getInstance().setRoomOnStack(-1);
-		//restore return location
-		sir_MIPS_a_lot.getInstance().restoreRaFromStack(0); //retrieve the return address
-		//pop
-		sir_MIPS_a_lot.getInstance().setRoomOnStack(-1);
-		//save return value to stack
-		sir_MIPS_a_lot.getInstance().saveReturnOnStack(0, data);
-		//jump back
-		sir_MIPS_a_lot.getInstance().jr();
+		if(!isMain) {
+			//close func's frame
+			sir_MIPS_a_lot.getInstance().closeFrame();
+			//restore old FP
+			sir_MIPS_a_lot.getInstance().resotreOldFp(0);
+			//pop
+			sir_MIPS_a_lot.getInstance().setRoomOnStack(-1);
+			//restore return location
+			sir_MIPS_a_lot.getInstance().restoreRaFromStack(0); //retrieve the return address
+			//pop
+			sir_MIPS_a_lot.getInstance().setRoomOnStack(-1);
+			//save return value to stack
+			sir_MIPS_a_lot.getInstance().saveReturnOnStack(0, data);
+			//jump back
+			sir_MIPS_a_lot.getInstance().jr();
+		}
+		else {
+			sir_MIPS_a_lot.getInstance().jump("END_OF_PROGRAM");
+		}
 	}
 }

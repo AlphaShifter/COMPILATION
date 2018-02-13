@@ -12,6 +12,7 @@ import TYPES.TYPE_VOID;
 
 public class AST_STMT_RETURN extends AST_STMT {
     public AST_EXP res;
+    private boolean myMain = false;
 
     /*******************/
     /*  CONSTRUCTOR(S) */
@@ -45,6 +46,8 @@ public class AST_STMT_RETURN extends AST_STMT {
     @Override
     public TYPE SemantMe() {
         TYPE t = null;
+        if(AST_DEC_FUNC.isMain)
+            this.myMain = true;
         if (res != null) {
             t = res.SemantMe();//TODO - maybe check if t is null
             if (Util.isA(t, AST_DEC_FUNC.func_type)) {
@@ -62,9 +65,14 @@ public class AST_STMT_RETURN extends AST_STMT {
 
     @Override
     public TEMP IRme() {
-        TEMP t = this.res == null ? ZERO_REG.getInstance() : this.res.IRme();
-        IR.getInstance().Add_IRcommand(new IRcommand_Return(t));
-        return t;
+        if(myMain) {
+            IR.getInstance().Add_IRcommand(new IRcommand_Return(true));
+            return null;
+        }else {
+            TEMP t = this.res == null ? ZERO_REG.getInstance() : this.res.IRme();
+            IR.getInstance().Add_IRcommand(new IRcommand_Return(t));
+            return t;
+        }
     }
 
 }

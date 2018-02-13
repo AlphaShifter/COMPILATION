@@ -79,9 +79,9 @@ public class Util {
         //reduce the decs
         decReduction(root);
         //break down to decs
-        for (AST_Node node : root.decList) {
-            treeReduction_rec(node);
-        }
+//        for (AST_Node node : root.decList) {
+//            treeReduction_rec(node);
+//        }
     }
 
     private static void treeReduction_rec(AST_Node node) {

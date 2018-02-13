@@ -125,8 +125,8 @@ public class AST_DEC_VAR extends AST_DEC {
             String newName = name + "_" + c;
             AST_DEC_FUNC.funcLocalVarsCount.put(newName, AST_DEC_FUNC.funcLocalVarsCount.size() + 1);
             myPlace = AST_DEC_FUNC.funcLocalVarsCount.size();
-            if(AST_DEC_CLASS.classLocalVarsCount != null)
-                myPlace += AST_DEC_CLASS.classLocalVarsCount.size();
+//            if(AST_DEC_CLASS.classLocalVarsCount != null)
+//                myPlace += AST_DEC_CLASS.classLocalVarsCount.size();
             varKind = VAR_KIND.LOCAL;
         }
 

@@ -27,6 +27,7 @@ public class AST_DEC_FUNC extends AST_DEC {
     public static TYPE func_type = null;
     public static Map<String,Integer>funcLocalVarsCount = null;
     public static Map<String,Integer>funcFreqCount = null;
+    public static boolean isMain = false;
 
     public int myPlace;
     public boolean isClassFunc;
@@ -111,10 +112,15 @@ public class AST_DEC_FUNC extends AST_DEC {
         func_type = Util.stringToType(sig.type);
         newFuncDec = (TYPE_FUNCTION) sig.SemantMe();
 
+        if(newFuncDec.getName().equals("main"))
+            isMain = true;
+
         /*******************/
 		/* [3] Semant Body */
         /*******************/
         stmtList.SemantMe();
+
+        isMain = false;
 
         /*****************/
 		/* [4] End Scope */

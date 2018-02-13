@@ -99,13 +99,21 @@ public class AST_STMT_METHOD extends AST_STMT {
                 if (runnerF.name.equals(this.id))
                     func = (TYPE_FUNCTION) runner.head;
             }
-            this.myPlace = func.myPlace -1;
             //check if we got the func
             if (func == null) {
-                System.out.println("ERROR: no such func " + id + " in class" + classType.name);
-                Util.printError(this.myLine);
-                return null;
+                for (TYPE_LIST runner = classType.localFuncs; runner != null; runner = runner.tail) {
+                    //cast
+                    TYPE_FUNCTION runnerF = (TYPE_FUNCTION)runner.head;
+                    if (runnerF.name.equals(this.id))
+                        func = (TYPE_FUNCTION) runner.head;
+                }
+                if (func == null) {
+                    System.out.println("ERROR: no such func " + id + " in class" + classType.name);
+                    Util.printError(this.myLine);
+                    return null;
+                }
             }
+            this.myPlace = func.myPlace -1;
         } else{
             func =(TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(this.id);
             if (func == null) {

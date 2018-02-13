@@ -127,10 +127,9 @@ non terminal AST_CLASS_SIG classSig;
 precedence nonassoc EQ;
 precedence left GT;
 precedence left LT;
-precedence left MINUS;
-precedence left PLUS;
-precedence left TIMES;
-precedence left DIVIDE;
+precedence left MINUS, PLUS;
+precedence left TIMES, DIVIDE;
+
 
 
 /************************/
