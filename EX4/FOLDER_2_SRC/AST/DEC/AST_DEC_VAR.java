@@ -136,9 +136,15 @@ public class AST_DEC_VAR extends AST_DEC {
             myPlace = AST_DEC_CLASS.classLocalVarsCount.size();
             varKind = VAR_KIND.DATA_MEMBER;
         } else {
-            //TODO singlton that counts how many locals we have seen? place it inside symbol table
-            myPlace = SYMBOL_TABLE.var_count++;
-            varKind = VAR_KIND.LOCAL;
+            if (SYMBOL_TABLE.getScopeIndex()>0){
+                //TODO singlton that counts how many locals we have seen? place it inside symbol table
+                myPlace = SYMBOL_TABLE.var_count++;
+                varKind = VAR_KIND.LOCAL;
+            }
+            else{
+                myPlace = SYMBOL_TABLE.global_count++;
+                varKind = VAR_KIND.GLOBAL;
+            }
         }
 
         /*********************************************************/

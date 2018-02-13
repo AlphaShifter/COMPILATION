@@ -1,6 +1,7 @@
 package AST;
 
 import AST.DEC.AST_DEC_LIST;
+import SYMBOL_TABLE.SYMBOL_TABLE;
 import TEMP.TEMP;
 import TYPES.TYPE;
 
@@ -10,6 +11,7 @@ public class AST_PROGRAM extends AST_Node
 	/* simple variable name */
 	/************************/
 	public AST_DEC_LIST decList;
+	public int global_count;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -57,7 +59,9 @@ public class AST_PROGRAM extends AST_Node
 
 	@Override
 	public TYPE SemantMe() {
-		return this.decList.SemantMe();
+		TYPE res = this.decList.SemantMe();
+		global_count= SYMBOL_TABLE.global_count;
+		return res;
 	}
 
 	public TEMP IRme(){return this.decList.IRme();}

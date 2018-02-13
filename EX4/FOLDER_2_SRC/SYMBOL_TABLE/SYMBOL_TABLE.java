@@ -30,8 +30,12 @@ public class SYMBOL_TABLE {
     /* The actual symbol table data structure ... */
     /**********************************************/
     private List<Map<String,TYPE>> tableList;
-    private int scope_index = 0;
+
+
+
+    private static int scope_index = 0;
     public static int var_count = 0;
+    public static int global_count = 0;
 
 
     public void enter(String name, TYPE t) {
@@ -177,5 +181,9 @@ public class SYMBOL_TABLE {
 
         }
         return instance;
+    }
+
+    public static int getScopeIndex() {
+        return scope_index;
     }
 }
