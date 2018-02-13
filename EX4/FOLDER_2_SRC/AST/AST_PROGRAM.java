@@ -4,7 +4,9 @@ import AST.DEC.AST_DEC_LIST;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TEMP.TEMP;
 import TYPES.TYPE;
-
+import AST.EXP.*;
+import TEMP.*;
+import IR.*;
 public class AST_PROGRAM extends AST_Node
 {
 	/************************/
@@ -64,7 +66,10 @@ public class AST_PROGRAM extends AST_Node
 		return res;
 	}
 
-	public TEMP IRme(){return this.decList.IRme();}
+	public TEMP IRme(){
+		IR.getInstance().Add_IRcommand(new IRcommand_SaveGlobalsOnHeap(global_count));
+		return this.decList.IRme();
+	}
 
 //	public boolean concreateMixer(){
 //		boolean res = true;

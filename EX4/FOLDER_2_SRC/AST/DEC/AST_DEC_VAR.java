@@ -255,9 +255,15 @@ public class AST_DEC_VAR extends AST_DEC {
         if (exp != null) {
 
             TEMP t = exp.IRme();
-            IR.getInstance().Add_IRcommand(
-                    new IRcommand_Store_AddressLocalVar(t, myPlace)
-            );
+            if (varKind==VAR_KIND.LOCAL){
+                IR.getInstance().Add_IRcommand(
+                        new IRcommand_Store_AddressLocalVar(t, myPlace)
+                );
+            }
+            else {
+               // IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressGlobalVar(t, myPlace));
+            }
+
 
         } else { // no exp: either default or an argument
             //local decs, store it with 0 value
@@ -276,6 +282,10 @@ public class AST_DEC_VAR extends AST_DEC {
                 IR.getInstance().Add_IRcommand(
                         new IRcommand_Store_AddressLocalVar(t, myPlace)
                 );
+            }
+            else{
+                //TODO store with zero value
+//                IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressGlobalVar(null, myPlace));
             }
         }
         return null;

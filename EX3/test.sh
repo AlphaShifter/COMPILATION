@@ -1,5 +1,5 @@
-# # !/bin/bash
-# make
+# !/bin/bash
+make
 # for planet in $(ls FOLDER_4_INPUT) 
 # do
 #   INPUT="FOLDER_4_INPUT/"$planet
