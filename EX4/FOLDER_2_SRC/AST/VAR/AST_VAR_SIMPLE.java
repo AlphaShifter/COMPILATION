@@ -17,6 +17,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	/************************/
 	public String name;
 	public int myPlace;
+	public boolean isGloabl = false;
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
@@ -56,6 +57,11 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			String.format("SIMPLE VAR(%s)",name));
 	}
 
+	@Override
+	public boolean isGlobal(){
+		return this.isGloabl;
+	}
+
 	public TYPE SemantMe()
 	{
 		if(SYMBOL_TABLE.getInstance().find(name) == null){
@@ -68,17 +74,27 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			Util.printError(myLine);
 		}
 
-		int freq = AST_DEC_FUNC.funcFreqCount.get(name);
-		String newName = name + "_" + freq;
+		if(!SYMBOL_TABLE.getInstance().isVarGlobal(name)) {
 
-		//check if we are at function
-		if(AST_DEC_FUNC.funcLocalVarsCount != null){
-			myPlace = AST_DEC_FUNC.funcLocalVarsCount.get(newName);
-		}
+
+			int freq = AST_DEC_FUNC.funcFreqCount.get(name);
+			String newName = name + "_" + freq;
+
+			//check if we are at function
+			if (AST_DEC_FUNC.funcLocalVarsCount != null) {
+				myPlace = AST_DEC_FUNC.funcLocalVarsCount.get(newName);
+			}
 //		else if(AST_DEC_CLASS.classLocalVarsCount != null){
 //			myPlace = AST_DEC_CLASS.classLocalVarsCount.get(newName);
 //		}
+		} else {
+
+			myPlace = SYMBOL_TABLE.globalMap.get(name);
+			this.isGloabl = true;
+
+		}
 		return t;
+
 	}
 
 	@Override
@@ -88,18 +104,26 @@ public class AST_VAR_SIMPLE extends AST_VAR
 
 	public TEMP IRme()
 	{
-		System.out.println("My place is " + myPlace);
+		//System.out.println("My place is " + myPlace);
 
-		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
-		TEMP memory = TEMP_FACTORY.getInstance().getFreshTEMP();
 
-		//load from stack (frame) the data
-		IR.getInstance().Add_IRcommand(new IRcommand_Load_AddressLocalVar(memory, myPlace));
-		//save on temp and return
-		IR.getInstance().Add_IRcommand(new IRcommand_Move(
-				t,
-				memory));
+		if(!isGloabl) {
 
-		return t;
+			TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+			TEMP memory = TEMP_FACTORY.getInstance().getFreshTEMP();
+
+			//load from stack (frame) the data
+			IR.getInstance().Add_IRcommand(new IRcommand_Load_AddressLocalVar(memory, myPlace));
+			//save on temp and return
+			IR.getInstance().Add_IRcommand(new IRcommand_Move(
+					t,
+					memory));
+
+			return t;
+		} else {
+			TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+			IR.getInstance().Add_IRcommand(new IRcommand_LoadFromHeap(t,GLOBAL_REG.getInstance(),myPlace));
+			return t;
+		}
 	}
 }

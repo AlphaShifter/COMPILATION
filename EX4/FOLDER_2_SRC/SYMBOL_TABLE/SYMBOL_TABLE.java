@@ -33,9 +33,10 @@ public class SYMBOL_TABLE {
 
 
 
-    private static int scope_index = 0;
+    private int scope_index = 0;
     public static int var_count = 0;
     public static int global_count = 0;
+    public static Map<String,Integer>globalMap = new HashMap<>();
 
 
     public void enter(String name, TYPE t) {
@@ -67,6 +68,22 @@ public class SYMBOL_TABLE {
 
         return null;
     }
+
+
+    public boolean isVarGlobal(String name){
+        boolean res = false;
+        for (int i = scope_index; i > 0; i--){ //all scopse except the global
+            Map<String,TYPE> currScope = tableList.get(i);
+            if(currScope.containsKey(name))
+                res = true;
+        }
+        if(res)
+            return false;
+        else
+            return true;
+    }
+
+
     //will look for element with name in the current (inner) scope only
     public TYPE findInCurrScope(String name){
         Map<String,TYPE> currScope = tableList.get(scope_index);
@@ -183,7 +200,11 @@ public class SYMBOL_TABLE {
         return instance;
     }
 
-    public static int getScopeIndex() {
-        return scope_index;
+    public int getScopeIndex() {
+        return this.scope_index;
+    }
+
+    public boolean isGlobalScope(){
+        return (scope_index == 0);
     }
 }

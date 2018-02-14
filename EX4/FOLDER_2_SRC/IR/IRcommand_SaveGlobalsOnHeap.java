@@ -1,6 +1,7 @@
 package IR;
 
 import MIPS.sir_MIPS_a_lot;
+import TEMP.*;
 
 public class IRcommand_SaveGlobalsOnHeap  extends IRcommand{
     int count;
@@ -10,7 +11,8 @@ public class IRcommand_SaveGlobalsOnHeap  extends IRcommand{
 
     @Override
     public void MIPSme() {
-//        sir_MIPS_a_lot.getInstance().mallocHeap(dst,size);
+
+        sir_MIPS_a_lot.getInstance().mallocHeap(GLOBAL_REG.getInstance(),count);
 
     }
 }

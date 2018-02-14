@@ -7,6 +7,10 @@ import TYPES.TYPE;
 import AST.EXP.*;
 import TEMP.*;
 import IR.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AST_PROGRAM extends AST_Node
 {
 	/************************/
@@ -14,6 +18,8 @@ public class AST_PROGRAM extends AST_Node
 	/************************/
 	public AST_DEC_LIST decList;
 	public int global_count;
+
+	public static List<String>globalsList;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -35,6 +41,8 @@ public class AST_PROGRAM extends AST_Node
 		/*******************************/
 		this.decList = decList;
 		right = decList;
+
+		globalsList = new ArrayList<>();
 	}
 
 	/**************************************************/
@@ -67,7 +75,13 @@ public class AST_PROGRAM extends AST_Node
 	}
 
 	public TEMP IRme(){
-		IR.getInstance().Add_IRcommand(new IRcommand_SaveGlobalsOnHeap(global_count));
+		if(global_count != 0) {
+			IR.getInstance().Add_IRcommand(new IRcommand_Label("GLOBAL_INITS"));
+			IR.getInstance().Add_IRcommand(new IRcommand_SaveGlobalsOnHeap(global_count));
+			for (String labal : globalsList)
+				IR.getInstance().Add_IRcommand(new IRcommand_Jal(labal));
+			IR.getInstance().Add_IRcommand(new IRcommand_Jump("main"));
+		}
 		return this.decList.IRme();
 	}
 

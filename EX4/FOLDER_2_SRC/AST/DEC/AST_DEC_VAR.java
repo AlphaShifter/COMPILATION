@@ -1,5 +1,6 @@
 package AST.DEC;
 
+import AST.AST_PROGRAM;
 import AST.EXP.AST_EXP;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
@@ -20,6 +21,8 @@ public class AST_DEC_VAR extends AST_DEC {
     public int myPlace;
     public VAR_KIND varKind;
     public int argPlace = 0;
+    String myLabel;
+
 
     /*********************************************************/
     /* The default message for an unknown AST DECLERATION node */
@@ -140,7 +143,7 @@ public class AST_DEC_VAR extends AST_DEC {
             myPlace = AST_DEC_CLASS.classLocalVarsCount.size();
             varKind = VAR_KIND.DATA_MEMBER;
         } else {
-            if (SYMBOL_TABLE.getScopeIndex()>0){
+            if (!SYMBOL_TABLE.getInstance().isGlobalScope()){
                 //TODO singlton that counts how many locals we have seen? place it inside symbol table
                 myPlace = SYMBOL_TABLE.var_count++;
                 varKind = VAR_KIND.LOCAL;
@@ -148,6 +151,11 @@ public class AST_DEC_VAR extends AST_DEC {
             else{
                 myPlace = SYMBOL_TABLE.global_count++;
                 varKind = VAR_KIND.GLOBAL;
+                SYMBOL_TABLE.globalMap.put(this.name,myPlace);
+
+                myLabel = IRcommand.getFreshGlobal(myPlace);
+                AST_PROGRAM.globalsList.add(myLabel);
+
             }
         }
 
@@ -179,7 +187,6 @@ public class AST_DEC_VAR extends AST_DEC {
             Util.printError(this.myLine);
 
         }
-
 
         TYPE_CLASS containingClass = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(containingClassName);
 
@@ -247,45 +254,55 @@ public class AST_DEC_VAR extends AST_DEC {
         /***************************************************/
         SYMBOL_TABLE.getInstance().enter(name, t);
 
+
         return newDec;
     }
 
     public TEMP IRme() {
 
-        if (exp != null) {
 
-            TEMP t = exp.IRme();
-            if (varKind==VAR_KIND.LOCAL){
-                IR.getInstance().Add_IRcommand(
-                        new IRcommand_Store_AddressLocalVar(t, myPlace)
-                );
-            }
-            else {
-               // IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressGlobalVar(t, myPlace));
-            }
+        if(this.varKind == VAR_KIND.GLOBAL){
+            //generate label
+            IR.getInstance().Add_IRcommand(new IRcommand_Label(myLabel));
+            //eval
+            TEMP val;
+            if(exp != null)
+                val = exp.IRme();
+            else
+                val = ZERO_REG.getInstance();
+            //save on heap
+            IR.getInstance().Add_IRcommand(new IRcommand_SaveOnHeap(val,GLOBAL_REG.getInstance(),myPlace));
+            //return
+            IR.getInstance().Add_IRcommand(new IRcommand_JR());
+        }
 
+        else {
+            if (exp != null) {
 
-        } else { // no exp: either default or an argument
-            //local decs, store it with 0 value
-            if (this.varKind == VAR_KIND.LOCAL) {
-                IR.getInstance().Add_IRcommand(
-                        new IRcommand_Store_AddressLocalVar(ZERO_REG.getInstance(), myPlace)
-                );
-            }
-            //else if it an argument, get it value from the $a registers
-            else if (this.varKind == VAR_KIND.ARGUMENT) {
-                TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
-                IR.getInstance().Add_IRcommand(
-                        new IRcommand_LoadFromHeap(t,ARGUMENT.getInstance(0),argPlace-1)
-                );
+                TEMP t = exp.IRme();
 
                 IR.getInstance().Add_IRcommand(
                         new IRcommand_Store_AddressLocalVar(t, myPlace)
                 );
-            }
-            else{
-                //TODO store with zero value
-//                IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressGlobalVar(null, myPlace));
+
+            } else { // no exp: either default or an argument
+                //local decs, store it with 0 value
+                if (this.varKind == VAR_KIND.LOCAL) {
+                    IR.getInstance().Add_IRcommand(
+                            new IRcommand_Store_AddressLocalVar(ZERO_REG.getInstance(), myPlace)
+                    );
+                }
+                //else if it an argument, get it value from the $a registers
+                else if (this.varKind == VAR_KIND.ARGUMENT) {
+                    TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+                    IR.getInstance().Add_IRcommand(
+                            new IRcommand_LoadFromHeap(t, ARGUMENT.getInstance(0), argPlace - 1)
+                    );
+
+                    IR.getInstance().Add_IRcommand(
+                            new IRcommand_Store_AddressLocalVar(t, myPlace)
+                    );
+                }
             }
         }
         return null;

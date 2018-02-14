@@ -18,6 +18,7 @@ public abstract class AST_VAR extends AST_Node
         System.out.print("UNKNOWN AST DECELERATION NODE");
     }
     public abstract  String getName();
+    public boolean isGlobal(){return  false;}
     //public abstract TYPE SemantMe();
 
 }

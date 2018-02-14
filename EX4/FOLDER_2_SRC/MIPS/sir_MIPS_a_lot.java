@@ -13,6 +13,7 @@ import java.util.List;
 /*******************/
 /* PROJECT IMPORTS */
 /*******************/
+import AST.AST_PROGRAM;
 import TEMP.*;
 
 public class sir_MIPS_a_lot {
@@ -369,8 +370,15 @@ public class sir_MIPS_a_lot {
 			/* [4] Print text section with entry point main */
         /************************************************/
         fileWriter.print(".text\n");
-        fileWriter.print("### start with main function\n");
-        fileWriter.print("j main\n");
+
+        if(!AST_PROGRAM.globalsList.isEmpty()){
+            fileWriter.print("### start with global inits \n");
+            fileWriter.print("j GLOBAL_INITS\n");
+        } else {
+            fileWriter.print("### start with main function\n");
+            fileWriter.print("j main\n");
+        }
+
         fileWriter.print("############################\n");
         printStrlen();
         fileWriter.print("############################\n");
@@ -392,7 +400,8 @@ public class sir_MIPS_a_lot {
             s = "$t" +((TEMP_REG)t).getLocal();
         if(t instanceof GLOBAL_VAR)
             s =  4*(((GLOBAL_VAR) t).pos)+"($s6)";
-
+        if(t instanceof GLOBAL_REG)
+            s = "$s6";
 
         return s;
     }

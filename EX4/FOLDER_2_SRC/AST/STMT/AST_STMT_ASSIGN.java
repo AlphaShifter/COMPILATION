@@ -109,7 +109,10 @@ public class AST_STMT_ASSIGN extends AST_STMT
 //		);
 		if(var instanceof AST_VAR_SIMPLE) {
 			//stores t2 on the stack, to the location of var (update var)
-			IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressLocalVar(t2, ((AST_VAR_SIMPLE) var).myPlace));
+			if(!var.isGlobal())
+				IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressLocalVar(t2, ((AST_VAR_SIMPLE) var).myPlace));
+			else
+				IR.getInstance().Add_IRcommand(new IRcommand_SaveOnHeap(t2,GLOBAL_REG.getInstance(),((AST_VAR_SIMPLE) var).myPlace));
 		}
 		else if(var instanceof AST_VAR_FIELD){
 			IR.getInstance().Add_IRcommand(new IRcommand_SaveOnHeap(t2,((AST_VAR_FIELD)var).holder,((AST_VAR_FIELD)var).myPlace));
