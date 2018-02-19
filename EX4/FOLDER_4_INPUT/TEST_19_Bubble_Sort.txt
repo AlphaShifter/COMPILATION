@@ -1,0 +1,46 @@
+array IntArray = int[]
+IntArray a = int[9];
+
+void SwapElementsInArray(IntArray x, int index1, int index2) {
+    int temp := 0;
+    temp := x[index1];
+    x[index1] := x[index2];
+    x[index2] := temp;
+}
+
+void BubbleSort(IntArray x, int arraySize) {
+    int smallest := 10;
+    int smallestIndex := 0;
+    int i := 0;
+    while (i < arraySize) {
+        if (smallest > x[j]) {
+            smallest := x[j];
+            smallestIndex := j;
+        }
+    }
+    SwapElementsInArray(x, i, smallestIndex);
+}
+
+void main() {
+        a[0] := 7;
+		a[1] := 4;
+		a[2] := 9;
+		a[3] := 2;
+		a[4] := 8;
+		a[5] := 5;
+		a[6] := 6;
+		a[7] := 1;
+		a[8] := 3;
+
+		BubbleSort(a, 9);
+
+        PrintInt(a[0]);
+        PrintInt(a[1]);
+        PrintInt(a[2]);
+        PrintInt(a[3]);
+        PrintInt(a[4]);
+        PrintInt(a[5]);
+        PrintInt(a[6]);
+        PrintInt(a[7]);
+        PrintInt(a[8]);
+}
