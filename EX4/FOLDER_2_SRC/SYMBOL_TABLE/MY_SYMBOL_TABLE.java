@@ -46,8 +46,8 @@ public class MY_SYMBOL_TABLE {
                     out = out + " Extends " + c.father.name;
                 }
                 out += "=======";
-                System.out.println(out);
-                System.out.println("***Vars:");
+                //System.out.println(out);
+                //System.out.println("***Vars:");
                // c.data_members.print();
             }
         }
