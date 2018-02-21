@@ -28,15 +28,15 @@ public class AST_STMT_RETURN extends AST_STMT {
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if (res != null) System.out.print("stmt -> RETURN exp SEMICOLON\n");
-        if (res == null) System.out.print("stmt -> RETURN SEMICOLON\n");
+//        if (res != null) System.out.print("stmt -> RETURN exp SEMICOLON\n");
+//        if (res == null) System.out.print("stmt -> RETURN SEMICOLON\n");
 
         this.res = res;
         right = res;
     }
 
     public void PrintMe() {
-        System.out.print("AST NODE STMT RETURN\n");
+//        System.out.print("AST NODE STMT RETURN\n");
         if (res != null) res.PrintMe();
         AST_GRAPHVIZ.getInstance().logNode(SerialNumber, "STMT RETURN");
         if (res != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, res.SerialNumber);

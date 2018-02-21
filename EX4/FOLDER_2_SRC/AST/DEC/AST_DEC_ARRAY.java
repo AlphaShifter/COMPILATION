@@ -35,7 +35,7 @@ public class AST_DEC_ARRAY extends AST_DEC
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 
-		System.out.format("arrayDec ->  ARRAY ID( %s ) EQ ID(%s)\n", name,type);
+//		System.out.format("arrayDec ->  ARRAY ID( %s ) EQ ID(%s)\n", name,type);
 
 
 
@@ -54,7 +54,7 @@ public class AST_DEC_ARRAY extends AST_DEC
 		/*******************************/
 		/* AST NODE TYPE = AST ID EXP */
 		/*******************************/
-		System.out.format("AST NODE ARRAY ID( %s ) EQ ID(%s)", name,type);
+//		System.out.format("AST NODE ARRAY ID( %s ) EQ ID(%s)", name,type);
 
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */

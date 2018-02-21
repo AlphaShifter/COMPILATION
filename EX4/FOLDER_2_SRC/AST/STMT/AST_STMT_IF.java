@@ -30,7 +30,7 @@ public class AST_STMT_IF extends AST_STMT
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("stmt -> IF (exp) {stmts} \n");
+//		System.out.print("stmt -> IF (exp) {stmts} \n");
 
 		this.cond = cond;
 		this.body = body;
@@ -80,7 +80,7 @@ public class AST_STMT_IF extends AST_STMT
 		/**************************************/
 		/* AST NODE TYPE = AST STATEMENT LIST */
 		/**************************************/
-		System.out.print("AST NODE STMT IF\n");
+//		System.out.print("AST NODE STMT IF\n");
 
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */

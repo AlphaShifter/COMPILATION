@@ -30,7 +30,7 @@ public class AST_VAR_FIELD extends AST_VAR {
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.format("var -> var DOT ID( %s )\n", fieldName);
+//        System.out.format("var -> var DOT ID( %s )\n", fieldName);
 
         /*******************************/
 		/* COPY INPUT DATA NENBERS ... */

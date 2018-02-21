@@ -30,14 +30,14 @@ public class AST_EXP_METHOD extends AST_EXP {
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if ((var != null) && (args != null))
-            System.out.printf("exp -> var. %s (exps)\n", id);
-        else if ((var != null) && (args == null))
-            System.out.printf("exp -> var. %s ()\n", id);
-        else if ((var == null) && (args != null))
-            System.out.printf("exp -> %s (exps)\n", id);
-        else
-            System.out.printf("exp -> %s ()\n", id);
+//        if ((var != null) && (args != null))
+//            System.out.printf("exp -> var. %s (exps)\n", id);
+//        else if ((var != null) && (args == null))
+//            System.out.printf("exp -> var. %s ()\n", id);
+//        else if ((var == null) && (args != null))
+//            System.out.printf("exp -> %s (exps)\n", id);
+//        else
+//            System.out.printf("exp -> %s ()\n", id);
 
         this.var = var;
         this.id = id;

@@ -21,7 +21,7 @@ public class AST_DEC_SINGLE extends AST_DEC
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("dec -> funcDec | varDec | classDec | arrayDec \n");
+//		System.out.print("dec -> funcDec | varDec | classDec | arrayDec \n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */

@@ -7,7 +7,7 @@ public class AST_CFIELD extends AST_Node{
     public AST_DEC dec;
     public AST_CFIELD(AST_DEC v){
 
-        System.out.println("cField -> varDec | funcDec ");
+//        System.out.println("cField -> varDec | funcDec ");
 
         this.dec=v;
         SerialNumber = AST_Node_Serial_Number.getFresh();
@@ -17,7 +17,7 @@ public class AST_CFIELD extends AST_Node{
         /********************************************/
 		/* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
         /********************************************/
-        System.out.print("AST NODE cField\n");
+//        System.out.print("AST NODE cField\n");
 
         /***********************************/
 		/* RECURSIVELY PRINT VAR + EXP ... */
