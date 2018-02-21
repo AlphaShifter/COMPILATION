@@ -120,9 +120,7 @@ public class MatchTest {
         }
         for(Line l : lines.values()){
             l.update();
-            // if(l.line.contains("sw ")){
 
-            // }
         } 
         while(true){
             boolean sent=true;

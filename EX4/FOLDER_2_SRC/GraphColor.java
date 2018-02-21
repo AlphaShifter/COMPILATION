@@ -89,14 +89,14 @@ public class GraphColor {
             m = branchMatch.matcher(line);
             if(m.find()){
             String[] tmp = line.split("(,| )");
-            if(lines.get(linecount)!=null){
+            if(lines.get(linecount)!=null&&tmp!=null&&labelMap.get(tmp[tmp.length-1])!=null){
                 
             lines.get(linecount).succ.add(labelMap.get(tmp[tmp.length-1]));
             }
             m=jalMatch.matcher(line);
             if(m.find()){
                 String r = m.group();
-                // lines.get(labelToNearestjr.get(r)).succ.add(linecount+1);
+                lines.get(labelToNearestjr.get(r)).succ.add(linecount+1);
                 }
             }
             linecount++;
