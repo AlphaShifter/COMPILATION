@@ -23,7 +23,7 @@ public class AST_EXP_VAR extends AST_EXP
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("exp -> var\n");
+//		System.out.print("exp -> var\n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -40,7 +40,7 @@ public class AST_EXP_VAR extends AST_EXP
 		/************************************/
 		/* AST NODE TYPE = EXP VAR AST NODE */
 		/************************************/
-		System.out.print("AST NODE EXP VAR\n");
+//		System.out.print("AST NODE EXP VAR\n");
 
 		/*****************************/
 		/* RECURSIVELY PRINT var ... */

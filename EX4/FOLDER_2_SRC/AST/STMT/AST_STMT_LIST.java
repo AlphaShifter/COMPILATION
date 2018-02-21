@@ -25,8 +25,8 @@ public class AST_STMT_LIST extends AST_LIST
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		if (tail != null) System.out.print("=stmts -> stmt stmts\n");
-		if (tail == null) System.out.print("stmts -> stmt      \n");
+//		if (tail != null) System.out.print("=stmts -> stmt stmts\n");
+//		if (tail == null) System.out.print("stmts -> stmt      \n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -46,7 +46,7 @@ public class AST_STMT_LIST extends AST_LIST
 		/**************************************/
 		/* AST NODE TYPE = AST STATEMENT LIST */
 		/**************************************/
-		System.out.print("AST NODE STMT LIST\n");
+//		System.out.print("AST NODE STMT LIST\n");
 
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */

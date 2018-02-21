@@ -22,7 +22,7 @@ public class AST_STMT_DEC extends AST_STMT
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("stmt -> varDec\n");
+//		System.out.print("stmt -> varDec\n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -43,7 +43,7 @@ public class AST_STMT_DEC extends AST_STMT
 				/*************************************/
 		/* AST NODE TYPE = AST SUBSCRIPT VAR */
 		/*************************************/
-		System.out.print("AST NODE SINGLE dec\n");
+//		System.out.print("AST NODE SINGLE dec\n");
 
 		/**************************************/
 		/* RECURSIVELY PRINT left + right ... */

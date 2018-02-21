@@ -26,10 +26,10 @@ public class AST_EXP_ID extends AST_EXP {
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if (exp != null)
-            System.out.format("exp -> NEW ID( %s ) [exp]\n", id);
-        else
-            System.out.format("exp -> NEW ID( %s )\n", id);
+//        if (exp != null)
+//            System.out.format("exp -> NEW ID( %s ) [exp]\n", id);
+//        else
+//            System.out.format("exp -> NEW ID( %s )\n", id);
 
 
         /*******************************/
