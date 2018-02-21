@@ -72,12 +72,12 @@ public class GraphColor {
                 labelToNearestjr.put(currlabel,jrSet.ceiling(linecount));
             }
             m = tempMatch.matcher(line);
-            curr = new Line(linecount,succ);
-            while (m.find()){
-                int tmpid = Integer.parseInt(m.group());
-                maxtmp = tmpid>maxtmp?tmpid:maxtmp;
-                 curr.statment.add(tmpid);
-            }
+            curr = new Line(linecount,succ,line);
+            while (m.find()){ 
+                int tmpid = Integer.parseInt(m.group()); 
+                maxtmp = tmpid>maxtmp?tmpid:maxtmp; 
+                 curr.statment.add(tmpid); 
+            } 
             lines.put(linecount,curr);
             linecount++;
         }
@@ -110,8 +110,10 @@ public class GraphColor {
                 l.intag=new HashSet<Integer>(l.in);
                 l.outtag=new HashSet<Integer>(l.out);
                 HashSet<Integer> tmp=(new HashSet<Integer>(l.out));
-                tmp.removeAll(l.def);
-                tmp.add(l.use);
+                tmp.addAll(l.use);
+                if(l.def>0){
+                    tmp.remove(l.def);
+                    }
                 l.in=tmp;
                 l.out = new HashSet<Integer>();
                 for(Integer s: l.succ){
