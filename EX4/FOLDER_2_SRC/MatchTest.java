@@ -55,31 +55,21 @@ public class MatchTest {
         Pattern jrMatch = Pattern.compile("(?<=jr ).*");
         Pattern jalMatch = Pattern.compile("(?<=jal ).*");
         Pattern jumpMatch = Pattern.compile("(j |jr |jal).*");
-        // Pattern Match = Pattern.compile("(?<=j ).*");
         Pattern labelMatch = Pattern.compile(".*(?=:$)");
         ArrayList<Integer> allMatches;
         TreeSet<Integer> succ;
         TreeSet<Integer> leaderList = new TreeSet<Integer>();
         TreeMap<String,Integer> labelMap = new TreeMap<String,Integer>();
         TreeMap<String,Integer> labelToNearestjr = new TreeMap<String,Integer>();
-        // TreeMap<Integer,TreeSet<Integer>> edges = new TreeMap<Integer,TreeSet<Integer>>();
 
         TreeSet<Integer> jrSet = new TreeSet<Integer>();
 
-        // leaderList.add(1);
-        TreeMap<Integer,Line> lines = new TreeMap<Integer,Line>(Collections.reverseOrder());
+        TreeMap<Integer,Line> lines = new TreeMap<Integer,Line>();
         Line curr;
         Matcher m;
         String line;
-
         String inputFile = "../FOLDER_5_OUTPUT/MIPS.txt";
-        // BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        // int totalLines = 0;
-        // while (reader.readLine() != null) {
-        //     totalLines++;
-        // }
-        // int[][] edges = new int[totalLines+1][totalLines+1];
-        // reader.close();
+
 
         int linecount=1;
         BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
@@ -123,41 +113,14 @@ public class MatchTest {
             m=jalMatch.matcher(line);
             if(m.find()){
                 String r = m.group();
-                // System.out.println(line+" :="+r);
-                // System.out.println(labelToNearestjr.get(r));
-                lines.get(labelToNearestjr.get(r)).succ.add(linecount+1);
-                // lines.get(labelToNearestjr.get(m.group())).succ.add(linecount+1);
-
+                // lines.get(labelToNearestjr.get(r)).succ.add(linecount+1);
                 }
             }
             linecount++;
         }
-
-
-
-
-        //reverse list
-        // Collections.reverse(lines);
-        // System.out.println(leaderList);
-        // System.out.println(labelMap);
-        // System.out.println(lines);
-        // System.out.println(labelToNearestjr);
-        // System.out.println(jrSet);
-        // return;
-        //TODO - calc succsessor and use
         for(Line l : lines.values()){
-            // System.out.println(l);
             l.update();
         } 
-
-
-        // System.exit(0);
-        int counting=0;
-        // Collections.reverseOrder(lines);
-
-        // new TreeMap<Integer,Line>(Collections.reverseOrder()).
-        // ArrayList<Line> linesList = new ArrayList<Line>(lines.values());
-        // lines=(TreeMap<Integer,Line>)lines.descendingMap();
         while(true){
             boolean sent=true;
             for(Line l : lines.values()){
@@ -174,16 +137,20 @@ public class MatchTest {
             }
             for(Line l : lines.values()){
                 sent=sent&&l.in.equals(l.intag)&&l.out.equals(l.outtag);
-                // sent=sent||!l.out.equals(l.outtag);
             }
             if(sent)break;
-            if ((counting++)%10==0) {
-            System.out.println(counting);
-            }
+
 
         }
             System.out.println(lines.values());
     }
+
+
+
+
+
+
+
 
     public static void Leader() throws IOException, InterruptedException{
         ArrayList<Integer> allMatches;
