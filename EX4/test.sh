@@ -17,6 +17,8 @@ for planet in $(ls FOLDER_5_OUTPUT2)
 do
   INPUT="FOLDER_5_OUTPUT2/"$planet
   OUTPUT="FOLDER_6_EXPECTED_OUTPUT/"$planet
+  # echo $(diff --strip-trailing-cr -q $INPUT $OUTPUT 2> /dev/null)| grep -Poe "(?!=5_OUTPUT/TEST_)(\d{2})"|uniq
+  printf "\n" >> $INPUT
   echo $(diff --strip-trailing-cr -q $INPUT $OUTPUT 2> /dev/null)| grep -Poe "(?!=5_OUTPUT/TEST_)(\d{2})"|uniq
   # diff -y $INPUT $OUTPUT 2> /dev/null
   # let "COUNT=COUNT+1"

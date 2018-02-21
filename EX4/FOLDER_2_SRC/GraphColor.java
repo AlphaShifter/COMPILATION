@@ -52,7 +52,7 @@ public class GraphColor {
                 i++;
             }
             while ((line = bufferedReader.readLine()) != null) {
-//                System.out.println(Arrays.toString(p.split(line)));
+                //System.out.println(Arrays.toString(p.split(line)));
                 for (String splited : p.split(line)) {
                     String s = splited;
                     if (splited.contains(")")) {
@@ -82,7 +82,7 @@ public class GraphColor {
 
 
         for (TmpRegister t : tmp_list) {
-//            System.out.println("v:" + t.id + " [" + t.start + ": " + t.end + "]");
+            //System.out.println("v:" + t.id + " [" + t.start + ": " + t.end + "]");
         }
 
 
@@ -128,7 +128,7 @@ public class GraphColor {
         }
         // System.out.println(psuFile);
         for (String str1 : psuFile) {
-//            System.out.println(str1);
+            //System.out.println(str1);
         }
 
         Files.write(Paths.get(outputPath),psuFile);
