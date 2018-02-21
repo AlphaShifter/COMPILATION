@@ -114,7 +114,6 @@ public class AST_EXP_ID extends AST_EXP {
                         new IRcommand_SaveOnHeap(size, address, 0)
                 );
 
-                // should delete before submitting, for debugging only
                 IR.getInstance().Add_IRcommand(
                         new IRcommandConstInt(defaultValue, 0)
                 );

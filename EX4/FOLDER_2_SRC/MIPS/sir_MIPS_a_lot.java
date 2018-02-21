@@ -31,6 +31,13 @@ public class sir_MIPS_a_lot {
         fileWriter.print("END_OF_PROGRAM:\n");
         fileWriter.print("\tli $v0,10\n");
         fileWriter.print("\tsyscall\n");
+        fileWriter.print("############################\n");
+        printStrlen();
+        fileWriter.print("############################\n");
+        printStrcpy();
+        fileWriter.print("############################\n");
+        printStrCon();
+        fileWriter.print("############################\n");
         fileWriter.close();
     }
 
@@ -383,12 +390,12 @@ public class sir_MIPS_a_lot {
         }
 
         fileWriter.print("############################\n");
-        printStrlen();
-        fileWriter.print("############################\n");
-        printStrcpy();
-        fileWriter.print("############################\n");
-        printStrCon();
-        fileWriter.print("############################\n");
+//        printStrlen();
+//        fileWriter.print("############################\n");
+//        printStrcpy();
+//        fileWriter.print("############################\n");
+//        printStrCon();
+//        fileWriter.print("############################\n");
     }
 
     private String tempToString(TEMP t){
