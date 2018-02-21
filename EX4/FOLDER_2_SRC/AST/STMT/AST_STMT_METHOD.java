@@ -37,14 +37,14 @@ public class AST_STMT_METHOD extends AST_STMT {
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if ((var != null) && (args != null))
-            System.out.printf("stmt -> var. %s (exps)\n", id);
-        else if ((var != null) && (args == null))
-            System.out.printf("stmt -> var. %s (exps)\n", id);
-        else if ((var == null) && (args != null))
-            System.out.printf("stmt -> %s (exps)\n", id);
-        else
-            System.out.printf("stmt -> %s ()\n", id);
+//        if ((var != null) && (args != null))
+//            System.out.printf("stmt -> var. %s (exps)\n", id);
+//        else if ((var != null) && (args == null))
+//            System.out.printf("stmt -> var. %s (exps)\n", id);
+//        else if ((var == null) && (args != null))
+//            System.out.printf("stmt -> %s (exps)\n", id);
+//        else
+//            System.out.printf("stmt -> %s ()\n", id);
 
 
         //TODO: finish the current implementation - also, implement AST_EXP_METHOD
@@ -67,7 +67,7 @@ public class AST_STMT_METHOD extends AST_STMT {
         /*******************************/
 		/* AST NODE TYPE = AST INT METHOD */
         /*******************************/
-        System.out.format("AST NODE METHOD( %s )\n", id);
+//        System.out.format("AST NODE METHOD( %s )\n", id);
         if (var != null) var.PrintMe();
         if (args != null) args.PrintMe();
 

@@ -25,7 +25,7 @@ public class AST_CLASS_SIG extends AST_Node
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 
-		System.out.format("decClass -> name( %s )\n", name);
+//		System.out.format("decClass -> name( %s )\n", name);
 
 
 		/*******************************/
@@ -43,8 +43,8 @@ public class AST_CLASS_SIG extends AST_Node
 		/*******************************/
 		/* AST NODE TYPE = AST ID EXP */
 		/*******************************/
-		System.out.format("AST NODE decClass ( %s )\n",name);
-		if(ext != null) System.out.format("extends %s",ext);
+//		System.out.format("AST NODE decClass ( %s )\n",name);
+//		if(ext != null) System.out.format("extends %s",ext);
 
 
 		/*********************************/

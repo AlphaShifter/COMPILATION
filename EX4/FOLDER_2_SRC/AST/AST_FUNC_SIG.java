@@ -38,7 +38,7 @@ public class AST_FUNC_SIG extends AST_Node {
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
 
-        System.out.format("funcDec -> TYPE( %s ) NAME(%s)\n", type, name);
+//        System.out.format("funcDec -> TYPE( %s ) NAME(%s)\n", type, name);
 
         left = idList;
 
@@ -59,7 +59,7 @@ public class AST_FUNC_SIG extends AST_Node {
         /*******************************/
 		/* AST NODE TYPE = AST ID EXP */
         /*******************************/
-        System.out.format("AST NODE decFUNC ( %s ) (%s)", type, name);
+//        System.out.format("AST NODE decFUNC ( %s ) (%s)", type, name);
         if (idList != null) idList.PrintMe();
 
 

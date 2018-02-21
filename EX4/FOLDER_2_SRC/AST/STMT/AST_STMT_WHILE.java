@@ -28,7 +28,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("stmt -> WHILE (exp) {stmts} \n");
+//		System.out.print("stmt -> WHILE (exp) {stmts} \n");
 
 		this.cond = cond;
 		this.body = body;

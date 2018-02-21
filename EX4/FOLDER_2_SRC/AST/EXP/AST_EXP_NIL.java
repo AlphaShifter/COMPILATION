@@ -22,7 +22,7 @@ public class AST_EXP_NIL extends AST_EXP {
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.format("exp -> NIL\n");
+//        System.out.format("exp -> NIL\n");
 
     }
 
