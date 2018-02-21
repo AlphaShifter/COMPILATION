@@ -40,6 +40,9 @@ public class sir_MIPS_a_lot {
         fileWriter.format("\tmove $a0,Temp_%d\n", idx);
         fileWriter.format("\tli $v0,1\n");
         fileWriter.format("\tsyscall\n");
+        fileWriter.format("\tli $a0,32\n"); //32 is ascii value of ' ' (space)
+        fileWriter.format("\tli $v0,11\n"); //print character that is stored in register a0
+        fileWriter.format("\tsyscall\n");
     }
 
     public void print_string(TEMP t) {
