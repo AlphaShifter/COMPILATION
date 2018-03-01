@@ -21,15 +21,15 @@ public class GraphColor {
         ArrayList<String> psuFile = new ArrayList<String>();
         Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
         String inputFile = "FOLDER_5_OUTPUT/MIPS.txt";
-        // int tmp_num=TEMP_FACTORY.getCount();//TODO - get the number of temps from the temp factory
-        int tmp_num=1000;
+        // int maxtmp=TEMP_FACTORY.getCount();//TODO - get the number of temps from the temp factory
+        // int maxtmp=10000;
 
 
         Pattern tempMatch = Pattern.compile("(?<=Temp_)\\d{1,7}");
-        Pattern branchMatch = Pattern.compile("(beq|blt|ble|bgt|bge|bne|jal|j )");
+        Pattern branchMatch = Pattern.compile("(beq|blt|ble|bgt|bge|bne|j )");
         Pattern jrMatch = Pattern.compile("(?<=jr ).*");
         Pattern jalMatch = Pattern.compile("(?<=jal ).*");
-        Pattern jumpMatch = Pattern.compile("(j |jr |jal).*");
+        Pattern jumpMatch = Pattern.compile("(jalr |jal |j |jr ).*");
         Pattern labelMatch = Pattern.compile(".*(?=:$)");
         ArrayList<Integer> allMatches;
         TreeSet<Integer> succ;
@@ -96,7 +96,7 @@ public class GraphColor {
             m=jalMatch.matcher(line);
             if(m.find()){
                 String r = m.group();
-                lines.get(labelToNearestjr.get(r)).succ.add(linecount+1);
+                // lines.get(labelToNearestjr.get(r)).succ.add(linecount+1);
                 }
             }
             linecount++;
@@ -127,7 +127,8 @@ public class GraphColor {
 
 
         }
-        Graph g1 = new Graph(maxtmp+1);
+        // System.out.println(lines);
+        Graph g1 = new Graph(maxtmp+2);
         for(Line l : lines.values()){
             for(int i : l.in){
                 for(int j : l.in){
@@ -156,7 +157,7 @@ public class GraphColor {
         bufferedReader = new BufferedReader(new FileReader("FOLDER_5_OUTPUT/MIPS.txt"));
         // String line = null;
         while ((line = bufferedReader.readLine()) != null) {
-            for (int i = tmp_num; i >= 0; i--) {
+            for (int i = maxtmp; i >= 0; i--) {
                 Pattern pat = Pattern.compile("Temp_" + i);
                 // String oldstring="Temp_"+i;
                  m = pat.matcher(line);
@@ -183,9 +184,9 @@ public class GraphColor {
 //         ArrayList<String> psuFile = new ArrayList<String>();
 //         Pattern p = Pattern.compile("(,|\\s|\\(|\\()");
 //         String inputFile = "FOLDER_5_OUTPUT/MIPS.txt";
-//         // int tmp_num=TEMP_FACTORY.getCount();//TODO - get the number of temps from the temp factory
-//         int tmp_num = 10000;
-//         for (int tmp_index = 0; tmp_index <= tmp_num; tmp_index++) {
+//         // int maxtmp=TEMP_FACTORY.getCount();//TODO - get the number of temps from the temp factory
+//         int maxtmp = 10000;
+//         for (int tmp_index = 0; tmp_index <= maxtmp; tmp_index++) {
 
 //             String line = null;
 //             BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
@@ -275,7 +276,7 @@ public class GraphColor {
 //         BufferedReader bufferedReader = new BufferedReader(new FileReader("FOLDER_5_OUTPUT/MIPS.txt"));
 //         String line = null;
 //         while ((line = bufferedReader.readLine()) != null) {
-//             for (int i = tmp_num; i >= 0; i--) {
+//             for (int i = maxtmp; i >= 0; i--) {
 //                 Pattern pat = Pattern.compile("Temp_" + i);
 //                 // String oldstring="Temp_"+i;
 //                 Matcher m = pat.matcher(line);
@@ -299,7 +300,7 @@ public class GraphColor {
 
 /*
     StringBuilder sb = new StringBuilder();
-    for (int i=tmp_num;i>=0 ;i-- ) {
+    for (int i=maxtmp;i>=0 ;i-- ) {
         // String[] command={"sed", "-i", "'s/Temp_"+i+"/$$t"+assignMap.get(i)+"/g'", "../FOLDER_5_OUTPUT/SPIM.txt"};
         Process process= Runtime.getRuntime().exec(command);
         process.waitFor();

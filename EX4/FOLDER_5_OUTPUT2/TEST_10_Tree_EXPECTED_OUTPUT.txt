@@ -1,0 +1,11 @@
+SPIM Version 8.0 of January 8, 2010
+Copyright 1990-2010, James R. Larus.
+All Rights Reserved.
+See the file README for a full copyright notice.
+Loaded: /usr/lib/spim/exceptions.s
+The following symbols are undefined:
+END_OF_PROGRAM
+Label_4_While_Block_Cond
+
+[0x00400468]	0x08000000  j 0x00000000 [Label_4_While_Block_Cond]; 297: j Label_4_While_Block_Cond
+

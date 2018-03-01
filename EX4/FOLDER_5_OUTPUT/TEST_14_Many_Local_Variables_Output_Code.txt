@@ -1,0 +1,743 @@
+.data
+string_access_violation: .asciiz "Access Violation"
+string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
+string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+.text
+### start with main function
+j main
+############################
+strlen:
+	li $s0, 0
+loop_strlen:
+	lw $s1, 0($a0)
+	beqz $s1, exit_strlen
+	addi $a0, $a0, 4
+	addi $s0, $s0, 1
+	j loop_strlen
+exit_strlen:
+	move $v0, $s0
+	jr $ra
+############################
+strcpy:
+	lb $s0 0($a0)
+	beqz $s0, exit_strcpy
+	sb $s0 0($a1)
+	addi $a0 $a0 1
+	addi $a1 $a1 1
+	j strcpy
+exit_strcpy:
+	move $v0, $a1
+	jr $ra
+############################
+strcon:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	move $s0 ,$a2
+	move $s1 ,$a0
+	move $s2 ,$a1
+	li $a0, 4
+	mult $a0, $s0
+	mflo $a0
+	li $v0,9
+	syscall
+	move $s0,$v0
+	sw $s0,4($sp)
+	move $a1, $s0
+	move $a0, $s1
+	jal strcpy
+	move $a1, $v0
+	move $a0, $s2
+	jal strcpy
+	sb $zero, 0($v0)
+	lw $s0, 4($sp)
+	move $v0, $s0
+	lw $ra, 0($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+Label_0_Func_foo:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-128
+	li $t0,1
+	sw $t0, -4($fp)
+	li $t0,2
+	sw $t0, -8($fp)
+	li $t0,3
+	sw $t0, -12($fp)
+	li $t0,4
+	sw $t0, -16($fp)
+	li $t0,5
+	sw $t0, -20($fp)
+	li $t0,6
+	sw $t0, -24($fp)
+	li $t0,7
+	sw $t0, -28($fp)
+	li $t0,8
+	sw $t0, -32($fp)
+	li $t0,9
+	sw $t0, -36($fp)
+	li $t0,10
+	sw $t0, -40($fp)
+	li $t0,11
+	sw $t0, -44($fp)
+	li $t0,12
+	sw $t0, -48($fp)
+	li $t0,13
+	sw $t0, -52($fp)
+	li $t0,14
+	sw $t0, -56($fp)
+	li $t0,15
+	sw $t0, -60($fp)
+	li $t0,16
+	sw $t0, -64($fp)
+	li $t0,17
+	sw $t0, -68($fp)
+	li $t0,18
+	sw $t0, -72($fp)
+	li $t0,19
+	sw $t0, -76($fp)
+	li $t0,20
+	sw $t0, -80($fp)
+	li $t0,21
+	sw $t0, -84($fp)
+	li $t0,22
+	sw $t0, -88($fp)
+	li $t0,23
+	sw $t0, -92($fp)
+	li $t0,24
+	sw $t0, -96($fp)
+	li $t0,25
+	sw $t0, -100($fp)
+	li $t0,26
+	sw $t0, -104($fp)
+	li $t0,27
+	sw $t0, -108($fp)
+	li $t0,28
+	sw $t0, -112($fp)
+	li $t0,29
+	sw $t0, -116($fp)
+	li $t0,30
+	sw $t0, -120($fp)
+	li $t0,31
+	sw $t0, -124($fp)
+	li $t0,32
+	sw $t0, -128($fp)
+	lw $t0, -4($fp)
+	move $t0,$t0
+	lw $t1, -8($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_2_overflow
+	bgt $t3,$t0,Label_2_overflow
+	bge $t2,$t0,Label_4_no_overflow
+Label_2_overflow:
+	li $t0,32767
+	j Label_1_end
+Label_3_overflow_min:
+	li $t0,-32767
+	j Label_1_end
+Label_4_no_overflow:
+	move $t0,$t0
+	j Label_1_end
+Label_1_end:
+	lw $t1, -12($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_6_overflow
+	bgt $t3,$t0,Label_6_overflow
+	bge $t2,$t0,Label_8_no_overflow
+Label_6_overflow:
+	li $t0,32767
+	j Label_5_end
+Label_7_overflow_min:
+	li $t0,-32767
+	j Label_5_end
+Label_8_no_overflow:
+	move $t0,$t0
+	j Label_5_end
+Label_5_end:
+	lw $t1, -16($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_10_overflow
+	bgt $t3,$t0,Label_10_overflow
+	bge $t2,$t0,Label_12_no_overflow
+Label_10_overflow:
+	li $t0,32767
+	j Label_9_end
+Label_11_overflow_min:
+	li $t0,-32767
+	j Label_9_end
+Label_12_no_overflow:
+	move $t0,$t0
+	j Label_9_end
+Label_9_end:
+	lw $t1, -20($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_14_overflow
+	bgt $t3,$t0,Label_14_overflow
+	bge $t2,$t0,Label_16_no_overflow
+Label_14_overflow:
+	li $t0,32767
+	j Label_13_end
+Label_15_overflow_min:
+	li $t0,-32767
+	j Label_13_end
+Label_16_no_overflow:
+	move $t0,$t0
+	j Label_13_end
+Label_13_end:
+	lw $t1, -24($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_18_overflow
+	bgt $t3,$t0,Label_18_overflow
+	bge $t2,$t0,Label_20_no_overflow
+Label_18_overflow:
+	li $t0,32767
+	j Label_17_end
+Label_19_overflow_min:
+	li $t0,-32767
+	j Label_17_end
+Label_20_no_overflow:
+	move $t0,$t0
+	j Label_17_end
+Label_17_end:
+	lw $t1, -28($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_22_overflow
+	bgt $t3,$t0,Label_22_overflow
+	bge $t2,$t0,Label_24_no_overflow
+Label_22_overflow:
+	li $t0,32767
+	j Label_21_end
+Label_23_overflow_min:
+	li $t0,-32767
+	j Label_21_end
+Label_24_no_overflow:
+	move $t0,$t0
+	j Label_21_end
+Label_21_end:
+	lw $t1, -32($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_26_overflow
+	bgt $t3,$t0,Label_26_overflow
+	bge $t2,$t0,Label_28_no_overflow
+Label_26_overflow:
+	li $t0,32767
+	j Label_25_end
+Label_27_overflow_min:
+	li $t0,-32767
+	j Label_25_end
+Label_28_no_overflow:
+	move $t0,$t0
+	j Label_25_end
+Label_25_end:
+	lw $t1, -36($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_30_overflow
+	bgt $t3,$t0,Label_30_overflow
+	bge $t2,$t0,Label_32_no_overflow
+Label_30_overflow:
+	li $t0,32767
+	j Label_29_end
+Label_31_overflow_min:
+	li $t0,-32767
+	j Label_29_end
+Label_32_no_overflow:
+	move $t0,$t0
+	j Label_29_end
+Label_29_end:
+	lw $t1, -40($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_34_overflow
+	bgt $t3,$t0,Label_34_overflow
+	bge $t2,$t0,Label_36_no_overflow
+Label_34_overflow:
+	li $t0,32767
+	j Label_33_end
+Label_35_overflow_min:
+	li $t0,-32767
+	j Label_33_end
+Label_36_no_overflow:
+	move $t0,$t0
+	j Label_33_end
+Label_33_end:
+	lw $t1, -44($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_38_overflow
+	bgt $t3,$t0,Label_38_overflow
+	bge $t2,$t0,Label_40_no_overflow
+Label_38_overflow:
+	li $t0,32767
+	j Label_37_end
+Label_39_overflow_min:
+	li $t0,-32767
+	j Label_37_end
+Label_40_no_overflow:
+	move $t0,$t0
+	j Label_37_end
+Label_37_end:
+	lw $t1, -48($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_42_overflow
+	bgt $t3,$t0,Label_42_overflow
+	bge $t2,$t0,Label_44_no_overflow
+Label_42_overflow:
+	li $t0,32767
+	j Label_41_end
+Label_43_overflow_min:
+	li $t0,-32767
+	j Label_41_end
+Label_44_no_overflow:
+	move $t0,$t0
+	j Label_41_end
+Label_41_end:
+	lw $t1, -52($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_46_overflow
+	bgt $t3,$t0,Label_46_overflow
+	bge $t2,$t0,Label_48_no_overflow
+Label_46_overflow:
+	li $t0,32767
+	j Label_45_end
+Label_47_overflow_min:
+	li $t0,-32767
+	j Label_45_end
+Label_48_no_overflow:
+	move $t0,$t0
+	j Label_45_end
+Label_45_end:
+	lw $t1, -56($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_50_overflow
+	bgt $t3,$t0,Label_50_overflow
+	bge $t2,$t0,Label_52_no_overflow
+Label_50_overflow:
+	li $t0,32767
+	j Label_49_end
+Label_51_overflow_min:
+	li $t0,-32767
+	j Label_49_end
+Label_52_no_overflow:
+	move $t0,$t0
+	j Label_49_end
+Label_49_end:
+	lw $t1, -60($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_54_overflow
+	bgt $t3,$t0,Label_54_overflow
+	bge $t2,$t0,Label_56_no_overflow
+Label_54_overflow:
+	li $t0,32767
+	j Label_53_end
+Label_55_overflow_min:
+	li $t0,-32767
+	j Label_53_end
+Label_56_no_overflow:
+	move $t0,$t0
+	j Label_53_end
+Label_53_end:
+	lw $t1, -64($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_58_overflow
+	bgt $t3,$t0,Label_58_overflow
+	bge $t2,$t0,Label_60_no_overflow
+Label_58_overflow:
+	li $t0,32767
+	j Label_57_end
+Label_59_overflow_min:
+	li $t0,-32767
+	j Label_57_end
+Label_60_no_overflow:
+	move $t0,$t0
+	j Label_57_end
+Label_57_end:
+	lw $t1, -68($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_62_overflow
+	bgt $t3,$t0,Label_62_overflow
+	bge $t2,$t0,Label_64_no_overflow
+Label_62_overflow:
+	li $t0,32767
+	j Label_61_end
+Label_63_overflow_min:
+	li $t0,-32767
+	j Label_61_end
+Label_64_no_overflow:
+	move $t0,$t0
+	j Label_61_end
+Label_61_end:
+	lw $t1, -72($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_66_overflow
+	bgt $t3,$t0,Label_66_overflow
+	bge $t2,$t0,Label_68_no_overflow
+Label_66_overflow:
+	li $t0,32767
+	j Label_65_end
+Label_67_overflow_min:
+	li $t0,-32767
+	j Label_65_end
+Label_68_no_overflow:
+	move $t0,$t0
+	j Label_65_end
+Label_65_end:
+	lw $t1, -76($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_70_overflow
+	bgt $t3,$t0,Label_70_overflow
+	bge $t2,$t0,Label_72_no_overflow
+Label_70_overflow:
+	li $t0,32767
+	j Label_69_end
+Label_71_overflow_min:
+	li $t0,-32767
+	j Label_69_end
+Label_72_no_overflow:
+	move $t0,$t0
+	j Label_69_end
+Label_69_end:
+	lw $t1, -80($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_74_overflow
+	bgt $t3,$t0,Label_74_overflow
+	bge $t2,$t0,Label_76_no_overflow
+Label_74_overflow:
+	li $t0,32767
+	j Label_73_end
+Label_75_overflow_min:
+	li $t0,-32767
+	j Label_73_end
+Label_76_no_overflow:
+	move $t0,$t0
+	j Label_73_end
+Label_73_end:
+	lw $t1, -84($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_78_overflow
+	bgt $t3,$t0,Label_78_overflow
+	bge $t2,$t0,Label_80_no_overflow
+Label_78_overflow:
+	li $t0,32767
+	j Label_77_end
+Label_79_overflow_min:
+	li $t0,-32767
+	j Label_77_end
+Label_80_no_overflow:
+	move $t0,$t0
+	j Label_77_end
+Label_77_end:
+	lw $t1, -88($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_82_overflow
+	bgt $t3,$t0,Label_82_overflow
+	bge $t2,$t0,Label_84_no_overflow
+Label_82_overflow:
+	li $t0,32767
+	j Label_81_end
+Label_83_overflow_min:
+	li $t0,-32767
+	j Label_81_end
+Label_84_no_overflow:
+	move $t0,$t0
+	j Label_81_end
+Label_81_end:
+	lw $t1, -92($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_86_overflow
+	bgt $t3,$t0,Label_86_overflow
+	bge $t2,$t0,Label_88_no_overflow
+Label_86_overflow:
+	li $t0,32767
+	j Label_85_end
+Label_87_overflow_min:
+	li $t0,-32767
+	j Label_85_end
+Label_88_no_overflow:
+	move $t0,$t0
+	j Label_85_end
+Label_85_end:
+	lw $t1, -96($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_90_overflow
+	bgt $t3,$t0,Label_90_overflow
+	bge $t2,$t0,Label_92_no_overflow
+Label_90_overflow:
+	li $t0,32767
+	j Label_89_end
+Label_91_overflow_min:
+	li $t0,-32767
+	j Label_89_end
+Label_92_no_overflow:
+	move $t0,$t0
+	j Label_89_end
+Label_89_end:
+	lw $t1, -100($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_94_overflow
+	bgt $t3,$t0,Label_94_overflow
+	bge $t2,$t0,Label_96_no_overflow
+Label_94_overflow:
+	li $t0,32767
+	j Label_93_end
+Label_95_overflow_min:
+	li $t0,-32767
+	j Label_93_end
+Label_96_no_overflow:
+	move $t0,$t0
+	j Label_93_end
+Label_93_end:
+	lw $t1, -104($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_98_overflow
+	bgt $t3,$t0,Label_98_overflow
+	bge $t2,$t0,Label_100_no_overflow
+Label_98_overflow:
+	li $t0,32767
+	j Label_97_end
+Label_99_overflow_min:
+	li $t0,-32767
+	j Label_97_end
+Label_100_no_overflow:
+	move $t0,$t0
+	j Label_97_end
+Label_97_end:
+	lw $t1, -108($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_102_overflow
+	bgt $t3,$t0,Label_102_overflow
+	bge $t2,$t0,Label_104_no_overflow
+Label_102_overflow:
+	li $t0,32767
+	j Label_101_end
+Label_103_overflow_min:
+	li $t0,-32767
+	j Label_101_end
+Label_104_no_overflow:
+	move $t0,$t0
+	j Label_101_end
+Label_101_end:
+	lw $t1, -112($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_106_overflow
+	bgt $t3,$t0,Label_106_overflow
+	bge $t2,$t0,Label_108_no_overflow
+Label_106_overflow:
+	li $t0,32767
+	j Label_105_end
+Label_107_overflow_min:
+	li $t0,-32767
+	j Label_105_end
+Label_108_no_overflow:
+	move $t0,$t0
+	j Label_105_end
+Label_105_end:
+	lw $t1, -116($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_110_overflow
+	bgt $t3,$t0,Label_110_overflow
+	bge $t2,$t0,Label_112_no_overflow
+Label_110_overflow:
+	li $t0,32767
+	j Label_109_end
+Label_111_overflow_min:
+	li $t0,-32767
+	j Label_109_end
+Label_112_no_overflow:
+	move $t0,$t0
+	j Label_109_end
+Label_109_end:
+	lw $t1, -120($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_114_overflow
+	bgt $t3,$t0,Label_114_overflow
+	bge $t2,$t0,Label_116_no_overflow
+Label_114_overflow:
+	li $t0,32767
+	j Label_113_end
+Label_115_overflow_min:
+	li $t0,-32767
+	j Label_113_end
+Label_116_no_overflow:
+	move $t0,$t0
+	j Label_113_end
+Label_113_end:
+	lw $t1, -124($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_118_overflow
+	bgt $t3,$t0,Label_118_overflow
+	bge $t2,$t0,Label_120_no_overflow
+Label_118_overflow:
+	li $t0,32767
+	j Label_117_end
+Label_119_overflow_min:
+	li $t0,-32767
+	j Label_117_end
+Label_120_no_overflow:
+	move $t0,$t0
+	j Label_117_end
+Label_117_end:
+	lw $t1, -128($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_122_overflow
+	bgt $t3,$t0,Label_122_overflow
+	bge $t2,$t0,Label_124_no_overflow
+Label_122_overflow:
+	li $t0,32767
+	j Label_121_end
+Label_123_overflow_min:
+	li $t0,-32767
+	j Label_121_end
+Label_124_no_overflow:
+	move $t0,$t0
+	j Label_121_end
+Label_121_end:
+	move $sp, $fp
+	lw $fp, 0($fp)
+	addi $sp,$sp,4
+	lw $ra, 0($sp)
+	addi $sp,$sp,4
+	sw $t0, 0($sp)
+	jr $ra
+	move $sp, $fp
+	lw $fp, 0($fp)
+	addi $sp,$sp,4
+	lw $ra, 0($sp)
+	addi $sp,$sp,4
+	sw $zero, 0($sp)
+	jr $ra
+##### End of foo function
+main:
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,0
+	addi $sp,$sp,-32
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	sw $t3, 12($sp)
+	sw $t4, 16($sp)
+	sw $t5, 20($sp)
+	sw $t6, 24($sp)
+	sw $t7, 28($sp)
+	li $a0 ,0
+	li $v0,9
+	syscall
+	move $a0,$v0
+	jal Label_0_Func_foo
+	lw $t0, 4($sp)
+	lw $t1, 8($sp)
+	lw $t2, 12($sp)
+	lw $t3, 16($sp)
+	lw $t4, 20($sp)
+	lw $t5, 24($sp)
+	lw $t6, 28($sp)
+	lw $t7, 32($sp)
+	lw $t0, 0($sp)
+	addi $sp,$sp,36
+	move $a0,$t0
+	li $v0,1
+	syscall
+	li $a0,32
+	li $v0,11
+	syscall
+	j END_OF_PROGRAM
+##### End of main function
+END_OF_PROGRAM:
+	li $v0,10
+	syscall
