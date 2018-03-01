@@ -1,9 +1,6 @@
 package AST.DEC;
 
-import AST.AST_FUNC_SIG;
-import AST.AST_GRAPHVIZ;
-import AST.AST_ID_LIST;
-import AST.AST_Node_Serial_Number;
+import AST.*;
 import AST.STMT.AST_STMT_LIST;
 import Auxillery.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -220,6 +217,13 @@ public class AST_DEC_FUNC extends AST_DEC {
         IR.getInstance().Add_IRcommand(
                 new IRcommand_Label(myLabel)
         );
+
+
+        //main global init
+
+        if(AST_PROGRAM.global_count != 0) {
+            IR.getInstance().Add_IRcommand(new IRcommand_Jal("GLOBAL_INITS"));
+        }
 
         IR.getInstance().Add_IRcommand(
                 new IRcommand_Fun_Prologue(this.numOfVars, this.isMainClass())
