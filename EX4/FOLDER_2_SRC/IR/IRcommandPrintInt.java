@@ -27,6 +27,8 @@ public class IRcommandPrintInt extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+
 		sir_MIPS_a_lot.getInstance().print_int(this.t);
+		sir_MIPS_a_lot.getInstance().printSpace();
 	}
 }

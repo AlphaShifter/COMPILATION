@@ -272,6 +272,12 @@ public class sir_MIPS_a_lot {
         fileWriter.print("\tsyscall\n");
     }
 
+    public void printSpace(){
+        fileWriter.format("\tli $v0, 4\n");
+        fileWriter.format("\tla $a0, string_space_after_int\n");
+        fileWriter.format("\tsyscall\n");
+    }
+
     public void classFuncs(String className, List<String> funcs){
         String s = funcs.get(0);
         if (funcs.size() > 1) {
@@ -297,12 +303,16 @@ public class sir_MIPS_a_lot {
 //    }
 
     public void printStrlen(){ //words
+
+        //TODO shrink the result by 4
+
+
         fileWriter.print("strlen:\n");
         fileWriter.print("\tli $s0, 0\n");
         fileWriter.print("loop_strlen:\n");
-        fileWriter.print("\tlw $s1, 0($a0)\n");
+        fileWriter.print("\tlb $s1, 0($a0)\n");
         fileWriter.print("\tbeqz $s1, exit_strlen\n");
-        fileWriter.format("\taddi $a0, $a0, %d\n",WORD_SIZE);
+        fileWriter.format("\taddi $a0, $a0, %d\n",1);
         fileWriter.print("\taddi $s0, $s0, 1\n");
         fileWriter.print("\tj loop_strlen\n");
         fileWriter.print("exit_strlen:\n");
@@ -374,13 +384,13 @@ public class sir_MIPS_a_lot {
         /************************************************/
         fileWriter.print(".text\n");
 
-        if(!AST_PROGRAM.globalsList.isEmpty()){
-            fileWriter.print("### start with global inits \n");
-            fileWriter.print("j GLOBAL_INITS\n");
-        } else {
-            fileWriter.print("### start with main function\n");
-            fileWriter.print("j main\n");
-        }
+//        if(!AST_PROGRAM.globalsList.isEmpty()){
+//            fileWriter.print("### start with global inits \n");
+//            fileWriter.print("j GLOBAL_INITS\n");
+//        } else {
+//            fileWriter.print("### start with main function\n");
+//            fileWriter.print("j main\n");
+//        }
 
         fileWriter.print("############################\n");
         printStrlen();
@@ -405,6 +415,10 @@ public class sir_MIPS_a_lot {
             s =  4*(((GLOBAL_VAR) t).pos)+"($s6)";
         if(t instanceof GLOBAL_REG)
             s = "$s6";
+        if(t instanceof SAVE_REG)
+            s = "$s" + ((SAVE_REG) t).getLocal();
+        if(t instanceof RA_REG)
+            s = "$ra";
 
         return s;
     }
@@ -459,6 +473,7 @@ public class sir_MIPS_a_lot {
 
             instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
             instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
+            instance.fileWriter.print("string_space_after_int:  .asciiz \" \"\n");
             instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
 
         }

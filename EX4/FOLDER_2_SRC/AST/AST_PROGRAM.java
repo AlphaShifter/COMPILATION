@@ -17,7 +17,7 @@ public class AST_PROGRAM extends AST_Node
 	/* simple variable name */
 	/************************/
 	public AST_DEC_LIST decList;
-	public int global_count;
+	public static int global_count;
 
 	public static List<String>globalsList;
 
@@ -77,10 +77,15 @@ public class AST_PROGRAM extends AST_Node
 	public TEMP IRme(){
 		if(global_count != 0) {
 			IR.getInstance().Add_IRcommand(new IRcommand_Label("GLOBAL_INITS"));
+			//save ra
+			IR.getInstance().Add_IRcommand(new IRcommand_Move(SAVE_REG.getInstance(3),RA_REG.getInstance()));
 			IR.getInstance().Add_IRcommand(new IRcommand_SaveGlobalsOnHeap(global_count));
 			for (String labal : globalsList)
 				IR.getInstance().Add_IRcommand(new IRcommand_Jal(labal));
-			IR.getInstance().Add_IRcommand(new IRcommand_Jump("main"));
+			//restore ra
+			IR.getInstance().Add_IRcommand(new IRcommand_Move(RA_REG.getInstance(),SAVE_REG.getInstance(3)));
+			//back
+			IR.getInstance().Add_IRcommand(new IRcommand_JR());
 		}
 		return this.decList.IRme();
 	}
