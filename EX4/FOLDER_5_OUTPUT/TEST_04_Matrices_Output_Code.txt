@@ -1,0 +1,585 @@
+.data
+string_access_violation: .asciiz "Access Violation"
+string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
+string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+.text
+### start with main function
+j main
+############################
+strlen:
+	li $s0, 0
+loop_strlen:
+	lw $s1, 0($a0)
+	beqz $s1, exit_strlen
+	addi $a0, $a0, 4
+	addi $s0, $s0, 1
+	j loop_strlen
+exit_strlen:
+	move $v0, $s0
+	jr $ra
+############################
+strcpy:
+	lb $s0 0($a0)
+	beqz $s0, exit_strcpy
+	sb $s0 0($a1)
+	addi $a0 $a0 1
+	addi $a1 $a1 1
+	j strcpy
+exit_strcpy:
+	move $v0, $a1
+	jr $ra
+############################
+strcon:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	move $s0 ,$a2
+	move $s1 ,$a0
+	move $s2 ,$a1
+	li $a0, 4
+	mult $a0, $s0
+	mflo $a0
+	li $v0,9
+	syscall
+	move $s0,$v0
+	sw $s0,4($sp)
+	move $a1, $s0
+	move $a0, $s1
+	jal strcpy
+	move $a1, $v0
+	move $a0, $s2
+	jal strcpy
+	sb $zero, 0($v0)
+	lw $s0, 4($sp)
+	move $v0, $s0
+	lw $ra, 0($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+Label_0_Func_trace3x3:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-4
+	lw $t0, 0($a0)
+	sw $t0, -4($fp)
+	lw $t0, -4($fp)
+	move $t0,$t0
+	lw $t7, 0($t0)
+	li $t8,0
+	bgt $t8,$t7,Label_2_access_violation
+	lw $t2, 4($t0)
+	j Label_1_end
+Label_2_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_1_end:
+	lw $t0, 0($t2)
+	li $t7,0
+	bgt $t7,$t0,Label_4_access_violation
+	lw $t1, 4($t2)
+	j Label_3_end
+Label_4_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_3_end:
+	lw $t0, -4($fp)
+	move $t0,$t0
+	lw $t2, 0($t0)
+	li $t7,1
+	bgt $t7,$t2,Label_6_access_violation
+	lw $t4, 8($t0)
+	j Label_5_end
+Label_6_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_5_end:
+	lw $t0, 0($t4)
+	li $t2,1
+	bgt $t2,$t0,Label_8_access_violation
+	lw $t3, 8($t4)
+	j Label_7_end
+Label_8_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_7_end:
+	li $t2,32767
+	li $t4,-32767
+	add $t0,$t1,$t3
+	blt $t2,$t0,Label_10_overflow
+	bgt $t4,$t0,Label_10_overflow
+	bge $t2,$t0,Label_12_no_overflow
+Label_10_overflow:
+	li $t0,32767
+	j Label_9_end
+Label_11_overflow_min:
+	li $t0,-32767
+	j Label_9_end
+Label_12_no_overflow:
+	move $t0,$t0
+	j Label_9_end
+Label_9_end:
+	lw $t1, -4($fp)
+	move $t1,$t1
+	lw $t2, 0($t1)
+	li $t3,2
+	bgt $t3,$t2,Label_14_access_violation
+	lw $t6, 12($t1)
+	j Label_13_end
+Label_14_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_13_end:
+	lw $t1, 0($t6)
+	li $t2,2
+	bgt $t2,$t1,Label_16_access_violation
+	lw $t5, 12($t6)
+	j Label_15_end
+Label_16_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_15_end:
+	li $t1,32767
+	li $t2,-32767
+	add $t0,$t0,$t5
+	blt $t1,$t0,Label_18_overflow
+	bgt $t2,$t0,Label_18_overflow
+	bge $t1,$t0,Label_20_no_overflow
+Label_18_overflow:
+	li $t0,32767
+	j Label_17_end
+Label_19_overflow_min:
+	li $t0,-32767
+	j Label_17_end
+Label_20_no_overflow:
+	move $t0,$t0
+	j Label_17_end
+Label_17_end:
+	move $sp, $fp
+	lw $fp, 0($fp)
+	addi $sp,$sp,4
+	lw $ra, 0($sp)
+	addi $sp,$sp,4
+	sw $t0, 0($sp)
+	jr $ra
+	move $sp, $fp
+	lw $fp, 0($fp)
+	addi $sp,$sp,4
+	lw $ra, 0($sp)
+	addi $sp,$sp,4
+	sw $zero, 0($sp)
+	jr $ra
+##### End of trace3x3 function
+main:
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-16
+	li $t8,3
+	li $a0 ,16
+	li $v0,9
+	syscall
+	move $t7,$v0
+	sw $t8, 0($t7)
+	li $t8,0
+	sw $t8, 4($t7)
+	sw $t8, 8($t7)
+	sw $t8, 12($t7)
+	sw $t7, -4($fp)
+	li $t8,3
+	li $a0 ,16
+	li $v0,9
+	syscall
+	move $t7,$v0
+	sw $t8, 0($t7)
+	li $t8,0
+	sw $t8, 4($t7)
+	sw $t8, 8($t7)
+	sw $t8, 12($t7)
+	sw $t7, -8($fp)
+	li $t8,3
+	li $a0 ,16
+	li $v0,9
+	syscall
+	move $t7,$v0
+	sw $t8, 0($t7)
+	li $t8,0
+	sw $t8, 4($t7)
+	sw $t8, 8($t7)
+	sw $t8, 12($t7)
+	sw $t7, -12($fp)
+	li $t8,3
+	li $a0 ,16
+	li $v0,9
+	syscall
+	move $t7,$v0
+	sw $t8, 0($t7)
+	li $t8,0
+	sw $t8, 4($t7)
+	sw $t8, 8($t7)
+	sw $t8, 12($t7)
+	sw $t7, -16($fp)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t18,0
+	bgt $t18,$t8,Label_22_access_violation
+	lw $t0, 4($t7)
+	j Label_21_end
+Label_22_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_21_end:
+	lw $t8, -4($fp)
+	move $t8,$t8
+	sw $t8, 4($t7)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t18,1
+	bgt $t18,$t8,Label_24_access_violation
+	lw $t0, 8($t7)
+	j Label_23_end
+Label_24_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_23_end:
+	lw $t8, -8($fp)
+	move $t8,$t8
+	sw $t8, 8($t7)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t18,2
+	bgt $t18,$t8,Label_26_access_violation
+	lw $t0, 12($t7)
+	j Label_25_end
+Label_26_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_25_end:
+	lw $t8, -12($fp)
+	move $t8,$t8
+	sw $t8, 12($t7)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t18,0
+	bgt $t18,$t8,Label_28_access_violation
+	lw $t9, 4($t7)
+	j Label_27_end
+Label_28_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_27_end:
+	lw $t7, 0($t9)
+	li $t8,0
+	bgt $t8,$t7,Label_30_access_violation
+	lw $t0, 4($t9)
+	j Label_29_end
+Label_30_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_29_end:
+	li $t7,0
+	sw $t7, 4($t9)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t9,0
+	bgt $t9,$t8,Label_32_access_violation
+	lw $t10, 4($t7)
+	j Label_31_end
+Label_32_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_31_end:
+	lw $t7, 0($t10)
+	li $t8,1
+	bgt $t8,$t7,Label_34_access_violation
+	lw $t0, 8($t10)
+	j Label_33_end
+Label_34_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_33_end:
+	li $t7,1
+	sw $t7, 8($t10)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t9,0
+	bgt $t9,$t8,Label_36_access_violation
+	lw $t11, 4($t7)
+	j Label_35_end
+Label_36_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_35_end:
+	lw $t7, 0($t11)
+	li $t8,2
+	bgt $t8,$t7,Label_38_access_violation
+	lw $t0, 12($t11)
+	j Label_37_end
+Label_38_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_37_end:
+	li $t7,2
+	sw $t7, 12($t11)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t9,1
+	bgt $t9,$t8,Label_40_access_violation
+	lw $t12, 8($t7)
+	j Label_39_end
+Label_40_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_39_end:
+	lw $t7, 0($t12)
+	li $t8,0
+	bgt $t8,$t7,Label_42_access_violation
+	lw $t0, 4($t12)
+	j Label_41_end
+Label_42_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_41_end:
+	li $t7,3
+	sw $t7, 4($t12)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t9,1
+	bgt $t9,$t8,Label_44_access_violation
+	lw $t13, 8($t7)
+	j Label_43_end
+Label_44_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_43_end:
+	lw $t7, 0($t13)
+	li $t8,1
+	bgt $t8,$t7,Label_46_access_violation
+	lw $t0, 8($t13)
+	j Label_45_end
+Label_46_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_45_end:
+	li $t7,4
+	sw $t7, 8($t13)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t9,1
+	bgt $t9,$t8,Label_48_access_violation
+	lw $t14, 8($t7)
+	j Label_47_end
+Label_48_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_47_end:
+	lw $t7, 0($t14)
+	li $t8,2
+	bgt $t8,$t7,Label_50_access_violation
+	lw $t0, 12($t14)
+	j Label_49_end
+Label_50_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_49_end:
+	li $t7,5
+	sw $t7, 12($t14)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t9,2
+	bgt $t9,$t8,Label_52_access_violation
+	lw $t15, 12($t7)
+	j Label_51_end
+Label_52_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_51_end:
+	lw $t7, 0($t15)
+	li $t8,0
+	bgt $t8,$t7,Label_54_access_violation
+	lw $t0, 4($t15)
+	j Label_53_end
+Label_54_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_53_end:
+	li $t7,6
+	sw $t7, 4($t15)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t9,2
+	bgt $t9,$t8,Label_56_access_violation
+	lw $t16, 12($t7)
+	j Label_55_end
+Label_56_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_55_end:
+	lw $t7, 0($t16)
+	li $t8,1
+	bgt $t8,$t7,Label_58_access_violation
+	lw $t0, 8($t16)
+	j Label_57_end
+Label_58_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_57_end:
+	li $t7,7
+	sw $t7, 8($t16)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $t8, 0($t7)
+	li $t9,2
+	bgt $t9,$t8,Label_60_access_violation
+	lw $t17, 12($t7)
+	j Label_59_end
+Label_60_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_59_end:
+	lw $t7, 0($t17)
+	li $t8,2
+	bgt $t8,$t7,Label_62_access_violation
+	lw $t0, 12($t17)
+	j Label_61_end
+Label_62_access_violation:
+	li $v0, 4
+	la $a0, string_access_violation
+	syscall
+	li $v0,10
+	syscall
+Label_61_end:
+	li $t7,8
+	sw $t7, 12($t17)
+	addi $sp,$sp,-32
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	sw $t3, 12($sp)
+	sw $t4, 16($sp)
+	sw $t5, 20($sp)
+	sw $t6, 24($sp)
+	sw $t7, 28($sp)
+	li $a0 ,4
+	li $v0,9
+	syscall
+	move $a0,$v0
+	addi $sp,$sp,-4
+	sw $a0, 0($sp)
+	lw $t7, -16($fp)
+	move $t7,$t7
+	lw $a0, 0($sp)
+	addi $sp,$sp,4
+	sw $t7, 0($a0)
+	jal Label_0_Func_trace3x3
+	lw $t0, 4($sp)
+	lw $t1, 8($sp)
+	lw $t2, 12($sp)
+	lw $t3, 16($sp)
+	lw $t4, 20($sp)
+	lw $t5, 24($sp)
+	lw $t6, 28($sp)
+	lw $t7, 32($sp)
+	lw $t0, 0($sp)
+	addi $sp,$sp,36
+	move $a0,$t0
+	li $v0,1
+	syscall
+	li $a0,32
+	li $v0,11
+	syscall
+	j END_OF_PROGRAM
+##### End of main function
+END_OF_PROGRAM:
+	li $v0,10
+	syscall

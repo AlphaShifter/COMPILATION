@@ -26,6 +26,13 @@ void BubbleSort(IntArray arr, int size)
 	arr[minIndex] := temp;
 	i := i + 1;
     }
+
+    i := 0;
+    while (i < size)
+    {
+        PrintInt(arr[i]);
+        i := i + 1;
+    }
 }
 
 void main()
@@ -41,12 +48,5 @@ void main()
     arr[6] := -580;
     
     BubbleSort(arr,7);
-
-    int i := 0;
-    while (i < 7)
-    {
-        PrintInt(arr[i]);
-        i := i + 1;
-    }
 }
 

@@ -1,0 +1,187 @@
+.data
+string_access_violation: .asciiz "Access Violation"
+string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
+string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+.text
+### start with main function
+j main
+############################
+strlen:
+	li $s0, 0
+loop_strlen:
+	lw $s1, 0($a0)
+	beqz $s1, exit_strlen
+	addi $a0, $a0, 4
+	addi $s0, $s0, 1
+	j loop_strlen
+exit_strlen:
+	move $v0, $s0
+	jr $ra
+############################
+strcpy:
+	lb $s0 0($a0)
+	beqz $s0, exit_strcpy
+	sb $s0 0($a1)
+	addi $a0 $a0 1
+	addi $a1 $a1 1
+	j strcpy
+exit_strcpy:
+	move $v0, $a1
+	jr $ra
+############################
+strcon:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	move $s0 ,$a2
+	move $s1 ,$a0
+	move $s2 ,$a1
+	li $a0, 4
+	mult $a0, $s0
+	mflo $a0
+	li $v0,9
+	syscall
+	move $s0,$v0
+	sw $s0,4($sp)
+	move $a1, $s0
+	move $a0, $s1
+	jal strcpy
+	move $a1, $v0
+	move $a0, $s2
+	jal strcpy
+	sb $zero, 0($v0)
+	lw $s0, 4($sp)
+	move $v0, $s0
+	lw $ra, 0($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+main:
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-12
+	li $t0,4
+	sw $t0, -4($fp)
+	lw $t0, -4($fp)
+	move $t0,$t0
+	li $t1,0
+	blt $t0,$t1,Label_4_AssignOne
+	bge $t0,$t1,Label_5_AssignZero
+Label_4_AssignOne:
+	li $t0,1
+	j Label_3_end
+Label_5_AssignZero:
+	li $t0,0
+	j Label_3_end
+Label_3_end:
+	beq $t0,$zero,Label_0_End_if_block
+	li $a0 ,24
+	li $v0,9
+	syscall
+	move $t0,$v0
+	li $t1,1330795077
+	sw $t1, 0($t0)
+	li $t1,82
+	sw $t1, 4($t0)
+	sw $zero, 8($t0)
+	move $a0,$t0
+	li $v0,4
+	syscall
+Label_0_End_if_block:
+	li $t0,1
+	sw $t0, -8($fp)
+	li $t0,1
+	sw $t0, -12($fp)
+	j Label_2_While_Block_Cond
+Label_1_While_Start_block:
+	lw $t0, -8($fp)
+	move $t0,$t0
+	lw $t0, -8($fp)
+	move $t0,$t0
+	lw $t1, -12($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	mult $t0,$t1
+	mflo $t0
+	blt $t2,$t0,Label_7_overflow
+	bgt $t3,$t0,Label_7_overflow
+	bge $t2,$t0,Label_9_no_overflow
+Label_7_overflow:
+	li $t0,32767
+	j Label_6_end
+Label_8_overflow_min:
+	li $t0,-32767
+	j Label_6_end
+Label_9_no_overflow:
+	move $t0,$t0
+	j Label_6_end
+Label_6_end:
+	sw $t0, -8($fp)
+	lw $t0, -12($fp)
+	move $t0,$t0
+	lw $t0, -12($fp)
+	move $t0,$t0
+	li $t1,1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_11_overflow
+	bgt $t3,$t0,Label_11_overflow
+	bge $t2,$t0,Label_13_no_overflow
+Label_11_overflow:
+	li $t0,32767
+	j Label_10_end
+Label_12_overflow_min:
+	li $t0,-32767
+	j Label_10_end
+Label_13_no_overflow:
+	move $t0,$t0
+	j Label_10_end
+Label_10_end:
+	sw $t0, -12($fp)
+Label_2_While_Block_Cond:
+	lw $t0, -12($fp)
+	move $t0,$t0
+	lw $t1, -4($fp)
+	move $t1,$t1
+	li $t2,1
+	li $t3,32767
+	li $t4,-32767
+	add $t1,$t1,$t2
+	blt $t3,$t1,Label_15_overflow
+	bgt $t4,$t1,Label_15_overflow
+	bge $t3,$t1,Label_17_no_overflow
+Label_15_overflow:
+	li $t1,32767
+	j Label_14_end
+Label_16_overflow_min:
+	li $t1,-32767
+	j Label_14_end
+Label_17_no_overflow:
+	move $t1,$t1
+	j Label_14_end
+Label_14_end:
+	blt $t0,$t1,Label_19_AssignOne
+	bge $t0,$t1,Label_20_AssignZero
+Label_19_AssignOne:
+	li $t0,1
+	j Label_18_end
+Label_20_AssignZero:
+	li $t0,0
+	j Label_18_end
+Label_18_end:
+	bne $t0,$zero,Label_1_While_Start_block
+	lw $t0, -8($fp)
+	move $t0,$t0
+	move $a0,$t0
+	li $v0,1
+	syscall
+	li $a0,32
+	li $v0,11
+	syscall
+	j END_OF_PROGRAM
+##### End of main function
+END_OF_PROGRAM:
+	li $v0,10
+	syscall

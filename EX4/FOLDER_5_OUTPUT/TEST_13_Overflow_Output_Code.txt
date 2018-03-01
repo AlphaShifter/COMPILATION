@@ -1,0 +1,258 @@
+.data
+string_access_violation: .asciiz "Access Violation"
+string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
+string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+.text
+### start with main function
+j main
+############################
+strlen:
+	li $s0, 0
+loop_strlen:
+	lw $s1, 0($a0)
+	beqz $s1, exit_strlen
+	addi $a0, $a0, 4
+	addi $s0, $s0, 1
+	j loop_strlen
+exit_strlen:
+	move $v0, $s0
+	jr $ra
+############################
+strcpy:
+	lb $s0 0($a0)
+	beqz $s0, exit_strcpy
+	sb $s0 0($a1)
+	addi $a0 $a0 1
+	addi $a1 $a1 1
+	j strcpy
+exit_strcpy:
+	move $v0, $a1
+	jr $ra
+############################
+strcon:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	move $s0 ,$a2
+	move $s1 ,$a0
+	move $s2 ,$a1
+	li $a0, 4
+	mult $a0, $s0
+	mflo $a0
+	li $v0,9
+	syscall
+	move $s0,$v0
+	sw $s0,4($sp)
+	move $a1, $s0
+	move $a0, $s1
+	jal strcpy
+	move $a1, $v0
+	move $a0, $s2
+	jal strcpy
+	sb $zero, 0($v0)
+	lw $s0, 4($sp)
+	move $v0, $s0
+	lw $ra, 0($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+Label_0_Func_foo:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-4
+	li $t0,174
+	sw $t0, -4($fp)
+	j Label_2_While_Block_Cond
+Label_1_While_Start_block:
+	lw $t0, -4($fp)
+	move $t0,$t0
+	lw $t0, -4($fp)
+	move $t0,$t0
+	li $t1,55
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_4_overflow
+	bgt $t3,$t0,Label_4_overflow
+	bge $t2,$t0,Label_6_no_overflow
+Label_4_overflow:
+	li $t0,32767
+	j Label_3_end
+Label_5_overflow_min:
+	li $t0,-32767
+	j Label_3_end
+Label_6_no_overflow:
+	move $t0,$t0
+	j Label_3_end
+Label_3_end:
+	sw $t0, -4($fp)
+Label_2_While_Block_Cond:
+	lw $t0, -4($fp)
+	move $t0,$t0
+	li $t1,32764
+	blt $t0,$t1,Label_8_AssignOne
+	bge $t0,$t1,Label_9_AssignZero
+Label_8_AssignOne:
+	li $t0,1
+	j Label_7_end
+Label_9_AssignZero:
+	li $t0,0
+	j Label_7_end
+Label_7_end:
+	bne $t0,$zero,Label_1_While_Start_block
+	lw $t0, -4($fp)
+	move $t0,$t0
+	li $t1,666
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_11_overflow
+	bgt $t3,$t0,Label_11_overflow
+	bge $t2,$t0,Label_13_no_overflow
+Label_11_overflow:
+	li $t0,32767
+	j Label_10_end
+Label_12_overflow_min:
+	li $t0,-32767
+	j Label_10_end
+Label_13_no_overflow:
+	move $t0,$t0
+	j Label_10_end
+Label_10_end:
+	move $sp, $fp
+	lw $fp, 0($fp)
+	addi $sp,$sp,4
+	lw $ra, 0($sp)
+	addi $sp,$sp,4
+	sw $t0, 0($sp)
+	jr $ra
+	move $sp, $fp
+	lw $fp, 0($fp)
+	addi $sp,$sp,4
+	lw $ra, 0($sp)
+	addi $sp,$sp,4
+	sw $zero, 0($sp)
+	jr $ra
+##### End of foo function
+main:
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,0
+	addi $sp,$sp,-32
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	sw $t3, 12($sp)
+	sw $t4, 16($sp)
+	sw $t5, 20($sp)
+	sw $t6, 24($sp)
+	sw $t7, 28($sp)
+	li $a0 ,0
+	li $v0,9
+	syscall
+	move $a0,$v0
+	jal Label_0_Func_foo
+	lw $t0, 4($sp)
+	lw $t1, 8($sp)
+	lw $t2, 12($sp)
+	lw $t3, 16($sp)
+	lw $t4, 20($sp)
+	lw $t5, 24($sp)
+	lw $t6, 28($sp)
+	lw $t7, 32($sp)
+	lw $t1, 0($sp)
+	addi $sp,$sp,36
+	addi $sp,$sp,-32
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	sw $t3, 12($sp)
+	sw $t4, 16($sp)
+	sw $t5, 20($sp)
+	sw $t6, 24($sp)
+	sw $t7, 28($sp)
+	li $a0 ,0
+	li $v0,9
+	syscall
+	move $a0,$v0
+	jal Label_0_Func_foo
+	lw $t0, 4($sp)
+	lw $t1, 8($sp)
+	lw $t2, 12($sp)
+	lw $t3, 16($sp)
+	lw $t4, 20($sp)
+	lw $t5, 24($sp)
+	lw $t6, 28($sp)
+	lw $t7, 32($sp)
+	lw $t2, 0($sp)
+	addi $sp,$sp,36
+	li $t3,32767
+	li $t4,-32767
+	add $t1,$t1,$t2
+	blt $t3,$t1,Label_15_overflow
+	bgt $t4,$t1,Label_15_overflow
+	bge $t3,$t1,Label_17_no_overflow
+Label_15_overflow:
+	li $t0,32767
+	j Label_14_end
+Label_16_overflow_min:
+	li $t0,-32767
+	j Label_14_end
+Label_17_no_overflow:
+	move $t0,$t1
+	j Label_14_end
+Label_14_end:
+	addi $sp,$sp,-32
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	sw $t3, 12($sp)
+	sw $t4, 16($sp)
+	sw $t5, 20($sp)
+	sw $t6, 24($sp)
+	sw $t7, 28($sp)
+	li $a0 ,0
+	li $v0,9
+	syscall
+	move $a0,$v0
+	jal Label_0_Func_foo
+	lw $t0, 4($sp)
+	lw $t1, 8($sp)
+	lw $t2, 12($sp)
+	lw $t3, 16($sp)
+	lw $t4, 20($sp)
+	lw $t5, 24($sp)
+	lw $t6, 28($sp)
+	lw $t7, 32($sp)
+	lw $t1, 0($sp)
+	addi $sp,$sp,36
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_19_overflow
+	bgt $t3,$t0,Label_19_overflow
+	bge $t2,$t0,Label_21_no_overflow
+Label_19_overflow:
+	li $t0,32767
+	j Label_18_end
+Label_20_overflow_min:
+	li $t0,-32767
+	j Label_18_end
+Label_21_no_overflow:
+	move $t0,$t0
+	j Label_18_end
+Label_18_end:
+	move $a0,$t0
+	li $v0,1
+	syscall
+	li $a0,32
+	li $v0,11
+	syscall
+	j END_OF_PROGRAM
+##### End of main function
+END_OF_PROGRAM:
+	li $v0,10
+	syscall

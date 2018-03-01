@@ -7,7 +7,7 @@ do
   # echo $OUTPUT
   java -jar COMPILER $INPUT $OUTPUT
   CODEOUTPUT="FOLDER_5_OUTPUT2/"$(basename $INPUT .txt)"_EXPECTED_OUTPUT.txt"
-  spim -noquiet -f $OUTPUT > $CODEOUTPUT
+  spim -f $OUTPUT > $CODEOUTPUT
   # head -c -1 $CODEOUTPUT >$CODEOUTPUT
 done
 
