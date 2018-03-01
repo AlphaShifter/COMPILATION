@@ -5,8 +5,10 @@ int fib(int n) {
     return fib(n-1) + fib(n-2);
 }
 
+int x := fib(9);
+
+
 void main() {
-    PrintInt(fib(9));
-    return;
-}
+    PrintInt(x);
+ }
 

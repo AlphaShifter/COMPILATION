@@ -118,9 +118,12 @@ public class AST_EXP_BINOP extends AST_EXP
             {
                 return TYPE_INT.getInstance();
             }
-            if(t1 == TYPE_STRING.getInstance() && t2 == TYPE_STRING.getInstance() && OP == 0) {
+            if(t1 == TYPE_STRING.getInstance() && t2 == TYPE_STRING.getInstance()) {
             	this.isString = true;
-				return TYPE_STRING.getInstance();
+            	if(OP == 0)
+					return TYPE_STRING.getInstance();
+            	else
+            		return TYPE_INT.getInstance();
 			}if(OP == 6){
             	return TYPE_INT.getInstance();
 			}
@@ -189,7 +192,10 @@ public class AST_EXP_BINOP extends AST_EXP
 				IR.getInstance().Add_IRcommand(new IRcommand_Binop_GT_Integers(dst, t1, t2));
 				break;
 			case 6:
-				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Eq_Integers(dst, t1, t2));
+				if(!isString)
+					IR.getInstance().Add_IRcommand(new IRcommand_Binop_Eq_Integers(dst, t1, t2));
+				else
+					IR.getInstance().Add_IRcommand(new IRcommand_Binop_Eq_Strings(dst, t1, t2));
 				break;
 			default:
 				break;

@@ -220,9 +220,10 @@ public class AST_DEC_FUNC extends AST_DEC {
 
 
         //main global init
-
-        if(AST_PROGRAM.global_count != 0) {
-            IR.getInstance().Add_IRcommand(new IRcommand_Jal("GLOBAL_INITS"));
+        if(this.isMainClass()) {
+            if (AST_PROGRAM.global_count != 0) {
+                IR.getInstance().Add_IRcommand(new IRcommand_Jal("GLOBAL_INITS"));
+            }
         }
 
         IR.getInstance().Add_IRcommand(

@@ -264,6 +264,11 @@ public class AST_DEC_VAR extends AST_DEC {
         if(this.varKind == VAR_KIND.GLOBAL){
             //generate label
             IR.getInstance().Add_IRcommand(new IRcommand_Label(myLabel));
+
+            IR.getInstance().Add_IRcommand(new IRcommand_Move(SAVE_REG.getInstance(4),RA_REG.getInstance()));
+
+
+
             //eval
             TEMP val;
             if(exp != null)
@@ -272,6 +277,9 @@ public class AST_DEC_VAR extends AST_DEC {
                 val = ZERO_REG.getInstance();
             //save on heap
             IR.getInstance().Add_IRcommand(new IRcommand_SaveOnHeap(val,GLOBAL_REG.getInstance(),myPlace));
+
+            IR.getInstance().Add_IRcommand(new IRcommand_Move(RA_REG.getInstance(),SAVE_REG.getInstance(4)));
+
             //return
             IR.getInstance().Add_IRcommand(new IRcommand_JR());
         }

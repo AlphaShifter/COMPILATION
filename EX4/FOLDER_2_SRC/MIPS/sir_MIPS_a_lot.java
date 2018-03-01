@@ -301,10 +301,13 @@ public class sir_MIPS_a_lot {
 
     public void printStrlen(){ //words
 
-        //TODO shrink the result by 4
-
-
         fileWriter.print("strlen:\n");
+
+        setRoomOnStack(2);
+        saveRegOnStack(SAVE_REG.getInstance(0),0);
+        saveRegOnStack(SAVE_REG.getInstance(1),1);
+
+        //TODO shrink the result by 4
         fileWriter.print("\tli $s0, 0\n");
         fileWriter.print("loop_strlen:\n");
         fileWriter.print("\tlb $s1, 0($a0)\n");
@@ -314,6 +317,11 @@ public class sir_MIPS_a_lot {
         fileWriter.print("\tj loop_strlen\n");
         fileWriter.print("exit_strlen:\n");
         fileWriter.print("\tmove $v0, $s0\n");
+
+        loadRegfromStack(SAVE_REG.getInstance(0),0);
+        loadRegfromStack(SAVE_REG.getInstance(1),1);
+        setRoomOnStack(-2);
+
         fileWriter.print("\tjr $ra\n");
     }
 
@@ -327,7 +335,61 @@ public class sir_MIPS_a_lot {
         fileWriter.print("\tj strcpy\n");
         fileWriter.print("exit_strcpy:\n");
         fileWriter.print("\tmove $v0, $a1\n");
+
         fileWriter.print("\tjr $ra\n");
+    }
+
+
+    public void printStrcmp(){
+
+        label("strcmp");
+
+
+        setRoomOnStack(3);
+        saveRegOnStack(TEMP_REG.getInstance(0),0);
+        saveRegOnStack(TEMP_REG.getInstance(1),1);
+        saveRegOnStack(TEMP_REG.getInstance(2),2);
+
+        fileWriter.format("\tmove $t2 ,$ra\n");
+
+        move(SAVE_REG.getInstance(0),ARGUMENT.getInstance(0));
+        move(SAVE_REG.getInstance(1),ARGUMENT.getInstance(1));
+
+        //calc the lens of s0 and s1
+        jal("strlen");
+        fileWriter.format("\tmove $t0 ,$v0\n");
+        fileWriter.format("\tmove $a0 ,$s1\n");
+
+        move(ARGUMENT.getInstance(0),SAVE_REG.getInstance(1));
+
+        jal("strlen");
+        fileWriter.format("\tmove $t1 ,$v0\n");
+        bne(TEMP_REG.getInstance(0),TEMP_REG.getInstance(1),"end_strcmp_false");
+
+        label("strcmp_loop");
+        fileWriter.print("\tlb $t0, 0($s0)\n");
+        fileWriter.print("\tlb $t1, 0($s1)\n");
+        beq(TEMP_REG.getInstance(0),ZERO_REG.getInstance(),"end_strcmp_true");
+        bne(TEMP_REG.getInstance(0),TEMP_REG.getInstance(1),"end_strcmp_false");
+        fileWriter.print("\taddi $s0 $s0 1\n");
+        fileWriter.print("\taddi $s1 $s1 1\n");
+        jump("strcmp_loop");
+        label("end_strcmp_true");
+        fileWriter.print("\tli $v0, 0\n");
+        jump("strcmp_exit");
+        label("end_strcmp_false");
+        fileWriter.print("\tli $v0, 1\n");
+        label("strcmp_exit");
+
+        fileWriter.print("\tmove $ra, $t2\n");
+
+        loadRegfromStack(TEMP_REG.getInstance(0),0);
+        loadRegfromStack(TEMP_REG.getInstance(1),1);
+        loadRegfromStack(TEMP_REG.getInstance(2),2);
+        setRoomOnStack(-3);
+
+        fileWriter.print("\tjr $ra\n");
+
     }
 
     public void printStrCon(){
@@ -396,6 +458,9 @@ public class sir_MIPS_a_lot {
         fileWriter.print("############################\n");
         printStrCon();
         fileWriter.print("############################\n");
+        printStrcmp();
+        fileWriter.print("############################\n");
+
     }
 
     private String tempToString(TEMP t){
@@ -416,6 +481,8 @@ public class sir_MIPS_a_lot {
             s = "$s" + ((SAVE_REG) t).getLocal();
         if(t instanceof RA_REG)
             s = "$ra";
+        if(t instanceof V0_REG)
+            s = "$v0";
 
         return s;
     }
