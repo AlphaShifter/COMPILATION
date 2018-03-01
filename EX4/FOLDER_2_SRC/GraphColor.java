@@ -26,7 +26,7 @@ public class GraphColor {
 
 
         Pattern tempMatch = Pattern.compile("(?<=Temp_)\\d{1,7}");
-        Pattern branchMatch = Pattern.compile("(beq|blt|ble|bgt|bge|bne|j )");
+        Pattern branchMatch = Pattern.compile("(beq|bge|bgt|ble|blt|bne|beqz)");
         Pattern jrMatch = Pattern.compile("(?<=jr ).*");
         Pattern jalMatch = Pattern.compile("(?<=jal ).*");
         Pattern jumpMatch = Pattern.compile("(jalr |jal |j |jr ).*");
@@ -67,7 +67,7 @@ public class GraphColor {
             m = labelMatch.matcher(line);
             if(m.find()){
                 String currlabel = m.group();
-                String[] tmp = line.split("(,| )");
+                String[] tmp = line.split("(,| |\t)");
                 labelMap.put(currlabel,linecount);
                 labelToNearestjr.put(currlabel,jrSet.ceiling(linecount));
             }
@@ -88,7 +88,7 @@ public class GraphColor {
         while ((line = bufferedReader.readLine()) != null) {
             m = branchMatch.matcher(line);
             if(m.find()){
-            String[] tmp = line.split("(,| )");
+            String[] tmp = line.split("(,| |\t)");
             if(lines.get(linecount)!=null&&tmp!=null&&labelMap.get(tmp[tmp.length-1])!=null){
                 
             lines.get(linecount).succ.add(labelMap.get(tmp[tmp.length-1]));
@@ -161,7 +161,7 @@ public class GraphColor {
                 Pattern pat = Pattern.compile("Temp_" + i);
                 // String oldstring="Temp_"+i;
                  m = pat.matcher(line);
-                line = m.replaceAll("\\$t" + assignMap.get(i));
+                // line = m.replaceAll("\\$t" + assignMap.get(i));
                 // String newstring="$t"+assignMap.get(i);
                 // line=line.replaceAll(oldstring,newstring);
             }
