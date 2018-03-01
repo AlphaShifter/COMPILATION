@@ -1,0 +1,14 @@
+array Numbers = int[]
+
+void main(){
+	Numbers a1 := new int[5];
+	Numbers a2 := new int[9];
+
+	int x;
+
+	x:= new int[676] = new int[767];
+	x:= a1 = new int[545];
+	x:= a2=a1;
+}
+
+//no output

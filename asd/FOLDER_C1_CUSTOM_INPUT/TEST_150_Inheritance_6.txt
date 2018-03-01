@@ -1,0 +1,24 @@
+class A{
+	void b(){
+		PrintString("B");
+	}
+	void a(){
+		PrintString("A");
+		b();
+	}
+}
+
+class B extends A{
+	void c(){
+		PrintString("C");
+		a();
+	}
+}
+
+void main(){
+	B b := new B;
+
+	b.c();
+}
+
+//CAB

@@ -5,8 +5,9 @@ do
   INPUT="FOLDER_4_INPUT/"$planet
   OUTPUT="FOLDER_5_OUTPUT/"$(basename $INPUT .txt)"_Output_Code.txt" 
   # echo $OUTPUT
-  java -jar COMPILER $INPUT $OUTPUT
+  TMP=$(java -jar COMPILER $INPUT $OUTPUT)
   CODEOUTPUT="FOLDER_5_OUTPUT2/"$(basename $INPUT .txt)"_EXPECTED_OUTPUT.txt"
+  echo $OUTPUT
   spim -f $OUTPUT > $CODEOUTPUT
   # head -c -1 $CODEOUTPUT >$CODEOUTPUT
 done
@@ -17,7 +18,7 @@ for planet in $(ls FOLDER_5_OUTPUT2)
 do
   INPUT="FOLDER_5_OUTPUT2/"$planet
   OUTPUT="FOLDER_6_EXPECTED_OUTPUT/"$planet
-  echo $(diff --strip-trailing-cr -q $INPUT $OUTPUT 2> /dev/null)| grep -Poe "(?!=5_OUTPUT/TEST_)(\d{2})"|uniq
+  echo $(diff --strip-trailing-cr -q $INPUT $OUTPUT  )| grep -Poe "(?!=5_OUTPUT/TEST_)(\d{2,3})"|uniq
   # diff -y $INPUT $OUTPUT 2> /dev/null
   # let "COUNT=COUNT+1"
 done

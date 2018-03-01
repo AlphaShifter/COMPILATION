@@ -1,0 +1,13 @@
+class IntList
+{
+    void Init() { tail := new IntList; }
+    int head;
+    IntList tail;
+}
+
+void main(){
+	IntList l := new IntList;
+	l.Init();
+}
+
+//no optput

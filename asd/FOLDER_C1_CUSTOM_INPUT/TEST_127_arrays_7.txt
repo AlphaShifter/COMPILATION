@@ -1,0 +1,21 @@
+class thing{
+	int x;
+}
+
+array things = thing[]
+
+int gnope := new string[10] = new string[10];
+
+void main(){
+	int lnope := new int[111] = new int[111];
+	int lnope2 := new thing[1115] = new thing[1115];
+	things t := new thing[0];
+	things s := t;
+	int ok := s = t;
+
+	PrintInt(gnope);
+	PrintInt(lnope);
+	PrintInt(lnope2);
+	PrintInt(ok);
+}
+//0001

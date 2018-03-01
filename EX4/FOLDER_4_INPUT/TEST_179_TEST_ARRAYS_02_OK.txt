@@ -1,0 +1,14 @@
+array Numbers = int[]
+int sum(Numbers a){ return 600; }
+
+void main(){
+	Numbers a := new int[5];
+	int x;
+
+	x:=sum(a);
+	x:=sum(new int[400]);
+
+	PrintInt(x);
+}
+
+//600

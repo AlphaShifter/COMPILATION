@@ -1,0 +1,8 @@
+void main(){
+	if(new int[3] = new int[3]){
+		PrintString("YAY");
+	}
+	PrintString("NAY");
+}
+
+//NAY

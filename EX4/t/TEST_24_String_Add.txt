@@ -1,0 +1,7 @@
+string s := "anotherstring";
+
+void main()
+{
+    string s1 := "s";
+    PrintString(s + s1);
+}

@@ -1,0 +1,12 @@
+class List{
+	int v;
+	List next;
+}
+
+void main(){
+	List lst;
+
+	PrintInt(lst.v);
+}
+
+//Invalid Pointer Dereference

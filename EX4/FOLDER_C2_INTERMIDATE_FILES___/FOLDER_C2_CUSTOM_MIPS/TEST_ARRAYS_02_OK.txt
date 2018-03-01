@@ -1,0 +1,628 @@
+.data
+string_access_violation: .asciiz "Access Violation"
+string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
+string_space_after_int:  .asciiz " "
+string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+.text
+############################
+strlen:
+	addi $sp,$sp,-8
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	li $s0, 0
+loop_strlen:
+	lb $s1, 0($a0)
+	beqz $s1, exit_strlen
+	addi $a0, $a0, 1
+	addi $s0, $s0, 1
+	j loop_strlen
+exit_strlen:
+	move $v0, $s0
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+strcpy:
+	lb $s0 0($a0)
+	beqz $s0, exit_strcpy
+	sb $s0 0($a1)
+	addi $a0 $a0 1
+	addi $a1 $a1 1
+	j strcpy
+exit_strcpy:
+	move $v0, $a1
+	jr $ra
+############################
+strcon:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	move $s0 ,$a2
+	move $s1 ,$a0
+	move $s2 ,$a1
+	li $a0, 4
+	mult $a0, $s0
+	mflo $a0
+	li $v0,9
+	syscall
+	move $s0,$v0
+	sw $s0,4($sp)
+	move $a1, $s0
+	move $a0, $s1
+	jal strcpy
+	move $a1, $v0
+	move $a0, $s2
+	jal strcpy
+	sb $zero, 0($v0)
+	lw $s0, 4($sp)
+	move $v0, $s0
+	lw $ra, 0($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+strcmp:
+	addi $sp,$sp,-12
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	move $t2 ,$ra
+	move $s0,$a0
+	move $s1,$a1
+	jal strlen
+	move $t0 ,$v0
+	move $a0 ,$s1
+	move $a0,$s1
+	jal strlen
+	move $t1 ,$v0
+	bne $t0,$t1,end_strcmp_false
+strcmp_loop:
+	lb $t0, 0($s0)
+	lb $t1, 0($s1)
+	beq $t0,$zero,end_strcmp_true
+	bne $t0,$t1,end_strcmp_false
+	addi $s0 $s0 1
+	addi $s1 $s1 1
+	j strcmp_loop
+end_strcmp_true:
+	li $v0, 0
+	j strcmp_exit
+end_strcmp_false:
+	li $v0, 1
+strcmp_exit:
+	move $ra, $t2
+	lw $t0, 0($sp)
+	lw $t1, 4($sp)
+	lw $t2, 8($sp)
+	addi $sp,$sp,12
+	jr $ra
+############################
+Label_0_Func_sum:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-4
+	lw $t0, 0($a0)
+	sw $t0, -4($fp)
+	li $t0,600
+	move $sp, $fp
+	lw $fp, 0($fp)
+	addi $sp,$sp,4
+	lw $ra, 0($sp)
+	addi $sp,$sp,4
+	sw $t0, 0($sp)
+	jr $ra
+	move $sp, $fp
+	lw $fp, 0($fp)
+	addi $sp,$sp,4
+	lw $ra, 0($sp)
+	addi $sp,$sp,4
+	sw $zero, 0($sp)
+	jr $ra
+##### End of sum function
+main:
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-8
+	li $t1,5
+	li $a0 ,24
+	li $v0,9
+	syscall
+	move $t0,$v0
+	sw $t1, 0($t0)
+	li $t1,0
+	sw $t1, 4($t0)
+	sw $t1, 8($t0)
+	sw $t1, 12($t0)
+	sw $t1, 16($t0)
+	sw $t1, 20($t0)
+	sw $t0, -4($fp)
+	sw $zero, -8($fp)
+	lw $t1, -8($fp)
+	move $t0,$t1
+	addi $sp,$sp,-32
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	sw $t3, 12($sp)
+	sw $t4, 16($sp)
+	sw $t5, 20($sp)
+	sw $t6, 24($sp)
+	sw $t7, 28($sp)
+	li $a0 ,4
+	li $v0,9
+	syscall
+	move $a0,$v0
+	addi $sp,$sp,-4
+	sw $a0, 0($sp)
+	lw $t1, -4($fp)
+	move $t0,$t1
+	lw $a0, 0($sp)
+	addi $sp,$sp,4
+	sw $t0, 0($a0)
+	jal Label_0_Func_sum
+	lw $t0, 4($sp)
+	lw $t1, 8($sp)
+	lw $t2, 12($sp)
+	lw $t3, 16($sp)
+	lw $t4, 20($sp)
+	lw $t5, 24($sp)
+	lw $t6, 28($sp)
+	lw $t7, 32($sp)
+	lw $t0, 0($sp)
+	addi $sp,$sp,36
+	sw $t0, -8($fp)
+	lw $t1, -8($fp)
+	move $t0,$t1
+	addi $sp,$sp,-32
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	sw $t3, 12($sp)
+	sw $t4, 16($sp)
+	sw $t5, 20($sp)
+	sw $t6, 24($sp)
+	sw $t7, 28($sp)
+	li $a0 ,4
+	li $v0,9
+	syscall
+	move $a0,$v0
+	addi $sp,$sp,-4
+	sw $a0, 0($sp)
+	li $t1,400
+	li $a0 ,1604
+	li $v0,9
+	syscall
+	move $t0,$v0
+	sw $t1, 0($t0)
+	li $t1,0
+	sw $t1, 4($t0)
+	sw $t1, 8($t0)
+	sw $t1, 12($t0)
+	sw $t1, 16($t0)
+	sw $t1, 20($t0)
+	sw $t1, 24($t0)
+	sw $t1, 28($t0)
+	sw $t1, 32($t0)
+	sw $t1, 36($t0)
+	sw $t1, 40($t0)
+	sw $t1, 44($t0)
+	sw $t1, 48($t0)
+	sw $t1, 52($t0)
+	sw $t1, 56($t0)
+	sw $t1, 60($t0)
+	sw $t1, 64($t0)
+	sw $t1, 68($t0)
+	sw $t1, 72($t0)
+	sw $t1, 76($t0)
+	sw $t1, 80($t0)
+	sw $t1, 84($t0)
+	sw $t1, 88($t0)
+	sw $t1, 92($t0)
+	sw $t1, 96($t0)
+	sw $t1, 100($t0)
+	sw $t1, 104($t0)
+	sw $t1, 108($t0)
+	sw $t1, 112($t0)
+	sw $t1, 116($t0)
+	sw $t1, 120($t0)
+	sw $t1, 124($t0)
+	sw $t1, 128($t0)
+	sw $t1, 132($t0)
+	sw $t1, 136($t0)
+	sw $t1, 140($t0)
+	sw $t1, 144($t0)
+	sw $t1, 148($t0)
+	sw $t1, 152($t0)
+	sw $t1, 156($t0)
+	sw $t1, 160($t0)
+	sw $t1, 164($t0)
+	sw $t1, 168($t0)
+	sw $t1, 172($t0)
+	sw $t1, 176($t0)
+	sw $t1, 180($t0)
+	sw $t1, 184($t0)
+	sw $t1, 188($t0)
+	sw $t1, 192($t0)
+	sw $t1, 196($t0)
+	sw $t1, 200($t0)
+	sw $t1, 204($t0)
+	sw $t1, 208($t0)
+	sw $t1, 212($t0)
+	sw $t1, 216($t0)
+	sw $t1, 220($t0)
+	sw $t1, 224($t0)
+	sw $t1, 228($t0)
+	sw $t1, 232($t0)
+	sw $t1, 236($t0)
+	sw $t1, 240($t0)
+	sw $t1, 244($t0)
+	sw $t1, 248($t0)
+	sw $t1, 252($t0)
+	sw $t1, 256($t0)
+	sw $t1, 260($t0)
+	sw $t1, 264($t0)
+	sw $t1, 268($t0)
+	sw $t1, 272($t0)
+	sw $t1, 276($t0)
+	sw $t1, 280($t0)
+	sw $t1, 284($t0)
+	sw $t1, 288($t0)
+	sw $t1, 292($t0)
+	sw $t1, 296($t0)
+	sw $t1, 300($t0)
+	sw $t1, 304($t0)
+	sw $t1, 308($t0)
+	sw $t1, 312($t0)
+	sw $t1, 316($t0)
+	sw $t1, 320($t0)
+	sw $t1, 324($t0)
+	sw $t1, 328($t0)
+	sw $t1, 332($t0)
+	sw $t1, 336($t0)
+	sw $t1, 340($t0)
+	sw $t1, 344($t0)
+	sw $t1, 348($t0)
+	sw $t1, 352($t0)
+	sw $t1, 356($t0)
+	sw $t1, 360($t0)
+	sw $t1, 364($t0)
+	sw $t1, 368($t0)
+	sw $t1, 372($t0)
+	sw $t1, 376($t0)
+	sw $t1, 380($t0)
+	sw $t1, 384($t0)
+	sw $t1, 388($t0)
+	sw $t1, 392($t0)
+	sw $t1, 396($t0)
+	sw $t1, 400($t0)
+	sw $t1, 404($t0)
+	sw $t1, 408($t0)
+	sw $t1, 412($t0)
+	sw $t1, 416($t0)
+	sw $t1, 420($t0)
+	sw $t1, 424($t0)
+	sw $t1, 428($t0)
+	sw $t1, 432($t0)
+	sw $t1, 436($t0)
+	sw $t1, 440($t0)
+	sw $t1, 444($t0)
+	sw $t1, 448($t0)
+	sw $t1, 452($t0)
+	sw $t1, 456($t0)
+	sw $t1, 460($t0)
+	sw $t1, 464($t0)
+	sw $t1, 468($t0)
+	sw $t1, 472($t0)
+	sw $t1, 476($t0)
+	sw $t1, 480($t0)
+	sw $t1, 484($t0)
+	sw $t1, 488($t0)
+	sw $t1, 492($t0)
+	sw $t1, 496($t0)
+	sw $t1, 500($t0)
+	sw $t1, 504($t0)
+	sw $t1, 508($t0)
+	sw $t1, 512($t0)
+	sw $t1, 516($t0)
+	sw $t1, 520($t0)
+	sw $t1, 524($t0)
+	sw $t1, 528($t0)
+	sw $t1, 532($t0)
+	sw $t1, 536($t0)
+	sw $t1, 540($t0)
+	sw $t1, 544($t0)
+	sw $t1, 548($t0)
+	sw $t1, 552($t0)
+	sw $t1, 556($t0)
+	sw $t1, 560($t0)
+	sw $t1, 564($t0)
+	sw $t1, 568($t0)
+	sw $t1, 572($t0)
+	sw $t1, 576($t0)
+	sw $t1, 580($t0)
+	sw $t1, 584($t0)
+	sw $t1, 588($t0)
+	sw $t1, 592($t0)
+	sw $t1, 596($t0)
+	sw $t1, 600($t0)
+	sw $t1, 604($t0)
+	sw $t1, 608($t0)
+	sw $t1, 612($t0)
+	sw $t1, 616($t0)
+	sw $t1, 620($t0)
+	sw $t1, 624($t0)
+	sw $t1, 628($t0)
+	sw $t1, 632($t0)
+	sw $t1, 636($t0)
+	sw $t1, 640($t0)
+	sw $t1, 644($t0)
+	sw $t1, 648($t0)
+	sw $t1, 652($t0)
+	sw $t1, 656($t0)
+	sw $t1, 660($t0)
+	sw $t1, 664($t0)
+	sw $t1, 668($t0)
+	sw $t1, 672($t0)
+	sw $t1, 676($t0)
+	sw $t1, 680($t0)
+	sw $t1, 684($t0)
+	sw $t1, 688($t0)
+	sw $t1, 692($t0)
+	sw $t1, 696($t0)
+	sw $t1, 700($t0)
+	sw $t1, 704($t0)
+	sw $t1, 708($t0)
+	sw $t1, 712($t0)
+	sw $t1, 716($t0)
+	sw $t1, 720($t0)
+	sw $t1, 724($t0)
+	sw $t1, 728($t0)
+	sw $t1, 732($t0)
+	sw $t1, 736($t0)
+	sw $t1, 740($t0)
+	sw $t1, 744($t0)
+	sw $t1, 748($t0)
+	sw $t1, 752($t0)
+	sw $t1, 756($t0)
+	sw $t1, 760($t0)
+	sw $t1, 764($t0)
+	sw $t1, 768($t0)
+	sw $t1, 772($t0)
+	sw $t1, 776($t0)
+	sw $t1, 780($t0)
+	sw $t1, 784($t0)
+	sw $t1, 788($t0)
+	sw $t1, 792($t0)
+	sw $t1, 796($t0)
+	sw $t1, 800($t0)
+	sw $t1, 804($t0)
+	sw $t1, 808($t0)
+	sw $t1, 812($t0)
+	sw $t1, 816($t0)
+	sw $t1, 820($t0)
+	sw $t1, 824($t0)
+	sw $t1, 828($t0)
+	sw $t1, 832($t0)
+	sw $t1, 836($t0)
+	sw $t1, 840($t0)
+	sw $t1, 844($t0)
+	sw $t1, 848($t0)
+	sw $t1, 852($t0)
+	sw $t1, 856($t0)
+	sw $t1, 860($t0)
+	sw $t1, 864($t0)
+	sw $t1, 868($t0)
+	sw $t1, 872($t0)
+	sw $t1, 876($t0)
+	sw $t1, 880($t0)
+	sw $t1, 884($t0)
+	sw $t1, 888($t0)
+	sw $t1, 892($t0)
+	sw $t1, 896($t0)
+	sw $t1, 900($t0)
+	sw $t1, 904($t0)
+	sw $t1, 908($t0)
+	sw $t1, 912($t0)
+	sw $t1, 916($t0)
+	sw $t1, 920($t0)
+	sw $t1, 924($t0)
+	sw $t1, 928($t0)
+	sw $t1, 932($t0)
+	sw $t1, 936($t0)
+	sw $t1, 940($t0)
+	sw $t1, 944($t0)
+	sw $t1, 948($t0)
+	sw $t1, 952($t0)
+	sw $t1, 956($t0)
+	sw $t1, 960($t0)
+	sw $t1, 964($t0)
+	sw $t1, 968($t0)
+	sw $t1, 972($t0)
+	sw $t1, 976($t0)
+	sw $t1, 980($t0)
+	sw $t1, 984($t0)
+	sw $t1, 988($t0)
+	sw $t1, 992($t0)
+	sw $t1, 996($t0)
+	sw $t1, 1000($t0)
+	sw $t1, 1004($t0)
+	sw $t1, 1008($t0)
+	sw $t1, 1012($t0)
+	sw $t1, 1016($t0)
+	sw $t1, 1020($t0)
+	sw $t1, 1024($t0)
+	sw $t1, 1028($t0)
+	sw $t1, 1032($t0)
+	sw $t1, 1036($t0)
+	sw $t1, 1040($t0)
+	sw $t1, 1044($t0)
+	sw $t1, 1048($t0)
+	sw $t1, 1052($t0)
+	sw $t1, 1056($t0)
+	sw $t1, 1060($t0)
+	sw $t1, 1064($t0)
+	sw $t1, 1068($t0)
+	sw $t1, 1072($t0)
+	sw $t1, 1076($t0)
+	sw $t1, 1080($t0)
+	sw $t1, 1084($t0)
+	sw $t1, 1088($t0)
+	sw $t1, 1092($t0)
+	sw $t1, 1096($t0)
+	sw $t1, 1100($t0)
+	sw $t1, 1104($t0)
+	sw $t1, 1108($t0)
+	sw $t1, 1112($t0)
+	sw $t1, 1116($t0)
+	sw $t1, 1120($t0)
+	sw $t1, 1124($t0)
+	sw $t1, 1128($t0)
+	sw $t1, 1132($t0)
+	sw $t1, 1136($t0)
+	sw $t1, 1140($t0)
+	sw $t1, 1144($t0)
+	sw $t1, 1148($t0)
+	sw $t1, 1152($t0)
+	sw $t1, 1156($t0)
+	sw $t1, 1160($t0)
+	sw $t1, 1164($t0)
+	sw $t1, 1168($t0)
+	sw $t1, 1172($t0)
+	sw $t1, 1176($t0)
+	sw $t1, 1180($t0)
+	sw $t1, 1184($t0)
+	sw $t1, 1188($t0)
+	sw $t1, 1192($t0)
+	sw $t1, 1196($t0)
+	sw $t1, 1200($t0)
+	sw $t1, 1204($t0)
+	sw $t1, 1208($t0)
+	sw $t1, 1212($t0)
+	sw $t1, 1216($t0)
+	sw $t1, 1220($t0)
+	sw $t1, 1224($t0)
+	sw $t1, 1228($t0)
+	sw $t1, 1232($t0)
+	sw $t1, 1236($t0)
+	sw $t1, 1240($t0)
+	sw $t1, 1244($t0)
+	sw $t1, 1248($t0)
+	sw $t1, 1252($t0)
+	sw $t1, 1256($t0)
+	sw $t1, 1260($t0)
+	sw $t1, 1264($t0)
+	sw $t1, 1268($t0)
+	sw $t1, 1272($t0)
+	sw $t1, 1276($t0)
+	sw $t1, 1280($t0)
+	sw $t1, 1284($t0)
+	sw $t1, 1288($t0)
+	sw $t1, 1292($t0)
+	sw $t1, 1296($t0)
+	sw $t1, 1300($t0)
+	sw $t1, 1304($t0)
+	sw $t1, 1308($t0)
+	sw $t1, 1312($t0)
+	sw $t1, 1316($t0)
+	sw $t1, 1320($t0)
+	sw $t1, 1324($t0)
+	sw $t1, 1328($t0)
+	sw $t1, 1332($t0)
+	sw $t1, 1336($t0)
+	sw $t1, 1340($t0)
+	sw $t1, 1344($t0)
+	sw $t1, 1348($t0)
+	sw $t1, 1352($t0)
+	sw $t1, 1356($t0)
+	sw $t1, 1360($t0)
+	sw $t1, 1364($t0)
+	sw $t1, 1368($t0)
+	sw $t1, 1372($t0)
+	sw $t1, 1376($t0)
+	sw $t1, 1380($t0)
+	sw $t1, 1384($t0)
+	sw $t1, 1388($t0)
+	sw $t1, 1392($t0)
+	sw $t1, 1396($t0)
+	sw $t1, 1400($t0)
+	sw $t1, 1404($t0)
+	sw $t1, 1408($t0)
+	sw $t1, 1412($t0)
+	sw $t1, 1416($t0)
+	sw $t1, 1420($t0)
+	sw $t1, 1424($t0)
+	sw $t1, 1428($t0)
+	sw $t1, 1432($t0)
+	sw $t1, 1436($t0)
+	sw $t1, 1440($t0)
+	sw $t1, 1444($t0)
+	sw $t1, 1448($t0)
+	sw $t1, 1452($t0)
+	sw $t1, 1456($t0)
+	sw $t1, 1460($t0)
+	sw $t1, 1464($t0)
+	sw $t1, 1468($t0)
+	sw $t1, 1472($t0)
+	sw $t1, 1476($t0)
+	sw $t1, 1480($t0)
+	sw $t1, 1484($t0)
+	sw $t1, 1488($t0)
+	sw $t1, 1492($t0)
+	sw $t1, 1496($t0)
+	sw $t1, 1500($t0)
+	sw $t1, 1504($t0)
+	sw $t1, 1508($t0)
+	sw $t1, 1512($t0)
+	sw $t1, 1516($t0)
+	sw $t1, 1520($t0)
+	sw $t1, 1524($t0)
+	sw $t1, 1528($t0)
+	sw $t1, 1532($t0)
+	sw $t1, 1536($t0)
+	sw $t1, 1540($t0)
+	sw $t1, 1544($t0)
+	sw $t1, 1548($t0)
+	sw $t1, 1552($t0)
+	sw $t1, 1556($t0)
+	sw $t1, 1560($t0)
+	sw $t1, 1564($t0)
+	sw $t1, 1568($t0)
+	sw $t1, 1572($t0)
+	sw $t1, 1576($t0)
+	sw $t1, 1580($t0)
+	sw $t1, 1584($t0)
+	sw $t1, 1588($t0)
+	sw $t1, 1592($t0)
+	sw $t1, 1596($t0)
+	sw $t1, 1600($t0)
+	lw $a0, 0($sp)
+	addi $sp,$sp,4
+	sw $t0, 0($a0)
+	jal Label_0_Func_sum
+	lw $t0, 4($sp)
+	lw $t1, 8($sp)
+	lw $t2, 12($sp)
+	lw $t3, 16($sp)
+	lw $t4, 20($sp)
+	lw $t5, 24($sp)
+	lw $t6, 28($sp)
+	lw $t7, 32($sp)
+	lw $t0, 0($sp)
+	addi $sp,$sp,36
+	sw $t0, -8($fp)
+	lw $t1, -8($fp)
+	move $t0,$t1
+	move $a0,$t0
+	li $v0,1
+	syscall
+	li $v0, 4
+	la $a0, string_space_after_int
+	syscall
+	j END_OF_PROGRAM
+##### End of main function
+END_OF_PROGRAM:
+	li $v0,10
+	syscall

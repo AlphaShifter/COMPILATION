@@ -1,0 +1,332 @@
+.data
+string_access_violation: .asciiz "Access Violation"
+string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
+string_space_after_int:  .asciiz " "
+string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+.text
+############################
+strlen:
+	addi $sp,$sp,-8
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	li $s0, 0
+loop_strlen:
+	lb $s1, 0($a0)
+	beqz $s1, exit_strlen
+	addi $a0, $a0, 1
+	addi $s0, $s0, 1
+	j loop_strlen
+exit_strlen:
+	move $v0, $s0
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+strcpy:
+	lb $s0 0($a0)
+	beqz $s0, exit_strcpy
+	sb $s0 0($a1)
+	addi $a0 $a0 1
+	addi $a1 $a1 1
+	j strcpy
+exit_strcpy:
+	move $v0, $a1
+	jr $ra
+############################
+strcon:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	move $s0 ,$a2
+	move $s1 ,$a0
+	move $s2 ,$a1
+	li $a0, 4
+	mult $a0, $s0
+	mflo $a0
+	li $v0,9
+	syscall
+	move $s0,$v0
+	sw $s0,4($sp)
+	move $a1, $s0
+	move $a0, $s1
+	jal strcpy
+	move $a1, $v0
+	move $a0, $s2
+	jal strcpy
+	sb $zero, 0($v0)
+	lw $s0, 4($sp)
+	move $v0, $s0
+	lw $ra, 0($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+strcmp:
+	addi $sp,$sp,-12
+	sw $t0, 0($sp)
+	sw $t1, 4($sp)
+	sw $t2, 8($sp)
+	move $t2 ,$ra
+	move $s0,$a0
+	move $s1,$a1
+	jal strlen
+	move $t0 ,$v0
+	move $a0 ,$s1
+	move $a0,$s1
+	jal strlen
+	move $t1 ,$v0
+	bne $t0,$t1,end_strcmp_false
+strcmp_loop:
+	lb $t0, 0($s0)
+	lb $t1, 0($s1)
+	beq $t0,$zero,end_strcmp_true
+	bne $t0,$t1,end_strcmp_false
+	addi $s0 $s0 1
+	addi $s1 $s1 1
+	j strcmp_loop
+end_strcmp_true:
+	li $v0, 0
+	j strcmp_exit
+end_strcmp_false:
+	li $v0, 1
+strcmp_exit:
+	move $ra, $t2
+	lw $t0, 0($sp)
+	lw $t1, 4($sp)
+	lw $t2, 8($sp)
+	addi $sp,$sp,12
+	jr $ra
+############################
+GLOBAL_INITS:
+	move $s3,$ra
+	li $a0 ,16
+	li $v0,9
+	syscall
+	move $s6,$v0
+	jal Label_0_Global_Init_0
+	jal Label_1_Global_Init_1
+	jal Label_2_Global_Init_2
+	jal Label_3_Global_Init_3
+	move $ra,$s3
+	jr $ra
+Label_0_Global_Init_0:
+	move $s4,$ra
+	li $t0,7
+	sw $t0, 0($s6)
+	move $ra,$s4
+	jr $ra
+Label_1_Global_Init_1:
+	move $s4,$ra
+	li $t0,9
+	sw $t0, 4($s6)
+	move $ra,$s4
+	jr $ra
+Label_2_Global_Init_2:
+	move $s4,$ra
+	li $t0,10
+	sw $t0, 8($s6)
+	move $ra,$s4
+	jr $ra
+Label_3_Global_Init_3:
+	move $s4,$ra
+	li $t0,6
+	sw $t0, 12($s6)
+	move $ra,$s4
+	jr $ra
+main:
+	jal GLOBAL_INITS
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-4
+	li $t0,1
+	li $t1,2
+	li $t2,3
+	li $t3,4
+	li $t4,5
+	li $t5,6
+	li $t6,7
+	li $t8,32767
+	li $t9,-32767
+	add $t7,$t5,$t6
+	blt $t8,$t7,Label_5_overflow
+	bgt $t9,$t7,Label_5_overflow
+	bge $t8,$t7,Label_7_no_overflow
+Label_5_overflow:
+	li $t5,32767
+	j Label_4_end
+Label_6_overflow_min:
+	li $t5,-32767
+	j Label_4_end
+Label_7_no_overflow:
+	move $t5,$t7
+	j Label_4_end
+Label_4_end:
+	li $t7,32767
+	li $t8,-32767
+	add $t6,$t4,$t5
+	blt $t7,$t6,Label_9_overflow
+	bgt $t8,$t6,Label_9_overflow
+	bge $t7,$t6,Label_11_no_overflow
+Label_9_overflow:
+	li $t4,32767
+	j Label_8_end
+Label_10_overflow_min:
+	li $t4,-32767
+	j Label_8_end
+Label_11_no_overflow:
+	move $t4,$t6
+	j Label_8_end
+Label_8_end:
+	li $t6,32767
+	li $t7,-32767
+	add $t5,$t3,$t4
+	blt $t6,$t5,Label_13_overflow
+	bgt $t7,$t5,Label_13_overflow
+	bge $t6,$t5,Label_15_no_overflow
+Label_13_overflow:
+	li $t3,32767
+	j Label_12_end
+Label_14_overflow_min:
+	li $t3,-32767
+	j Label_12_end
+Label_15_no_overflow:
+	move $t3,$t5
+	j Label_12_end
+Label_12_end:
+	li $t5,32767
+	li $t6,-32767
+	add $t4,$t2,$t3
+	blt $t5,$t4,Label_17_overflow
+	bgt $t6,$t4,Label_17_overflow
+	bge $t5,$t4,Label_19_no_overflow
+Label_17_overflow:
+	li $t2,32767
+	j Label_16_end
+Label_18_overflow_min:
+	li $t2,-32767
+	j Label_16_end
+Label_19_no_overflow:
+	move $t2,$t4
+	j Label_16_end
+Label_16_end:
+	li $t4,32767
+	li $t5,-32767
+	add $t3,$t1,$t2
+	blt $t4,$t3,Label_21_overflow
+	bgt $t5,$t3,Label_21_overflow
+	bge $t4,$t3,Label_23_no_overflow
+Label_21_overflow:
+	li $t1,32767
+	j Label_20_end
+Label_22_overflow_min:
+	li $t1,-32767
+	j Label_20_end
+Label_23_no_overflow:
+	move $t1,$t3
+	j Label_20_end
+Label_20_end:
+	li $t3,32767
+	li $t4,-32767
+	add $t2,$t0,$t1
+	blt $t3,$t2,Label_25_overflow
+	bgt $t4,$t2,Label_25_overflow
+	bge $t3,$t2,Label_27_no_overflow
+Label_25_overflow:
+	li $t0,32767
+	j Label_24_end
+Label_26_overflow_min:
+	li $t0,-32767
+	j Label_24_end
+Label_27_no_overflow:
+	move $t0,$t2
+	j Label_24_end
+Label_24_end:
+	sw $t0, -4($fp)
+	lw $t0, 12($s6)
+	lw $t0, 4($s6)
+	lw $t1, 0($s6)
+	li $t3,32767
+	li $t4,-32767
+	add $t2,$t0,$t1
+	blt $t3,$t2,Label_29_overflow
+	bgt $t4,$t2,Label_29_overflow
+	bge $t3,$t2,Label_31_no_overflow
+Label_29_overflow:
+	li $t0,32767
+	j Label_28_end
+Label_30_overflow_min:
+	li $t0,-32767
+	j Label_28_end
+Label_31_no_overflow:
+	move $t0,$t2
+	j Label_28_end
+Label_28_end:
+	sw $t0, 12($s6)
+	lw $t0, 0($s6)
+	lw $t1, -4($fp)
+	move $t0,$t1
+	lw $t1, 4($s6)
+	li $t3,32767
+	li $t4,-32767
+	add $t2,$t0,$t1
+	blt $t3,$t2,Label_33_overflow
+	bgt $t4,$t2,Label_33_overflow
+	bge $t3,$t2,Label_35_no_overflow
+Label_33_overflow:
+	li $t0,32767
+	j Label_32_end
+Label_34_overflow_min:
+	li $t0,-32767
+	j Label_32_end
+Label_35_no_overflow:
+	move $t0,$t2
+	j Label_32_end
+Label_32_end:
+	sw $t0, 0($s6)
+	lw $t0, 12($s6)
+	lw $t1, 12($s6)
+	lw $t2, 4($s6)
+	li $t3,32767
+	li $t4,-32767
+	mult $t1,$t2
+	mflo $t2
+	blt $t3,$t2,Label_37_overflow
+	bgt $t4,$t2,Label_37_overflow
+	bge $t3,$t2,Label_39_no_overflow
+Label_37_overflow:
+	li $t1,32767
+	j Label_36_end
+Label_38_overflow_min:
+	li $t1,-32767
+	j Label_36_end
+Label_39_no_overflow:
+	move $t1,$t2
+	j Label_36_end
+Label_36_end:
+	li $t3,32767
+	li $t4,-32767
+	add $t2,$t0,$t1
+	blt $t3,$t2,Label_41_overflow
+	bgt $t4,$t2,Label_41_overflow
+	bge $t3,$t2,Label_43_no_overflow
+Label_41_overflow:
+	li $t0,32767
+	j Label_40_end
+Label_42_overflow_min:
+	li $t0,-32767
+	j Label_40_end
+Label_43_no_overflow:
+	move $t0,$t2
+	j Label_40_end
+Label_40_end:
+	move $a0,$t0
+	li $v0,1
+	syscall
+	li $v0, 4
+	la $a0, string_space_after_int
+	syscall
+	j END_OF_PROGRAM
+##### End of main function
+END_OF_PROGRAM:
+	li $v0,10
+	syscall

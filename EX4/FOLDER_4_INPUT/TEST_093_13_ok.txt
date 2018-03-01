@@ -1,0 +1,13 @@
+class B{
+	int a;
+}
+void main(){
+	int k;
+	if (new B = new B){
+		k := 5;
+	}
+
+	PrintInt(k);
+}
+
+//0

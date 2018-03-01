@@ -1,0 +1,10 @@
+array IDSArray = int[]
+
+void main(){
+IDSArray i := new int[8];
+
+if (i = new int[90]) { PrintInt(8); }
+PrintInt(2);
+}
+
+//2

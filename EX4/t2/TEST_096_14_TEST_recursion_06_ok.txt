@@ -1,0 +1,17 @@
+class Father{
+    int a;
+    Father f;
+    int bar(){
+        return 6;
+    }
+    int foo(){
+        return f.bar();
+    }
+}
+
+void main(){
+	Father f := new Father;
+	PrintInt(f.foo());
+}
+
+//Invalid

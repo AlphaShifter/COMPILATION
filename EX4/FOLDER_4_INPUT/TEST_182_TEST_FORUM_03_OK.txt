@@ -1,0 +1,9 @@
+void main(){
+	if(nil=nil){
+		PrintString("YAY");
+		return;
+	}
+	PrintString("NAY");
+}
+
+//YAY

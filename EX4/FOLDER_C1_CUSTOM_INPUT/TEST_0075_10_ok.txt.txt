@@ -1,0 +1,8 @@
+array arr = int[]
+int num := 3;
+arr a := new int[num];
+
+void main(){
+	return;
+}
+//no output

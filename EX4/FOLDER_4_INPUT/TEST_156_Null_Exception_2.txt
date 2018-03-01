@@ -1,0 +1,13 @@
+//According to Oren this is considered unspecified behavior (hence won't be checked)
+class List{
+	string msg;
+	List next;
+}
+
+void main(){
+	List lst := new List;
+
+	PrintString(lst.msg);
+}
+
+//Invalid Pointer Dereference

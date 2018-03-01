@@ -1,0 +1,9 @@
+array IntArray = int []
+
+int foo(IntArray A, int c){ c := 5; }
+void main(){
+
+foo(new int[80], 4);
+}
+
+//no output

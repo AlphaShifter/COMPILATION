@@ -1,0 +1,15 @@
+int foo()
+
+{
+
+    return 8;
+
+    return 10;
+
+}
+
+void main(){
+	PrintInt(foo());
+}
+
+//8
