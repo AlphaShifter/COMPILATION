@@ -8,11 +8,13 @@ public class TYPE_FUNCTION extends TYPE{
     public TYPE_LIST arguments;
     public String myLabel = null;
     public int myPlace;
+    public TYPE_CLASS container;
 
     public TYPE_FUNCTION (TYPE returnType, String name, TYPE_LIST arguments){
         this.arguments = arguments;
         this.name = name;
         this.returnType = returnType;
+        container = null;
     }
 
     @Override

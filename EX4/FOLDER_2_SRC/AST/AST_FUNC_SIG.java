@@ -171,11 +171,11 @@ public class AST_FUNC_SIG extends AST_Node {
             Util.printError(myLine);
         }
 
-        // check whether a function of same name already exists
-        if (SYMBOL_TABLE.getInstance().find(name) != null) {
-            System.out.format(">> ERROR [%d:%d] function of name %s has already been declared\n", 6, 6, name);
-            Util.printError(myLine);
-        }
+//        // check whether a function of same name already exists
+//        if (SYMBOL_TABLE.getInstance().find(name) != null) {
+//            System.out.format(">> ERROR [%d:%d] function of name %s has already been declared\n", 6, 6, name);
+//            Util.printError(myLine);
+//        }
 
         if (returnType == null) {
             System.out.format(">> ERROR [%d:%d] non existing return type %s\n", 6, 6, "null");
@@ -253,6 +253,8 @@ public class AST_FUNC_SIG extends AST_Node {
         containingClass.localFuncs.add(newFuncDec);
 
         this.container = containingClass;
+        newFuncDec.container = containingClass;
+
 
         return newFuncDec; // returns the newly created type to the ast function class
 

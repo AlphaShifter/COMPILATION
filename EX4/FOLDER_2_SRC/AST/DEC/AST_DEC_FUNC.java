@@ -178,6 +178,9 @@ public class AST_DEC_FUNC extends AST_DEC {
         funcFreqCount = null;
 
         SYMBOL_TABLE.getInstance().endScope();
+        SYMBOL_TABLE.getInstance().enter(sig.name,newFuncDec);
+
+
         numOfVars = funcLocalVarsCount.size();
         if(AST_DEC_CLASS.classLocalVarsCount != null){
             numOfVars += AST_DEC_CLASS.classLocalVarsCount.size();
@@ -238,6 +241,8 @@ public class AST_DEC_FUNC extends AST_DEC {
                 IR.getInstance().Add_IRcommand(new IRcommand_LoadFromHeap(t,ARGUMENT.getInstance(1),i));
                 IR.getInstance().Add_IRcommand(new IRcommand_Store_AddressLocalVar(t,i));
             }
+            IR.getInstance().Add_IRcommand(new IRcommand_Move(SAVE_REG.getInstance(7),ARGUMENT.getInstance(1)));
+
         }
 
         //IR the arguments

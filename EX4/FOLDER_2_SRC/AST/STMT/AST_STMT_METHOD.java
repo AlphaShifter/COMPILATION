@@ -3,6 +3,7 @@ package AST.STMT;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node;
 import AST.AST_Node_Serial_Number;
+import AST.DEC.AST_DEC_CLASS;
 import AST.EXP.AST_EXP;
 import AST.EXP.AST_EXP_METHOD;
 import AST.VAR.AST_VAR;
@@ -25,7 +26,7 @@ public class AST_STMT_METHOD extends AST_STMT {
     public AST_VAR var;
     public AST_EXP_LIST args;
     public int argsLength;
-    public String className;
+    public String className = null;
     public int myPlace;
 
     public AST_STMT_METHOD(AST_VAR var, String id, AST_EXP_LIST args) {
@@ -116,11 +117,18 @@ public class AST_STMT_METHOD extends AST_STMT {
             this.myPlace = func.myPlace -1;
         } else{
             func =(TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(this.id);
+
+
+
+
             if (func == null) {
                 System.out.println("ERROR: no such func " + id);
                 Util.printError(this.myLine);
                 return null;
             }
+            if(func.container != null)
+                this.className = func.container.getName();
+
         }
         //we found the func, now check the args
         //check case: no args
@@ -186,6 +194,14 @@ public class AST_STMT_METHOD extends AST_STMT {
         if(var != null){//class methods
             //store and IR the object
             TEMP obj = var.IRme();
+
+
+            if(!AST_STMT_ASSIGN.isAssign) {
+                String legal = IRcommand.getFreshLegal();
+                IR.getInstance().Add_IRcommand(new IRcommand_CheckPointerAccess(obj, legal));
+                IR.getInstance().Add_IRcommand(new IRcommand_Label(legal));
+            }
+
             //store it on a1
             IR.getInstance().Add_IRcommand(new IRcommand_Move(ARGUMENT.getInstance(1),obj));
             //get function from table
@@ -198,7 +214,14 @@ public class AST_STMT_METHOD extends AST_STMT {
             IR.getInstance().Add_IRcommand(new IRcommand_Jalr(target));
         } else {
             //jump
-            String targetLabel = ((TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.id)).myLabel;
+            String targetLabel;
+            if(className == null)
+                targetLabel = ((TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(this.id)).myLabel;
+            else {
+                TYPE_CLASS ct =(TYPE_CLASS)SYMBOL_TABLE.getInstance().find(className);
+                targetLabel = ((TYPE_FUNCTION)ct.function_list.findInList(this.id)).myLabel;
+
+            }
             IR.getInstance().Add_IRcommand(new IRcommand_Jal(targetLabel));
         }
 

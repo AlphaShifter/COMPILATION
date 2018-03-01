@@ -25,9 +25,11 @@ public class IRcommand_SaveTempsOnStack extends IRcommand
 	 */
 	public void MIPSme()
 	{
-		sir_MIPS_a_lot.getInstance().setRoomOnStack(8); //8 temps
+		sir_MIPS_a_lot.getInstance().setRoomOnStack(9); //8 temps
 		for(int i = 0; i < 8; i++) {
 			sir_MIPS_a_lot.getInstance().saveRegOnStack(TEMP_REG.getInstance(i), i);
 		}
+		sir_MIPS_a_lot.getInstance().saveRegOnStack(SAVE_REG.getInstance(7), 8);
+
 	}
 }

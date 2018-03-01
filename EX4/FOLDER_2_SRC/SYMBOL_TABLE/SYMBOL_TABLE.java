@@ -82,7 +82,18 @@ public class SYMBOL_TABLE {
         else
             return true;
     }
-
+    public boolean isVarLast(String name){
+        boolean res = false;
+        for (int i = scope_index; i > 1; i--){ //all scopse except the global
+            Map<String,TYPE> currScope = tableList.get(i);
+            if(currScope.containsKey(name))
+                res = true;
+        }
+        if(res)
+            return false;
+        else
+            return true;
+    }
 
     //will look for element with name in the current (inner) scope only
     public TYPE findInCurrScope(String name){

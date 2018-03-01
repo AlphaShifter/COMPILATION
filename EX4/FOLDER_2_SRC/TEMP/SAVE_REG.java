@@ -10,6 +10,7 @@ public class SAVE_REG extends TEMP {
     private static SAVE_REG arg2 = null;
     private static SAVE_REG arg3 = null;
     private static SAVE_REG arg4 = null;
+    private static SAVE_REG arg7 = null;
 
 
     private int local = -1;
@@ -55,6 +56,12 @@ public class SAVE_REG extends TEMP {
                     arg4.local = 4;
                 }
                 return arg4;
+            case 7:
+                if(arg7 == null){
+                    arg7 = new SAVE_REG(-1);
+                    arg7.local = 7;
+                }
+                return arg7;
             default: return null;
         }
     }

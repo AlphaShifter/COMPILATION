@@ -2,6 +2,7 @@ package AST.VAR;
 
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node_Serial_Number;
+import AST.DEC.AST_DEC;
 import AST.DEC.AST_DEC_CLASS;
 import AST.DEC.AST_DEC_FUNC;
 import Auxillery.Util;
@@ -18,6 +19,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	public String name;
 	public int myPlace;
 	public boolean isGloabl = false;
+	public boolean isDataMemeber = false;
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
@@ -87,6 +89,12 @@ public class AST_VAR_SIMPLE extends AST_VAR
 //		else if(AST_DEC_CLASS.classLocalVarsCount != null){
 //			myPlace = AST_DEC_CLASS.classLocalVarsCount.get(newName);
 //		}
+			if(AST_DEC_CLASS.classLocalVarsCount != null) {
+				if (AST_DEC_CLASS.classLocalVarsCount.get(this.name) != null) {
+					if (SYMBOL_TABLE.getInstance().isVarLast(this.name))
+						isDataMemeber = true;
+				}
+			}
 		} else {
 
 			myPlace = SYMBOL_TABLE.globalMap.get(name);

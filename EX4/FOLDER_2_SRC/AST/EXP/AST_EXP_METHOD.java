@@ -3,6 +3,7 @@ package AST.EXP;
 import AST.AST_GRAPHVIZ;
 import AST.AST_Node;
 import AST.AST_Node_Serial_Number;
+import AST.STMT.AST_STMT_ASSIGN;
 import AST.VAR.AST_VAR;
 import Auxillery.Util;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -219,6 +220,15 @@ public class AST_EXP_METHOD extends AST_EXP {
         if(var != null){//class methods
             //store and IR the object
             TEMP obj = var.IRme();
+
+
+            if(!AST_STMT_ASSIGN.isAssign) {
+                String legal = IRcommand.getFreshLegal();
+                IR.getInstance().Add_IRcommand(new IRcommand_CheckPointerAccess(obj, legal));
+                IR.getInstance().Add_IRcommand(new IRcommand_Label(legal));
+            }
+
+
             //store it on a1
             IR.getInstance().Add_IRcommand(new IRcommand_Move(ARGUMENT.getInstance(1),obj));
             //get function from table
