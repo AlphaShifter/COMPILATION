@@ -33,7 +33,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 
-		System.out.format("decClass -> SIG body");
+//		System.out.format("decClass -> SIG body");
 
 		right = cfieldList;
 

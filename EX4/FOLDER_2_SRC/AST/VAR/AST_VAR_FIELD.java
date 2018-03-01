@@ -30,7 +30,7 @@ public class AST_VAR_FIELD extends AST_VAR {
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.format("var -> var DOT ID( %s )\n", fieldName);
+//        System.out.format("var -> var DOT ID( %s )\n", fieldName);
 
         /*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -118,11 +118,14 @@ public class AST_VAR_FIELD extends AST_VAR {
         holder = var.IRme();
 
         //if holder is zero, than it is uninited: throw exception
-        if(!AST_STMT_ASSIGN.isAssign) {
-            String legal = IRcommand.getFreshLegal();
-            IR.getInstance().Add_IRcommand(new IRcommand_CheckPointerAccess(holder, legal));
-            IR.getInstance().Add_IRcommand(new IRcommand_Label(legal));
-        }
+//        if(!AST_STMT_ASSIGN.isAssign) {
+//            String legal = IRcommand.getFreshLegal();
+//            IR.getInstance().Add_IRcommand(new IRcommand_CheckPointerAccess(holder, legal));
+//            IR.getInstance().Add_IRcommand(new IRcommand_Label(legal));
+//        }
+        String legal = IRcommand.getFreshLegal();
+        IR.getInstance().Add_IRcommand(new IRcommand_CheckPointerAccess(holder, legal));
+        IR.getInstance().Add_IRcommand(new IRcommand_Label(legal));
         //return the value in the right offset
         TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
         IR.getInstance().Add_IRcommand(

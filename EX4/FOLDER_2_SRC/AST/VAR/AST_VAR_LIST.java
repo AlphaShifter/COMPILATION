@@ -27,8 +27,8 @@ public class AST_VAR_LIST extends AST_LIST
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if (tail != null) System.out.print("decs -> dec decs\n");
-        else System.out.print("decs -> dec\n");
+//        if (tail != null) System.out.print("decs -> dec decs\n");
+//        else System.out.print("decs -> dec\n");
 
         /*******************************/
 		/* COPY INPUT DATA NENBERS ... */

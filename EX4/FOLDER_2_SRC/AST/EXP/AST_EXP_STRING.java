@@ -25,7 +25,7 @@ public class AST_EXP_STRING extends AST_EXP
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.format(" exp -> String( %s )\n", str);
+//		System.out.format(" exp -> String( %s )\n", str);
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */

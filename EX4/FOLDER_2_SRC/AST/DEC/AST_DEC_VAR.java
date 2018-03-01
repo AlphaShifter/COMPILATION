@@ -37,10 +37,10 @@ public class AST_DEC_VAR extends AST_DEC {
         /***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if (exp != null)
-            System.out.format(" decVar -> TYPE( %s ) NAME(%s) ASSIGN EXP SEMICOLON\n", type, name);
-        else
-            System.out.format(" decVar -> TYPE( %s ) NAME(%s)SEMICOLON\n", type, name);
+//        if (exp != null)
+//            System.out.format(" decVar -> TYPE( %s ) NAME(%s) ASSIGN EXP SEMICOLON\n", type, name);
+//        else
+//            System.out.format(" decVar -> TYPE( %s ) NAME(%s)SEMICOLON\n", type, name);
 
 
         /*******************************/

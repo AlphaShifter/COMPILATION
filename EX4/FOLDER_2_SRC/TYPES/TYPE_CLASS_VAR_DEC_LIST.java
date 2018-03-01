@@ -12,7 +12,7 @@ public class TYPE_CLASS_VAR_DEC_LIST extends TYPE
 	}
 
 	public void print(){
-		System.out.println(head);
+		//System.out.println(head);
 		if(tail != null)
 			tail.print();
 	}

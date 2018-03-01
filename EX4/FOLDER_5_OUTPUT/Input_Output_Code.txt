@@ -1,0 +1,134 @@
+.data
+string_access_violation: .asciiz "Access Violation"
+string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
+string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+.text
+### start with main function
+j main
+############################
+strlen:
+	li $s0, 0
+loop_strlen:
+	lw $s1, 0($a0)
+	beqz $s1, exit_strlen
+	addi $a0, $a0, 4
+	addi $s0, $s0, 1
+	j loop_strlen
+exit_strlen:
+	move $v0, $s0
+	jr $ra
+############################
+strcpy:
+	lb $s0 0($a0)
+	beqz $s0, exit_strcpy
+	sb $s0 0($a1)
+	addi $a0 $a0 1
+	addi $a1 $a1 1
+	j strcpy
+exit_strcpy:
+	move $v0, $a1
+	jr $ra
+############################
+strcon:
+	addi $sp,$sp,-8
+	sw $ra,0($sp)
+	move $s0 ,$a2
+	move $s1 ,$a0
+	move $s2 ,$a1
+	li $a0, 4
+	mult $a0, $s0
+	mflo $a0
+	li $v0,9
+	syscall
+	move $s0,$v0
+	sw $s0,4($sp)
+	move $a1, $s0
+	move $a0, $s1
+	jal strcpy
+	move $a1, $v0
+	move $a0, $s2
+	jal strcpy
+	sb $zero, 0($v0)
+	lw $s0, 4($sp)
+	move $v0, $s0
+	lw $ra, 0($sp)
+	addi $sp,$sp,8
+	jr $ra
+############################
+main:
+	addi $sp $sp -4
+	sw  $fp 0($sp)
+	move $fp,$sp
+	addi $sp,$sp,-12
+	li $t0,7
+	sw $t0, -4($fp)
+	li $t0,8
+	sw $t0, -8($fp)
+	li $t0,9
+	sw $t0, -12($fp)
+	lw $t0, -4($fp)
+	move $t0,$t0
+	lw $t1, -8($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_1_overflow
+	bgt $t3,$t0,Label_1_overflow
+	bge $t2,$t0,Label_3_no_overflow
+Label_1_overflow:
+	li $t0,32767
+	j Label_0_end
+Label_2_overflow_min:
+	li $t0,-32767
+	j Label_0_end
+Label_3_no_overflow:
+	move $t0,$t0
+	j Label_0_end
+Label_0_end:
+	lw $t1, -12($fp)
+	move $t1,$t1
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_5_overflow
+	bgt $t3,$t0,Label_5_overflow
+	bge $t2,$t0,Label_7_no_overflow
+Label_5_overflow:
+	li $t0,32767
+	j Label_4_end
+Label_6_overflow_min:
+	li $t0,-32767
+	j Label_4_end
+Label_7_no_overflow:
+	move $t0,$t0
+	j Label_4_end
+Label_4_end:
+	li $t1,55
+	li $t2,32767
+	li $t3,-32767
+	add $t0,$t0,$t1
+	blt $t2,$t0,Label_9_overflow
+	bgt $t3,$t0,Label_9_overflow
+	bge $t2,$t0,Label_11_no_overflow
+Label_9_overflow:
+	li $t0,32767
+	j Label_8_end
+Label_10_overflow_min:
+	li $t0,-32767
+	j Label_8_end
+Label_11_no_overflow:
+	move $t0,$t0
+	j Label_8_end
+Label_8_end:
+	move $a0,$t0
+	li $v0,1
+	syscall
+	li $a0,32
+	li $v0,11
+	syscall
+	j END_OF_PROGRAM
+##### End of main function
+END_OF_PROGRAM:
+	li $v0,10
+	syscall

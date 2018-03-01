@@ -49,7 +49,7 @@ public class AST_DEC_FUNC extends AST_DEC {
 		/* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
 
-        System.out.format("funcDec -> SIG BODY)\n");
+//        System.out.format("funcDec -> SIG BODY)\n");
 
         left = sig;
         right = list;
@@ -72,9 +72,9 @@ public class AST_DEC_FUNC extends AST_DEC {
         /*******************************/
 		/* AST NODE TYPE = AST ID EXP */
         /*******************************/
-        System.out.format("AST NODE decFUNC");
-        if (sig != null) sig.PrintMe();
-        if (stmtList != null) stmtList.PrintMe();
+//        System.out.format("AST NODE decFUNC");
+//        if (sig != null) sig.PrintMe();
+//        if (stmtList != null) stmtList.PrintMe();
 
 
         /*********************************/

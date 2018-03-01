@@ -34,7 +34,7 @@ public class AST_PROGRAM extends AST_Node
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.format("Program -> [decList]+");
+//		System.out.format("Program -> [decList]+");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */

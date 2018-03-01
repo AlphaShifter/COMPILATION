@@ -25,8 +25,8 @@ public class AST_EXP_LIST extends AST_LIST
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		if (tail != null) System.out.print("exps -> exp exps\n");
-		if (tail == null) System.out.print("exps -> exp      \n");
+//		if (tail != null) System.out.print("exps -> exp exps\n");
+//		if (tail == null) System.out.print("exps -> exp      \n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -45,7 +45,7 @@ public class AST_EXP_LIST extends AST_LIST
 		/**************************************/
 		/* AST NODE TYPE = AST STATEMENT LIST */
 		/**************************************/
-		System.out.print("AST NODE EXP LIST\n");
+//		System.out.print("AST NODE EXP LIST\n");
 
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */
