@@ -37,12 +37,27 @@ public class IRcommand_Binop_Div_Integers extends IRcommand
 		/******************************************************/
 		TEMP t1_div_t2 = TEMP_FACTORY.getInstance().getFreshTEMP();
 
+		/******************************************/
+		/* [1] Allocate a fresh temporary INT_MAX */
+		/******************************************/
+		TEMP intMax = TEMP_FACTORY.getInstance().getFreshTEMP();
+		TEMP intMin = TEMP_FACTORY.getInstance().getFreshTEMP();
+
+
+		/********************************/
+		/* [2] intMax := 32767 (= 2^15) */
+		/********************************/
+		sir_MIPS_a_lot.getInstance().li(intMax,32767);
+		sir_MIPS_a_lot.getInstance().li(intMin,-32768);
+
 
 		/****************************************************/
 		/* [3] Allocate a fresh label for possible overflow */
 		/****************************************************/
 		String label_end         = getFreshLabel("end");
 		String label_dev_by_zero    = getFreshLabel("div_by_zero");
+		String label_overflow    = getFreshLabel("overflow");
+		String label_overflow__min    = getFreshLabel("overflow_min");
 		String label_no_overflow = getFreshLabel("no_overflow");
 
 
@@ -62,7 +77,12 @@ public class IRcommand_Binop_Div_Integers extends IRcommand
 		/*
 		save result to t1_div_t2
 		 */
-		sir_MIPS_a_lot.getInstance().getLo(t1_div_t2);
+		sir_MIPS_a_lot.getInstance().getLo(t1_div_t2); // store the contents of the register Lo in t1_div_t2
+
+		sir_MIPS_a_lot.getInstance().blt(intMax,t1_div_t2,label_overflow); // overflow when intMax < t1_plus_t2
+		sir_MIPS_a_lot.getInstance().bgt(intMin,t1_div_t2,label_overflow__min); // overflow when inMin > t1_plus_t2
+		sir_MIPS_a_lot.getInstance().bge(intMax,t1_div_t2,label_no_overflow); // no overflow when intMax >= t1_plus_t2
+
 		sir_MIPS_a_lot.getInstance().label(label_no_overflow);
 		sir_MIPS_a_lot.getInstance().move(dst,t1_div_t2);
 		sir_MIPS_a_lot.getInstance().jump(label_end);
@@ -71,6 +91,26 @@ public class IRcommand_Binop_Div_Integers extends IRcommand
 		sir_MIPS_a_lot.getInstance().label(label_dev_by_zero);
 		sir_MIPS_a_lot.getInstance().printDivByZero();
 		sir_MIPS_a_lot.getInstance().jump(label_end);
+
+		/***********************/
+		/* [3] label_overflow: */
+		/*                     */
+		/*         t3 := 32767 */
+		/*         goto end;   */
+		/*                     */
+		/***********************/
+		sir_MIPS_a_lot.getInstance().label(label_overflow);
+		sir_MIPS_a_lot.getInstance().li(dst,32767);
+		sir_MIPS_a_lot.getInstance().jump(label_end);
+
+		/*label_overflow_min
+		t3 := -32767
+		goto end
+		 */
+		sir_MIPS_a_lot.getInstance().label(label_overflow__min);
+		sir_MIPS_a_lot.getInstance().li(dst,-32768);
+		sir_MIPS_a_lot.getInstance().jump(label_end);
+
 
 		/******************/
 		/* [5] label_end: */

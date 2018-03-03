@@ -46,7 +46,7 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 		/* [2] intMax := 32767 (= 2^15) */
 		/********************************/
 		sir_MIPS_a_lot.getInstance().li(intMax,32767);
-		sir_MIPS_a_lot.getInstance().li(intMin,-32767);
+		sir_MIPS_a_lot.getInstance().li(intMin,-32768);
 
 		/****************************************************/
 		/* [3] Allocate a fresh label for possible overflow */
@@ -66,9 +66,9 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 		    * if (-32767 > t1_plus_t2) goto label "overflow_min */
 		/*   (else)  if (32767 >= t1_plus_t2) goto label_no_overflow; */
 		/********************************************************/
-		sir_MIPS_a_lot.getInstance().blt(intMax,t1_plus_t2,label_overflow);
-		sir_MIPS_a_lot.getInstance().bgt(intMin,t1_plus_t2,label_overflow);
-		sir_MIPS_a_lot.getInstance().bge(intMax,t1_plus_t2,label_no_overflow);
+		sir_MIPS_a_lot.getInstance().blt(intMax,t1_plus_t2,label_overflow); // overflow when intMax < t1_plus_t2
+		sir_MIPS_a_lot.getInstance().bgt(intMin,t1_plus_t2,label_overflow__min); // overflow when inMin > t1_plus_t2
+		sir_MIPS_a_lot.getInstance().bge(intMax,t1_plus_t2,label_no_overflow); // no overflow when intMax >= t1_plus_t2
 
 		/***********************/
 		/* [3] label_overflow: */
@@ -86,7 +86,7 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 		goto end
 		 */
 		sir_MIPS_a_lot.getInstance().label(label_overflow__min);
-		sir_MIPS_a_lot.getInstance().li(dst,-32767);
+		sir_MIPS_a_lot.getInstance().li(dst,-32768);
 		sir_MIPS_a_lot.getInstance().jump(label_end);
 
 
